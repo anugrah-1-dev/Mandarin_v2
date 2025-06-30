@@ -1,0 +1,68 @@
+#navbar {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: top 0.3s;
+    z-index: 9999; /* perbaiki ini */
+}
+
+#navbar.navbar-hidden {
+    top: -100px;
+}
+
+
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-links a {
+    position: relative;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding-bottom: 5px;
+    transition: color 0.3s;
+}
+
+.nav-links a:not(.btn)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 3px;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:not(.btn):hover::after {
+    width: 100%;
+}
+
+.nav-links .btn {
+    background-color: var(--secondary);
+    color: white !important;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.nav-links .btn:hover {
+    background-color: #e69500;
+}
+
+.logo .top {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.logo .bottom {
+    font-size: 0.8em;
+    letter-spacing: 2px;
+}

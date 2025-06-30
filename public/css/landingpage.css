@@ -39,50 +39,6 @@ nav {
     margin-top: 0.2rem;
 }
 
-.nav-links {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-}
-
-.nav-links a {
-    position: relative;
-    text-decoration: none;
-    color: var(--text-dark);
-    font-weight: 600;
-    font-size: 1.05rem;
-    padding-bottom: 5px;
-    transition: color 0.3s;
-}
-
-.nav-links a:not(.btn)::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0%;
-    height: 3px;
-    background-color: var(--accent);
-    transition: width 0.3s ease;
-}
-
-.nav-links a:not(.btn):hover::after {
-    width: 100%;
-}
-
-.nav-links .btn {
-    background-color: var(--secondary);
-    color: white !important;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-
-.nav-links .btn:hover {
-    background-color: #e69500;
-}
-
 .carousel {
     position: relative;
     overflow: hidden;
@@ -374,4 +330,221 @@ footer {
 
 html {
     scroll-behavior: smooth;
+}
+
+
+.contact-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+
+  .map-box {
+    flex: 1 1 400px;
+    height: 300px;
+    border: 1px solid #ccc;
+  }
+
+  .contact-box {
+    flex: 1 1 300px;
+    padding: 10px;
+  }
+
+  .contact-box h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #333;
+  }
+
+  .contact-box a {
+    color: #0066cc;
+    text-decoration: none;
+  }
+
+  .contact-box a:hover {
+    text-decoration: underline;
+  }
+
+  //wa
+ 
+  .wa-sticky-wrapper {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+  }
+
+  .wa-circle-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .wa-circle {
+    width: 50px;
+    height: 50px;
+    background-color: #25d366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    position: relative;
+    text-decoration: none;
+  }
+
+  .wa-circle img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .tooltip-text {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 4px 8px;
+    border-radius: 6px;
+    position: absolute;
+    right: 60px;
+    white-space: nowrap;
+    z-index: 10000;
+    font-size: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+
+
+
+  //gallery
+/* Tambahkan ini ke body atau kontainer utama agar teks putih terlihat */
+body {
+    background-color: #2c3e50; /* Contoh warna background gelap */
+}
+
+/* Styling Dasar untuk Section Galeri */
+.gallery {
+    width: 100%; /* Buat jadi full-width untuk efek marquee */
+    margin: 50px 0;
+    text-align: center;
+}
+
+.gallery h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #FFFFFF; /* TULISAN MENJADI PUTIH */
+}
+
+/* Wrapper sekarang untuk menyembunyikan bagian yang tidak terlihat */
+.gallery-wrapper {
+    position: relative;
+    overflow: hidden; /* Penting! Menyembunyikan item yang keluar dari layar */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); /* Efek fade di tepi */
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+/* Container utama yang akan dianimasikan */
+.gallery-container {
+    display: flex;
+    width: fit-content; /* Lebar container menyesuaikan total lebar item */
+    /* Menerapkan animasi: nama, durasi, tipe, perulangan */
+    animation: scroll-gallery 40s linear infinite;
+}
+
+/* Fitur tambahan: Animasi berhenti saat kursor di atasnya */
+.gallery-wrapper:hover .gallery-container {
+    animation-play-state: paused;
+}
+
+
+/* Mendefinisikan animasi 'scroll-gallery' */
+@keyframes scroll-gallery {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        /* Geser ke kiri sejauh 50% dari total lebar.
+           Karena konten diduplikasi (total 200%), pergeseran 50% akan
+           menampilkan duplikat persis di posisi awal. */
+        transform: translateX(-50%);
+    }
+}
+
+
+/* Styling untuk setiap item gambar (sedikit disesuaikan) */
+.gallery-item {
+    flex: 0 0 auto; /* Ukuran tidak menyusut atau membesar */
+    width: 280px; /* Lebar setiap item gambar */
+    height: 200px;
+    margin: 0 10px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+/* Efek hover sederhana karena animasi utama sudah ada */
+.gallery-item:hover {
+    transform: scale(1.03);
+}
+
+/* Styling Lightbox (tetap sama) */
+.lightbox {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 85%;
+    border-radius: 8px;
+    animation: zoomIn 0.3s ease;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); }
+    to { transform: scale(1); }
 }

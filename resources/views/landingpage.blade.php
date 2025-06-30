@@ -1,154 +1,228 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brilliant English Course</title>
-  @vite('resources/css/landingpage.css')
-  <!-- Font Awesome CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brilliant English Course</title>
+
+    <link rel="stylesheet" href="{{ asset('css/landingpage.css') }}">
+    <script src="{{ asset('js/landingpage.js') }}"></script>
+    <script src="{{ asset('js/gallery.js') }}"></script>
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
-  <!-- Navbar -->
-  <nav id="navbar">
-    <div class="logo">
-      <div class="top">BRILLIANT</div>
-      <div class="bottom">ENGLISH COURSE</div>
-    </div>
-    <div class="nav-links">
-      <a href="#">DASHBOARD</a>
-      <a href="#tentang">TENTANG KAMI</a>
-      <a href="#program">PROGRAM & HARGA</a>
-      <a href="#">GALERI</a>
-      <a href="#kontak">KONTAK</a>
-      <a href="#" class="btn">PENDAFTARAN</a>
-    </div>
-  </nav>
+    <!-- Navbar -->
+    @include('navbar.navbar')
 
-  <!-- Carousel -->
-  <section class="carousel" id="carousel">
-    <div class="carousel-container">
-      <div class="slides">
-        <img src="{{ asset('asset/img/Astra.Yao.full.4397350.jpg') }}" class="slide active" alt="Slide 1">
-        <img src="{{ asset('asset/img/azur-lane-enterprise-anime-girl-uhdpaper.com-4K-4.1756.jpg') }}" class="slide" alt="Slide 2">
-        <img src="{{ asset('asset/img/Feixiao.full.4282475.png') }}" class="slide" alt="Slide 3">
-      </div>
-      <div class="overlay"></div>
-      <div class="carousel-text">
-        <h1>BRILLIANT ENGLISH COURSE</h1>
-        <p>Tingkatkan kemampuan Bahasa Inggris Anda dan rasakan pengalaman belajar yang berkualitas di Brilliant English Course, tempat di mana potensi Anda menjadi lebih gemilang!</p>
-        <a href="#daftar" class="cta-button">DAFTAR SEKARANG</a>
-      </div>
-      <button class="nav prev" onclick="changeSlide(-1)">&#10094;</button>
-      <button class="nav next" onclick="changeSlide(1)">&#10095;</button>
-    </div>
-  </section>
 
-  <!-- Tentang Kami -->
-  <section class="about" id="tentang">
-    <h2>TENTANG KAMI</h2>
-    <p>Brilliant English Course adalah salah satu lembaga kursus unggulan di Kampung Inggris Pare yang dikenal dengan metode pembelajaran yang efektif, suasana belajar nyaman, serta fasilitas lengkap yang mendukung proses belajar Bahasa Inggris dari dasar hingga mahir.</p>
-  </section>
-
-  <!-- Divider -->
-  <div class="section-divider-wrapper">
-    <div class="section-divider"></div>
-  </div>
-
-  <!-- Program & Harga -->
-  <section class="program" id="program">
-    <h2>PROGRAM & HARGA</h2>
-    <div class="program-container">
-      <div class="program-col">
-        <div class="program-item">
-          <h3>Paket Dasar</h3>
-          <p>Belajar dari nol: grammar, speaking, dan vocabulary dasar.</p>
-          <span class="price">Rp 750.000 / 2 minggu</span>
+    <!-- Carousel -->
+    <section class="carousel" id="carousel">
+        <div class="carousel-container">
+            <div class="slides">
+                <img src="{{ asset('asset/img/Astra.Yao.full.4397350.jpg') }}" class="slide active" alt="Slide 1">
+                <img src="{{ asset('asset/img/azur-lane-enterprise-anime-girl-uhdpaper.com-4K-4.1756.jpg') }}"
+                    class="slide" alt="Slide 2">
+                <img src="{{ asset('asset/img/Feixiao.full.4282475.png') }}" class="slide" alt="Slide 3">
+            </div>
+            <div class="overlay"></div>
+            <div class="carousel-text">
+                <h1>BRILLIANT ENGLISH COURSE</h1>
+                <p>Tingkatkan kemampuan Bahasa Inggris Anda dan rasakan pengalaman belajar yang berkualitas di Brilliant
+                    English Course, tempat di mana potensi Anda menjadi lebih gemilang!</p>
+                <a href="#daftar" class="cta-button">DAFTAR SEKARANG</a>
+            </div>
+            <button class="nav prev" onclick="changeSlide(-1)">&#10094;</button>
+            <button class="nav next" onclick="changeSlide(1)">&#10095;</button>
         </div>
-        <div class="program-item">
-          <h3>Paket Intensif</h3>
-          <p>Program full-day dengan jadwal padat dan fokus speaking.</p>
-          <span class="price">Rp 1.200.000 / 2 minggu</span>
-        </div>
-      </div>
-      <div class="program-col">
-        <div class="program-item">
-          <h3>Paket TOEFL</h3>
-          <p>Persiapan ujian TOEFL dengan latihan soal dan tips jitu.</p>
-          <span class="price">Rp 950.000 / 2 minggu</span>
-        </div>
-        <div class="program-item">
-          <h3>Paket Profesional</h3>
-          <p>Khusus untuk karyawan dan mahasiswa yang ingin belajar praktis.</p>
-          <span class="price">Rp 1.500.000 / 2 minggu</span>
-        </div>
-      </div>
+    </section>
+
+    <!-- Tentang Kami -->
+    <section class="about" id="tentang">
+        <h2>TENTANG KAMI</h2>
+        <p>Brilliant English Course adalah salah satu lembaga kursus unggulan di Kampung Inggris Pare yang dikenal
+            dengan metode pembelajaran yang efektif, suasana belajar nyaman, serta fasilitas lengkap yang mendukung
+            proses belajar Bahasa Inggris dari dasar hingga mahir.</p>
+    </section>
+
+    <!-- Divider -->
+    <div class="section-divider-wrapper">
+        <div class="section-divider"></div>
     </div>
-  </section>
 
-  <!-- Kontak -->
-  <section class="contact" id="kontak">
-    <div class="contact-wrapper">
-      <div class="contact-box">
-        <i class="fas fa-map-marker-alt contact-icon"></i>
-        <h4>Our Location</h4>
-        <p>Jl. Kampung Inggris, Indonesia</p>
-      </div>
-      <div class="contact-box">
-        <i class="fas fa-envelope contact-icon"></i>
-        <h4>Email Us</h4>
-        <p>info@brilliant.co.id</p>
-      </div>
-      <div class="contact-box">
-        <i class="fas fa-phone contact-icon"></i>
-        <h4>Call Us</h4>
-        <p>+62 123 4567 8900</p>
-      </div>
+    <!-- Program & Harga -->
+    <section class="program" id="program">
+        <h2>PROGRAM & HARGA</h2>
+        <div class="program-container">
+            <div class="program-col">
+                <div class="program-item">
+                    <h3>Paket Dasar</h3>
+                    <p>Belajar dari nol: grammar, speaking, dan vocabulary dasar.</p>
+                    <span class="price">Rp 750.000 / 2 minggu</span>
+                </div>
+                <div class="program-item">
+                    <h3>Paket Intensif</h3>
+                    <p>Program full-day dengan jadwal padat dan fokus speaking.</p>
+                    <span class="price">Rp 1.200.000 / 2 minggu</span>
+                </div>
+            </div>
+            <div class="program-col">
+                <div class="program-item">
+                    <h3>Paket TOEFL</h3>
+                    <p>Persiapan ujian TOEFL dengan latihan soal dan tips jitu.</p>
+                    <span class="price">Rp 950.000 / 2 minggu</span>
+                </div>
+                <div class="program-item">
+                    <h3>Paket Profesional</h3>
+                    <p>Khusus untuk karyawan dan mahasiswa yang ingin belajar praktis.</p>
+                    <span class="price">Rp 1.500.000 / 2 minggu</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeri" class="gallery">
+        <h2>GALLERY</h2>
+
+        <div class="gallery-wrapper">
+            <div class="gallery-container" id="galleryContainer">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1536104968055-4d61aa56f46a?q=80&w=2574&auto=format&fit=crop"
+                        alt="Galeri 1" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2670&auto=format&fit=crop"
+                        alt="Galeri 2" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2670&auto=format&fit=crop"
+                        alt="Galeri 3" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=2670&auto=format&fit=crop"
+                        alt="Galeri 4" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2672&auto=format&fit=crop"
+                        alt="Galeri 5" onclick="openLightbox(this)">
+                </div>
+
+                <div class="gallery-item">
+                    <img src="{{ asset('asset/img/21.png') }}" alt="Galeri 21" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="{{ asset('asset/img/18.png') }}" alt="Galeri 18" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="{{ asset('asset/img/16.jpg') }}" alt="Galeri 16" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="{{ asset('asset/img/4.jpg') }}" alt="Galeri 4" onclick="openLightbox(this)">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-content" id="lightboxImg">
     </div>
-  </section>
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-content" id="lightboxImg">
+    </div>
 
-  <!-- Footer -->
-  <footer>
-    &copy;  2025 Brilliant English Course. Hak Cipta Dilindungi Oleh Undang-Undang
-  </footer>
 
-  <!-- Script -->
-  <script>
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slide');
-    const totalSlides = slides.length;
 
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.remove('active');
-        if (i === index) slide.classList.add('active');
-      });
-    }
+    <section class="contact-section"
+        style="background-color: #f7f7f7; padding: 40px 0; display: flex; flex-wrap: wrap; gap: 32px; justify-content: center;">
+        <div style="flex: 1 1 400px; min-width: 300px; height: 300px; border: 1px solid #ccc; background: #fff;">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5003.899952911135!2d112.19113927974144!3d-7.75928448127593!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e785db44d753ad7%3A0xee91fffa177f7176!2sBriliant%20English%20Course%20Camp%2016!5e0!3m2!1sid!2sid!4v1751310522673!5m2!1sid!2sid"
+                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
 
-    function changeSlide(step) {
-      currentSlide = (currentSlide + step + totalSlides) % totalSlides;
-      showSlide(currentSlide);
-    }
+        <div id="kontak" class="contact-box"
+            style="background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 24px; flex: 1 1 350px; min-width: 300px;">
+            <h2 style="text-align: center;">Hubungi Kami</h2>
+            <p style="color: #000;"><strong>Alamat:</strong><br>Jl. Flamboyan No.48, Mulyoasri, Tulungrejo, Kec. Pare, Kabupaten Kediri, Jawa Timur 64212</p>
+            <p><strong>Email:</strong><br>
+                <a href="mailto:info@kampunginggris.com" class="text-blue-600 hover:underline">info@kampunginggris.com</a>
+            </p>
+            <div>
+                <p class="font-semibold text-gray-700">Sosial Media:</p>
+                <p class="text-blue-600">
+                    <a href="https://instagram.com/your_instagram" target="_blank" class="hover:underline"
+                        style="margin-right: 10px;">
+                        <i class="fab fa-instagram" style="margin-right: 5px;"></i>Instagram
+                    </a>
+                    |
+                    <a href="https://facebook.com/your_facebook" target="_blank" class="hover:underline"
+                        style="margin-left: 10px;">
+                        <i class="fab fa-facebook" style="margin-right: 5px;"></i>Facebook
+                    </a>
+                </p>
+            </div>
 
-    setInterval(() => {
-      changeSlide(1);
-    }, 5000);
+        </div>
 
-    // Sticky Navbar Scroll Detection
-    const navbar = document.getElementById("navbar");
-    const carousel = document.getElementById("carousel");
+    </section>
 
-    window.addEventListener("scroll", () => {
-      const carouselBottom = carousel.offsetTop + carousel.offsetHeight;
-      if (window.scrollY > carouselBottom - 80) {
-        navbar.classList.add("scrolled");
-      } else {
-        navbar.classList.remove("scrolled");
-      }
+
+
+
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2025 Brilliant English Course. Hak Cipta Dilindungi Oleh Undang-Undang
+    </footer>
+
+<!-- WhatsApp Sticky Contact -->
+<div class="wa-sticky-wrapper" style="position: fixed; bottom: 24px; right: 24px; z-index: 999;">
+    <div class="wa-circle-row" style="display: flex; flex-direction: column; gap: 12px;">
+        <a href="https://wa.me/6281234567890" class="wa-circle tooltip" target="_blank" style="background: #25d366; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: relative;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="width: 32px; height: 32px;">
+            <span class="tooltip-text" style="visibility: hidden; background: #333; color: #fff; text-align: center; border-radius: 6px; padding: 6px 12px; position: absolute; right: 70px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.2s;">Contact Person 1</span>
+        </a>
+        <a href="https://wa.me/6289876543210" class="wa-circle tooltip" target="_blank" style="background: #25d366; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: relative;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="width: 32px; height: 32px;">
+            <span class="tooltip-text" style="visibility: hidden; background: #333; color: #fff; text-align: center; border-radius: 6px; padding: 6px 12px; position: absolute; right: 70px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.2s;">Contact Person 2</span>
+        </a>
+    </div>
+</div>
+<script>
+    // Tooltip effect for WhatsApp buttons
+    document.querySelectorAll('.wa-circle.tooltip').forEach(function(el) {
+        el.addEventListener('mouseenter', function() {
+            const tooltip = el.querySelector('.tooltip-text');
+            tooltip.style.visibility = 'visible';
+            tooltip.style.opacity = '1';
+        });
+        el.addEventListener('mouseleave', function() {
+            const tooltip = el.querySelector('.tooltip-text');
+            tooltip.style.visibility = 'hidden';
+            tooltip.style.opacity = '0';
+        });
     });
-  </script>
 
+    // Lightbox functions (ensure only one lightbox in HTML)
+    function openLightbox(img) {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        lightbox.style.display = 'flex';
+        lightboxImg.src = img.src;
+    }
+
+    function closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.style.display = 'none';
+    }
+</script>
 </body>
 </html>
