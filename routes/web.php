@@ -13,4 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', fn() => view('landingpage'))->name('dashboard');
+Route::get('/', fn() => view('welcome'))->name('dashboard');
