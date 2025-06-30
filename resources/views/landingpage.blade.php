@@ -297,7 +297,7 @@
 
   <!-- Footer -->
   <footer>
-    &copy; {{ date('Y') }} Brilliant English Course. Semua Hak Dilindungi.
+    &copy;  2025 Brilliant English Course. Hak Cipta Dilindungi Oleh Undang-Undang
   </footer>
 
   <script>
