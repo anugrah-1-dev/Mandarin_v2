@@ -36,8 +36,9 @@
                     English Course, tempat di mana potensi Anda menjadi lebih gemilang!</p>
                 <a href="#daftar" class="cta-button">DAFTAR SEKARANG</a>
             </div>
-            <button class="nav prev" onclick="changeSlide(-1)">&#10094;</button>
-            <button class="nav next" onclick="changeSlide(1)">&#10095;</button>
+            <button class="nav prev">&#10094;</button>
+            <button class="nav next">&#10095;</button>
+
         </div>
     </section>
 
@@ -127,14 +128,10 @@
         </div>
     </section>
 
-    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-        <img class="lightbox-content" id="lightboxImg">
-    </div>
-    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-        <img class="lightbox-content" id="lightboxImg">
-    </div>
+   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close" onclick="closeLightbox()">x</span>
+    <img class="lightbox-content" id="lightboxImg">
+</div>
 
 
 
