@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,4 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', fn() => view('landingpage'))->name('dashboard');
-    
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
