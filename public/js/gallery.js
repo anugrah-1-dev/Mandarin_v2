@@ -10,7 +10,7 @@ function openLightbox(element) {
     document.body.style.overflow = "hidden";
 }
 
-// Fungsi untuk menutup Lightbox (Tetap sama)
+// Fungsi untuk menutup Lightbox
 function closeLightbox() {
     const lightbox = document.getElementById("lightbox");
     lightbox.classList.remove("active");

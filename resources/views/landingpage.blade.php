@@ -10,17 +10,14 @@
     <script src="{{ asset('js/landingpage.js') }}"></script>
     <script src="{{ asset('js/gallery.js') }}"></script>
 
-    <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
-    <!-- Navbar -->
     @include('navbar.navbar')
 
 
-    <!-- Carousel -->
     <section class="carousel" id="carousel">
         <div class="carousel-container">
             <div class="slides">
@@ -42,7 +39,6 @@
         </div>
     </section>
 
-    <!-- Tentang Kami -->
     <section class="about" id="tentang">
         <h2>TENTANG KAMI</h2>
         <p>Brilliant English Course adalah salah satu lembaga kursus unggulan di Kampung Inggris Pare yang dikenal
@@ -50,12 +46,10 @@
             proses belajar Bahasa Inggris dari dasar hingga mahir.</p>
     </section>
 
-    <!-- Divider -->
     <div class="section-divider-wrapper">
         <div class="section-divider"></div>
     </div>
 
-    <!-- Program & Harga -->
     <section class="program" id="program">
         <h2>PROGRAM & HARGA</h2>
         <div class="program-container">
@@ -111,7 +105,6 @@
                     <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2672&auto=format&fit=crop"
                         alt="Galeri 5" onclick="openLightbox(this)">
                 </div>
-
                 <div class="gallery-item">
                     <img src="{{ asset('asset/img/21.png') }}" alt="Galeri 21" onclick="openLightbox(this)">
                 </div>
@@ -166,60 +159,42 @@
                     </a>
                 </p>
             </div>
-
         </div>
-
     </section>
 
-
-
-
-
-    <!-- Footer -->
     <footer>
-        &copy; 2025 Brilliant English Course. Hak Cipta Dilindungi Oleh Undang-Undang
+        © 2025 Brilliant English Course. Hak Cipta Dilindungi Oleh Undang-Undang
     </footer>
 
-<!-- WhatsApp Sticky Contact -->
-<div class="wa-sticky-wrapper" style="position: fixed; bottom: 24px; right: 24px; z-index: 999;">
-    <div class="wa-circle-row" style="display: flex; flex-direction: column; gap: 12px;">
-        <a href="https://wa.me/6281234567890" class="wa-circle tooltip" target="_blank" style="background: #25d366; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: relative;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="width: 32px; height: 32px;">
-            <span class="tooltip-text" style="visibility: hidden; background: #333; color: #fff; text-align: center; border-radius: 6px; padding: 6px 12px; position: absolute; right: 70px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.2s;">Contact Person 1</span>
-        </a>
-        <a href="https://wa.me/6289876543210" class="wa-circle tooltip" target="_blank" style="background: #25d366; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: relative;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="width: 32px; height: 32px;">
-            <span class="tooltip-text" style="visibility: hidden; background: #333; color: #fff; text-align: center; border-radius: 6px; padding: 6px 12px; position: absolute; right: 70px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.2s;">Contact Person 2</span>
-        </a>
+    <div class="wa-sticky-wrapper" style="position: fixed; bottom: 24px; right: 24px; z-index: 999;">
+        <div class="wa-circle-row" style="display: flex; flex-direction: column; gap: 12px;">
+            <a href="https://wa.me/6281234567890" class="wa-circle tooltip" target="_blank" style="background: #25d366; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: relative;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="width: 32px; height: 32px;">
+                <span class="tooltip-text" style="visibility: hidden; background: #333; color: #fff; text-align: center; border-radius: 6px; padding: 6px 12px; position: absolute; right: 70px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.2s;">Contact Person 1</span>
+            </a>
+            <a href="https://wa.me/6289876543210" class="wa-circle tooltip" target="_blank" style="background: #25d366; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: relative;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="width: 32px; height: 32px;">
+                <span class="tooltip-text" style="visibility: hidden; background: #333; color: #fff; text-align: center; border-radius: 6px; padding: 6px 12px; position: absolute; right: 70px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.2s;">Contact Person 2</span>
+            </a>
+        </div>
     </div>
-</div>
-<script>
-    // Tooltip effect for WhatsApp buttons
-    document.querySelectorAll('.wa-circle.tooltip').forEach(function(el) {
-        el.addEventListener('mouseenter', function() {
-            const tooltip = el.querySelector('.tooltip-text');
-            tooltip.style.visibility = 'visible';
-            tooltip.style.opacity = '1';
+    
+    <script>
+        // Tooltip effect for WhatsApp buttons
+        document.querySelectorAll('.wa-circle.tooltip').forEach(function(el) {
+            el.addEventListener('mouseenter', function() {
+                const tooltip = el.querySelector('.tooltip-text');
+                tooltip.style.visibility = 'visible';
+                tooltip.style.opacity = '1';
+            });
+            el.addEventListener('mouseleave', function() {
+                const tooltip = el.querySelector('.tooltip-text');
+                tooltip.style.visibility = 'hidden';
+                tooltip.style.opacity = '0';
+            });
         });
-        el.addEventListener('mouseleave', function() {
-            const tooltip = el.querySelector('.tooltip-text');
-            tooltip.style.visibility = 'hidden';
-            tooltip.style.opacity = '0';
-        });
-    });
 
-    // Lightbox functions (ensure only one lightbox in HTML)
-    function openLightbox(img) {
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-        lightbox.style.display = 'flex';
-        lightboxImg.src = img.src;
-    }
-
-    function closeLightbox() {
-        const lightbox = document.getElementById('lightbox');
-        lightbox.style.display = 'none';
-    }
-</script>
+        // Fungsi lightbox sekarang berada di file public/js/gallery.js
+    </script>
 </body>
 </html>
