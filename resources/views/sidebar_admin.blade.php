@@ -1,4 +1,4 @@
-<!-- Sidebar Admin -->
+{{-- <!-- Sidebar Admin -->
 <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 250px; min-height: 100vh;">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
       <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
@@ -48,4 +48,4 @@
         <li><a class="dropdown-item" href="#">Logout</a></li>
       </ul>
     </div>
-  </div>
+  </div> --}}

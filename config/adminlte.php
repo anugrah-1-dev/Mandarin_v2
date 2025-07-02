@@ -14,10 +14,12 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
-    'title_prefix' => '',
-    'title_postfix' => '',
-
+    // 'title' => 'AdminLTE 3',
+    // 'title_prefix' => '',
+    // 'title_postfix' => '',
+    'title' => 'Dashboard Admin',
+    'use_ico_only' => false,
+    'use_full_favicon' => false,
     /*
     |--------------------------------------------------------------------------
     | Favicon
@@ -30,8 +32,8 @@ return [
     |
     */
 
-    'use_ico_only' => false,
-    'use_full_favicon' => false,
+    // 'use_ico_only' => false,
+    // 'use_full_favicon' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -63,12 +65,15 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    // 'logo' => '<b>Admin</b>LTE',
+    // 'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    // 'logo_img_class' => 'brand-image img-circle elevation-3',
+    // 'logo_img_xl' => null,
+    // 'logo_img_xl_class' => 'brand-image-xs',
+    // 'logo_img_alt' => 'Admin Logo',
+    'logo' => '<b>Briliant</b>Courses',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
-    'logo_img_xl' => null,
-    'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
 
     /*
     |--------------------------------------------------------------------------
@@ -133,12 +138,13 @@ return [
     |
     */
 
-    'usermenu_enabled' => true,
-    'usermenu_header' => false,
-    'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
-    'usermenu_desc' => false,
-    'usermenu_profile_url' => false,
+    // 'usermenu_enabled' => true,
+    // 'usermenu_header' => false,
+    // 'usermenu_header_class' => 'bg-primary',
+    // 'usermenu_image' => false,
+    // 'usermenu_desc' => false,
+    // 'usermenu_profile_url' => false,
+
 
     /*
     |--------------------------------------------------------------------------
@@ -151,13 +157,19 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
     |
     */
-
-    'layout_topnav' => null,
-    'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
-    'layout_fixed_navbar' => null,
-    'layout_fixed_footer' => null,
-    'layout_dark_mode' => null,
+    'layout' => [
+        'topnav' => false,
+        'boxed' => false,
+        'fixed_sidebar' => true,
+        'fixed_navbar' => true,
+        'fixed_footer' => false,
+    ],
+    // 'layout_topnav' => null,
+    // 'layout_boxed' => null,
+    // 'layout_fixed_sidebar' => null,
+    // 'layout_fixed_navbar' => null,
+    // 'layout_fixed_footer' => null,
+    // 'layout_dark_mode' => null,
 
     /*
     |--------------------------------------------------------------------------
@@ -298,101 +310,140 @@ return [
     |
     */
 
-    'menu' => [
-        // Navbar items:
-        [
-            'type' => 'navbar-search',
-            'text' => 'search',
-            'topnav_right' => true,
-        ],
-        [
-            'type' => 'fullscreen-widget',
-            'topnav_right' => true,
-        ],
 
-        // Sidebar items:
+    'menu' => [
         [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'text' => 'Dashboard',
+            // 'url'  => 'admin/dashboard',
+            'url'  => '/home',
+            'icon' => 'fas fa-home',
         ],
         [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
+            'text' => 'Pengguna',
+            'url'  => 'admin/users',
+            'icon' => 'fas fa-users',
         ],
+        // [
+        //     'text' => 'Manage Roles',
+        //     'url'  => '/admin/roles',
+        //     'icon' => 'fas fa-user-tag',
+        // ],
+
         [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text' => 'multilevel',
-            'icon' => 'fas fa-fw fa-share',
+            'text' => 'Pengaturan Akses',
+            'icon' => 'fas fa-fw fa-tools',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url' => '#',
+                    'text' => 'Roles',
+                    'url'  => '/admin/roles',
+                    'icon' => 'fas fa-user-shield',
                 ],
                 [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
+                    'text' => 'Permissions',
+                    'url'  => '/admin/permissions',
+                    'icon' => 'fas fa-lock',
                 ],
             ],
         ],
-        ['header' => 'labels'],
-        [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
-        ],
+
     ],
+
+
+    // 'menu' => [
+    //     // Navbar items:
+    //     [
+    //         'type' => 'navbar-search',
+    //         'text' => 'search',
+    //         'topnav_right' => true,
+    //     ],
+    //     [
+    //         'type' => 'fullscreen-widget',
+    //         'topnav_right' => true,
+    //     ],
+
+    //     // Sidebar items:
+    //     [
+    //         'type' => 'sidebar-menu-search',
+    //         'text' => 'search',
+    //     ],
+    //     [
+    //         'text' => 'blog',
+    //         'url' => 'admin/blog',
+    //         'can' => 'manage-blog',
+    //     ],
+    //     [
+    //         'text' => 'pages',
+    //         'url' => 'admin/pages',
+    //         'icon' => 'far fa-fw fa-file',
+    //         'label' => 4,
+    //         'label_color' => 'success',
+    //     ],
+    //     ['header' => 'account_settings'],
+    //     [
+    //         'text' => 'profile',
+    //         'url' => 'admin/settings',
+    //         'icon' => 'fas fa-fw fa-user',
+    //     ],
+    //     [
+    //         'text' => 'change_password',
+    //         'url' => 'admin/settings',
+    //         'icon' => 'fas fa-fw fa-lock',
+    //     ],
+    //     [
+    //         'text' => 'multilevel',
+    //         'icon' => 'fas fa-fw fa-share',
+    //         'submenu' => [
+    //             [
+    //                 'text' => 'level_one',
+    //                 'url' => '#',
+    //             ],
+    //             [
+    //                 'text' => 'level_one',
+    //                 'url' => '#',
+    //                 'submenu' => [
+    //                     [
+    //                         'text' => 'level_two',
+    //                         'url' => '#',
+    //                     ],
+    //                     [
+    //                         'text' => 'level_two',
+    //                         'url' => '#',
+    //                         'submenu' => [
+    //                             [
+    //                                 'text' => 'level_three',
+    //                                 'url' => '#',
+    //                             ],
+    //                             [
+    //                                 'text' => 'level_three',
+    //                                 'url' => '#',
+    //                             ],
+    //                         ],
+    //                     ],
+    //                 ],
+    //             ],
+    //             [
+    //                 'text' => 'level_one',
+    //                 'url' => '#',
+    //             ],
+    //         ],
+    //     ],
+    //     ['header' => 'labels'],
+    //     [
+    //         'text' => 'important',
+    //         'icon_color' => 'red',
+    //         'url' => '#',
+    //     ],
+    //     [
+    //         'text' => 'warning',
+    //         'icon_color' => 'yellow',
+    //         'url' => '#',
+    //     ],
+    //     [
+    //         'text' => 'information',
+    //         'icon_color' => 'cyan',
+    //         'url' => '#',
+    //     ],
+    // ],
 
     /*
     |--------------------------------------------------------------------------
