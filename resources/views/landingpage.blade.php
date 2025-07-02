@@ -52,7 +52,7 @@
 
     <section class="program" id="program">
     <h2>PROGRAM & HARGA</h2>
-    
+
     <!-- Baris pertama: Murah & Super -->
     <div class="program-row">
         <div class="program-item">
@@ -90,7 +90,7 @@
     <section id="galeri" class="gallery">
         <h2>GALLERY</h2>
 
-        <div class="gallery-wrapper">
+        <div class="gallery-wrapper" id="galleryWrapper">
             <div class="gallery-container" id="galleryContainer">
                 <div class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1536104968055-4d61aa56f46a?q=80&w=2574&auto=format&fit=crop"
@@ -185,7 +185,7 @@
             </a>
         </div>
     </div>
-    
+
     <script>
         // Tooltip effect for WhatsApp buttons
         document.querySelectorAll('.wa-circle.tooltip').forEach(function(el) {

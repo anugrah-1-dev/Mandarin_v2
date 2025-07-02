@@ -483,7 +483,7 @@ body {
     color: #ffffff;
 }
 
-.gallery-wrapper {
+/* .gallery-wrapper {
     position: relative;
     overflow: hidden;
     -webkit-mask-image: linear-gradient(
@@ -500,12 +500,33 @@ body {
         black 90%,
         transparent
     );
+} */
+
+.gallery-wrapper {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
 }
+
+.gallery-wrapper.dragging {
+    cursor: grabbing;
+    user-select: none;
+    scroll-behavior: auto;
+}
+
+.gallery-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
 
 .gallery-container {
     display: flex;
     width: fit-content;
     animation: scroll-gallery 40s linear infinite;
+    gap: 20px;
 }
 
 .gallery-wrapper:hover .gallery-container {
