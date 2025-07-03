@@ -8,7 +8,7 @@ use App\Models\Pelatihan;
 use App\Models\Jadwal;
 use App\Models\Message;
 
-class HomeController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home', [
+        return view('Dashboard', [
             'totalUsers' => User::count(),
             // 'activeCourses' => Pelatihan::where('status', 'aktif')->count(),
             // 'todaySchedules' => Jadwal::whereDate('tanggal', now())->count(),

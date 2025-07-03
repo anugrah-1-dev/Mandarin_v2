@@ -42,3 +42,10 @@ body {
     background-color: #5850ec;
     border-color: #5850ec;
 }
+
+.menu-spacer {
+    pointer-events: none;
+    background: transparent !important;
+    cursor: default;
+    height: 20px;
+}

@@ -12,7 +12,7 @@ class AdminUserSeeder extends Seeder
     {
         // Buat user admin
         $admin = User::firstOrCreate([
-            'email' => 'AdminBrliant@gmail.com',
+            'email' => 'AdminBriliant@gmail.com',
         ], [
             'name' => 'admin',
             'password' => '$2y$12$BdkciryJxhZGxgVDyG91.esYrE2v80NmSvifm9F51zZWKqOmVs25K', // password sudah di-hash

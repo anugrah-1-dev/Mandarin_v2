@@ -1,18 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', 'Manajemen Role')
+@section('title', 'Manajemen User')
 
 @section('content_header')
     <div class="d-flex justify-content-between align-items-center">
-        <h1 class="m-0">Daftar Role</h1>
-        <x-adminlte-button label="Tambah Role" theme="primary" icon="fas fa-plus" data-toggle="modal" data-target="#createRoleModal" />
+        <h1 class="m-0">Daftar User</h1>
+        <x-adminlte-button label="Tambah User" theme="primary" icon="fas fa-plus" data-toggle="modal" data-target="#createUserModal" />
     </div>
 @stop
 
 @section('content')
     <div class="row">
         <div class="col-12">
-            <x-adminlte-card theme="lightblue" theme-mode="outline" title="List Role">
+            <x-adminlte-card theme="lightblue" theme-mode="outline" title="List User">
 
                 <!-- Search and Filter Section -->
                 <div class="row mb-3">
@@ -21,64 +21,63 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-search"></i></span>
                             </div>
-                            <input type="text" id="searchInput" class="form-control" placeholder="Cari berdasarkan nama role...">
+                            <input type="text" id="searchInput" class="form-control" placeholder="Cari berdasarkan nama/email...">
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <select class="form-control" id="guardFilter">
-                            <option value="">Semua Guard</option>
-                            <option value="web">Web</option>
-                            <option value="api">API</option>
+                        <select class="form-control" id="roleFilter">
+                            <option value="">Semua Role</option>
+                            @foreach($roles as $role)
+                                <option value="{{ $role->name }}">{{ $role->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
 
-                <!-- Role Table -->
+                <!-- User Table -->
                 <div class="table-responsive">
-                    <table class="table table-hover table-bordered table-striped" id="rolesTable">
+                    <table class="table table-hover table-bordered table-striped" id="usersTable">
                         <thead class="bg-lightblue">
                             <tr>
                                 <th width="5%">ID</th>
-                                <th>Nama Role</th>
-                                <th width="10%">Guard</th>
-                                {{-- <th width="15%">Jumlah Permission</th> --}}
+                                <th>Nama</th>
+                                <th>Email</th>
+                                <th>Role</th>
                                 <th width="15%">Dibuat</th>
                                 <th width="15%">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($roles as $role)
+                            @forelse($users as $user)
                             <tr>
-                                <td>{{ $role->id }}</td>
+                                <td>{{ $user->id }}</td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <i class="fas fa-user-tag mr-2 text-lightblue"></i>
-                                        <strong>{{ $role->name }}</strong>
+                                        <i class="fas fa-user mr-2 text-lightblue"></i>
+                                        <strong>{{ $user->name }}</strong>
                                     </div>
                                 </td>
+                                <td>{{ $user->email }}</td>
                                 <td>
-                                    <span class="badge badge-{{ $role->guard_name == 'web' ? 'success' : 'info' }}">
-                                        {{ $role->guard_name }}
-                                    </span>
+                                    @foreach($user->roles as $role)
+                                        <span class="badge badge-info">{{ $role->name }}</span>
+                                    @endforeach
                                 </td>
-
                                 <td>
                                     <i class="far fa-calendar-alt mr-1"></i>
-                                    {{ $role->created_at->format('d M Y') }}
+                                    {{ $user->created_at->format('d M Y') }}
                                     <br>
                                     <small class="text-muted">
-                                        {{ $role->created_at->diffForHumans() }}
+                                        {{ $user->created_at->diffForHumans() }}
                                     </small>
                                 </td>
                                 <td>
                                     <div class="btn-group btn-group-sm">
                                         <x-adminlte-button theme="info" icon="fas fa-eye"
-                                            onclick="window.location='{{ route('roles.show', $role->id) }}'" title="Detail"/>
-
+                                            onclick="window.location='{{ route('users.show', $user->id) }}'" title="Detail"/>
                                         <x-adminlte-button theme="warning" icon="fas fa-edit"
-                                            onclick="window.location='{{ route('roles.edit', $role->id) }}'" title="Edit"/>
-
-                                        <form method="POST" action="{{ route('roles.destroy', $role->id) }}" class="d-inline">
+                                            onclick="window.location='{{ route('users.edit', $user->id) }}'" title="Edit"/>
+                                        <form method="POST" action="{{ route('users.destroy', $user->id) }}" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <x-adminlte-button theme="danger" icon="fas fa-trash"
@@ -89,7 +88,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="6" class="text-center">Tidak ada data role</td>
+                                <td colspan="6" class="text-center">Tidak ada user.</td>
                             </tr>
                             @endforelse
                         </tbody>
@@ -97,16 +96,16 @@
                 </div>
 
                 <!-- Pagination -->
-                @if($roles->hasPages())
+                @if($users instanceof \Illuminate\Pagination\LengthAwarePaginator && $users->hasPages())
                 <div class="row mt-3">
                     <div class="col-md-6">
                         <div class="dataTables_info">
-                            Menampilkan {{ $roles->firstItem() }} sampai {{ $roles->lastItem() }} dari {{ $roles->total() }} entri
+                            Menampilkan {{ $users->firstItem() }} sampai {{ $users->lastItem() }} dari {{ $users->total() }} entri
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="float-right">
-                            {{ $roles->links('pagination::bootstrap-4') }}
+                            {{ $users->links('pagination::bootstrap-4') }}
                         </div>
                     </div>
                 </div>
@@ -115,39 +114,30 @@
         </div>
     </div>
 
-    <!-- Create Role Modal -->
-    <x-adminlte-modal id="createRoleModal" title="Tambah Role Baru" theme="lightblue" size="lg">
-        <form action="{{ route('roles.store') }}" method="POST">
+    <!-- Create User Modal -->
+    <x-adminlte-modal id="createUserModal" title="Tambah User Baru" theme="lightblue" size="lg">
+        <form action="{{ route('users.store') }}" method="POST">
             @csrf
             <div class="row">
                 <div class="col-md-6">
-                    <x-adminlte-input name="name" label="Nama Role" placeholder="Masukkan nama role" required/>
+                    <x-adminlte-input name="name" label="Nama" placeholder="Masukkan nama user" required/>
                 </div>
                 <div class="col-md-6">
-                    <x-adminlte-select name="guard_name" label="Guard Name">
-                        <option value="web" selected>Web</option>
-                        <option value="api">API</option>
+                    <x-adminlte-input name="email" label="Email" type="email" placeholder="Masukkan email user" required/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <x-adminlte-input name="password" label="Password" type="password" placeholder="Password" required/>
+                </div>
+                <div class="col-md-6">
+                    <x-adminlte-select name="roles[]" label="Role" multiple>
+                        @foreach($roles as $role)
+                            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                        @endforeach
                     </x-adminlte-select>
                 </div>
             </div>
-
-            <div class="form-group">
-                <label>Permissions</label>
-                <div class="row">
-                    @foreach($permissions as $permission)
-                    <div class="col-md-3">
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="permission{{ $permission->id }}"
-                                name="permissions[]" value="{{ $permission->id }}">
-                            <label for="permission{{ $permission->id }}" class="custom-control-label">
-                                {{ $permission->name }}
-                            </label>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-
             <x-slot name="footerSlot">
                 <x-adminlte-button theme="secondary" label="Batal" data-dismiss="modal"/>
                 <x-adminlte-button type="submit" theme="primary" label="Simpan" icon="fas fa-save"/>
@@ -182,16 +172,14 @@
 
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script>
         // Confirm delete
         function confirmDelete(event) {
             event.preventDefault();
             const form = event.target.closest('form');
-
             Swal.fire({
                 title: 'Apakah Anda yakin?',
-                text: "Role ini akan dihapus permanen!",
+                text: "User ini akan dihapus permanen!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -207,29 +195,17 @@
 
         // Search and filter functionality
         $(document).ready(function() {
-            $('#searchInput, #guardFilter, #permissionFilter').on('keyup change', function() {
+            $('#searchInput, #roleFilter').on('keyup change', function() {
                 const searchValue = $('#searchInput').val().toLowerCase();
-                const guardValue = $('#guardFilter').val();
-                const permissionValue = $('#permissionFilter').val();
-
-                $('#rolesTable tbody tr').each(function() {
+                const roleValue = $('#roleFilter').val();
+                $('#usersTable tbody tr').each(function() {
                     const rowText = $(this).text().toLowerCase();
-                    const rowGuard = $(this).find('td:eq(2)').text().trim();
-                    const permissionCount = parseInt($(this).find('td:eq(3) b').text());
-
-                    const searchMatch = searchValue === '' || rowText.includes(searchValue);
-                    const guardMatch = guardValue === '' || rowGuard === guardValue;
-                    let permissionMatch = true;
-
-                    if (permissionValue === '0') {
-                        permissionMatch = permissionCount === 0;
-                    } else if (permissionValue === '1-5') {
-                        permissionMatch = permissionCount >= 1 && permissionCount <= 5;
-                    } else if (permissionValue === '5+') {
-                        permissionMatch = permissionCount > 5;
+                    let roleMatch = true;
+                    if (roleValue) {
+                        roleMatch = $(this).find('td:eq(3)').text().includes(roleValue);
                     }
-
-                    $(this).toggle(searchMatch && guardMatch && permissionMatch);
+                    const searchMatch = searchValue === '' || rowText.includes(searchValue);
+                    $(this).toggle(searchMatch && roleMatch);
                 });
             });
         });
