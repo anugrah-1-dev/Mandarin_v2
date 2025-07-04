@@ -38,64 +38,189 @@
 
         </div>
     </section>
-
-    <section class="about" id="tentang">
-    <div class="about-wrapper">
-        <div class="about-image">
-            <img src="{{ asset('asset/img/brilliant2.jpg') }}" alt="Tentang Kami">
-        </div>
-        <div class="about-text">
-        <div class="about-header"></div>
-            <!-- Langsung di dalam .about-text -->
-<svg class="about-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-  <path d="M6 4a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1V6a2 2 0 0 0-2-2H6zm0 2h11a1 1 0 0 1 1 1v11H6V6zm2 2v2h7V8H8z"/>
-</svg>
-
-            <div class="section-line"></div>
-            <h2>TENTANG KAMI</h2>
-            <p>Brilliant English Course adalah salah satu lembaga kursus unggulan di Kampung Inggris Pare yang dikenal
-                dengan metode pembelajaran yang efektif, suasana belajar nyaman, serta fasilitas lengkap yang mendukung
-                proses belajar Bahasa Inggris dari dasar hingga mahir.</p>
-        </div>
-    </div>
-</section>
-
-
-    <div class="section-divider-wrapper">
-        <div class="section-divider"></div>
-    </div>
-
-    <section class="program" id="program">
-    <h2>PROGRAM & HARGA</h2>
-
-    <!-- Baris pertama: Murah & Super -->
-    <div class="program-row">
-    <div class="program-item murah">
-        <h3>Paket Murah Holiday</h3>
-        <ul>
-            <li>Rp 498.000 / 1 minggu</li>
-            <li>Rp 854.000 / 2 minggu</li>
-            <li>Biaya Admin: Rp 125.000</li>
-        </ul>
-    </div>
-    <div class="program-item super">
-        <h3>Paket Super</h3>
-        <ul>
-            <li>Rp 1.398.000 / 1 bulan</li>
-            <li>Rp 2.599.000 / 2 bulan</li>
-            <li><strong>Free Biaya Admin</strong></li>
-        </ul>
-    </div>
-    <div class="program-item premium">
-        <h3>Paket Premium</h3>
-        <ul>
-            <li>Rp 3.867.000 / 3 bulan</li>
-            <li>Bonus TOEFL Preparation (2 minggu / 10 pertemuan)</li>
-        </ul>
-    </div>
-</div>
-
-</section>
+        <section class="about-us-section" id="tentang">
+            <div class="container">
+                <h2 class="section-title">TENTANG KAMI</h2>
+    
+                <div class="about-grid">
+                    <div class="about-intro">
+                        <h2>Brilliant English Course?</h2>
+                        <p>
+                            Berlokasi di jantung Kampung Inggris Pare, Brilliant English Course hadir untuk mengubah cara Anda belajar bahasa Inggris. Kami menciptakan sebuah perjalanan belajar yang tidak hanya efektif, tapi juga tak terlupakan, membuat Anda percaya diri dan fasih berbahasa Inggris.
+                        </p>
+                    </div>
+    
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="icon"><i class="fas fa-comments"></i></div>
+                            <h3>Lingkungan Imersif 24/7</h3>
+                            <p>Dengan sistem asrama (camp) berbasis "English Area", Anda akan terbiasa berpikir dan berbicara dalam bahasa Inggris setiap hari. Metode ini terbukti mempercepat kelancaran Anda secara signifikan.</p>
+                        </div>
+    
+                        <div class="feature-item">
+                            <div class="icon"><i class="fas fa-lightbulb"></i></div>
+                            <h3>Metode Belajar Praktis</h3>
+                            <p>Kami fokus pada 80% praktik dan 20% teori. Kelas interaktif, simulasi dunia nyata, dan materi yang relevan membuat proses belajar menjadi efektif, anti-bosan, dan menyenangkan.</p>
+                        </div>
+    
+                        <div class="feature-item">
+                            <div class="icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                            <h3>Tutor Profesional & Suportif</h3>
+                            <p>Tutor kami bukan hanya pengajar, tapi juga mentor yang ramah dan berpengalaman. Mereka siap membimbing Anda langkah demi langkah untuk mencapai target belajar Anda.</p>
+                        </div>
+    
+                        <div class="feature-item">
+                            <div class="icon"><i class="fas fa-book-open-reader"></i></div>
+                            <h3>Program Terstruktur & Komunitas</h3>
+                            <p>Pilih program yang sesuai tujuan Anda, mulai dari Speaking, TOEFL, hingga IELTS. Bergabunglah dengan komunitas pembelajar yang solid dan saling mendukung untuk sukses bersama.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="program-section" id="program">
+            <div class="container">
+                <h2>PILIHAN PROGRAM</h2>
+                <p class="section-subtitle">Temukan program yang paling sesuai dengan tujuan Anda dan mulailah perjalanan Anda menjadi fasih berbahasa Inggris bersama kami.</p>
+        
+                <div class="program-tabs">
+                    <button class="tab-button" data-tab="intensif"><i class="fas fa-rocket"></i> Paket Intensif</button>
+                    <button class="tab-button active" data-tab="speaking"><i class="fas fa-comments"></i> Speaking & Confidence</button>
+                    <button class="tab-button" data-tab="toefl"><i class="fas fa-graduation-cap"></i> TOEFL / IELTS Prep</button>
+                    <button class="tab-button" data-tab="grammar"><i class="fas fa-book"></i> Grammar Masterclass</button>
+                </div>
+        
+                <div class="program-content-wrapper">
+        
+                    <div id="intensif" class="program-detail">
+                        <div class="content-text">
+                            <h3>Paket Intensif Terpadu</h3>
+                            <p class="description">Program terlengkap untuk akselerasi kemampuan bahasa Inggris Anda secara menyeluruh. Menggabungkan semua materi inti dalam satu paket efektif.</p>
+                            <ul class="benefits-list">
+                                <li><i class="fas fa-check-circle"></i> Kombinasi kelas Speaking, Grammar, dan Vocabulary.</li>
+                                <li><i class="fas fa-check-circle"></i> Wajib tinggal di asrama English Area 24/7.</li>
+                                <li><i class="fas fa-check-circle"></i> Proyek akhir untuk aplikasi ilmu secara nyata.</li>
+                            </ul>
+                            <div class="action-buttons">
+                                <a href="#" class="btn btn-primary">Daftar Sekarang</a>
+                                <a href="#" class="btn btn-secondary">Lihat program</a>
+                            </div>
+                        </div>
+                        <div class="content-image">
+                            <img src="{{ asset('asset/img/brilliant5.jpg') }}" alt="Galeri 18" onclick="openLightbox(this)">
+                        </div>
+                    </div>
+        
+                    <div id="speaking" class="program-detail active">
+                        <div class="content-text">
+                            <h3>Program Speaking & Confidence</h3>
+                            <p class="description">Dirancang khusus untuk Anda yang ingin lancar berbicara dalam situasi sehari-hari. Lupakan gugup dan teori rumit, di sini Anda akan langsung praktik!</p>
+                            <ul class="benefits-list">
+                                <li><i class="fas fa-check-circle"></i> Kelas praktik speaking setiap hari dengan tutor berpengalaman.</li>
+                                <li><i class="fas fa-check-circle"></i> Materi percakapan yang relevan dan sering digunakan.</li>
+                                <li><i class="fas fa-check-circle"></i> Lingkungan belajar yang suportif dan bebas dari rasa takut salah.</li>
+                            </ul>
+                            <div class="action-buttons">
+                                <a href="#" class="btn btn-primary">Daftar Sekarang</a>
+                                <a href="#" class="btn btn-secondary">Lihat Program</a>
+                            </div>
+                        </div>
+                        <div class="content-image">
+                            <img src="{{ asset('asset/img/img1.jpg') }}" alt="Galeri 21" onclick="openLightbox(this)">
+                        </div>
+                    </div>
+        
+                    <div id="toefl" class="program-detail">
+                        <div class="content-text">
+                            <h3>Persiapan TOEFL / IELTS</h3>
+                            <p class="description">Raih skor impian Anda dengan program persiapan tes yang terstruktur. Pelajari strategi jitu, latihan soal intensif, dan dapatkan feedback dari ahlinya.</p>
+                            <ul class="benefits-list">
+                                <li><i class="fas fa-check-circle"></i> Pembahasan semua seksi tes (Reading, Listening, Speaking, Writing).</li>
+                                <li><i class="fas fa-check-circle"></i> Simulasi tes (Try Out) berkala untuk mengukur kemajuan.</li>
+                                <li><i class="fas fa-check-circle"></i> Tips dan trik untuk memaksimalkan skor Anda.</li>
+                            </ul>
+                            <div class="action-buttons">
+                                <a href="#" class="btn btn-primary">Daftar Sekarang</a>
+                                <a href="#" class="btn btn-secondary">Lihat Program</a>
+                            </div>
+                        </div>
+                        <div class="content-image">
+                            <img src="{{ asset('asset/img/img4.jpg') }}" alt="Galeri 4" onclick="openLightbox(this)">
+                        </div>
+                    </div>
+        
+                    <div id="grammar" class="program-detail">
+                        <div class="content-text">
+                            <h3>Grammar Masterclass</h3>
+                            <p class="description">Perkuat fondasi bahasa Inggris Anda dengan memahami tata bahasa secara mendalam. Cocok untuk Anda yang ingin meningkatkan akurasi tulisan dan lisan.</p>
+                            <ul class="benefits-list">
+                                <li><i class="fas fa-check-circle"></i> Penjelasan konsep grammar yang mudah dimengerti.</li>
+                                <li><i class="fas fa-check-circle"></i> Latihan soal aplikatif untuk setiap materi.</li>
+                                <li><i class="fas fa-check-circle"></i> Analisis kesalahan umum agar tidak terulang kembali.</li>
+                            </ul>
+                            <div class="action-buttons">
+                                <a href="#" class="btn btn-primary">Daftar Sekarang</a>
+                                <a href="#" class="btn btn-secondary">Lihat Program</a>
+                            </div>
+                        </div>
+                        <div class="content-image">
+                            <img src="{{ asset('asset/img/img1.jpg') }}" alt="Galeri 21" onclick="openLightbox(this)">
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+        </section>
+        
+        <script>
+            // Menunggu hingga seluruh halaman HTML selesai dimuat
+            document.addEventListener('DOMContentLoaded', function() {
+        
+                // 1. Ambil semua elemen tombol tab dan detail konten
+                const tabs = document.querySelectorAll('.program-tabs .tab-button');
+                const contents = document.querySelectorAll('.program-detail');
+        
+                // 2. Tambahkan event listener 'click' untuk setiap tombol tab
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        // Ambil nilai dari atribut 'data-tab' pada tombol yang diklik
+                        // Contoh: 'speaking'
+                        const targetId = tab.dataset.tab;
+        
+                        // --- Proses untuk Tombol Tab ---
+                        // Hapus kelas 'active' dari SEMUA tombol
+                        tabs.forEach(t => t.classList.remove('active'));
+                        // Tambahkan kelas 'active' HANYA pada tombol yang diklik
+                        tab.classList.add('active');
+        
+                        // --- Proses untuk Konten ---
+                        // Sembunyikan SEMUA detail konten
+                        contents.forEach(content => content.classList.remove('active'));
+                        // Tampilkan HANYA konten yang ID-nya sesuai dengan targetId
+                        const targetContent = document.getElementById(targetId);
+                        if (targetContent) {
+                            targetContent.classList.add('active');
+                        }
+                    });
+                });
+            });
+        </script>
+        
+        <script>
+            // Fungsi untuk membuka lightbox
+            function openLightbox(image) {
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImage = document.getElementById('lightboxImage');
+                lightboxImage.src = image.src;
+                lightbox.style.display = 'block';
+            }
+        
+            // Fungsi untuk menutup lightbox
+            function closeLightbox() {
+                const lightbox = document.getElementById('lightbox');
+                lightbox.style.display = 'none';
+            }
+        </script>   
 
 
 
