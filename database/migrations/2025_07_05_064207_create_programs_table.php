@@ -15,7 +15,7 @@ return new class extends Migration
             $table->text('deskripsi');      // Sebelumnya description
             $table->text('keunggulan');     // Sebelumnya benefits
             $table->string('gambar');       // Sebelumnya image
-            $table->boolean('status_aktif_default')->default(false); // Sebelumnya is_default_active
+            $table->boolean('status_aktif_default')->default(false); 
             $table->timestamps();
         });
     }

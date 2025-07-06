@@ -74,10 +74,10 @@
                                 <td>
                                     <div class="btn-group btn-group-sm">
                                         <x-adminlte-button theme="info" icon="fas fa-eye"
-                                            onclick="window.location='{{ route('users.show', $user->id) }}'" title="Detail"/>
+                                            onclick="window.location='{{ route('admin.users.show', $user->id) }}'" title="Detail"/>
                                         <x-adminlte-button theme="warning" icon="fas fa-edit"
-                                            onclick="window.location='{{ route('users.edit', $user->id) }}'" title="Edit"/>
-                                        <form method="POST" action="{{ route('users.destroy', $user->id) }}" class="d-inline">
+                                            onclick="window.location='{{ route('admin.users.edit', $user->id) }}'" title="Edit"/>
+                                        <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <x-adminlte-button theme="danger" icon="fas fa-trash"
@@ -116,7 +116,7 @@
 
     <!-- Create User Modal -->
     <x-adminlte-modal id="createUserModal" title="Tambah User Baru" theme="lightblue" size="lg">
-        <form action="{{ route('users.store') }}" method="POST">
+        <form action="{{ route('admin.users.store') }}" method="POST">
             @csrf
             <div class="row">
                 <div class="col-md-6">

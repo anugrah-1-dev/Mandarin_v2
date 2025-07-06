@@ -18,60 +18,64 @@ class ProgramController extends Controller
         }
 
         $programs = $query->latest()->get(); // Menggunakan latest() untuk mengambil data terbaru
-        return view('admin.programs.index', compact('programs'));
+        return view('admin.pamflet_programs.index', compact('programs'));
     }
 
     public function create()
     {
-        return view('admin.programs.create');
+        return view('admin.pamflet_programs.create');
     }
 
     public function store(Request $request)
     {
-        // Validasi disesuaikan dengan kolom baru (dalam Bahasa Indonesia)
+        // Validasi input sesuai nama kolom
         $request->validate([
-            'judul_konten' => 'required|string|max:255',
+            'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'keunggulan' => 'required|string',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'status' => 'required|in:aktif,nonaktif',
         ]);
 
-        $input = $request->all();
+        // Ambil semua input yang sudah valid
+        $input = $request->only(['judul', 'deskripsi', 'keunggulan', 'status']);
 
+        // Simpan gambar jika ada
         if ($gambar = $request->file('gambar')) {
             $destinationPath = 'uploads/programs/';
             $namaGambar = date('YmdHis') . "." . $gambar->getClientOriginalExtension();
             $gambar->move($destinationPath, $namaGambar);
             $input['gambar'] = $namaGambar;
         }
-        
-        // Handle checkbox dengan nama baru
-        $input['status_aktif_default'] = $request->has('status_aktif_default') ? 1 : 0;
 
         Program::create($input);
 
-        return redirect()->route('admin.programs.index')->with('success', 'Program berhasil ditambahkan.');
+        return redirect()->route('admin.pamflet_programs.index')->with('success', 'Program berhasil ditambahkan.');
     }
+
+
 
     public function edit(Program $program)
     {
-        return view('admin.programs.edit', compact('program'));
+        return view('admin.pamflet_programs.edit', compact('program'));
     }
 
     public function update(Request $request, Program $program)
     {
-        // Validasi disesuaikan untuk proses update
+        // Validasi disesuaikan dengan kolom baru, dan nullable untuk gambar
         $request->validate([
-            'judul_konten' => 'required|string|max:255',
+            'judul' => 'nullable|string|max:255',
             'deskripsi' => 'required|string',
             'keunggulan' => 'required|string',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'status' => 'required|in:aktif,nonaktif',
         ]);
 
-        $input = $request->all();
+        // Ambil input terbatas agar lebih aman
+        $input = $request->only(['judul', 'deskripsi', 'keunggulan', 'status']);
 
+        // Jika ada gambar baru, proses upload dan hapus lama
         if ($gambar = $request->file('gambar')) {
-            // Hapus gambar lama jika ada
             if ($program->gambar && file_exists(public_path('uploads/programs/' . $program->gambar))) {
                 unlink(public_path('uploads/programs/' . $program->gambar));
             }
@@ -80,15 +84,11 @@ class ProgramController extends Controller
             $namaGambar = date('YmdHis') . "." . $gambar->getClientOriginalExtension();
             $gambar->move($destinationPath, $namaGambar);
             $input['gambar'] = $namaGambar;
-        } else {
-            unset($input['gambar']);
         }
-        
-        $input['status_aktif_default'] = $request->has('status_aktif_default') ? 1 : 0;
-        
+
         $program->update($input);
 
-        return redirect()->route('admin.programs.index')->with('success', 'Program berhasil diperbarui.');
+        return redirect()->route('admin.pamflet_programs.index')->with('success', 'Program berhasil diperbarui.');
     }
 
     public function destroy(Program $program)
@@ -99,6 +99,6 @@ class ProgramController extends Controller
         }
 
         $program->delete();
-        return redirect()->route('admin.programs.index')->with('success', 'Program berhasil dihapus.');
+        return redirect()->route('admin.pamflet_programs.index')->with('success', 'Program berhasil dihapus.');
     }
 }

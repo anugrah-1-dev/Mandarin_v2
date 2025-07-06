@@ -27,35 +27,40 @@ class BankController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'account_number' => 'required|string|max:50',
-            'account_name' => 'required|string|max:255',
+            'name'   => 'required|string|max:255',
+            'owner'  => 'required|string|max:255',
+            'number' => 'required|string|min:10|max:50',
+            'status' => 'required|in:active,inactive',
+
         ]);
+
 
         Banks::create($request->all());
 
         return redirect()->route('admin.banks.index')->with('success', 'Bank created successfully.');
     }
 
-    // Show the form for editing the specified bank
-    public function edit(Banks $bank)
+    public function edit($id)
     {
+        $bank = Banks::findOrFail($id);
         return view('admin.banks.edit', compact('bank'));
     }
 
-    // Update the specified bank in storage
-    public function update(Request $request, Banks $bank)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'account_number' => 'required|string|max:50',
-            'account_name' => 'required|string|max:255',
+            'name'   => 'required|string|max:255',
+            'owner'  => 'required|string|max:255',
+            'number' => 'required|string|min:10|max:50',
+            'status' => 'required|in:active,inactive',
         ]);
 
+        $bank = Banks::findOrFail($id);
         $bank->update($request->all());
 
-        return redirect()->route('admin.banks.index')->with('success', 'Bank updated successfully.');
+        return redirect()->route('admin.banks.index')->with('success', 'Bank berhasil diperbarui.');
     }
+
 
     // Remove the specified bank from storage
     public function destroy($id)

@@ -14,10 +14,10 @@ class Program extends Model
 
     // Sesuaikan kolom yang bisa diisi
     protected $fillable = [
-        'judul_konten',
+        'judul',
         'deskripsi',
         'keunggulan',
         'gambar',
-        'status_aktif_default',
+        'status',
     ];
 }
