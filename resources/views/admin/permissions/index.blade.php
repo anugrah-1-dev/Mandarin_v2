@@ -54,8 +54,8 @@
                                 <td>
                                     <div class="btn-group btn-group-sm">
                                         <x-adminlte-button theme="warning" icon="fas fa-edit"
-                                            onclick="window.location='{{ route('permissions.edit', $permission->id) }}'" title="Edit"/>
-                                        <form method="POST" action="{{ route('permissions.destroy', $permission->id) }}" class="d-inline">
+                                            onclick="window.location='{{ route('admin.permissions.edit', $permission->id) }}'" title="Edit"/>
+                                        <form method="POST" action="{{ route('admin.permissions.destroy', $permission->id) }}" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <x-adminlte-button theme="danger" icon="fas fa-trash"
@@ -94,7 +94,7 @@
 
     <!-- Create Permission Modal -->
     <x-adminlte-modal id="createPermissionModal" title="Tambah Permission Baru" theme="lightblue" size="md">
-        <form action="{{ route('permissions.store') }}" method="POST">
+        <form action="{{ route('admin.permissions.store') }}" method="POST">
             @csrf
             <x-adminlte-input name="name" label="Nama Permission" placeholder="Masukkan nama permission" required/>
             <x-adminlte-select name="guard_name" label="Guard" required>

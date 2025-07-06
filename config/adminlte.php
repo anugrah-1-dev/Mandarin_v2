@@ -363,11 +363,11 @@ return [
         ],
 
         [
-            'text' => 'Program',
-            'url'  => '/admin/programs',
-            'icon' => 'fas fa-project-diagram',
+            'header' => 'Data Master ',
         ],
-            [
+
+
+        [
             'text' => 'Transport',
             'url'  => '/admin/transports',
             'icon' => 'fas fa-shuttle-van',
@@ -377,6 +377,42 @@ return [
             'text' => 'Bank',
             'url'  => '/admin/banks',
             'icon' => 'fas fa-university',
+        ],
+        [
+            'text' => 'Customer Service',
+            'url'  => '/admin/customer_services',
+            'icon' => 'fas fa-headset',
+        ],
+
+        [
+            'header' => 'Program ',
+        ],
+
+        [
+            'text' => 'Program',
+            'icon' => 'fas fa-project-diagram',
+            'submenu' => [
+                [
+                    'text' => 'Pamflet Program',
+                    'url'  => '/admin/pamflet_programs',
+                    'icon' => 'fas fa-list',
+                ],
+                [
+                    'text' => 'Program Offline',
+                    'url'  => '/admin/programs/offline',
+                    'icon' => 'fas fa-building',
+                ],
+                [
+                    'text' => 'Program Online',
+                    'url'  => '/admin/programs/online',
+                    'icon' => 'fas fa-globe',
+                ],
+                [
+                    'text' => 'Camp',
+                    'url'  => '/admin/programs/camp',
+                    'icon' => 'fas fa-campground',
+                ],
+            ],
         ],
 
 
@@ -389,7 +425,7 @@ return [
         ],
 
         [
-            'header' => 'Pengaturan ',
+            'header' => 'Hak Akses ',
         ],
 
 
@@ -420,44 +456,7 @@ return [
     ],
 
 
-    //     [
-    //         'text' => 'multilevel',
-    //         'icon' => 'fas fa-fw fa-share',
-    //         'submenu' => [
-    //             [
-    //                 'text' => 'level_one',
-    //                 'url' => '#',
-    //             ],
-    //             [
-    //                 'text' => 'level_one',
-    //                 'url' => '#',
-    //                 'submenu' => [
-    //                     [
-    //                         'text' => 'level_two',
-    //                         'url' => '#',
-    //                     ],
-    //                     [
-    //                         'text' => 'level_two',
-    //                         'url' => '#',
-    //                         'submenu' => [
-    //                             [
-    //                                 'text' => 'level_three',
-    //                                 'url' => '#',
-    //                             ],
-    //                             [
-    //                                 'text' => 'level_three',
-    //                                 'url' => '#',
-    //                             ],
-    //                         ],
-    //                     ],
-    //                 ],
-    //             ],
-    //             [
-    //                 'text' => 'level_one',
-    //                 'url' => '#',
-    //             ],
-    //         ],
-    //     ],
+
     //     ['header' => 'labels'],
     //     [
     //         'text' => 'important',

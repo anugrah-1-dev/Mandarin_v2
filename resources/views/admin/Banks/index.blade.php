@@ -3,10 +3,13 @@
 @section('title', 'Manajemen Bank')
 
 @section('content_header')
-    <div class="d-flex justify-content-between align-items-center">
-        <h1 class="m-0">Daftar Bank</h1>
-        <x-adminlte-button label="Tambah Bank" theme="primary" icon="fas fa-plus" data-toggle="modal" data-target="#createBankModal" />
-    </div>
+<div class="d-flex justify-content-between align-items-center">
+    <h1>Banks</h1>
+    <a href="{{ route('admin.banks.create') }}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Tambah Rekening
+    </a>
+</div>
+
 @stop
 
 @section('content')
@@ -60,8 +63,8 @@
                                 </td>
                                 <td>
                                     <div class="btn-group btn-group-sm">
-                                        {{-- <x-adminlte-button theme="warning" icon="fas fa-edit"
-                                            onclick="window.location='{{ route('admin.banks.edit', $bank->id) }}'" title="Edit"/> --}}
+                                        <x-adminlte-button theme="warning" icon="fas fa-edit"
+                                            onclick="window.location='{{ route('admin.banks.edit', $bank->id) }}'" title="Edit"/>
                                         <form action="{{ route('admin.banks.destroy', $bank->id) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')

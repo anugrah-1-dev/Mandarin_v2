@@ -22,8 +22,7 @@
         <div class="carousel-container">
             <div class="slides">
                 <img src="{{ asset('asset/img/brilliant1.jpg') }}" class="slide active" alt="Slide 1">
-                <img src="{{ asset('asset/img/brilliant2.jpg') }}"
-                    class="slide" alt="Slide 2">
+                <img src="{{ asset('asset/img/brilliant2.jpg') }}" class="slide" alt="Slide 2">
                 <img src="{{ asset('asset/img/brilliant3.jpg') }}" class="slide" alt="Slide 3">
             </div>
             <div class="overlay"></div>
@@ -46,7 +45,9 @@
                 <div class="about-intro">
                     <h2>Brilliant English Course?</h2>
                     <p>
-                        Berlokasi di jantung Kampung Inggris Pare, Brilliant English Course hadir untuk mengubah cara Anda belajar bahasa Inggris. Kami menciptakan sebuah perjalanan belajar yang tidak hanya efektif, tapi juga tak terlupakan, membuat Anda percaya diri dan fasih berbahasa Inggris.
+                        Berlokasi di jantung Kampung Inggris Pare, Brilliant English Course hadir untuk mengubah cara
+                        Anda belajar bahasa Inggris. Kami menciptakan sebuah perjalanan belajar yang tidak hanya
+                        efektif, tapi juga tak terlupakan, membuat Anda percaya diri dan fasih berbahasa Inggris.
                     </p>
                 </div>
 
@@ -54,89 +55,165 @@
                     <div class="feature-item">
                         <div class="icon"><i class="fas fa-comments"></i></div>
                         <h3>Lingkungan Imersif 24/7</h3>
-                        <p>Dengan sistem asrama (camp) berbasis "English Area", Anda akan terbiasa berpikir dan berbicara dalam bahasa Inggris setiap hari. Metode ini terbukti mempercepat kelancaran Anda secara signifikan.</p>
+                        <p>Dengan sistem asrama (camp) berbasis "English Area", Anda akan terbiasa berpikir dan
+                            berbicara dalam bahasa Inggris setiap hari. Metode ini terbukti mempercepat kelancaran Anda
+                            secara signifikan.</p>
                     </div>
 
                     <div class="feature-item">
                         <div class="icon"><i class="fas fa-lightbulb"></i></div>
                         <h3>Metode Belajar Praktis</h3>
-                        <p>Kami fokus pada 80% praktik dan 20% teori. Kelas interaktif, simulasi dunia nyata, dan materi yang relevan membuat proses belajar menjadi efektif, anti-bosan, dan menyenangkan.</p>
+                        <p>Kami fokus pada 80% praktik dan 20% teori. Kelas interaktif, simulasi dunia nyata, dan materi
+                            yang relevan membuat proses belajar menjadi efektif, anti-bosan, dan menyenangkan.</p>
                     </div>
 
                     <div class="feature-item">
                         <div class="icon"><i class="fas fa-chalkboard-teacher"></i></div>
                         <h3>Tutor Profesional & Suportif</h3>
-                        <p>Tutor kami bukan hanya pengajar, tapi juga mentor yang ramah dan berpengalaman. Mereka siap membimbing Anda langkah demi langkah untuk mencapai target belajar Anda.</p>
+                        <p>Tutor kami bukan hanya pengajar, tapi juga mentor yang ramah dan berpengalaman. Mereka siap
+                            membimbing Anda langkah demi langkah untuk mencapai target belajar Anda.</p>
                     </div>
 
                     <div class="feature-item">
                         <div class="icon"><i class="fas fa-book-open-reader"></i></div>
                         <h3>Program Terstruktur & Komunitas</h3>
-                        <p>Pilih program yang sesuai tujuan Anda, mulai dari Speaking, TOEFL, hingga IELTS. Bergabunglah dengan komunitas pembelajar yang solid dan saling mendukung untuk sukses bersama.</p>
+                        <p>Pilih program yang sesuai tujuan Anda, mulai dari Speaking, TOEFL, hingga IELTS. Bergabunglah
+                            dengan komunitas pembelajar yang solid dan saling mendukung untuk sukses bersama.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        
     </section>
- <div class="wave-divider">
-    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-        <path class="shape-fill"
-            d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-        </path>
-    </svg>
-</div>
+    <div class="wave-divider">
+        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path class="shape-fill"
+                d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+            </path>
+        </svg>
+    </div>
 
     <section class="registration-flow-section" id="alur-pendaftaran">
-    <div class="container">
-        <h2 class="registration-section-title">ALUR PENDAFTARAN</h2>
-        <p class="registration-section-subtitle">Ikuti langkah-langkah berikut untuk mendaftar di Brilliant English Course:</p>
+        <div class="container">
+            <h2 class="registration-section-title">ALUR PENDAFTARAN</h2>
+            <p class="registration-section-subtitle">Ikuti langkah-langkah berikut untuk mendaftar di Brilliant English
+                Course:</p>
 
-        <div class="flow-steps">
-            <div class="flow-step">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                    <h3>Isi Formulir Pendaftaran</h3>
-                    <p>Isi data diri Anda secara lengkap melalui formulir online yang tersedia di website kami.</p>
+            <div class="flow-steps">
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Isi Formulir Pendaftaran</h3>
+                        <p>Isi data diri Anda secara lengkap melalui formulir online yang tersedia di website kami.</p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="flow-step">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                    <h3>Verifikasi & Konfirmasi</h3>
-                    <p>Tim kami akan menghubungi Anda untuk verifikasi dan memberikan informasi lebih lanjut.</p>
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Verifikasi & Konfirmasi</h3>
+                        <p>Tim kami akan menghubungi Anda untuk verifikasi dan memberikan informasi lebih lanjut.</p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="flow-step">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                    <h3>Pembayaran & Bukti Transfer</h3>
-                    <p>Lakukan pembayaran sesuai instruksi, lalu unggah bukti transfer melalui halaman konfirmasi.</p>
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Pembayaran & Bukti Transfer</h3>
+                        <p>Lakukan pembayaran sesuai instruksi, lalu unggah bukti transfer melalui halaman konfirmasi.
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="flow-step">
-                <div class="step-number">4</div>
-                <div class="step-content">
-                    <h3>Siap Belajar!</h3>
-                    <p>Selamat! Anda resmi terdaftar dan siap mengikuti program pembelajaran di Brilliant English Course.</p>
-                </div>
-            </div>
-        </div>
+                <div class="flow-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Siap Belajar!</h3>
+                        <p>Selamat! Anda resmi terdaftar dan siap mengikuti program pembelajaran di Brilliant English
+                            Course.</p>
+                    </div>
+    </section>
     </div>
-</section>
+    </div>
+    </div>
+    </section>
 
- <div class="wave-divider2">
-    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-        <path class="shape-fill2"
-            d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-        </path>
-    </svg>
-</div>
-    
+    <div class="wave-divider2">
+        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path class="shape-fill2"
+                d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+            </path>
+        </svg>
+    </div>
+
+    <section class="program-section" id="program">
+        <div class="container">
+            <h2>PILIHAN PROGRAM</h2>
+            <p class="section-subtitle">Temukan program yang paling sesuai dengan tujuan Anda dan mulailah perjalanan
+                Anda menjadi fasih berbahasa Inggris bersama kami.</p>
+
+            <div class="program-tabs">
+                @foreach ($programs->where('status', 'aktif') as $program)
+                    <button class="tab-button @if ($program->status == 'aktif' && $program->status_aktif_default) active @endif"
+                        data-tab="program-{{ $program->id }}">
+                        {{ $program->judul }}
+                    </button>
+                @endforeach
+            </div>
+
+            <div class="program-content-wrapper">
+                @foreach ($programs->where('status', 'aktif') as $index => $program)
+                    <div id="program-{{ $program->id }}"
+                        class="program-detail
+                        @if ($program->status_aktif_default) active @endif
+                        @if ($index % 2 == 0) layout-left @else layout-right @endif">
+
+                        <div class="program-content-container">
+                            <div class="content-text content-structured">
+                                <h3>{{ $program->judul }}</h3>
+                                <p class="description">{{ $program->deskripsi }}</p>
+
+                                <div class="benefits-container">
+                                    <p class="benefits-title"><strong>Keunggulan Program:</strong></p>
+                                    <div class="benefits-grid">
+                                        @php
+                                            $benefits = array_slice(explode("\n", $program->keunggulan), 0, 5);
+                                        @endphp
+                                        @foreach ($benefits as $item)
+                                            @if (trim($item) != '')
+                                                <div class="benefit-item"><i class="fas fa-check-circle"></i>
+                                                    {{ trim($item) }}</div>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+
+                                <div class="action-buttons">
+                                    <a href="#" class="btn btn-primary">Lihat Program Detail</a>
+                                    <a href="#" class="btn btn-secondary">Tanya CS</a>
+                                </div>
+                            </div>
+
+                            <div class="content-image">
+                                <img src="{{ asset('uploads/programs/' . $program->gambar) }}"
+                                    alt="{{ $program->judul }}" onclick="openLightbox(this)">
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+            </section>
+
+            <div class="wave-divider4">
+                <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+                    <path class="shape-fill4"
+                        d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                    </path>
+                </svg>
+            </div>
+
+//pakde kerjaan
+                {{--
    <!-- Section 1: Judul + Subtitle + Tabs -->
 <section class="program-section" id="program">
     <div class="container">
@@ -147,8 +224,8 @@
 
         <!-- Tabs tetap di sini -->
         <div class="program-tabs">
-            @foreach($programs as $program)
-                <button class="tab-button @if($program->status_aktif_default) active @endif" data-tab="program-{{ $program->id }}">
+            @foreach ($programs as $program)
+                <button class="tab-button @if ($program->status_aktif_default) active @endif" data-tab="program-{{ $program->id }}">
                     {{ $program->judul_konten }}
                 </button>
             @endforeach
@@ -168,10 +245,10 @@
 <section class="program-content-section" id="program-content">
     <div class="container">
         <div class="program-content-wrapper">
-            @foreach($programs as $program)
-                <div 
-                    id="program-{{ $program->id }}" 
-                    class="program-detail @if($program->status_aktif_default) active @endif @if($program->id % 2 == 0) layout-reversed @endif">
+            @foreach ($programs as $program)
+                <div
+                    id="program-{{ $program->id }}"
+                    class="program-detail @if ($program->status_aktif_default) active @endif @if ($program->id % 2 == 0) layout-reversed @endif">
 
                     <div class="content-text content-structured">
                         <div>
@@ -183,8 +260,8 @@
                         <div>
                             <p class="benefits-title"><strong>Keunggulan Program:</strong></p>
                             <ul class="benefits-list">
-                                @foreach(explode("\n", $program->keunggulan) as $item)
-                                    @if(trim($item) != '')
+                                @foreach (explode("\n", $program->keunggulan) as $item)
+                                    @if (trim($item) != '')
                                         <li><i class="fas fa-check-circle"></i> {{ trim($item) }}</li>
                                     @endif
                                 @endforeach
@@ -203,41 +280,32 @@
             @endforeach
         </div>
     </div>
-</section>
+</section> --}}
 
- <div class="wave-divider4">
-    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-        <path class="shape-fill4"
-            d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-        </path>
-    </svg>
-</div>
+//pakde
 
-    </section>
-    
-    
 
-        <script>
+    {{-- <script>
             // Menunggu hingga seluruh halaman HTML selesai dimuat
             document.addEventListener('DOMContentLoaded', function() {
-        
+
                 // 1. Ambil semua elemen tombol tab dan detail konten
                 const tabs = document.querySelectorAll('.program-tabs .tab-button');
                 const contents = document.querySelectorAll('.program-detail');
-        
+
                 // 2. Tambahkan event listener 'click' untuk setiap tombol tab
                 tabs.forEach(tab => {
                     tab.addEventListener('click', () => {
                         // Ambil nilai dari atribut 'data-tab' pada tombol yang diklik
                         // Contoh: 'speaking'
                         const targetId = tab.dataset.tab;
-        
+
                         // --- Proses untuk Tombol Tab ---
                         // Hapus kelas 'active' dari SEMUA tombol
                         tabs.forEach(t => t.classList.remove('active'));
                         // Tambahkan kelas 'active' HANYA pada tombol yang diklik
                         tab.classList.add('active');
-        
+
                         // --- Proses untuk Konten ---
                         // Sembunyikan SEMUA detail konten
                         contents.forEach(content => content.classList.remove('active'));
@@ -246,28 +314,31 @@
                         if (targetContent) {
                             targetContent.classList.add('active');
                         }
-                    });
+                    }); --}}
+
+    <link rel="stylesheet" href="{{ asset('css/program.css') }}">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.program-tabs .tab-button');
+            const contents = document.querySelectorAll('.program-detail');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetId = tab.dataset.tab;
+
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    contents.forEach(content => content.classList.remove('active'));
+                    const targetContent = document.getElementById(targetId);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
                 });
             });
-        </script>
-{{--         
-        <script>
-            // Fungsi untuk membuka lightbox
-            function openLightbox(image) {
-                const lightbox = document.getElementById('lightbox');
-                const lightboxImage = document.getElementById('lightboxImage');
-                lightboxImage.src = image.src;
-                lightbox.style.display = 'block';
-            }
-        
-            // Fungsi untuk menutup lightbox
-            function closeLightbox() {
-                const lightbox = document.getElementById('lightbox');
-                lightbox.style.display = 'none';
-            }
-        </script>    --}}
-
-
+        });
+    </script>
 
     <section id="galeri" class="gallery">
         <h2>GALLERY</h2>
@@ -310,10 +381,10 @@
         </div>
     </section>
 
-   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <span class="lightbox-close" onclick="closeLightbox()">x</span>
-    <img class="lightbox-content" id="lightboxImg">
-</div>
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="closeLightbox()">x</span>
+        <img class="lightbox-content" id="lightboxImg">
+    </div>
 
 
 
@@ -330,9 +401,11 @@
         <div id="kontak" class="contact-box"
             style="background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 24px; flex: 1 1 350px; min-width: 300px;">
             <h2 style="text-align: center;">Hubungi Kami</h2>
-            <p style="color: #000;"><strong>Alamat:</strong><br>Jl. Flamboyan No.48, Mulyoasri, Tulungrejo, Kec. Pare, Kabupaten Kediri, Jawa Timur 64212</p>
+            <p style="color: #000;"><strong>Alamat:</strong><br>Jl. Flamboyan No.48, Mulyoasri, Tulungrejo, Kec. Pare,
+                Kabupaten Kediri, Jawa Timur 64212</p>
             <p><strong>Email:</strong><br>
-                <a href="mailto:info@kampunginggris.com" class="text-blue-600 hover:underline">info@kampunginggris.com</a>
+                <a href="mailto:info@kampunginggris.com"
+                    class="text-blue-600 hover:underline">info@kampunginggris.com</a>
             </p>
             <div>
                 <p class="font-semibold text-gray-700">Sosial Media:</p>
@@ -357,13 +430,21 @@
 
     <div class="wa-sticky-wrapper" style="position: fixed; bottom: 24px; right: 24px; z-index: 999;">
         <div class="wa-circle-row" style="display: flex; flex-direction: column; gap: 12px;">
-            <a href="https://wa.me/6281234567890" class="wa-circle tooltip" target="_blank" style="background: #25d366; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: relative;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="width: 32px; height: 32px;">
-                <span class="tooltip-text" style="visibility: hidden; background: #333; color: #fff; text-align: center; border-radius: 6px; padding: 6px 12px; position: absolute; right: 70px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.2s;">Contact Person 1</span>
+            <a href="https://wa.me/6281234567890" class="wa-circle tooltip" target="_blank"
+                style="background: #25d366; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: relative;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA"
+                    style="width: 32px; height: 32px;">
+                <span class="tooltip-text"
+                    style="visibility: hidden; background: #333; color: #fff; text-align: center; border-radius: 6px; padding: 6px 12px; position: absolute; right: 70px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.2s;">Contact
+                    Person 1</span>
             </a>
-            <a href="https://wa.me/6289876543210" class="wa-circle tooltip" target="_blank" style="background: #25d366; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: relative;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="width: 32px; height: 32px;">
-                <span class="tooltip-text" style="visibility: hidden; background: #333; color: #fff; text-align: center; border-radius: 6px; padding: 6px 12px; position: absolute; right: 70px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.2s;">Contact Person 2</span>
+            <a href="https://wa.me/6289876543210" class="wa-circle tooltip" target="_blank"
+                style="background: #25d366; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: relative;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA"
+                    style="width: 32px; height: 32px;">
+                <span class="tooltip-text"
+                    style="visibility: hidden; background: #333; color: #fff; text-align: center; border-radius: 6px; padding: 6px 12px; position: absolute; right: 70px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.2s;">Contact
+                    Person 2</span>
             </a>
         </div>
     </div>
@@ -386,4 +467,5 @@
         // Fungsi lightbox sekarang berada di file public/js/gallery.js
     </script>
 </body>
+
 </html>

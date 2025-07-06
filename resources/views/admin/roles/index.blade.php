@@ -73,12 +73,12 @@
                                 <td>
                                     <div class="btn-group btn-group-sm">
                                         <x-adminlte-button theme="info" icon="fas fa-eye"
-                                            onclick="window.location='{{ route('roles.show', $role->id) }}'" title="Detail"/>
+                                            onclick="window.location='{{ route('admin.roles.show', $role->id) }}'" title="Detail"/>
 
                                         <x-adminlte-button theme="warning" icon="fas fa-edit"
-                                            onclick="window.location='{{ route('roles.edit', $role->id) }}'" title="Edit"/>
+                                            onclick="window.location='{{ route('admin.roles.edit', $role->id) }}'" title="Edit"/>
 
-                                        <form method="POST" action="{{ route('roles.destroy', $role->id) }}" class="d-inline">
+                                        <form method="POST" action="{{ route('admin.roles.destroy', $role->id) }}" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <x-adminlte-button theme="danger" icon="fas fa-trash"
@@ -117,7 +117,7 @@
 
     <!-- Create Role Modal -->
     <x-adminlte-modal id="createRoleModal" title="Tambah Role Baru" theme="lightblue" size="lg">
-        <form action="{{ route('roles.store') }}" method="POST">
+        <form action="{{ route('admin.roles.store') }}" method="POST">
             @csrf
             <div class="row">
                 <div class="col-md-6">
