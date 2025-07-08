@@ -358,7 +358,7 @@ return [
         // ========== BAGIAN DASHBOARD ==========
         [
             'text' => 'Dashboard',
-            'url'  => '/Dashboard',
+            'url' => 'admin/dashboard',
             'icon' => 'fas fa-home',
         ],
 
@@ -405,8 +405,8 @@ return [
         ],
 
             [
-            'text' => 'Galeri',
-            'url'  => '/admin/galeri',
+            'text' => 'Galleries',
+            'url'  => '/admin/galleries',
             'icon' => 'fas fa-images',
         ],
 

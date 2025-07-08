@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Pelatihan;
@@ -27,7 +28,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('Dashboard', [
+        return view('admin.Dashboard', [
             'totalUsers' => User::count(),
             // 'activeCourses' => Pelatihan::where('status', 'aktif')->count(),
             // 'todaySchedules' => Jadwal::whereDate('tanggal', now())->count(),
