@@ -63,4 +63,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')  ->name('admin.') ->g
     Route::resource('programs/online', ProgramOnlineController::class);
     Route::resource('galeri', GaleriController::class);
 
+    //program camp
+    Route::resource('programs/camp', ProgramCampController::class)->names('programs.camp');
 });

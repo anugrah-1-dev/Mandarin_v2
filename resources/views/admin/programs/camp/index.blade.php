@@ -9,7 +9,104 @@
     </div>
 @stop
 
+<style>
+    /* Atur lebar minimum tiap kolom */
+    #programTable th:nth-child(1), 
+    #programTable td:nth-child(1) { min-width: 40px; }   /* No */
+    
+    #programTable th:nth-child(2), 
+    #programTable td:nth-child(2) { min-width: 100px; }  /* Thumbnail */
+    
+    #programTable th:nth-child(3), 
+    #programTable td:nth-child(3) { min-width: 180px; }  /* Nama */
+    
+    #programTable th:nth-child(4), 
+    #programTable td:nth-child(4) { min-width: 120px; }  /* Slug */
+    
+    #programTable th:nth-child(5), 
+    #programTable td:nth-child(5) { min-width: 120px; }  /* Kategori */
+    
+    #programTable th:nth-child(6), 
+    #programTable td:nth-child(6) { min-width: 70px; }   /* Stok */
+    
+    #programTable th:nth-child(n+7):nth-child(-n+15),
+    #programTable td:nth-child(n+7):nth-child(-n+15) { 
+        min-width: 120px;
+        white-space: nowrap;
+    } /* Semua kolom harga */
+    
+    #programTable th:nth-child(16),
+    #programTable td:nth-child(16) {
+        min-width: 200px;
+    } /* Fasilitas */
+
+    #programTable th:nth-child(17),
+    #programTable td:nth-child(17) {
+        min-width: 110px;
+    } /* Aksi */
+
+    td .btn {
+        margin-right: 5px;
+    }
+
+    td .btn:last-child {
+        margin-right: 0;
+    }
+
+    .preview-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+        background-color: #f8f9fa;
+        border: 1px dashed #ced4da;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .preview-container img {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+    .pagination {
+        list-style: none;
+        padding-left: 0;
+        display: flex;
+        gap: 4px;
+    }
+
+    .pagination .page-item {
+        display: inline-block;
+    }
+
+    .pagination .page-link {
+        display: block;
+        padding: 6px 12px;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        color: #007bff;
+        text-decoration: none;
+        background-color: #fff;
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #007bff;
+        color: #fff;
+        border-color: #007bff;
+    }
+
+    .pagination .page-item.disabled .page-link {
+        color: #6c757d;
+        pointer-events: none;
+        background-color: #f8f9fa;
+    }
+</style>
+
+
 @section('content')
+
     <div class="row">
         <div class="col-12">
             <x-adminlte-card theme="lightblue" theme-mode="outline" title="List Program Camp">
@@ -24,7 +121,8 @@
                     </div>
                 </div>
 
-                <div class="table-responsive">
+                <div class="table-responsive" style="max-height: 400px; overflow: auto;">
+
                     <table class="table table-hover table-bordered table-striped" id="programTable">
                         <thead class="bg-lightblue text-center">
     <tr>
@@ -50,10 +148,11 @@
 <tbody>
     @forelse($programs as $index => $program)
     <tr class="text-center">
-        <td>{{ $index + 1 }}</td>
+        <td>{{ ($programs->currentPage() - 1) * $programs->perPage() + $index + 1 }}</td>
+
         <td>
-            @if($program->thumbnail && file_exists(public_path('asset/upload/camp/' . $program->thumbnail)))
-                <img src="{{ asset('asset/upload/camp/' . $program->thumbnail) }}" alt="Thumbnail" style="width: 80px; height: 60px; object-fit: cover;">
+            @if($program->thumbnail && file_exists(public_path('upload/camp/' . $program->thumbnail)))
+                <img src="{{ asset('upload/camp/' . $program->thumbnail) }}" alt="Thumbnail" style="width: 80px; height: 60px; object-fit: cover;">
             @else
                 <span class="text-muted">-</span>
             @endif
@@ -72,36 +171,36 @@
         <td>Rp {{ number_format($program->harga_enam_bulan, 0, ',', '.') }}</td>
         <td>Rp {{ number_format($program->harga_satu_tahun, 0, ',', '.') }}</td>
         <td class="text-left">{!! nl2br(e($program->fasilitas)) !!}</td>
-        <td>
-            <div class="d-flex justify-content-center align-items-center">
-                <button class="btn btn-warning btn-sm mr-1 btn-edit-program"
-    data-id="{{ $program->id }}"
-    data-nama="{{ $program->nama }}"
-    data-slug="{{ $program->slug }}"
-    data-kategori="{{ $program->kategori }}"
-    data-stok="{{ $program->stok }}"
-    data-harga_perhari="{{ $program->harga_perhari }}"
-    data-harga_satu_minggu="{{ $program->harga_satu_minggu }}"
-    data-harga_dua_minggu="{{ $program->harga_dua_minggu }}"
-    data-harga_tiga_minggu="{{ $program->harga_tiga_minggu }}"
-    data-harga_satu_bulan="{{ $program->harga_satu_bulan }}"
-    data-harga_dua_bulan="{{ $program->harga_dua_bulan }}"
-    data-harga_tiga_bulan="{{ $program->harga_tiga_bulan }}"
-    data-harga_enam_bulan="{{ $program->harga_enam_bulan }}"
-    data-harga_satu_tahun="{{ $program->harga_satu_tahun }}"
-    data-fasilitas="{{ $program->fasilitas }}">
+        <td class="text-center">
+    <button class="btn btn-warning btn-sm mr-1 btn-edit-program"
+        data-id="{{ $program->id }}"
+        data-nama="{{ $program->nama }}"
+        data-slug="{{ $program->slug }}"
+        data-kategori="{{ $program->kategori }}"
+        data-stok="{{ $program->stok }}"
+        data-harga_perhari="{{ $program->harga_perhari }}"
+        data-harga_satu_minggu="{{ $program->harga_satu_minggu }}"
+        data-harga_dua_minggu="{{ $program->harga_dua_minggu }}"
+        data-harga_tiga_minggu="{{ $program->harga_tiga_minggu }}"
+        data-harga_satu_bulan="{{ $program->harga_satu_bulan }}"
+        data-harga_dua_bulan="{{ $program->harga_dua_bulan }}"
+        data-harga_tiga_bulan="{{ $program->harga_tiga_bulan }}"
+        data-harga_enam_bulan="{{ $program->harga_enam_bulan }}"
+        data-harga_satu_tahun="{{ $program->harga_satu_tahun }}"
+        data-fasilitas="{{ $program->fasilitas }}">
+        <i class="fas fa-edit"></i>
+    </button>
 
-                    <i class="fas fa-edit"></i>
-                </button>
-                <form action="{{ route('admin.programs.camp.destroy', $program->id) }}" method="POST" onsubmit="confirmDelete(event)">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </form>
-            </div>
-        </td>
+    <form action="{{ route('admin.programs.camp.destroy', $program->id) }}" method="POST" onsubmit="confirmDelete(event)" style="display:inline;">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger btn-sm">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </form>
+</td>
+
+
     </tr>
     @empty
     <tr>
@@ -111,8 +210,33 @@
 </tbody>
 
                     </table>
+
                 </div>
             </x-adminlte-card>
+            @if ($programs->total() > $programs->perPage())
+    {{-- tampilkan pagination --}}
+<div class="d-flex justify-content-center mt-3">
+    <ul class="pagination">
+        {{-- Tombol Sebelumnya --}}
+        <li class="page-item {{ $programs->onFirstPage() ? 'disabled' : '' }}">
+            <a class="page-link" href="{{ $programs->onFirstPage() ? '#' : $programs->previousPageUrl() }}">«</a>
+        </li>
+
+        {{-- Nomor Halaman --}}
+        @foreach ($programs->getUrlRange(1, $programs->lastPage()) as $page => $url)
+            <li class="page-item {{ $programs->currentPage() == $page ? 'active' : '' }}">
+                <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+            </li>
+        @endforeach
+
+        {{-- Tombol Berikutnya --}}
+        <li class="page-item {{ !$programs->hasMorePages() ? 'disabled' : '' }}">
+            <a class="page-link" href="{{ $programs->hasMorePages() ? $programs->nextPageUrl() : '#' }}">»</a>
+        </li>
+    </ul>
+</div>
+@endif
+
         </div>
     </div>
 
@@ -149,11 +273,24 @@
         <div class="col-md-12">
             <x-adminlte-textarea name="fasilitas" label="Fasilitas" rows=4 placeholder="Contoh: Makan 3x, WiFi, Modul,..." />
         </div>
-        <div class="col-md-12">
-            <x-adminlte-input-file name="thumbnail" label="Thumbnail Program (gambar)" />
-        </div>
+       <div class="form-group col-md-12">
+    <label for="thumbnailCreate">Thumbnail Program (gambar)</label>
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" id="thumbnailCreate" name="thumbnail" required>
+        <label id="labelCreate" class="custom-file-label" for="thumbnailCreate">Pilih file</label>
+
     </div>
-    <div class="d-flex justify-content-end mt-3 w-100">
+    <small class="form-text text-muted">Format: JPG, PNG. Maksimal 2MB</small>
+    <div class="mt-2 preview-container">
+    <img id="preview-create" src="" alt="Preview Thumbnail" style="display: none;">
+</div>
+
+</div>
+
+</div>
+
+    </div>
+    <div class="d-flex justify-content-end mt-3 px-3 pb-3">
         <button type="button" class="btn btn-secondary btn-sm mr-2" data-dismiss="modal">Tutup</button>
         <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
     </div>
@@ -196,11 +333,24 @@
         <div class="col-md-12">
             <x-adminlte-textarea name="fasilitas" label="Fasilitas" id="editFasilitas" rows=4 />
         </div>
-        <div class="col-md-12">
-            <x-adminlte-input-file name="thumbnail" label="Thumbnail (biarkan kosong jika tidak diganti)" />
-        </div>
+        <div class="form-group col-md-12">
+    <label for="thumbnailEdit">Thumbnail (biarkan kosong jika tidak diganti)</label>
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" id="thumbnailEdit" name="thumbnail">
+        <label id="labelEdit" class="custom-file-label" for="thumbnailEdit">Pilih file</label>
+
     </div>
-    <div class="d-flex justify-content-end mt-3 w-100">
+    <small class="form-text text-muted">Format: JPG, PNG. Maksimal 2MB</small>
+    <div class="mt-2 preview-container">
+    <img id="preview-edit" src="" alt="Preview Thumbnail" style="display: none;">
+</div>
+
+</div>
+
+</div>
+
+    </div>
+    <div class="d-flex justify-content-end mt-3 px-3 pb-3">
         <button type="button" class="btn btn-secondary btn-sm mr-2" data-dismiss="modal">Tutup</button>
         <button type="submit" class="btn btn-primary btn-sm">Simpan Perubahan</button>
     </div>
@@ -215,6 +365,7 @@
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+
     function confirmDelete(event) {
     event.preventDefault();
     const form = event.target.closest('form');
@@ -291,4 +442,71 @@
     Swal.fire(@json(session('alert')));
 </script>
 @endif
+
+<script>
+    function showThumbnailPreview(inputId, previewId, labelId) {
+    const input = document.getElementById(inputId);
+    const file = input.files[0];
+    const preview = document.getElementById(previewId);
+    const label = document.getElementById(labelId);
+
+    if (file) {
+        if (file.size > 2 * 1024 * 1024) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Ukuran file terlalu besar',
+                text: 'Ukuran gambar tidak boleh melebihi 2MB.',
+            });
+            input.value = '';
+            preview.src = '';
+            preview.style.display = 'none';
+            label.textContent = 'Pilih file';
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const img = new Image();
+            img.onload = function () {
+                if (img.width > 2000 || img.height > 2000) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Dimensi gambar terlalu besar',
+                        text: 'Maksimal lebar 1000px dan tinggi 800px.',
+                    });
+                    input.value = '';
+                    preview.src = '';
+                    preview.style.display = 'none';
+                    label.textContent = 'Pilih file';
+                    return;
+                }
+
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            img.src = e.target.result;
+
+            label.textContent = file.name;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = '';
+        preview.style.display = 'none';
+        label.textContent = 'Pilih file';
+    }
+
+        
+    }
+
+    document.getElementById('thumbnailCreate').addEventListener('change', function () {
+        showThumbnailPreview('thumbnailCreate', 'preview-create', 'labelCreate');
+    });
+
+    document.getElementById('thumbnailEdit').addEventListener('change', function () {
+        showThumbnailPreview('thumbnailEdit', 'preview-edit', 'labelEdit');
+    });
+
+    
+</script>
+
 @endsection
