@@ -202,18 +202,18 @@
                     </div>
                 @endforeach
 
-            </section>
+    </section>
 
-            <div class="wave-divider4">
-                <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-                    <path class="shape-fill4"
-                        d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-                    </path>
-                </svg>
-            </div>
+    <div class="wave-divider4">
+        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path class="shape-fill4"
+                d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+            </path>
+        </svg>
+    </div>
 
 
-                {{--
+    {{--
    <!-- Section 1: Judul + Subtitle + Tabs -->
 <section class="program-section" id="program">
     <div class="container">
@@ -340,22 +340,63 @@
         });
     </script>
 
-   <section id="galeri" class="gallery">
-    <h2 class="section-title">GALLERY</h2>
+    <section id="galeri" class="gallery">
+        <h2 class="section-title">GALLERY</h2>
 
-    <div class="gallery-wrapper" id="galleryWrapper">
-        <div class="gallery-container" id="galleryContainer">
-            @foreach($galeris as $galeri)
-                <div class="gallery-item text-center">
-                    <h5 style="margin-bottom: 8px;">{{ $galeri->title }}</h5>
-                    <img src="{{ asset('storage/' . $galeri->image_path) }}"
-                         alt="{{ $galeri->title }}"
-                         onclick="openLightbox(this)">
-                </div>
+        <div class="gallery-grid">
+            @foreach ($galleries as $gallery)
+                @if ($gallery->images->isNotEmpty())
+                    <!-- Thumbnail frame -->
+                    <div class="gallery-frame text-center">
+                        <img src="{{ asset('storage/' . $gallery->images->first()->image_path) }}"
+                            alt="{{ $gallery->title }}" class="gallery-thumbnail"
+                            onclick="openGalleryModal({{ $gallery->id }})">
+                    </div>
+
+                    <!-- Modal for this gallery -->
+                    <div id="modal-{{ $gallery->id }}" class="gallery-modal">
+                        <div class="modal-content">
+                            <span class="close-btn" onclick="closeGalleryModal({{ $gallery->id }})">&times;</span>
+                            <h3>{{ $gallery->title }}</h3>
+                            <div class="modal-slider-wrapper">
+                                <button class="nav-btn left"
+                                    onclick="slideGallery({{ $gallery->id }}, -1)">&#8592;</button>
+                                <div class="modal-slider" id="slider-{{ $gallery->id }}">
+                                    @foreach ($gallery->images as $image)
+                                        <img src="{{ asset('storage/' . $image->image_path) }}" alt="Image">
+                                    @endforeach
+                                </div>
+                                <button class="nav-btn right"
+                                    onclick="slideGallery({{ $gallery->id }}, 1)">&#8594;</button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             @endforeach
         </div>
-    </div>
-</section>
+    </section>
+    <script>
+        function openGalleryModal(id) {
+            document.getElementById('modal-' + id).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeGalleryModal(id) {
+            document.getElementById('modal-' + id).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Geser slider ke kiri atau kanan
+        function slideGallery(id, direction) {
+            const slider = document.getElementById('slider-' + id);
+            const scrollAmount = 300; // px
+            slider.scrollBy({
+                left: scrollAmount * direction,
+                behavior: 'smooth'
+            });
+        }
+        </script>
+
 
 
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">

@@ -1197,7 +1197,7 @@ body {
 
 /* 2. HANYA tampilkan yang memiliki kelas 'active' */
 .program-detail.active {
-    display: grid; 
+    display: grid;
 }
 /* Tata letak terbalik untuk program dengan ID genap */
 .program-detail.layout-reversed .content-text {
@@ -1223,6 +1223,86 @@ body {
 .content-image img { width: 100%; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
 .content-image {
     margin-top: 2.5rem; /* Anda bisa sesuaikan angka ini */
+}
+
+//gallery
+.gallery-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.gallery-thumbnail {
+    max-height: 180px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.gallery-thumbnail:hover {
+    transform: scale(1.05);
+}
+
+.gallery-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.gallery-modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    text-align: center;
+}
+
+.modal-slider-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.modal-slider {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    scroll-behavior: smooth;
+    max-width: 90%;
+    padding: 10px 0;
+}
+
+.modal-slider img {
+    max-height: 300px;
+    border-radius: 8px;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #333;
+}
+
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #000;
 }
 
 

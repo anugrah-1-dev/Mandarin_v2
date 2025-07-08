@@ -8,13 +8,14 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\TransportsController;
 use App\Http\Controllers\Admin\ProgramController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Admin\Customer_Service_Controller;
 use App\Http\Controllers\Admin\ProgramCampController;
 use App\Http\Controllers\Admin\ProgramOfflineController;
 use App\Http\Controllers\Admin\ProgramOnlineController;
 use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\Admin\GalleryController;
 
 
 /*
@@ -27,12 +28,12 @@ Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 
 //Landing page
 Auth::routes();
-Route::get('/Dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// Route::get('/Dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')  ->name('admin.') ->group(function () {
 
     //dashboard admin
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     //roles
     Route::resource('roles', RoleController::class);
     //permissions
@@ -61,7 +62,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')  ->name('admin.') ->g
 
     //program online
     Route::resource('programs/online', ProgramOnlineController::class);
-    Route::resource('galeri', GaleriController::class);
+
+    // gallery
+    Route::resource('galleries', GalleryController::class);
+    Route::delete('galleries/images/{id}', [GalleryController::class, 'destroyImage'])->name('galleries.images.destroy');
+
 
     //program camp
     Route::resource('programs/camp', ProgramCampController::class)->names('programs.camp');

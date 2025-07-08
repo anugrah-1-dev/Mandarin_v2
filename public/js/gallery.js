@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Buffer (speed * 2) memastikan kondisi lompat tetap terpenuhi
         if (scrollLeft >= totalWidth - visibleWidth - (speed * 2)) {
             wrapper.scrollLeft -= halfWidth;
-        } 
+        }
         else if (scrollLeft <= 0) {
             wrapper.scrollLeft += halfWidth;
         }
@@ -98,3 +98,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
     startAutoScroll();
 });
+
+

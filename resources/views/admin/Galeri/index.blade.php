@@ -3,7 +3,12 @@
 @section('title', 'Galeri')
 
 @section('content_header')
+<div class="d-flex justify-content-between align-items-center">
     <h1>Daftar Galeri</h1>
+    <a href="{{ route('admin.galeri.create') }}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Tambah Galeri
+    </a>
+</div>
 @stop
 
 @section('content')
@@ -14,10 +19,10 @@
     @endif
 
     <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
+        {{-- <div class="card-header d-flex justify-content-between align-items-center">
             <h3 class="card-title">List Galeri</h3>
             <a href="{{ route('admin.galeri.create') }}" class="btn btn-primary">+ Tambah Galeri</a>
-        </div>
+        </div> --}}
         <div class="card-body">
             <form method="GET">
                 <div class="input-group mb-3">
