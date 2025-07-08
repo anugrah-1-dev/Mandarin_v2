@@ -20,6 +20,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('galleries')
                 ->onDelete('restrict');
+
         });
 
         // Salin data dari tabel lama
