@@ -6,67 +6,56 @@ use App\Http\Controllers\Controller;
 use App\Models\ProgramCamp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File; // Gunakan File facade untuk operasi file
 
 class ProgramCampController extends Controller
 {
-  public function index(Request $request)
-{
-    $query = ProgramCamp::query();
+    // =======================================================
+    // METHOD UNTUK CRUD ADMIN
+    // =======================================================
 
-    // Cek apakah ada parameter pencarian dari input
-    if ($request->filled('search')) {
-        $search = $request->search;
-        $query->where('nama', 'like', '%' . $search . '%');
+    public function index(Request $request)
+    {
+        $query = ProgramCamp::query();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where('nama', 'like', '%' . $search . '%');
+        }
+
+        // Menggunakan appends() agar parameter pencarian tetap ada saat paginasi
+        $programs = $query->latest()->paginate(10);
+        $programs->appends($request->all());
+
+        return view('admin.programs.camp.index', compact('programs'));
     }
-
-    // Gunakan withQueryString() agar parameter pencarian tetap terbawa saat pindah halaman
-    $programs = $query->latest()->paginate(10);
-    $programs->appends(request()->except('page'));
-
-
-    return view('admin.programs.camp.index', compact('programs'));
-}
-
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255',
-            'kategori' => 'nullable|string|max:255',
-            'stok' => 'nullable|integer',
-            'harga_perhari' => 'nullable|integer',
-            'harga_satu_minggu' => 'nullable|integer',
-            'harga_dua_minggu' => 'nullable|integer',
-            'harga_tiga_minggu' => 'nullable|integer',
-            'harga_satu_bulan' => 'nullable|integer',
-            'harga_dua_bulan' => 'nullable|integer',
-            'harga_tiga_bulan' => 'nullable|integer',
-            'harga_enam_bulan' => 'nullable|integer',
-            'harga_satu_tahun' => 'nullable|integer',
-            'fasilitas' => 'nullable|string',
             'thumbnail' => 'nullable|image|max:2048',
+            // Tambahkan validasi lain jika perlu
         ]);
+        
+        // Mengambil semua data dari request
+        $data = $request->all();
 
-        // Slug otomatis jika tidak diisi
-        if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['nama']);
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['nama']);
         }
 
-        // Upload thumbnail jika ada
         if ($request->hasFile('thumbnail')) {
             $file = $request->file('thumbnail');
-            $filename = time() . '_' . $file->getClientOriginalName();
+            $filename = Str::slug($data['nama']) . '-' . time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('upload/camp'), $filename);
-            $validated['thumbnail'] = $filename;
+            $data['thumbnail'] = $filename;
         }
 
-        ProgramCamp::create($validated);
+        ProgramCamp::create($data);
 
         return redirect()->back()->with('alert', [
-            'title' => 'Berhasil!',
-            'text' => 'Program berhasil ditambahkan.',
-            'icon' => 'success',
+            'title' => 'Berhasil!', 'text' => 'Program berhasil ditambahkan.', 'icon' => 'success',
         ]);
     }
 
@@ -76,47 +65,32 @@ class ProgramCampController extends Controller
 
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255',
-            'kategori' => 'nullable|string|max:255',
-            'stok' => 'nullable|integer',
-            'harga_perhari' => 'nullable|integer',
-            'harga_satu_minggu' => 'nullable|integer',
-            'harga_dua_minggu' => 'nullable|integer',
-            'harga_tiga_minggu' => 'nullable|integer',
-            'harga_satu_bulan' => 'nullable|integer',
-            'harga_dua_bulan' => 'nullable|integer',
-            'harga_tiga_bulan' => 'nullable|integer',
-            'harga_enam_bulan' => 'nullable|integer',
-            'harga_satu_tahun' => 'nullable|integer',
-            'fasilitas' => 'nullable|string',
             'thumbnail' => 'nullable|image|max:2048',
+            // Tambahkan validasi lain jika perlu
         ]);
+        
+        $data = $request->except(['_token', '_method']);
 
-        // Slug otomatis jika tidak diisi
-        if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['nama']);
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['nama']);
         }
 
-        // Hapus thumbnail lama jika ada dan upload yang baru
         if ($request->hasFile('thumbnail')) {
-            // Hapus file lama
-            if ($program->thumbnail && file_exists(public_path('asset/upload/camp/' . $program->thumbnail))) {
-                unlink(public_path('asset/upload/camp/' . $program->thumbnail));
+            // Hapus file lama jika ada
+            if ($program->thumbnail && File::exists(public_path('upload/camp/' . $program->thumbnail))) {
+                File::delete(public_path('upload/camp/' . $program->thumbnail));
             }
 
-            // Simpan file baru
             $file = $request->file('thumbnail');
-            $filename = time() . '_' . $file->getClientOriginalName();
+            $filename = Str::slug($request->nama) . '-' . time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('upload/camp'), $filename);
-            $validated['thumbnail'] = $filename;
+            $data['thumbnail'] = $filename;
         }
 
-        $program->update($validated);
+        $program->update($data);
 
         return redirect()->back()->with('alert', [
-            'title' => 'Berhasil!',
-            'text' => 'Program berhasil diperbarui.',
-            'icon' => 'success',
+            'title' => 'Berhasil!', 'text' => 'Program berhasil diperbarui.', 'icon' => 'success',
         ]);
     }
 
@@ -125,16 +99,42 @@ class ProgramCampController extends Controller
         $program = ProgramCamp::findOrFail($id);
 
         // Hapus thumbnail dari folder jika ada
-        if ($program->thumbnail && file_exists(public_path('upload/camp' . $program->thumbnail))) {
-            unlink(public_path('upload/camp' . $program->thumbnail));
+        if ($program->thumbnail && File::exists(public_path('upload/camp/' . $program->thumbnail))) {
+            File::delete(public_path('upload/camp/' . $program->thumbnail));
         }
 
-        $program->forceDelete();
+        $program->delete();
 
         return redirect()->back()->with('alert', [
-            'title' => 'Berhasil!',
-            'text' => 'Program berhasil dihapus.',
-            'icon' => 'success',
+            'title' => 'Berhasil!', 'text' => 'Program berhasil dihapus.', 'icon' => 'success',
         ]);
     }
+    
+    // =======================================================
+    // METHOD UNTUK TAMPILAN PUBLIK
+    // =======================================================
+
+    /**
+     * Menampilkan halaman daftar semua camp untuk publik.
+     */
+    public function publicIndex()
+    {
+        $camps = ProgramCamp::latest()->paginate(9);
+        // Pastikan Anda memiliki view 'camp.index'
+        return view('camp.index', compact('camps'));
+    }
+
+    /**
+     * Menampilkan detail satu camp untuk publik.
+     */
+    public function publicShow(ProgramCamp $camp)
+    {
+        $facilities = !empty($camp->fasilitas) ? explode("\n", $camp->fasilitas) : [];
+    
+        return view('detail', [
+            'program' => $camp,
+            'facilities' => $facilities
+        ]);
+    }
+    
 }

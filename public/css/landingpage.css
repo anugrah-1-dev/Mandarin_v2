@@ -429,6 +429,8 @@ footer {
     text-align: center;
     padding: 2rem;
     font-size: 0.9rem;
+    background-color: #2c3e50;
+    color: #bdc3c7;
     color: var(--text-muted);
 }
 
@@ -638,7 +640,7 @@ body {
     font-weight: 800;
 
     /* --- Efek Warna Gradient Disalin ke sini --- */
-    background: linear-gradient(45deg, #f39c12, #ffffff, #002D62);
+    background: linear-gradient(45deg, #f39c12, #ffffff, #002d62);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -937,7 +939,6 @@ body {
 }
 /* 1. Sembunyikan SEMUA detail program secara default */
 .program-detail {
-
     display: none;
     grid-template-columns: 1.2fr 1fr;
     gap: 50px;
@@ -945,7 +946,6 @@ body {
     text-align: left;
     padding: 60px 0; /* ⬅️ Tambahkan ruang atas & bawah */
 }
-
 
 /* 2. Tampilkan hanya yang active */
 .program-detail.active {
@@ -958,48 +958,6 @@ body {
 }
 .program-detail.layout-reversed .content-image {
     order: 1;
-}
-
-/* STRUKTUR KONTEN PROGRAM */
-.content-text h2 {
-    font-size: 2.5rem;
-    color: #e0f7fa;
-}
-
-.content-text h3 {
-    font-size: 2rem;
-    color: #e0f7fa;
-}
-
-.content-text .description {
-    font-size: 1rem;
-    line-height: 1.7;
-    color: #f0f0f0;
-}
-
-.benefits-title {
-    font-size: 1.1rem;
-    margin-bottom: 0.8rem;
-    color: #f0f0f0;
-}
-
-.benefits-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.benefits-list li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-    color: #f0f0f0;
-}
-
-.benefits-list li .fa-check-circle {
-    color: #28a745;
-    font-size: 1.2rem;
 }
 
 /* Tombol */
@@ -1208,24 +1166,68 @@ body {
     order: 1; /* Pindahkan kolom gambar ke posisi pertama */
 }
 /* STRUKTUR KONTEN PROGRAM YANG BARU */
-.content-text h2 { font-size: 2.5rem; }
-.content-text h3 { font-size: 2rem; }
-.content-text .description { font-size: 1rem; line-height: 1.7; }
-.benefits-title { font-size: 1.1rem; margin-bottom: 0.8rem; }
-.benefits-list { list-style: none; padding: 0; margin: 0; }
-.benefits-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-.benefits-list li .fa-check-circle { color: #28a745; font-size: 1.2rem; }
-.action-buttons { display: flex; gap: 15px; }
-.action-buttons .btn { padding: 12px 25px; font-size: 1rem; font-weight: 600; text-decoration: none; border-radius: 8px; transition: all 0.3s ease; }
-.action-buttons .btn-primary { background-color: #f39c12; color: #fff; }
-.action-buttons .btn-secondary { background-color: #fff; color: #f39c12; border: 2px solid #f39c12; }
-.action-buttons .btn:hover { transform: translateY(-2px); }
-.content-image img { width: 100%; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+.content-text h2 {
+    font-size: 2.5rem;
+}
+.content-text h3 {
+    font-size: 2rem;
+}
+.content-text .description {
+    font-size: 1rem;
+    line-height: 1.7;
+}
+.benefits-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+}
+.benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.benefits-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.benefits-list li .fa-check-circle {
+    color: #28a745;
+    font-size: 1.2rem;
+}
+.action-buttons {
+    display: flex;
+    gap: 15px;
+}
+.action-buttons .btn {
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.action-buttons .btn-primary {
+    background-color: #f39c12;
+    color: #fff;
+}
+.action-buttons .btn-secondary {
+    background-color: #fff;
+    color: #f39c12;
+    border: 2px solid #f39c12;
+}
+.action-buttons .btn:hover {
+    transform: translateY(-2px);
+}
+.content-image img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
 .content-image {
     margin-top: 2.5rem; /* Anda bisa sesuaikan angka ini */
 }
 
-//gallery
 .gallery-grid {
     display: flex;
     gap: 20px;
@@ -1247,7 +1249,7 @@ body {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0, 0, 0, 0.8);
     z-index: 9999;
     justify-content: center;
     align-items: center;
@@ -1304,5 +1306,3 @@ body {
     cursor: pointer;
     color: #000;
 }
-
-

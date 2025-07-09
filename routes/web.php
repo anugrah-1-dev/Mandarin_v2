@@ -23,6 +23,11 @@ use App\Http\Controllers\Admin\GalleryController;
 | Web Routes
 |--------------------------------------------------------------------------
 */
+Route::get('/camps', [ProgramCampController::class, 'publicIndex'])->name('camps.index');
+
+// Route untuk menampilkan halaman detail satu camp (INI PERBAIKANNYA)
+Route::get('/camps/{camp:slug}', [ProgramCampController::class, 'publicShow'])->name('camps.show');
+
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 
@@ -70,4 +75,5 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')  ->name('admin.') ->g
 
     //program camp
     Route::resource('programs/camp', ProgramCampController::class)->names('programs.camp');
+    Route::get('/camps/{camp:slug}', [ProgramCampController::class, 'publicShow'])->name('camps.show');
 });
