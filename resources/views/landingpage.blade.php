@@ -390,38 +390,52 @@
     <section id="galeri" class="gallery">
         <h2 class="section-title">GALLERY</h2>
 
-        <div class="gallery-grid">
-            @foreach ($galleries as $gallery)
-                @if ($gallery->images->isNotEmpty())
-                    <!-- Thumbnail frame -->
-                    <div class="gallery-frame text-center">
-                        <img src="{{ asset('storage/' . $gallery->images->first()->image_path) }}"
-                            alt="{{ $gallery->title }}" class="gallery-thumbnail"
-                            onclick="openGalleryModal({{ $gallery->id }})">
-                    </div>
+    <div class="gallery-slider-wrapper">
+        <button class="gallery-nav left" onclick="slideGalleryGrid(-1)">
+    <i class="fas fa-chevron-left"></i>
+</button>
 
-                    <!-- Modal for this gallery -->
-                    <div id="modal-{{ $gallery->id }}" class="gallery-modal">
-                        <div class="modal-content">
-                            <span class="close-btn" onclick="closeGalleryModal({{ $gallery->id }})">&times;</span>
-                            <h3>{{ $gallery->title }}</h3>
-                            <div class="modal-slider-wrapper">
-                                <button class="nav-btn left"
-                                    onclick="slideGallery({{ $gallery->id }}, -1)">&#8592;</button>
-                                <div class="modal-slider" id="slider-{{ $gallery->id }}">
-                                    @foreach ($gallery->images as $image)
-                                        <img src="{{ asset('storage/' . $image->image_path) }}" alt="Image">
-                                    @endforeach
+        <div class="gallery-scroll-outer">
+            <div class="gallery-scroll-inner" id="gallerySlider">
+                @php $index = 0; @endphp
+                @foreach ($galleries as $gallery)
+                    @if ($gallery->images->isNotEmpty())
+                        <div class="gallery-frame text-center" data-index="{{ $index }}">
+                            <img src="{{ asset('storage/' . $gallery->images->first()->image_path) }}"
+                                alt="{{ $gallery->title }}" class="gallery-thumbnail"
+                                onclick="openGalleryModal({{ $gallery->id }})">
+                        </div>
+
+                        <!-- Modal -->
+                        <div id="modal-{{ $gallery->id }}" class="gallery-modal">
+                            <div class="modal-content">
+                                <span class="close-btn" onclick="closeGalleryModal({{ $gallery->id }})">&times;</span>
+                                <h3>{{ $gallery->title }}</h3>
+                                <div class="modal-slider-wrapper">
+                                    <button class="nav-btn left" onclick="slideGallery({{ $gallery->id }}, -1)">&#8592;</button>
+                                    <div class="modal-slider" id="slider-{{ $gallery->id }}">
+                                        @foreach ($gallery->images as $image)
+                                            <img src="{{ asset('storage/' . $image->image_path) }}" alt="Image">
+                                        @endforeach
+                                    </div>
+                                    <button class="nav-btn right" onclick="slideGallery({{ $gallery->id }}, 1)">&#8594;</button>
                                 </div>
-                                <button class="nav-btn right"
-                                    onclick="slideGallery({{ $gallery->id }}, 1)">&#8594;</button>
                             </div>
                         </div>
-                    </div>
-                @endif
-            @endforeach
+                        @php $index++; @endphp
+                    @endif
+                @endforeach
+            </div>
         </div>
-    </section>
+
+        <button class="gallery-nav right" onclick="slideGalleryGrid(1)">
+    <i class="fas fa-chevron-right"></i>
+</button>
+    </div>
+</section>
+
+
+
     <script>
         function openGalleryModal(id) {
             document.getElementById('modal-' + id).classList.add('active');
@@ -442,7 +456,7 @@
                 behavior: 'smooth'
             });
         }
-        </script>
+    </script>
 
 
 
