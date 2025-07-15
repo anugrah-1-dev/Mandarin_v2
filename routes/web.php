@@ -14,13 +14,13 @@ use App\Http\Controllers\Admin\Customer_Service_Controller;
 use App\Http\Controllers\Admin\ProgramCampController;
 use App\Http\Controllers\Admin\ProgramOfflineController;
 use App\Http\Controllers\Admin\ProgramOnlineController;
-use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\PendaftaranOnlineController;
 use App\Http\Controllers\Admin\PendaftaranOfflineController;
 use App\Http\Controllers\ProgramOfflinePublicController;
 use App\Http\Controllers\ProgramOnlinePublicController;
 use App\Http\Controllers\Admin\PeriodsController;
+use App\Http\Controllers\Admin\SosmedController;
 
 
 /*
@@ -110,4 +110,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')  ->name('admin.') ->g
 
     //periods
     Route::resource('periods', PeriodsController::class)->only(['index','store', 'update', 'destroy']);
+
+    //sosmed
+    Route::resource('sosmed', SosmedController::class);
 });

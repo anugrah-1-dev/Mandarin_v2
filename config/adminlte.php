@@ -411,6 +411,12 @@ return [
         ],
 
         [
+            'text' => 'Sosmed',
+            'url'  => '/admin/sosmed',
+            'icon' => 'fas fa-globe',
+        ],
+
+        [
             'text' => 'Bank',
             'url'  => '/admin/banks',
             'icon' => 'fas fa-university',

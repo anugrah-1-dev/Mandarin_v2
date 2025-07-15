@@ -8,24 +8,18 @@ use App\Models\User;
 use App\Models\ProgramOffline;
 use App\Models\ProgramOnline;
 use Illuminate\Support\Carbon;
+use App\Models\Pelatihan;
+use App\Models\Jadwal;
+use App\Models\Message;
+use App\Models\Sosmed; // ⬅️ Tambahkan ini
 
 class DashboardController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
 
@@ -50,7 +44,6 @@ class DashboardController extends Controller
             $monthlyProfit[$date->year][$date->month] += $item->harga;
         }
 
-
         // Buat data untuk grafik penjualan berdasarkan kuota
         $salesData = [
             'Online' => $online->count(), // Asumsi 1 kursus = 1 kuota
@@ -60,6 +53,16 @@ class DashboardController extends Controller
         $totalKursus = $online->count() + $offline->count();
         $totalKeuntungan = $online->sum('harga') + $offline->sum('harga');
         $totalMediaSosial = 20;
-        return view('admin.dashboard', compact('monthlyProfit', 'salesData','totalKursus', 'totalKeuntungan', 'totalMediaSosial'));
+
+        $sosmedList = Sosmed::latest()->take(12)->get();
+
+        return view('admin.dashboard', compact(
+            'monthlyProfit',
+            'salesData',
+            'totalKursus',
+            'totalKeuntungan',
+            'totalMediaSosial',
+            'sosmedList'
+        ));
     }
 }
