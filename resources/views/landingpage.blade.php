@@ -200,7 +200,7 @@
     
         <section class="program-section" id="program">
             <div class="container">
-                <div class="program-card">
+               
                     <div class="program-card-image-wrapper">
                 <div class="text-center mb-5">
                     <h2>PROGRAM</h2>
@@ -355,7 +355,7 @@
 
 <section class="camp-section"id="camp">
     <div class="container">
-        <div class="program-card">
+       
             <div class="program-card-image-wrapper">
         <div class="text-center mb-5">
             <h2 class="section-title-camp">CAMP BIEPLUS</h2>
@@ -412,10 +412,16 @@
                 @foreach ($galleries as $gallery)
                     @if ($gallery->images->isNotEmpty())
                         <div class="gallery-frame text-center" data-index="{{ $index }}">
-                            <img src="{{ asset('storage/' . $gallery->images->first()->image_path) }}"
-                                alt="{{ $gallery->title }}" class="gallery-thumbnail"
-                                onclick="openGalleryModal({{ $gallery->id }})">
-                        </div>
+    <img src="{{ asset('storage/' . $gallery->images->first()->image_path) }}"
+        alt="{{ $gallery->title }}" class="gallery-thumbnail"
+        onclick="openGalleryModal({{ $gallery->id }})">
+    
+    <div class="gallery-caption">
+        <h5>{{ $gallery->title }}</h5>
+        <p>{{ Str::limit($gallery->deskripsi ?? 'Galeri kegiatan Brilliant', 50) }}</p>
+    </div>
+</div>
+
 
                         <!-- Modal -->
                         <div id="modal-{{ $gallery->id }}" class="gallery-modal">
@@ -525,26 +531,19 @@
         © 2025 Brilliant English Course. Hak Cipta Dilindungi Oleh Undang-Undang
     </footer>
 
-    <div class="wa-sticky-wrapper" style="position: fixed; bottom: 24px; right: 24px; z-index: 999;">
-        <div class="wa-circle-row" style="display: flex; flex-direction: column; gap: 12px;">
-            <a href="https://wa.me/6281234567890" class="wa-circle tooltip" target="_blank"
-                style="background: #25d366; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: relative;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA"
-                    style="width: 32px; height: 32px;">
-                <span class="tooltip-text"
-                    style="visibility: hidden; background: #333; color: #fff; text-align: center; border-radius: 6px; padding: 6px 12px; position: absolute; right: 70px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.2s;">Contact
-                    Person 1</span>
-            </a>
-            <a href="https://wa.me/6289876543210" class="wa-circle tooltip" target="_blank"
-                style="background: #25d366; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: relative;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA"
-                    style="width: 32px; height: 32px;">
-                <span class="tooltip-text"
-                    style="visibility: hidden; background: #333; color: #fff; text-align: center; border-radius: 6px; padding: 6px 12px; position: absolute; right: 70px; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.2s;">Contact
-                    Person 2</span>
-            </a>
-        </div>
+   <div class="wa-sticky-wrapper">
+    <div class="wa-circle-row">
+        <a href="https://wa.me/6281234567890" class="wa-circle tooltip" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            <span class="tooltip-text">Contact Person 1</span>
+        </a>
+        <a href="https://wa.me/6289876543210" class="wa-circle tooltip" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            <span class="tooltip-text">Contact Person 2</span>
+        </a>
     </div>
+</div>
+
 
     <script>
         // Tooltip effect for WhatsApp buttons
@@ -560,8 +559,6 @@
                 tooltip.style.opacity = '0';
             });
         });
-
-        // Fungsi lightbox sekarang berada di file public/js/gallery.js
     </script>
 </body>
 
