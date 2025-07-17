@@ -3,12 +3,12 @@
 @section('title', 'Galeri')
 
 @section('content_header')
-    <div class="d-flex justify-content-between align-items-center">
-        <h1>Gallery</h1>
-        <a href="{{ route('admin.galleries.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Tambah Galerry
-        </a>
-    </div>
+<div class="d-flex justify-content-between align-items-center">
+    <h1>Gallery</h1>
+    <a href="{{ route('admin.galleries.create') }}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Tambah Galerry
+    </a>
+</div>
 @stop
 
 @section('content')
@@ -57,22 +57,28 @@
                                             @endif
                                         </td>
                                         <td class="text-center">
-                                            <div class="btn-group btn-group-sm" role="group">
-                                                <a href="{{ route('admin.galleries.show', $gallery->id) }}" class="btn btn-primary" title="Lihat">
+                                            <div class="d-flex justify-content-center flex-wrap gap-2">
+                                                <a href="{{ route('admin.galleries.show', $gallery->id) }}"
+                                                    class="btn btn-sm btn-primary mx-1" title="Lihat">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <a href="{{ route('admin.galleries.edit', $gallery->id) }}" class="btn btn-info" title="Edit">
+                                                <a href="{{ route('admin.galleries.edit', $gallery->id) }}"
+                                                    class="btn btn-sm btn-info mx-1" title="Edit">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form action="{{ route('admin.galleries.destroy', $gallery->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus galeri ini?')">
+                                                <form action="{{ route('admin.galleries.destroy', $gallery->id) }}"
+                                                    method="POST"
+                                                    onsubmit="return confirm('Yakin ingin menghapus galeri ini?')"
+                                                    class="mx-1">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-danger" title="Hapus">
+                                                    <button class="btn btn-sm btn-danger" title="Hapus">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </form>
                                             </div>
                                         </td>
+
                                     </tr>
                                 @empty
                                     <tr>
@@ -98,39 +104,41 @@
 @stop
 
 @section('css')
-    <style>
-        .table-hover tbody tr:hover {
-            background-color: rgba(0, 0, 0, 0.03);
-        }
-        .table-container {
-            max-height: 400px;
-            overflow-y: auto;
-            overflow-x: auto;
-        }
-        .table-container thead {
-            position: sticky;
-            top: 0;
-            z-index: 1;
-            background-color: #f8f9fa;
-        }
-    </style>
+<style>
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+    }
+
+    .table-container {
+        max-height: 400px;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
+
+    .table-container thead {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: #f8f9fa;
+    }
+</style>
 @stop
 
 @section('js')
-    <script>
-        $(document).ready(function () {
-            $('.btn-group .btn').hover(
-                function () {
-                    $(this).addClass('shadow-sm');
-                },
-                function () {
-                    $(this).removeClass('shadow-sm');
-                }
-            );
+<script>
+    $(document).ready(function () {
+        $('.btn-group .btn').hover(
+            function () {
+                $(this).addClass('shadow-sm');
+            },
+            function () {
+                $(this).removeClass('shadow-sm');
+            }
+        );
 
-            setTimeout(function () {
-                $('.alert').alert('close');
-            }, 5000);
-        });
-    </script>
+        setTimeout(function () {
+            $('.alert').alert('close');
+        }, 5000);
+    });
+</script>
 @stop

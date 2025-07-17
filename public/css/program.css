@@ -258,12 +258,12 @@
 }
 
 /* Grid untuk Kartu Camp */
-.camp-grid {
+/* .camp-grid {
     display: flex;
     grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-    gap: 1.5rem; /* Jarak antar kartu (bisa disesuaikan) */
-    justify-content: center; /* Memastikan grup kartu berada di tengah */
-}
+    gap: 1.5rem; 
+    justify-content: center;
+} */
 
 /* Styling Kartu Camp */
 /* GANTI .camp-card ANDA DENGAN INI */
@@ -278,14 +278,16 @@
 }
 /* Tambahkan CSS ini */
 .camp-section {
-    padding: 60px 0;
+    background-color: #f4f8fb;
+    padding: 80px 0; /* dari 60px */
 }
 
 .section-title-camp {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 15px;
+    font-size: 2.8rem; /* dari 2.2rem / 2.5rem */
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--accent); /* atau #333 kalau mau netral */
+    margin-bottom: 1rem;
 }
 
 .section-subtitle-camp {
@@ -363,7 +365,7 @@
 
 .btn-details {
     display: inline-block;
-    background-color: #0d6efd;
+    background-color: #198754;
     color: #fff;
     padding: 12px 25px;
     border-radius: 50px;
@@ -377,7 +379,7 @@
 }
 
 .btn-details:hover {
-    background-color: #083374;
+    background-color: #157347;
 }
 
 /* Responsive adjustments */
