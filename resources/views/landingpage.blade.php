@@ -155,52 +155,50 @@
         </svg>
     </div>
 
-    <section class="program-section" id="program">
-        <div class="container">
-            {{-- <h2>INFORMASI</h2>
-            <p class="section-subtitle">Temukan program yang paling sesuai dengan tujuan Anda dan mulailah perjalanan
-                Anda menjadi fasih berbahasa Inggris bersama kami.</p>
-             --}}
-            {{-- Wrapper ini akan kita buat bisa di-scroll --}}
-            {{-- <div class="program-content-wrapper"> --}}
-
-                {{-- Loop untuk menampilkan semua program yang aktif --}}
-                @foreach ($programs->where('status', 'aktif') as $index => $program)
-
-                    {{-- Logika untuk kelas 'active' dan ID dihapus agar semua tampil --}}
-                    <div class="program-detail @if ($index % 2 == 0) layout-left @else layout-right @endif">
-
-                        <div class="program-content-container">
-                            <div class="content-text content-structured">
-                                <h3>{{ $program->judul }}</h3>
-                                <p class="description">{{ $program->deskripsi }}</p>
-
-                                <div class="benefits-container">
-                                    <p class="benefits-title"><strong>Keunggulan Program:</strong></p>
-                                    <div class="benefits-grid">
-                                        @php
-                                            $benefits = array_slice(explode("\n", $program->keunggulan), 0, 5);
-                                        @endphp
-                                        @foreach ($benefits as $item)
-                                            @if (trim($item) != '')
-                                                <div class="benefit-item"><i class="fas fa-check-circle"></i>
-                                                    {{ trim($item) }}</div>
-                                            @endif
-                                        @endforeach
-                                    </div>
+    <div class="container">
+        {{-- Loop untuk menampilkan semua program yang aktif --}}
+        @foreach ($programs->where('status', 'aktif') as $index => $program)
+    
+            {{-- Logika untuk kelas 'active' dan ID dihapus agar semua tampil --}}
+            <div class="program-detail @if ($index % 2 == 0) layout-left @else layout-right @endif">
+    
+                <div class="program-content-container">
+    
+                    {{-- Kartu teks --}}
+                    <div class="card-info">
+                        <div class="content-text content-structured">
+                            <h3>{{ $program->judul }}</h3>
+                            <p class="description">{{ $program->deskripsi }}</p>
+    
+                            <div class="benefits-container">
+                                <p class="benefits-title"><strong>Keunggulan Program:</strong></p>
+                                <div class="benefits-grid">
+                                    @php
+                                        $benefits = explode("\n", $program->keunggulan);
+                                    @endphp
+                                    @foreach ($benefits as $item)
+                                        @if (trim($item) != '')
+                                            <div class="benefit-item"><i class="fas fa-check-circle"></i>
+                                                {{ trim($item) }}</div>
+                                        @endif
+                                    @endforeach
                                 </div>
-                            </div>
-
-                            <div class="content-image">
-                                <img src="{{ asset('uploads/programs/' . $program->gambar) }}"
-                                     alt="{{ $program->judul }}" onclick="openLightbox(this)">
                             </div>
                         </div>
                     </div>
-                @endforeach
+                    {{-- Gambar --}}
+                    <div class="content-image card-image">
+                        <img src="{{ asset('uploads/programs/' . $program->gambar) }}"
+                             alt="{{ $program->judul }}" onclick="openLightbox(this)">
+                    </div>
+                    
+    
+                </div>
             </div>
-        </div>
-
+        @endforeach
+    </div>
+    
+        <section class="program-section" id="program">
             <div class="container">
                 <div class="program-card">
                     <div class="program-card-image-wrapper">
@@ -221,7 +219,8 @@
                         <div class="program-item" data-filter="offline">
                             <div class="program-card">
                                 <div class="program-card-image-wrapper">
-                                    <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img" alt="{{ $program->nama }}">
+                          
+              <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img" alt="{{ $program->nama }}">
                                     @if ($program->is_active)
 
                                     @endif
@@ -354,7 +353,7 @@
         });
     </script>
 
-<section class="camp-section">
+<section class="camp-section"id="camp">
     <div class="container">
         <div class="program-card">
             <div class="program-card-image-wrapper">
