@@ -428,146 +428,145 @@
         </svg>
     </div>
 
-        <section id="galeri" class="gallery">
-            <h2 class="section-title">GALLERY</h2>
-            <p class="section-subtitle text-center mb-4">
-                Dokumentasi kegiatan dan momen-momen seru bersama Brilliant English Course
-            </p>
-            <div class="gallery-slider-wrapper">
-                <button class="gallery-nav left" onclick="slideGalleryGrid(-1)">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
+            <section id="galeri" class="gallery">
+                <h2 class="section-title">GALLERY</h2>
+                <p class="section-subtitle text-center mb-4">
+                    Dokumentasi kegiatan dan momen-momen seru bersama Brilliant English Course
+                </p>
+                <div class="gallery-slider-wrapper">
+                    <button class="gallery-nav left" onclick="slideGalleryGrid(-1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
 
-                <div class="gallery-scroll-outer">
-                    <div class="gallery-scroll-inner" id="gallerySlider">
-                        @php $index = 0; @endphp
-                        @foreach ($galleries as $gallery)
-                            @if ($gallery->images->isNotEmpty())
-                                <div class="gallery-frame text-center" data-index="{{ $index }}">
-                                    <img src="{{ asset('storage/' . $gallery->images->first()->image_path) }}"
-                                        alt="{{ $gallery->title }}" class="gallery-thumbnail"
-                                        onclick="openGalleryModal({{ $gallery->id }})">
+                    <div class="gallery-scroll-outer">
+                        <div class="gallery-scroll-inner" id="gallerySlider">
+                            @php $index = 0; @endphp
+                            @foreach ($galleries as $gallery)
+                                @if ($gallery->images->isNotEmpty())
+                                    <div class="gallery-frame text-center" data-index="{{ $index }}">
+                                        <img src="{{ asset('storage/' . $gallery->images->first()->image_path) }}"
+                                            alt="{{ $gallery->title }}" class="gallery-thumbnail"
+                                            onclick="openGalleryModal({{ $gallery->id }})">
 
-                                    <div class="gallery-caption">
-                                        <h5>{{ $gallery->title }}</h5>
-                                        <p>{{ Str::limit($gallery->deskripsi ?? 'Galeri kegiatan Brilliant', 50) }}</p>
-                                    </div>
-                                </div>
-
-
-                                <!-- Modal -->
-                                <div id="modal-{{ $gallery->id }}" class="gallery-modal">
-                                    <div class="modal-content">
-                                        <span class="close-btn" onclick="closeGalleryModal({{ $gallery->id }})">&times;</span>
-                                        <h3>{{ $gallery->title }}</h3>
-                                        <div class="modal-slider-wrapper">
-                                            <button class="nav-btn left"
-                                                onclick="slideGallery({{ $gallery->id }}, -1)">&#8592;</button>
-                                            <div class="modal-slider" id="slider-{{ $gallery->id }}">
-                                                @foreach ($gallery->images as $image)
-                                                    <img src="{{ asset('storage/' . $image->image_path) }}" alt="Image">
-                                                @endforeach
-                                            </div>
-                                            <button class="nav-btn right"
-                                                onclick="slideGallery({{ $gallery->id }}, 1)">&#8594;</button>
+                                        <div class="gallery-caption">
+                                            <h5>{{ $gallery->title }}</h5>
+                                            <p>{{ Str::limit($gallery->deskripsi ?? 'Galeri kegiatan Brilliant', 50) }}</p>
                                         </div>
                                     </div>
-                                </div>
-                                @php $index++; @endphp
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
 
-                <button class="gallery-nav right" onclick="slideGalleryGrid(1)">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
+
+                                    <!-- Modal -->
+                                    <div id="modal-{{ $gallery->id }}" class="gallery-modal">
+                                        <div class="modal-content">
+                                            <span class="close-btn" onclick="closeGalleryModal({{ $gallery->id }})">&times;</span>
+                                            <h3>{{ $gallery->title }}</h3>
+                                            <div class="modal-slider-wrapper">
+                                                <button class="nav-btn left"
+                                                    onclick="slideGallery({{ $gallery->id }}, -1)">&#8592;</button>
+                                                <div class="modal-slider" id="slider-{{ $gallery->id }}">
+                                                    @foreach ($gallery->images as $image)
+                                                        <img src="{{ asset('storage/' . $image->image_path) }}" alt="Image">
+                                                    @endforeach
+                                                </div>
+                                                <button class="nav-btn right"
+                                                    onclick="slideGallery({{ $gallery->id }}, 1)">&#8594;</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @php $index++; @endphp
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <button class="gallery-nav right" onclick="slideGalleryGrid(1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </section>
+
+
+        <script>
+            function openGalleryModal(id) {
+                document.getElementById('modal-' + id).classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeGalleryModal(id) {
+                document.getElementById('modal-' + id).classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+
+            // Geser slider ke kiri atau kanan
+            function slideGallery(id, direction) {
+                const slider = document.getElementById('slider-' + id);
+                const scrollAmount = 300; // px
+                slider.scrollBy({
+                    left: scrollAmount * direction,
+                    behavior: 'smooth'
+                });
+
+            }
+        </script>
+
+        <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+            <span class="lightbox-close" onclick="closeLightbox()">x</span>
+            <img class="lightbox-content" id="lightboxImg">
+        </div>
+
+        <div class="wave-divider6">
+            <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path class="shape-fill6"
+                    d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                </path>
+            </svg>
+        </div>
+        <link rel="stylesheet" href="{{ asset('css/sosmed.css') }}">
+
+
+
+        <section id="sosmed" class="sosmed-section">
+            <div class="container">
+                <h2 class="section-title">Sosial Media Kami</h2>
+
+                @if (!$hasSosmed)
+                    <p class="text-center">Belum ada data yang ditambahkan. Stay tuned!</p>
+                @else
+                    @foreach ($groupedSosmed as $platform => $items)
+                        @if (count($items) > 0)
+                            <div class="mb-5">
+                                <h4 class="section-subtitle fw-semibold mb-4">{{ $platform }}</h4>
+                                <div class="sosmed-grid">
+                                    @foreach ($items as $item)
+                                        <div class="sosmed-card" data-platform="{{ strtolower($platform) }}">
+                                            <div class="sosmed-card-image">
+                                                @if (strtolower($platform) === 'youtube')
+                                                    <div class="sosmed-card-video">
+                                                        <iframe
+                                                            width="100%"
+                                                            height="200"
+                                                            src="https://www.youtube.com/embed/{{ getYoutubeVideoId($item->url) }}"
+                                                            title="YouTube video player"
+                                                            frameborder="0"
+                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                            allowfullscreen>
+                                                        </iframe>
+                                                    </div>
+                                                @elseif (strtolower($platform) === 'instagram')
+                                                    <a href="{{ $item->url }}" target="_blank" rel="noopener noreferrer">
+                                                        <img src="{{ asset('storage/' . $item->image_path) }}" alt="Instagram Image">
+                                                    </a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                @endif
             </div>
         </section>
-
-
-    <script>
-        function openGalleryModal(id) {
-            document.getElementById('modal-' + id).classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeGalleryModal(id) {
-            document.getElementById('modal-' + id).classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Geser slider ke kiri atau kanan
-        function slideGallery(id, direction) {
-            const slider = document.getElementById('slider-' + id);
-            const scrollAmount = 300; // px
-            slider.scrollBy({
-                left: scrollAmount * direction,
-                behavior: 'smooth'
-            });
-        }
-    </script>
-
-    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-        <span class="lightbox-close" onclick="closeLightbox()">x</span>
-        <img class="lightbox-content" id="lightboxImg">
-    </div>
-
-    <div class="wave-divider6">
-        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-            <path class="shape-fill6"
-                d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-            </path>
-        </svg>
-    </div>
-
-    <link rel="stylesheet" href="{{ asset('css/sosmed.css') }}">
-
-    <section id="sosmed" class="sosmed-section">
-        <div class="container">
-            <h2 class="section-title">Sosial Media Kami</h2>
-            @php
-                // Cek apakah ada data sosmed di salah satu platform
-                $hasSosmed = collect($groupedSosmed)->flatten(1)->isNotEmpty();
-            @endphp
-            @if (!$hasSosmed)
-                <p class="text-center">Belum ada data yang ditambahkan. Stay tuned!</p>
-            @else
-                @foreach ($groupedSosmed as $platform => $items)
-                    @if (count($items) > 0)
-                        <div class="mb-5">
-                            <h4 class="section-subtitle fw-semibold mb-4">{{ $platform }}</h4>
-                            <div class="sosmed-grid">
-                                @foreach ($items as $item)
-                                    @php
-                                        if ($platform === 'YouTube') {
-                                            preg_match('/(?:youtu\.be\/|v=)([^&\/\?]+)/', $item->url, $matches);
-                                            $youtubeId = $matches[1] ?? null;
-                                            $thumb = $youtubeId ? "https://img.youtube.com/vi/$youtubeId/hqdefault.jpg" : null;
-                                        } else {
-                                            $thumb = $item->image_path ? asset('storage/' . $item->image_path) : null;
-                                        }
-                                    @endphp
-
-                                    <div class="sosmed-card">
-                                        @if ($thumb)
-                                            <div class="sosmed-card-image">
-                                                <img src="{{ $thumb }}" alt="{{ $item->nama }}">
-                                            </div>
-                                        @endif
-                                        <div class="sosmed-card-body">
-                                            <h5 class="sosmed-card-title">{{ $item->nama }}</h5>
-                                            <a href="{{ $item->url }}" class="sosmed-card-link" target="_blank">Lihat</a>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    @endif
-                @endforeach
-            @endif
-        </div>
-    </section>
 
 
 

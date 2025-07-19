@@ -555,7 +555,6 @@ html {
     text-decoration: underline;
 }
 
-
 /* GALLERY */
 /* 🔄 DIUBAH: Tambahkan background gelap agar teks putih terlihat */
 body {
@@ -606,33 +605,52 @@ body {
     justify-items: center; /* Center each item inside the grid cell */
 }
 
-.gallery-scroll-outer {
-    overflow-x: auto;
-    overflow-y: visible; /* biar gambar tidak terpotong saat zoom */
-    padding: 40px 0; /* menambah jarak atas dan bawah */
+.gallery .section-subtitle {
+    max-width: 800px;
+    margin: 0 auto 40px;
+    color: #e0f7fa;
+}
+
+/* Gallery Slider Container */
+.gallery-slider-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
     position: relative;
+}
+
+.gallery-scroll-outer {
+    flex: 1;
+    overflow: hidden;
 }
 
 .gallery-scroll-inner {
     display: flex;
-    transition: transform 0.4s ease-in-out;
-    gap: 16px; /* kasih jarak antar gambar */
-    padding: 0 12px;
-    box-sizing: border-box;
-    overflow: visible;
+    gap: 20px;
+    padding: 10px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* .gallery-scroll-container {
-    /* display: flex; */
-/* flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 24px;
     max-width: 1080px;
     margin: 0 auto;
     padding: 40px 20px;
 } */
+
+.gallery-scroll-inner::-webkit-scrollbar {
+    display: none;
+}
+
 */ .gallery-scroll-container::-webkit-scrollbar {
     height: 8px;
+
 }
 .gallery-scroll-container::-webkit-scrollbar-thumb {
     background: #999;
@@ -643,15 +661,12 @@ body {
 }
 
 .gallery-frame {
-    flex: 0 0 calc((100% - 32px) / 3); /* 3 item, 2 gap = 2 x 16px = 32px */
-    max-width: 33.3333%;
-    box-sizing: border-box;
+    flex: 0 0 280px;
     border-radius: 8px;
     overflow: hidden;
-    cursor: pointer;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    background-color: #ffffff;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
 }
 
 .gallery-frame img.gallery-thumbnail {
@@ -659,9 +674,8 @@ body {
     height: 200px;
     object-fit: cover;
 }
-
 .gallery-frame:hover {
-    transform: scale(1.03);
+    transform: translateY(-5px);
 }
 
 .gallery-frame img.gallery-thumbnail {
@@ -1358,6 +1372,7 @@ body {
     margin-top: 2.5rem; /* Anda bisa sesuaikan angka ini */
 }
 
+/* //gallery */
 .gallery-grid {
     display: flex;
     gap: 20px;
@@ -1381,13 +1396,15 @@ body {
 .gallery-modal {
     display: none;
     position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.8);
-    z-index: 9999;
-    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
     align-items: center;
+    justify-content: center;
 }
-
 .gallery-modal.active {
     display: flex;
 }
