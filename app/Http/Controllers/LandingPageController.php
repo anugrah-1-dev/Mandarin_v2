@@ -34,24 +34,39 @@ class LandingPageController extends Controller
             'Facebook'  => [],
             'TikTok'    => [],
         ];
-        $hasSosmed = collect($groupedSosmed)->flatten(1)->isNotEmpty();
+        // $hasSosmed = collect($groupedSosmed)->flatten(1)->isNotEmpty();
+
+        // foreach ($sosmed as $item) {
+        //     $url = strtolower($item->url); // lowercase untuk akurasi pencarian
+
+        //     if (str_contains($url, 'youtube.com') || str_contains($url, 'youtu.be')) {
+        //         $groupedSosmed['YouTube'][] = $item;
+        //     } elseif (str_contains($url, 'instagram.com')) {
+        //         $groupedSosmed['Instagram'][] = $item;
+        //     } elseif (str_contains($url, 'facebook.com')) {
+        //         $groupedSosmed['Facebook'][] = $item;
+        //     } elseif (str_contains($url, 'tiktok.com')) {
+        //         $groupedSosmed['TikTok'][] = $item;
+        //     }
+        // }
 
         foreach ($sosmed as $item) {
-            $url = strtolower($item->url); // lowercase untuk akurasi pencarian
+            $platform = $this->detectPlatformFromUrl($item->url);
 
-            if (str_contains($url, 'youtube.com') || str_contains($url, 'youtu.be')) {
-                $groupedSosmed['YouTube'][] = $item;
-            } elseif (str_contains($url, 'instagram.com')) {
-                $groupedSosmed['Instagram'][] = $item;
-            } elseif (str_contains($url, 'facebook.com')) {
-                $groupedSosmed['Facebook'][] = $item;
-            } elseif (str_contains($url, 'tiktok.com')) {
-                $groupedSosmed['TikTok'][] = $item;
+            if (array_key_exists($platform, $groupedSosmed)) {
+                // Tambahkan data tambahan berdasarkan platform
+                $enrichedItem = $this->enrichSocialMediaItem($item, $platform);
+                $groupedSosmed[$platform][] = $enrichedItem;
             }
         }
 
-      
         
+
+        $hasSosmed = collect($groupedSosmed)->flatten(1)->isNotEmpty();
+
+
+
+
         return view('landingpage', [
             'offlinePrograms' => $offlinePrograms,
             'onlinePrograms'  => $onlinePrograms,
@@ -64,6 +79,39 @@ class LandingPageController extends Controller
 
         ]);
     }
+
+    private function detectPlatformFromUrl($url)
+    {
+        $url = strtolower($url);
+
+        if (str_contains($url, 'youtube.com') || str_contains($url, 'youtu.be')) {
+            return 'YouTube';
+        } elseif (str_contains($url, 'instagram.com')) {
+            return 'Instagram';
+        } elseif (str_contains($url, 'facebook.com')) {
+            return 'Facebook';
+        } elseif (str_contains($url, 'tiktok.com')) {
+            return 'TikTok';
+        }
+        return 'Other';
+    }
+
+    private function enrichSocialMediaItem($item, $platform)
+    {
+        if ($platform === 'YouTube') {
+            preg_match('/(?:youtu\.be\/|v=)([^&\/\?]+)/', $item->url, $matches);
+            $youtubeId = $matches[1] ?? null;
+
+            $item->thumbnail = $youtubeId
+                ? "https://img.youtube.com/vi/{$youtubeId}/hqdefault.jpg"
+                : null;
+        } else {
+            $item->thumbnail = $item->image_path ? asset('storage/' . $item->image_path) : null;
+        }
+
+        return $item;
+    }
+
 
     // Detail program offline (untuk public)// Di controller publik (misal: ProgramOfflinePublicController)
     public function showOfflinePublic(ProgramOffline $program)

@@ -80,6 +80,35 @@
     transition: background-color 0.3s ease;
 }
 
+
+/* Gaya khusus untuk card YouTube */
+.sosmed-card[data-platform="YouTube"] {
+    position: relative; /* Untuk overlay durasi */
+}
+
+.sosmed-card[data-platform="YouTube"] .sosmed-card-image::after {
+    content: "▶";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Tambahkan durasi video (jika tersedia) */
+.sosmed-card[data-platform="YouTube"] .sosmed-card-duration {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
 .sosmed-card-link:hover {
     background-color: #0a58ca;
 }
@@ -97,3 +126,5 @@
         font-size: 0.95rem;
     }
 }
+
+
