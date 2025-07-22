@@ -107,7 +107,7 @@
             <h2 class="registration-section-title">ALUR PENDAFTARAN</h2>
             <p class="registration-section-subtitle">Ikuti langkah-langkah berikut untuk mendaftar di Brilliant English
                 Course:</p>
-    
+
             <div class="flow-steps">
                 {{-- Setiap langkah diberi animasi fade-up dengan delay yang meningkat --}}
                 <div class="flow-step" data-aos="fade-up" data-aos-delay="100">
@@ -117,7 +117,7 @@
                         <p>Isi data diri Anda secara lengkap melalui formulir online yang tersedia di website kami.</p>
                     </div>
                 </div>
-    
+
                 <div class="flow-step" data-aos="fade-up" data-aos-delay="200">
                     <div class="step-number">2</div>
                     <div class="step-content">
@@ -125,7 +125,7 @@
                         <p>Tim kami akan menghubungi Anda untuk verifikasi dan memberikan informasi lebih lanjut.</p>
                     </div>
                 </div>
-    
+
                 <div class="flow-step" data-aos="fade-up" data-aos-delay="300">
                     <div class="step-number">3</div>
                     <div class="step-content">
@@ -134,7 +134,7 @@
                         </p>
                     </div>
                 </div>
-    
+
                 <div class="flow-step" data-aos="fade-up" data-aos-delay="400">
                     <div class="step-number">4</div>
                     <div class="step-content">
@@ -143,7 +143,7 @@
                             Brilliant English Course.</p>
                     </div>
                 </div>
-    
+
                 <div class="flow-step" data-aos="fade-up" data-aos-delay="500">
                     <div class="step-number">5</div>
                     <div class="step-content">
@@ -165,12 +165,12 @@
     </div>
     <div class="container">
         @foreach ($programs->where('status', 'aktif') as $index => $program)
-            
+
             {{-- Container utama diberi animasi 'fade-up' --}}
             <div class="program-detail @if ($index % 2 == 0) layout-left @else layout-right @endif" data-aos="fade-up">
-    
+
                 <div class="program-content-container">
-    
+
                     {{-- Kartu teks diberi animasi berdasarkan posisi genap/ganjil --}}
                     <div class="card-info" data-aos="{{ $index % 2 == 0 ? 'fade-right' : 'fade-left' }}" data-aos-delay="200">
                         <div class="content-text content-structured">
@@ -197,13 +197,13 @@
                             </div>
                         </div>
                     </div>
-    
+
                     {{-- Gambar diberi animasi berdasarkan posisi genap/ganjil --}}
                     <div class="content-image card-image" data-aos="{{ $index % 2 == 0 ? 'fade-left' : 'fade-right' }}" data-aos-delay="200">
                         <img src="{{ asset('uploads/programs/' . $program->gambar) }}" alt="{{ $program->judul }}"
                              onclick="openLightbox(this)">
                     </div>
-    
+
                 </div>
             </div>
         @endforeach
@@ -215,16 +215,16 @@
                 <h2>PILIHAN PROGRAM</h2>
                 <p class="lead text-muted">Temukan program yang paling sesuai dengan tujuan Anda.</p>
             </div>
-    
+
             {{-- Tombol Filter diberi animasi --}}
             <div class="filter-buttons-wrapper" data-aos="fade-up" data-aos-delay="100">
                 <button class="filter-btn active" data-filter="offline">Program Offline</button>
                 <button class="filter-btn" data-filter="online">Program Online</button>
             </div>
-    
+
             {{-- Container Grid Utama --}}
             <div class="program-grid">
-                
+
                 {{-- Loop untuk Program OFFLINE --}}
                 @forelse ($offlinePrograms as $index => $program)
                     {{-- Setiap kartu diberi animasi fade-up dengan delay yang berbeda --}}
@@ -239,7 +239,7 @@
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title program-card-title">{{ $program->nama }}</h5>
                                 <p class="card-text text-muted small mb-2">
-                                    <i class="fas fa-calendar-alt me-1"></i> 
+                                    <i class="fas fa-calendar-alt me-1"></i>
                                     {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('d M') }} - {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('d M Y') }}
                                 </p>
                                 <p class="card-text program-card-price mb-3">Rp {{ number_format($program->harga, 0, ',', '.') }}</p>
@@ -249,7 +249,7 @@
                     </div>
                 @empty
                 @endforelse
-    
+
                 {{-- Loop untuk Program ONLINE --}}
                 @forelse ($onlinePrograms as $index => $program)
                     <div class="program-item" data-filter="online" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
@@ -274,7 +274,7 @@
                 @empty
                 @endforelse
             </div>
-            
+
             <div id="no-program-message" class="text-center text-muted mt-5" style="display: none;">
                 <p>Tidak ada program yang tersedia untuk kategori ini.</p>
             </div>
@@ -422,12 +422,12 @@
             <p class="section-subtitle text-center mb-4">
                 Dokumentasi kegiatan dan momen-momen seru bersama Brilliant English Course
             </p>
-    
+
             <div class="gallery-slider-wrapper">
                 <button class="gallery-nav left" onclick="slideGalleryGrid(-1)">
                     <i class="fas fa-chevron-left"></i>
                 </button>
-    
+
                 <div class="gallery-scroll-outer">
                     <div class="gallery-scroll-inner" id="gallerySlider">
                         @php $index = 0; @endphp
@@ -438,13 +438,13 @@
                                     <img src="{{ asset('storage/' . $gallery->images->first()->image_path) }}"
                                          alt="{{ $gallery->title }}" class="gallery-thumbnail"
                                          onclick="openGalleryModal({{ $gallery->id }})">
-    
+
                                     <div class="gallery-caption">
                                         <h5>{{ $gallery->title }}</h5>
                                         <p>{{ Str::limit($gallery->deskripsi ?? 'Galeri kegiatan Brilliant', 50) }}</p>
                                     </div>
                                 </div>
-    
+
                                 <div id="modal-{{ $gallery->id }}" class="gallery-modal">
                                     <div class="modal-content">
                                         <span class="close-btn" onclick="closeGalleryModal({{ $gallery->id }})">&times;</span>
@@ -467,7 +467,7 @@
                         @endforeach
                     </div>
                 </div>
-    
+
                 <button class="gallery-nav right" onclick="slideGalleryGrid(1)">
                     <i class="fas fa-chevron-right"></i>
                 </button>
@@ -513,44 +513,37 @@
 
     <link rel="stylesheet" href="{{ asset('css/sosmed.css') }}">
 
-    <section id="sosmed" class="sosmed-section" >
-        <div class="container"data-aos="fade-up">
+    <section id="sosmed" class="sosmed-section">
+        <div class="container">
             <h2 class="section-title">Sosial Media Kami</h2>
-            
-            @php
-                $hasSosmed = collect($groupedSosmed)->flatten(1)->isNotEmpty();
-            @endphp
-    
             @if (!$hasSosmed)
                 <p class="text-center">Belum ada data yang ditambahkan. Stay tuned!</p>
             @else
                 @foreach ($groupedSosmed as $platform => $items)
                     @if (count($items) > 0)
-                        <div class="mb-5" data-aos="fade-up" data-aos-delay="100">
+                        <div class="mb-5">
                             <h4 class="section-subtitle fw-semibold mb-4">{{ $platform }}</h4>
                             <div class="sosmed-grid">
-                                @foreach ($items as $index => $item)
-                                    @php
-                                        // Logika untuk mendapatkan thumbnail
-                                        if ($platform === 'YouTube') {
-                                            preg_match('/(?:youtu\.be\/|v=)([^&\/\?]+)/', $item->url, $matches);
-                                            $youtubeId = $matches[1] ?? null;
-                                            $thumb = $youtubeId ? "https://img.youtube.com/vi/{$youtubeId}/mqdefault.jpg" : null;
-                                        } else {
-                                            $thumb = $item->image_path ? asset('storage/' . $item->image_path) : null;
-                                        }
-                                    @endphp
-    
-                                    {{-- Setiap kartu diberi animasi fade-up dengan delay yang berbeda --}}
-                                    <div class="sosmed-card" data-aos="fade-up" data-aos-delay="{{ 200 + ($index * 100) }}">
-                                        @if ($thumb)
-                                            <div class="sosmed-card-image">
-                                                <img src="{{ $thumb }}" alt="{{ $item->nama }}">
-                                            </div>
-                                        @endif
-                                        <div class="sosmed-card-body">
-                                            <h5 class="sosmed-card-title">{{ $item->nama }}</h5>
-                                            <a href="{{ $item->url }}" class="sosmed-card-link" target="_blank">Lihat</a>
+                                @foreach ($items as $item)
+                                    <div class="sosmed-card" data-platform="{{ strtolower($platform) }}">
+                                        <div class="sosmed-card-image">
+                                            @if (strtolower($platform) === 'youtube')
+                                                <div class="sosmed-card-video">
+                                                    <iframe
+                                                        width="100%"
+                                                        height="200"
+                                                        src="https://www.youtube.com/embed/{{ getYoutubeVideoId($item->url) }}"
+                                                        title="YouTube video player"
+                                                        frameborder="0"
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        allowfullscreen>
+                                                    </iframe>
+                                                </div>
+                                            @elseif (strtolower($platform) === 'instagram')
+                                                <a href="{{ $item->url }}" target="_blank" rel="noopener noreferrer">
+                                                    <img src="{{ asset('storage/' . $item->image_path) }}" alt="Instagram Image">
+                                                </a>
+                                            @endif
                                         </div>
                                     </div>
                                 @endforeach

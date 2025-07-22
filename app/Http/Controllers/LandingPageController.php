@@ -13,6 +13,7 @@ use App\Models\Sosmed;
 use App\Models\Customer_Service;
 
 
+
 class LandingPageController extends Controller
 {
     public function index()
@@ -34,21 +35,6 @@ class LandingPageController extends Controller
             'Facebook'  => [],
             'TikTok'    => [],
         ];
-        // $hasSosmed = collect($groupedSosmed)->flatten(1)->isNotEmpty();
-
-        // foreach ($sosmed as $item) {
-        //     $url = strtolower($item->url); // lowercase untuk akurasi pencarian
-
-        //     if (str_contains($url, 'youtube.com') || str_contains($url, 'youtu.be')) {
-        //         $groupedSosmed['YouTube'][] = $item;
-        //     } elseif (str_contains($url, 'instagram.com')) {
-        //         $groupedSosmed['Instagram'][] = $item;
-        //     } elseif (str_contains($url, 'facebook.com')) {
-        //         $groupedSosmed['Facebook'][] = $item;
-        //     } elseif (str_contains($url, 'tiktok.com')) {
-        //         $groupedSosmed['TikTok'][] = $item;
-        //     }
-        // }
 
         foreach ($sosmed as $item) {
             $platform = $this->detectPlatformFromUrl($item->url);
@@ -60,7 +46,7 @@ class LandingPageController extends Controller
             }
         }
 
-        
+
 
         $hasSosmed = collect($groupedSosmed)->flatten(1)->isNotEmpty();
 

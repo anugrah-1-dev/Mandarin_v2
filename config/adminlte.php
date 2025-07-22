@@ -381,7 +381,7 @@ return [
                     'url'  => '/admin/periods',
                     'icon' => 'fas fa-calendar-alt',
                 ],
-                
+
                 [
                     'text' => 'Program Offline',
                     'url'  => '/admin/programs/offline',
@@ -397,6 +397,13 @@ return [
                     'url'  => '/admin/programs/camp',
                     'icon' => 'fas fa-campground',
                 ],
+
+                [
+                    'text' => 'Manajemen Kamar',
+                    'url'  => 'admin/rooms',
+                    'icon' => 'fas fa-bed',
+                ],
+
             ],
         ],
 
