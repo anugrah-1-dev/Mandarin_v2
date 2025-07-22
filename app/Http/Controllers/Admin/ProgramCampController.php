@@ -7,13 +7,10 @@ use App\Models\ProgramCamp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File; // Gunakan File facade untuk operasi file
+use Illuminate\Support\Facades\Storage;
 
 class ProgramCampController extends Controller
 {
-    // =======================================================
-    // METHOD UNTUK CRUD ADMIN
-    // =======================================================
-
     public function index(Request $request)
     {
         $query = ProgramCamp::query();
@@ -30,6 +27,10 @@ class ProgramCampController extends Controller
         return view('admin.programs.camp.index', compact('programs'));
     }
 
+    public function create()
+    {
+        return view('admin.programs.camp.create');
+    }
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -37,9 +38,8 @@ class ProgramCampController extends Controller
             'thumbnail' => 'nullable|image|max:2048',
             // Tambahkan validasi lain jika perlu
         ]);
-        
-        // Mengambil semua data dari request
-        $data = $request->all();
+
+        $data = $request->except(['_token']);
 
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($data['nama']);
@@ -54,10 +54,18 @@ class ProgramCampController extends Controller
 
         ProgramCamp::create($data);
 
-        return redirect()->back()->with('alert', [
+        // Setelah berhasil, redirect ke halaman index
+        return redirect()->route('admin.programs.camp.index')->with('alert', [
             'title' => 'Berhasil!', 'text' => 'Program berhasil ditambahkan.', 'icon' => 'success',
         ]);
     }
+
+    public function edit($id)
+    {
+        $program = ProgramCamp::findOrFail($id);
+        return view('admin.programs.camp.edit', compact('program'));
+    }
+
 
     public function update(Request $request, $id)
     {
@@ -68,7 +76,7 @@ class ProgramCampController extends Controller
             'thumbnail' => 'nullable|image|max:2048',
             // Tambahkan validasi lain jika perlu
         ]);
-        
+
         $data = $request->except(['_token', '_method']);
 
         if (empty($data['slug'])) {
@@ -89,7 +97,7 @@ class ProgramCampController extends Controller
 
         $program->update($data);
 
-        return redirect()->back()->with('alert', [
+        return redirect()->route('admin.programs.camp.index')->with('alert', [
             'title' => 'Berhasil!', 'text' => 'Program berhasil diperbarui.', 'icon' => 'success',
         ]);
     }
@@ -109,32 +117,11 @@ class ProgramCampController extends Controller
             'title' => 'Berhasil!', 'text' => 'Program berhasil dihapus.', 'icon' => 'success',
         ]);
     }
-    
-    // =======================================================
-    // METHOD UNTUK TAMPILAN PUBLIK
-    // =======================================================
 
+ 
     /**
      * Menampilkan halaman daftar semua camp untuk publik.
      */
-    public function publicIndex()
-    {
-        $camps = ProgramCamp::latest()->paginate(9);
-        // Pastikan Anda memiliki view 'camp.index'
-        return view('camp.index', compact('camps'));
-    }
 
-    /**
-     * Menampilkan detail satu camp untuk publik.
-     */
-    public function publicShow(ProgramCamp $camp)
-    {
-        $facilities = !empty($camp->fasilitas) ? explode("\n", $camp->fasilitas) : [];
-    
-        return view('detail', [
-            'program' => $camp,
-            'facilities' => $facilities
-        ]);
-    }
-    
+
 }
