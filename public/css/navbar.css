@@ -99,17 +99,25 @@
     scroll-margin-top: 50px; /* Atau sesuai tinggi navbar kamu */
 }
 
-#program {
-    scroll-margin-top: 125px; /* Atau sesuai tinggi navbar kamu */
-}
 #galeri {
     scroll-margin-top: 200px; /* Atau sesuai tinggi navbar kamu */
+}
+
+#program {
+    scroll-margin-top: 100px; /* Atau sesuai tinggi navbar kamu */
+}
+
+#camp {
+    scroll-margin-top: 80px; /* Atau sesuai tinggi navbar kamu */
+}
+
+#sosmed {
+    scroll-margin-top: 50px; /* Atau sesuai tinggi navbar kamu */
 }
 
 #kontak {
     scroll-margin-top: 100px; /* Atau sesuai tinggi navbar kamu */
 }
-
 
 /* === NAVBAR UTAMA === */
 #navbar {
@@ -292,4 +300,3 @@
         padding: 0.5rem 1rem;
     }
 }
-

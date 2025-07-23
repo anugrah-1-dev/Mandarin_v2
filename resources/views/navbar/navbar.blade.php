@@ -23,6 +23,7 @@
         <a href="#program">PROGRAM</a>
         <a href="#camp">CAMP</a>
         <a href="#galeri">GALLERI</a>
+        <a href="#sosmed">SOSMED</a>
         <a href="#kontak">KONTAK</a>
         {{-- <a href="#daftar" class="btn">MASUK</a> --}}
     </div>

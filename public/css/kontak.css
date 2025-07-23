@@ -1,0 +1,100 @@
+/* Section: Kontak Kami */
+.kontak-section {
+    background-color: #ffffff;
+    padding: 100px 0;
+    border-top: 1px solid var(--card-border);
+    color: var(--text-title);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.kontak-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* Title */
+.kontak-section .section-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Subtitle */
+.kontak-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 60px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+/* Info Kontak */
+.kontak-info {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    margin-bottom: 60px;
+}
+
+.kontak-info .kontak-item {
+    text-align: left;
+}
+
+.kontak-info h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.kontak-info p,
+.kontak-info a {
+    font-size: 1rem;
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+.kontak-info a:hover {
+    color: var(--btn-primary);
+    text-decoration: underline;
+}
+
+/* Maps */
+.kontak-maps {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.kontak-maps iframe {
+    width: 100%;
+    height: 320px;
+    border: none;
+    border-radius: 16px;
+    box-shadow: var(--shadow-default);
+}
+
+.wave-dividerkontak {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    line-height: 0;
+    background: #d0e0e3; /* Bagian bawah putih */
+    margin-top: -1px; /* Hilangkan celah garis putih */
+    margin-bottom: -1px; /* Hilangkan celah garis putih */
+}
+
+.wave-dividerkontak svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.wave-dividerkontak .shape-fillkontak {
+    fill: #ffffff; /* Warna atas gelombang */
+}

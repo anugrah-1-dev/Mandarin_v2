@@ -30,10 +30,11 @@
             </div>
             <div class="overlay"></div>
             <div class="carousel-text">
-                <h1 data-aos="fade-left"data-aos-delay="200" >BRILLIANT ENGLISH COURSE</h1>
+                <h1 data-aos="fade-left" data-aos-delay="200">BRILLIANT ENGLISH COURSE</h1>
 
                 <p data-aos="fade-right" data-aos-delay="200">
-                    Tingkatkan kemampuan Bahasa Inggris Anda dan rasakan pengalaman belajar yang berkualitas di Brilliant English Course, tempat di mana potensi Anda menjadi lebih gemilang!
+                    Tingkatkan kemampuan Bahasa Inggris Anda dan rasakan pengalaman belajar yang berkualitas di
+                    Brilliant English Course, tempat di mana potensi Anda menjadi lebih gemilang!
                 </p>
 
                 <a href="#daftar" class="cta-button" data-aos="fade-up" data-aos-delay="200">
@@ -46,54 +47,54 @@
     </section>
 
     {{-- ✅ Section "Tentang Kami" dengan animasi --}}
-<section class="about-us-section" id="tentang" data-aos="fade-up">
-    <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <h2 class="about-section-title" data-aos="fade-up">TENTANG KAMI</h2>
+    <section class="about-us-section" id="tentang" data-aos="fade-up">
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+            <h2 class="about-section-title" data-aos="fade-up">TENTANG KAMI</h2>
 
-        <div class="about-grid">
-            <div class="about-intro" data-aos="fade-left" data-aos-delay="200">
-                <h2>Brilliant English Course?</h2>
-                <p>
-                    Berlokasi di jantung Kampung Inggris Pare, Brilliant English Course hadir untuk mengubah cara
-                    Anda belajar bahasa Inggris. Kami menciptakan sebuah perjalanan belajar yang tidak hanya
-                    efektif, tapi juga tak terlupakan, membuat Anda percaya diri dan fasih berbahasa Inggris.
-                </p>
-            </div>
-
-            <div class="features-grid" data-aos="fade-up" data-aos-delay="300">
-                <div class="feature-item" data-aos="fade-up" data-aos-delay="400">
-                    <div class="icon"><i class="fas fa-comments"></i></div>
-                    <h3>Lingkungan Imersif 24/7</h3>
-                    <p>Dengan sistem asrama (camp) berbasis "English Area", Anda akan terbiasa berpikir dan
-                        berbicara dalam bahasa Inggris setiap hari. Metode ini terbukti mempercepat kelancaran Anda
-                        secara signifikan.</p>
+            <div class="about-grid">
+                <div class="about-intro" data-aos="fade-left" data-aos-delay="200">
+                    <h2>Brilliant English Course?</h2>
+                    <p>
+                        Berlokasi di jantung Kampung Inggris Pare, Brilliant English Course hadir untuk mengubah cara
+                        Anda belajar bahasa Inggris. Kami menciptakan sebuah perjalanan belajar yang tidak hanya
+                        efektif, tapi juga tak terlupakan, membuat Anda percaya diri dan fasih berbahasa Inggris.
+                    </p>
                 </div>
 
-                <div class="feature-item" data-aos="fade-up" data-aos-delay="500">
-                    <div class="icon"><i class="fas fa-lightbulb"></i></div>
-                    <h3>Metode Belajar Praktis</h3>
-                    <p>Kami fokus pada 80% praktik dan 20% teori. Kelas interaktif, simulasi dunia nyata, dan materi
-                        yang relevan membuat proses belajar menjadi efektif, anti-bosan, dan menyenangkan.</p>
-                </div>
+                <div class="features-grid" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="icon"><i class="fas fa-comments"></i></div>
+                        <h3>Lingkungan Imersif 24/7</h3>
+                        <p>Dengan sistem asrama (camp) berbasis "English Area", Anda akan terbiasa berpikir dan
+                            berbicara dalam bahasa Inggris setiap hari. Metode ini terbukti mempercepat kelancaran Anda
+                            secara signifikan.</p>
+                    </div>
 
-                <div class="feature-item" data-aos="fade-up" data-aos-delay="600">
-                    <div class="icon"><i class="fas fa-chalkboard-teacher"></i></div>
-                    <h3>Tutor Profesional & Suportif</h3>
-                    <p>Tutor kami bukan hanya pengajar, tapi juga mentor yang ramah dan berpengalaman. Mereka siap
-                        membimbing Anda langkah demi langkah untuk mencapai target belajar Anda.</p>
-                </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="500">
+                        <div class="icon"><i class="fas fa-lightbulb"></i></div>
+                        <h3>Metode Belajar Praktis</h3>
+                        <p>Kami fokus pada 80% praktik dan 20% teori. Kelas interaktif, simulasi dunia nyata, dan materi
+                            yang relevan membuat proses belajar menjadi efektif, anti-bosan, dan menyenangkan.</p>
+                    </div>
 
-                <div class="feature-item" data-aos="fade-up" data-aos-delay="700">
-                    <div class="icon"><i class="fas fa-book-open-reader"></i></div>
-                    <h3>Program Terstruktur & Komunitas</h3>
-                    <p>Pilih program yang sesuai tujuan Anda, mulai dari Speaking, TOEFL, hingga IELTS. Bergabunglah
-                        dengan komunitas pembelajar yang solid dan saling mendukung untuk sukses bersama.</p>
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="600">
+                        <div class="icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                        <h3>Tutor Profesional & Suportif</h3>
+                        <p>Tutor kami bukan hanya pengajar, tapi juga mentor yang ramah dan berpengalaman. Mereka siap
+                            membimbing Anda langkah demi langkah untuk mencapai target belajar Anda.</p>
+                    </div>
+
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="700">
+                        <div class="icon"><i class="fas fa-book-open-reader"></i></div>
+                        <h3>Program Terstruktur & Komunitas</h3>
+                        <p>Pilih program yang sesuai tujuan Anda, mulai dari Speaking, TOEFL, hingga IELTS. Bergabunglah
+                            dengan komunitas pembelajar yang solid dan saling mendukung untuk sukses bersama.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</section>
+    </section>
     <div class="wave-divider">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
             <path class="shape-fill"
@@ -102,7 +103,7 @@
         </svg>
     </div>
 
-    <section class="registration-flow-section" id="alur-pendaftaran" >
+    <section class="registration-flow-section" id="alur-pendaftaran">
         <div class="container">
             <h2 class="registration-section-title">ALUR PENDAFTARAN</h2>
             <p class="registration-section-subtitle">Ikuti langkah-langkah berikut untuk mendaftar di Brilliant English
@@ -172,9 +173,11 @@
                 <div class="program-content-container">
 
                     {{-- Kartu teks diberi animasi berdasarkan posisi genap/ganjil --}}
-                    <div class="card-info" data-aos="{{ $index % 2 == 0 ? 'fade-right' : 'fade-left' }}" data-aos-delay="200">
+                    <div class="card-info" data-aos="{{ $index % 2 == 0 ? 'fade-right' : 'fade-left' }}"
+                        data-aos-delay="200">
                         <div class="content-text content-structured">
-                            <h3 style="font-weight: bold; text-align: center; font-family: 'Poppins', 'Times New Roman', serif;">
+                            <h3
+                                style="font-weight: bold; text-align: center; font-family: 'Poppins', 'Times New Roman', serif;">
                                 {{ $program->judul }}
                             </h3>
                             <p class="description" style="text-align: justify;">
@@ -199,9 +202,10 @@
                     </div>
 
                     {{-- Gambar diberi animasi berdasarkan posisi genap/ganjil --}}
-                    <div class="content-image card-image" data-aos="{{ $index % 2 == 0 ? 'fade-left' : 'fade-right' }}" data-aos-delay="200">
+                    <div class="content-image card-image" data-aos="{{ $index % 2 == 0 ? 'fade-left' : 'fade-right' }}"
+                        data-aos-delay="200">
                         <img src="{{ asset('uploads/programs/' . $program->gambar) }}" alt="{{ $program->judul }}"
-                             onclick="openLightbox(this)">
+                            onclick="openLightbox(this)">
                     </div>
 
                 </div>
@@ -228,10 +232,12 @@
                 {{-- Loop untuk Program OFFLINE --}}
                 @forelse ($offlinePrograms as $index => $program)
                     {{-- Setiap kartu diberi animasi fade-up dengan delay yang berbeda --}}
-                    <div class="program-item" data-filter="offline" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
+                    <div class="program-item" data-filter="offline" data-aos="fade-up"
+                        data-aos-delay="{{ 100 * ($index + 1) }}">
                         <div class="program-card">
                             <div class="program-card-image-wrapper">
-                                 <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img" alt="{{ $program->nama }}">
+                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                    alt="{{ $program->nama }}">
                                 @if ($program->is_active)
                                     <span class="badge bg-success program-badge">Tersedia</span>
                                 @endif
@@ -240,10 +246,14 @@
                                 <h5 class="card-title program-card-title">{{ $program->nama }}</h5>
                                 <p class="card-text text-muted small mb-2">
                                     <i class="fas fa-calendar-alt me-1"></i>
-                                    {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('d M') }} - {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('d M Y') }}
+                                    {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('d M') }} -
+                                    {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('d M Y') }}
                                 </p>
-                                <p class="card-text program-card-price mb-3">Rp {{ number_format($program->harga, 0, ',', '.') }}</p>
-                                <a href="{{ route('public.program.offline.show', $program->slug) }}" class="btn btn-success mt-auto">Lihat Detail</a>
+                                <p class="card-text program-card-price mb-3">Rp
+                                    {{ number_format($program->harga, 0, ',', '.') }}
+                                </p>
+                                <a href="{{ route('public.program.offline.show', $program->slug) }}"
+                                    class="btn btn-success mt-auto">Lihat Detail</a>
                             </div>
                         </div>
                     </div>
@@ -252,10 +262,12 @@
 
                 {{-- Loop untuk Program ONLINE --}}
                 @forelse ($onlinePrograms as $index => $program)
-                    <div class="program-item" data-filter="online" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
-                         <div class="program-card">
-                             <div class="position-relative">
-                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img" alt="{{ $program->nama }}">
+                    <div class="program-item" data-filter="online" data-aos="fade-up"
+                        data-aos-delay="{{ 100 * ($index + 1) }}">
+                        <div class="program-card">
+                            <div class="position-relative">
+                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                    alt="{{ $program->nama }}">
                                 @if ($program->is_active)
                                     <span class="badge bg-success program-badge">Tersedia</span>
                                 @endif
@@ -266,8 +278,11 @@
                                     <i class="fas fa-tag me-1"></i>
                                     Kategori: {{ $program->kategori ?? '-' }}
                                 </p>
-                                <p class="card-text program-card-price mb-3">Rp {{ number_format($program->harga, 0, ',', '.') }}</p>
-                                <a href="{{ route('public.program.online.show', $program->slug) }}" class="btn btn-success mt-auto">Lihat Detail</a>
+                                <p class="card-text program-card-price mb-3">Rp
+                                    {{ number_format($program->harga, 0, ',', '.') }}
+                                </p>
+                                <a href="{{ route('public.program.online.show', $program->slug) }}"
+                                    class="btn btn-success mt-auto">Lihat Detail</a>
                             </div>
                         </div>
                     </div>
@@ -292,7 +307,7 @@
 
     <script>
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
 
             const filterButtons = document.querySelectorAll('.filter-btn');
             const programItems = document.querySelectorAll('.program-item');
@@ -317,7 +332,7 @@
             }
 
             filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
 
                     filterButtons.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
@@ -371,42 +386,42 @@
             </path>
         </svg>
     </div>
-    <section class="camp-section" id="camp" >
-    <div class="container">
-        <div class="text-center mb-5"data-aos="fade-up">
-            <h2 class="section-title-camp">CAMP BIEPLUS</h2>
-            <p class="section-subtitle-camp">CAMP BIEPLUS menawarkan kenyamanan, fasilitas lengkap, dan lokasi
-                strategis untuk mendukung pengalaman belajar terbaik Anda di Kampung Inggris Pare.</p>
-        </div>
+    <section class="camp-section" id="camp">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title-camp">CAMP BIEPLUS</h2>
+                <p class="section-subtitle-camp">CAMP BIEPLUS menawarkan kenyamanan, fasilitas lengkap, dan lokasi
+                    strategis untuk mendukung pengalaman belajar terbaik Anda di Kampung Inggris Pare.</p>
+            </div>
 
-        <div class="camp-grid">
-            {{-- Loop data dari controller --}}
-            @forelse ($camps as $index => $camp)
-                {{-- Setiap kartu diberi animasi fade-up dengan delay yang meningkat --}}
-                <div class="camp-card" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
-                    <div class="camp-card-image">
-                        <img src="{{ asset('upload/camp/' . $camp->thumbnail) }}" alt="{{ $camp->nama }}">
-                    </div>
-                    <div class="camp-card-body">
-                        <h3 class="camp-card-title">{{ $camp->nama }}</h3>
-                        <p class="camp-card-description">
-                            {{ $camp->deskripsi ?? 'Pilihan terbaik dengan fasilitas modern dan kenyamanan optimal untuk pengalaman belajar yang maksimal.' }}
-                        </p>
-                        <div class="promo-banner">
-                            <i class="fas fa-star"></i> Special Promo Available <i class="fas fa-fire"></i>
+            <div class="camp-grid">
+                {{-- Loop data dari controller --}}
+                @forelse ($camps as $index => $camp)
+                    {{-- Setiap kartu diberi animasi fade-up dengan delay yang meningkat --}}
+                    <div class="camp-card" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
+                        <div class="camp-card-image">
+                            <img src="{{ asset('upload/camp/' . $camp->thumbnail) }}" alt="{{ $camp->nama }}">
                         </div>
-                        <a href="{{ route('camps.show', $camp->slug) }}" class="btn-details">Lihat
-                            Selengkapnya →</a>
+                        <div class="camp-card-body">
+                            <h3 class="camp-card-title">{{ $camp->nama }}</h3>
+                            <p class="camp-card-description">
+                                {{ $camp->deskripsi ?? 'Pilihan terbaik dengan fasilitas modern dan kenyamanan optimal untuk pengalaman belajar yang maksimal.' }}
+                            </p>
+                            <div class="promo-banner">
+                                <i class="fas fa-star"></i> Special Promo Available <i class="fas fa-fire"></i>
+                            </div>
+                            <a href="{{ route('camps.show', $camp->slug) }}" class="btn-details">Lihat
+                                Selengkapnya →</a>
+                        </div>
                     </div>
-                </div>
-            @empty
-                <div class="col-12 text-center">
-                    <p class="text-muted">Belum ada informasi camp yang tersedia.</p>
-                </div>
-            @endforelse
+                @empty
+                    <div class="col-12 text-center">
+                        <p class="text-muted">Belum ada informasi camp yang tersedia.</p>
+                    </div>
+                @endforelse
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <div class="wave-divider5">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
@@ -416,8 +431,8 @@
         </svg>
     </div>
 
-    <section id="galeri" class="gallery" >
-        <div class="container"data-aos="fade-up">
+    <section id="galeri" class="gallery">
+        <div class="container" data-aos="fade-up">
             <h2 class="section-title">GALLERY</h2>
             <p class="section-subtitle text-center mb-4">
                 Dokumentasi kegiatan dan momen-momen seru bersama Brilliant English Course
@@ -434,10 +449,11 @@
                         @foreach ($galleries as $gallery)
                             @if ($gallery->images->isNotEmpty())
                                 {{-- Setiap frame galeri diberi animasi fade-up dengan delay --}}
-                                <div class="gallery-frame text-center" data-index="{{ $index }}" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
+                                <div class="gallery-frame text-center" data-index="{{ $index }}" data-aos="fade-up"
+                                    data-aos-delay="{{ 100 * ($index + 1) }}">
                                     <img src="{{ asset('storage/' . $gallery->images->first()->image_path) }}"
-                                         alt="{{ $gallery->title }}" class="gallery-thumbnail"
-                                         onclick="openGalleryModal({{ $gallery->id }})">
+                                        alt="{{ $gallery->title }}" class="gallery-thumbnail"
+                                        onclick="openGalleryModal({{ $gallery->id }})">
 
                                     <div class="gallery-caption">
                                         <h5>{{ $gallery->title }}</h5>
@@ -516,6 +532,10 @@
     <section id="sosmed" class="sosmed-section">
         <div class="container">
             <h2 class="section-title">Sosial Media Kami</h2>
+            <p class="text-center text-muted mb-4">
+                Jangan lewatkan update terbaru dari kami di berbagai platform!
+            </p>
+
             @if (!$hasSosmed)
                 <p class="text-center">Belum ada data yang ditambahkan. Stay tuned!</p>
             @else
@@ -529,12 +549,9 @@
                                         <div class="sosmed-card-image">
                                             @if (strtolower($platform) === 'youtube')
                                                 <div class="sosmed-card-video">
-                                                    <iframe
-                                                        width="100%"
-                                                        height="200"
+                                                    <iframe width="100%" height="200"
                                                         src="https://www.youtube.com/embed/{{ getYoutubeVideoId($item->url) }}"
-                                                        title="YouTube video player"
-                                                        frameborder="0"
+                                                        title="YouTube video player" frameborder="0"
                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                         allowfullscreen>
                                                     </iframe>
@@ -555,6 +572,40 @@
         </div>
     </section>
 
+    <link rel="stylesheet" href="{{ asset('css/kontak.css') }}">
+
+    <div class="wave-dividerkontak">
+        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path class="shape-fillkontak"
+                d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+            </path>
+        </svg>
+    </div>
+
+    <section id="kontak" class="kontak-section">
+        <div class="container">
+            <h2 class="section-title">Kontak Kami</h2>
+            <p class="kontak-subtitle">
+                Ingin terhubung dengan kami? Silakan hubungi lewat email atau sosial media berikut.
+            </p>
+
+            <div class="kontak-info">
+                <p><strong>Email:</strong> <a href="mailto:example@email.com">example@email.com</a></p>
+                <p><strong>Instagram:</strong> <a href="https://instagram.com" target="_blank">@namakamu</a></p>
+                <p><strong>YouTube:</strong> <a href="https://youtube.com" target="_blank">Channel Kami</a></p>
+            </div>
+
+            <div class="kontak-maps">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1983.9865810139294!2d106.8271534!3d-6.1751106!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e60bf5b3df%3A0xa8e2b1c079cdee9f!2sMonas!5e0!3m2!1sen!2sid!4v1652738953732!5m2!1sen!2sid"
+                    width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+
+
     <footer>
         © 2025 Brilliant English Course. Hak Cipta Dilindungi Oleh Undang-Undang
     </footer>
@@ -566,10 +617,10 @@
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
 <script>
-  AOS.init({
-    duration: 800, // Durasi animasi
-    once: true,    // Animasi hanya berjalan sekali
-  });
+    AOS.init({
+        duration: 800, // Durasi animasi
+        once: true,    // Animasi hanya berjalan sekali
+    });
 </script>
 
 </html>
