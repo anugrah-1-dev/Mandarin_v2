@@ -23,9 +23,7 @@ use App\Http\Controllers\Admin\PeriodsController;
 use App\Http\Controllers\Admin\SosmedController;
 use App\Http\Controllers\CampController;
 use App\Http\Controllers\Admin\RoomController;
-
-
-
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +54,9 @@ Route::get('/landing/program-online/{program:slug}', [LandingPageController::cla
 // === PROGRAM OFFLINE ===
 Route::get('/program/offline/{program:slug}', [ProgramOfflinePublicController::class, 'showOfflinePublic'])->name('public.program.offline.show');
 Route::post('/program/offline/{program:slug}/daftar', [ProgramOfflinePublicController::class, 'daftar'])->name('public.program.offline.daftar');
+// Route Halaman Pembayaran Offline
+Route::get('/pendaftaran/offline/pembayaran/{trx_id}', [ProgramOfflinePublicController::class, 'halamanPembayaran'])->name('public.pendaftaran.offline.pembayaran');
+
 
 // === PROGRAM ONLINE ===
 Route::get('/program/online/{program:slug}', [ProgramOnlinePublicController::class, 'show'])
@@ -63,13 +64,18 @@ Route::get('/program/online/{program:slug}', [ProgramOnlinePublicController::cla
 
 Route::post('/program/online/{program:slug}/daftar', [ProgramOnlinePublicController::class, 'daftar'])
     ->name('public.program.online.daftar');
+// Route Halaman Pembayaran Online
+Route::get('/pendaftaran/online/pembayaran/{trx_id}', [ProgramOnlinePublicController::class, 'halamanPembayaran'])->name('public.pendaftaran.online.pembayaran');
+
+
+// ===== ROUTE UNTUK UPLOAD BUKTI PEMBAYARAN =====
+Route::post('/payment/upload', [PaymentController::class, 'uploadProof'])->name('payment.upload');
 
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 
 //Landing page
 Auth::routes();
-// Route::get('/Dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')  ->name('admin.') ->group(function () {
 
@@ -116,11 +122,19 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')  ->name('admin.') ->g
 
     // Pendaftaran Program Online
     Route::get('pendaftaran/online', [PendaftaranOnlineController::class, 'index'])->name('pendaftaran.online.index');
+    Route::get('pendaftaran/online/{id}/edit', [PendaftaranOnlineController::class, 'edit'])->name('pendaftaran.online.edit');
+    Route::put('pendaftaran/online/{id}', [PendaftaranOnlineController::class, 'update'])->name('pendaftaran.online.update');
+    Route::delete('pendaftaran/online/{id}', [PendaftaranOnlineController::class, 'destroy'])->name('pendaftaran.online.destroy');
+    Route::get('pendaftaran/online/{id}/bukti', [PendaftaranOnlineController::class, 'showBukti'])->name('pendaftaran.online.bukti');
     Route::get('/pendaftaran/program-online', [PendaftaranOnlineController::class, 'create'])->name('pendaftaran.program_online.create');
     Route::post('/pendaftaran/program-online', [PendaftaranOnlineController::class, 'store'])->name('pendaftaran.program_online.store');
 
     // Pendaftaran Program Offline
     Route::get('pendaftaran/offline', [PendaftaranOfflineController::class, 'index'])->name('pendaftaran.offline.index');
+    Route::get('pendaftaran/offline/{id}/edit', [PendaftaranOfflineController::class, 'edit'])->name('pendaftaran.offline.edit');
+    Route::put('pendaftaran/offline/{id}', [PendaftaranOfflineController::class, 'update'])->name('pendaftaran.offline.update');
+    Route::delete('pendaftaran/offline/{id}', [PendaftaranOfflineController::class, 'destroy'])->name('pendaftaran.offline.destroy');
+    Route::get('pendaftaran/offline/{id}/bukti', [PendaftaranOfflineController::class, 'showBukti'])->name('pendaftaran.offline.bukti');
     Route::get('/pendaftaran/program-offline', [PendaftaranOfflineController::class, 'create'])->name('pendaftaran.program_offline.create');
     Route::post('/pendaftaran/program-offline', [PendaftaranOfflineController::class, 'store'])->name('pendaftaran.program_offline.store');
 
