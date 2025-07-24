@@ -105,6 +105,11 @@
                                         <div class="alert alert-success">{{ session('success') }}</div>
                                     @endif
 
+                                     @php
+                                // PERUBAHAN: Filter untuk mendapatkan semua periode yang aktif
+                                $activePeriods = $periods->where('is_active', 1);
+                            @endphp
+
                                     <form method="POST"
                                         action="{{ request()->routeIs('public.program.online.show')
                                             ? route('public.program.online.daftar', $program->slug)
@@ -131,14 +136,19 @@
                                             <div class="mb-3">
                                                 <label class="form-label"><i class="bi bi-calendar-check-fill"></i> Periode</label>
                                                 <select name="period_id" class="form-select" required>
-                                                    <option value="">Pilih Periode</option>
-                                                    @foreach ($periods as $p)
-                                                        <option value="{{ $p->id }}">
-                                                            {{ \Carbon\Carbon::parse($p->tanggal_mulai)->format('d M Y') }} -
-                                                            {{ \Carbon\Carbon::parse($p->tanggal_selesai)->format('d M Y') }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                        <option value="">Pilih Periode</option>
+                                        {{-- PERUBAHAN: Looping hanya pada periode yang aktif --}}
+                                        @foreach($activePeriods as $period)
+                                            @php
+                                                $startDate = \Carbon\Carbon::parse($period->tanggal_mulai ?? $period->date);
+                                                $endDate = \Carbon\Carbon::parse($period->tanggal_selesai ?? $period->date);
+                                                $periodText = $startDate->isSameDay($endDate)
+                                                    ? $startDate->format('d F Y')
+                                                    : $startDate->format('d M Y') . ' - ' . $endDate->format('d M Y');
+                                            @endphp
+                                            <option value="{{ $period->id }}">{{ $periodText }}</option>
+                                        @endforeach
+                                    </select>
                                             </div>
                                         @endif
                                         @if (request()->routeIs('public.program.offline.show') && isset($transports))
@@ -152,9 +162,7 @@
                                                 </select>
                                             </div>
                                         @endif
-                                        <div class="mb-3">
-                                            <label class="form-label"><i class="bi bi-paperclip"></i> Bukti Pembayaran <small class="text-muted">(opsional)</small></label>
-                                            <input type="file" name="bukti_pembayaran" class="form-control">
+                                   
                                         </div>
                                         <button type="submit" class="btn btn-primary w-100">
                                             <i class="bi bi-send-fill"></i> Daftar Sekarang

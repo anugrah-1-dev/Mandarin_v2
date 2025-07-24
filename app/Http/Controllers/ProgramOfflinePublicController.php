@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+// Import kelas yang dibutuhkan
 use App\Models\ProgramOffline;
 use App\Models\Transports;
 use App\Models\Period;
 use App\Models\PendaftaranProgramOffline;
+use App\Models\Banks; // <-- Pastikan model Banks di-import
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class ProgramOfflinePublicController extends Controller
 {
-    // Tampilkan detail + form daftar
+    /**
+     * Menampilkan detail program offline beserta form pendaftaran.
+     */
     public function showOfflinePublic(ProgramOffline $program)
     {
         $transports = Transports::all();
@@ -20,7 +24,9 @@ class ProgramOfflinePublicController extends Controller
         return view('programs.offline.show', compact('program', 'transports', 'periods'));
     }
 
-    // Proses pendaftaran
+    /**
+     * Memproses pendaftaran untuk program offline.
+     */
     public function daftar(Request $request, ProgramOffline $program)
     {
         $validated = $request->validate([
@@ -31,21 +37,24 @@ class ProgramOfflinePublicController extends Controller
             'no_wali' => 'nullable|string|max:20',
             'period_id' => 'required|exists:periods,id',
             'transport_id' => 'nullable|exists:transports,id',
-            'bukti_pembayaran' => 'nullable|image|max:2048',
+            // 'bukti_pembayaran' tidak divalidasi di sini lagi jika akan diupload di halaman terpisah
         ]);
 
-        // Generate trx_id unik
-        $trx_id = 'TRX-' . strtoupper(Str::random(10));
+        $today = Carbon::now()->format('Ymd');
+        $prefix = 'TRX-' . $today . '-';
 
-        // Upload bukti pembayaran jika ada
-        $bukti = null;
-        if ($request->hasFile('bukti_pembayaran')) {
-            $bukti = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
+        $lastRegistration = PendaftaranProgramOffline::where('trx_id', 'like', $prefix . '%')
+                                       ->orderBy('id', 'desc')
+                                       ->first();
+        $nextSequence = 1;
+        if ($lastRegistration) {
+            $lastSequence = (int) str_replace($prefix, '', $lastRegistration->trx_id);
+            $nextSequence = $lastSequence + 1;
         }
+        $newTrxId = $prefix . $nextSequence;
 
-        // Simpan ke database
         PendaftaranProgramOffline::create([
-            'trx_id' => $trx_id,
+            'trx_id' => $newTrxId,
             'program_id' => $program->id,
             'period_id' => $validated['period_id'],
             'transport_id' => $validated['transport_id'] ?? null,
@@ -54,10 +63,25 @@ class ProgramOfflinePublicController extends Controller
             'no_hp' => $validated['no_hp'],
             'asal_kota' => $validated['asal_kota'] ?? null,
             'no_wali' => $validated['no_wali'] ?? null,
-            'bukti_pembayaran' => $bukti,
             'status' => 'pending',
         ]);
+        
+        return redirect()->route('public.pendaftaran.offline.pembayaran', ['trx_id' => $newTrxId])
+                         ->with('success', 'Pendaftaran awal berhasil!');
+    }
 
-        return back()->with('success', 'Pendaftaran berhasil dikirim!');
+    /**
+     * Menampilkan halaman pembayaran berdasarkan trx_id.
+     */
+    public function halamanPembayaran($trx_id)
+    {
+        // Cari data pendaftaran berdasarkan trx_id.
+        $pendaftaran = PendaftaranProgramOffline::with('program')->where('trx_id', $trx_id)->firstOrFail();
+
+        // **PERBAIKAN:** Ambil data bank yang aktif dari database.
+        $banks = Banks::where('status', 'active')->get();
+
+        // Tampilkan view pembayaran dan kirim data pendaftaran BESERTA data bank.
+        return view('pembayaran.index', compact('pendaftaran', 'banks'));
     }
 }
