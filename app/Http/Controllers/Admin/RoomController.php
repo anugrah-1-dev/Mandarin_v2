@@ -17,49 +17,36 @@ class RoomController extends Controller
         return view('admin.rooms.index', compact('rooms', 'programCamps'));
     }
 
-    public function create()
-    {
-        $programs = ProgramCamp::all();
-        return view('admin.rooms.create', compact('programs'));
-    }
-
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'program_camp_id' => 'required|exists:program_camps,id',
-            'nama' => 'required|string|max:50',
-            'nomor_kamar' => 'required|string|max:50|unique:rooms,nomor_kamar',
-            'gender' => 'required|in:putra,putri',
-            'kategori' => 'required|in:VVIP,VIP,Barack',
-            'kapasitas' => 'required|integer|min:1|max:6',
-        ]);
-
-        Rooms::create($validated); // Pastikan modelnya 'Room' bukan 'Rooms'
-
-        return redirect()->route('admin.rooms.index')->with('success', 'Kamar berhasil ditambahkan!');
-    }
-
     public function edit(Rooms $room)
     {
         $programs = ProgramCamp::all();
         return view('admin.rooms.edit', compact('room', 'programs'));
     }
-
-    public function update(Request $request, Rooms $room)
+  
+    public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'program_camp_id' => 'required|exists:program_camps,id',
-            'nama' => 'required|string|max:50',
-            'nomor_kamar' => 'required|string|max:50|unique:rooms,nomor_kamar,' . $room->id,
+        $room = Rooms::findOrFail($id);
+
+        $request->validate([
             'gender' => 'required|in:putra,putri',
-            'kategori' => 'required|in:VVIP,VIP,Barack',
-            'kapasitas' => 'required|integer|min:1|max:6',
+            'kategori' => 'required|in:vvip,vip,barack',
+            'kapasitas' => 'required|integer|min:1',
+            'penghuni' => 'required|integer|min:0',
         ]);
 
-        $room->update($validated);
+        $room->update([
+            'gender' => $request->input('gender'),
+            'kategori' => $request->input('kategori'),
+            'kapasitas' => $request->input('kapasitas'),
+            'penghuni' => $request->input('penghuni'),
+        ]);
 
-        return redirect()->route('rooms.index')->with('success', 'Data kamar berhasil diperbarui!');
+        return response()->json(['success' => true]);
     }
+
+
+
+
 
     public function destroy(Rooms $room)
     {

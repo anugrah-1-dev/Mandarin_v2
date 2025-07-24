@@ -246,8 +246,7 @@
                                 <h5 class="card-title program-card-title">{{ $program->nama }}</h5>
                                 <p class="card-text text-muted small mb-2">
                                     <i class="fas fa-calendar-alt me-1"></i>
-                                    {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('d M') }} -
-                                    {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('d M Y') }}
+                                    {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('d M') }} - {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('d M Y') }}
                                 </p>
                                 <p class="card-text program-card-price mb-3">Rp
                                     {{ number_format($program->harga, 0, ',', '.') }}
@@ -452,8 +451,8 @@
                                 <div class="gallery-frame text-center" data-index="{{ $index }}" data-aos="fade-up"
                                     data-aos-delay="{{ 100 * ($index + 1) }}">
                                     <img src="{{ asset('storage/' . $gallery->images->first()->image_path) }}"
-                                        alt="{{ $gallery->title }}" class="gallery-thumbnail"
-                                        onclick="openGalleryModal({{ $gallery->id }})">
+                                         alt="{{ $gallery->title }}" class="gallery-thumbnail"
+                                         onclick="openGalleryModal({{ $gallery->id }})">
 
                                     <div class="gallery-caption">
                                         <h5>{{ $gallery->title }}</h5>
@@ -532,10 +531,6 @@
     <section id="sosmed" class="sosmed-section">
         <div class="container">
             <h2 class="section-title">Sosial Media Kami</h2>
-            <p class="text-center text-muted mb-4">
-                Jangan lewatkan update terbaru dari kami di berbagai platform!
-            </p>
-
             @if (!$hasSosmed)
                 <p class="text-center">Belum ada data yang ditambahkan. Stay tuned!</p>
             @else
@@ -549,9 +544,12 @@
                                         <div class="sosmed-card-image">
                                             @if (strtolower($platform) === 'youtube')
                                                 <div class="sosmed-card-video">
-                                                    <iframe width="100%" height="200"
+                                                    <iframe
+                                                        width="100%"
+                                                        height="200"
                                                         src="https://www.youtube.com/embed/{{ getYoutubeVideoId($item->url) }}"
-                                                        title="YouTube video player" frameborder="0"
+                                                        title="YouTube video player"
+                                                        frameborder="0"
                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                         allowfullscreen>
                                                     </iframe>

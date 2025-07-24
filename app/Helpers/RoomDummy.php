@@ -53,28 +53,31 @@ class RoomDummy
         });
     }
 
-
     public static function getStatusClass($room)
     {
-        if ($room['kapasitas'] == 0) {
-            return 'bg-danger'; // penuh
-        } elseif ($room['kapasitas'] <= 2) {
-            return 'bg-warning'; // hampir penuh
-        } else {
-            return 'bg-success'; // tersedia
-        }
+        $penghuni = $room->penghuni ?? 0;
+        $kapasitas = $room->kapasitas ?? 1; // fallback biar aman
+
+        return match (true) {
+            $penghuni >= $kapasitas => 'room-full',
+            $penghuni > 0 => 'room-partial',
+            default => 'room-empty'
+        };
     }
 
     public static function getStatusText($room)
     {
-        if ($room['kapasitas'] == 0) {
-            return 'Penuh';
-        } elseif ($room['kapasitas'] <= 2) {
-            return 'Hampir Penuh';
-        } else {
-            return 'Tersedia';
-        }
+        $penghuni = $room->penghuni ?? 0;
+        $kapasitas = $room->kapasitas ?? 1;
+
+        return match (true) {
+            $penghuni >= $kapasitas => 'Penuh',
+            $penghuni > 0 => 'Hampir Penuh',
+            default => 'Kosong'
+        };
     }
+
+
 
     public static function warna($room)
     {
