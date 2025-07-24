@@ -61,8 +61,7 @@ class RoomSeeder extends Seeder
         $rooms[] = ['program_camp_id' => 3, 'nomor_kamar' => 'A-12A', 'gender' => 'putri', 'kategori' => 'barack', 'kapasitas' => 3, 'created_at' => $now, 'updated_at' => $now];
         $rooms[] = ['program_camp_id' => 3, 'nomor_kamar' => 'A-35',  'gender' => 'putra', 'kategori' => 'barack', 'kapasitas' => 4, 'created_at' => $now, 'updated_at' => $now];
 
-        // Insert ke database
-        DB::table('rooms')->insert($rooms);
+        DB::table('rooms')->upsert($rooms, ['nomor_kamar'], ['program_camp_id', 'gender', 'kategori', 'kapasitas', 'updated_at']);
     }
 
     private function makeRoom($program_camp_id, $block, $num, $gender, $kategori, $kapasitas, $now)

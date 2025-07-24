@@ -10,12 +10,13 @@ class ProgramCampSeeder extends Seeder
 {
     public function run(): void
     {
-        ProgramCamp::insert([
+        $data = [
             [
-                'nama' => 'Camp VVIP Putri',
-                'slug' => Str::slug('Camp VVIP Putri'),
+                'nama' => 'Camp VVIP Putra Putri',
+                'slug' => Str::slug('Camp VVIP Putra Putri'),
                 'kategori' => 'VVIP',
                 'stok' => 10,
+                //20
                 'harga_perhari' => 250000,
                 'harga_satu_minggu' => 1500000,
                 'harga_dua_minggu' => 2800000,
@@ -27,14 +28,13 @@ class ProgramCampSeeder extends Seeder
                 'harga_satu_tahun' => 45000000,
                 'fasilitas' => json_encode(['AC', 'Kamar Mandi Dalam', 'Lemari', 'Dispenser']),
                 'thumbnail' => null,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'nama' => 'Camp VIP Putra',
                 'slug' => Str::slug('Camp VIP Putra'),
                 'kategori' => 'VIP',
-                'stok' => 20,
+                'stok' => 134,
+                // 268
                 'harga_perhari' => 200000,
                 'harga_satu_minggu' => 1200000,
                 'harga_dua_minggu' => 2200000,
@@ -46,14 +46,13 @@ class ProgramCampSeeder extends Seeder
                 'harga_satu_tahun' => 39000000,
                 'fasilitas' => json_encode(['Kipas Angin', 'WiFi', 'Ruang Belajar']),
                 'thumbnail' => null,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
-                'nama' => 'Camp Barack Mix',
-                'slug' => Str::slug('Camp Barack Mix'),
+                'nama' => 'Camp Barack Putra Putri',
+                'slug' => Str::slug('Camp Barack Putra Putri'),
                 'kategori' => 'Barack',
-                'stok' => 30,
+                'stok' => 2,
+                //12
                 'harga_perhari' => 150000,
                 'harga_satu_minggu' => 900000,
                 'harga_dua_minggu' => 1700000,
@@ -65,9 +64,17 @@ class ProgramCampSeeder extends Seeder
                 'harga_satu_tahun' => 30000000,
                 'fasilitas' => json_encode(['Kasur', 'Kamar Bersama', 'Toilet Luar']),
                 'thumbnail' => null,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
-        ]);
+        ];
+
+        foreach ($data as $item) {
+            ProgramCamp::updateOrInsert(
+                ['slug' => $item['slug']], // Unik berdasarkan slug
+                array_merge($item, [
+                    'updated_at' => now(),
+                    'created_at' => now(), // Tidak akan terpakai jika sudah ada
+                ])
+            );
+        }
     }
 }

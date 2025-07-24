@@ -33,16 +33,16 @@ use App\Http\Controllers\PaymentController;
 //camp
 Route::get('/camps', [CampController::class, 'publicIndex'])->name('camps.index');
 Route::get('/camps/{camp:slug}', [CampController::class, 'publicShow'])->name('camps.show');
+Route::get('/camp/{slug}/room', [CampController::class, 'room'])->name('camp.room');
 Route::get('/camp/{slug}', [CampController::class, 'show'])->name('camps.show');
 
 
+
 Route::post('/pendaftaran_program_camp/{programCampId}', [CampController::class, 'storePendaftaran'])->name('camp.pendaftaran.store');
-Route::get('/camp/{slug}/room', [CampController::class, 'room'])->name('camp.room');
 Route::post('/camp/room/{pendaftaranId}', [CampController::class, 'pilihKamar'])->name('camp.pilihKamar');
 Route::get('/camp/pembayaran/{id}', [CampController::class, 'pembayaran'])->name('camp.pembayaran');
 Route::post('/camp/pembayaran/{id}', [CampController::class, 'submitBuktiPembayaran'])->name('camp.submitPembayaran');
 
-Route::get('/camp/{slug}/room', [CampController::class, 'room'])->name('camp.room');
 Route::get('/camp/{slug}/room', [CampController::class, 'pilihKamar'])->name('camp.room');
 
 
@@ -118,7 +118,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')  ->name('admin.') ->g
     Route::resource('programs/camp', ProgramCampController::class)->names('programs.camp');
 
     Route::resource('rooms',RoomController::class);
-    
+
 
     // Pendaftaran Program Online
     Route::get('pendaftaran/online', [PendaftaranOnlineController::class, 'index'])->name('pendaftaran.online.index');

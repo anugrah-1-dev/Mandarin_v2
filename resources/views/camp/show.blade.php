@@ -132,7 +132,7 @@
                 </div>
             </div>
         </div>
-        
+
 
         <!-- Registration Form Section -->
         <div class="card border-0 shadow-sm mb-4 mb-lg-5">
@@ -206,10 +206,10 @@
                 </form>
             </div>
         </div>
+<a href="{{ route('camp.room', ['slug' => $program->slug]) }}" class="btn btn-primary mt-3">
+    Pilih Kamar Sekarang
+</a>
 
-        <a href="{{ route('camp.room', ['slug' => $program->slug]) }}" class="btn btn-primary mt-3">
-            Pilih Kamar Sekarang
-        </a>
 
 
         <!-- Back Button -->

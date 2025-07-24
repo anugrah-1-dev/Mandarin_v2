@@ -10,6 +10,7 @@ use App\Models\PendaftaranProgramCamp;
 use Illuminate\Support\Facades\File;
 use App\Models\Banks;
 
+
 class CampController extends Controller
 {
     public function index()
@@ -56,31 +57,25 @@ class CampController extends Controller
             'id'   => $pendaftaran->id
         ])->with('success', 'Silakan pilih kamar Anda.');
     }
-    
-    public function room($slug, Request $request)
+
+    public function room($slug)
     {
         $program = ProgramCamp::where('slug', $slug)->firstOrFail();
         $rooms = Rooms::where('program_camp_id', $program->id)->get();
 
-        $pendaftaranId = $request->get('id');
-        $pendaftaran = PendaftaranProgramCamp::findOrFail($pendaftaranId);
-
-        return view('camp.room', compact('program', 'rooms', 'pendaftaran'));
+        return view('camp.room', compact('program', 'rooms'));
     }
 
-    public function pilihKamar(Request $request, $pendaftaranId)
+    public function pilihKamar($slug)
     {
-        $request->validate([
-            'nama_kamar' => 'required|exists:rooms,nama',
-        ]);
+        $program = ProgramCamp::where('slug', $slug)->firstOrFail();
+        $rooms = Rooms::where('program_camp_id', $program->id)->get();
+        // dd('masuk ke method pilihKamar dengan slug:', $slug);
 
-        $pendaftaran = PendaftaranProgramCamp::findOrFail($pendaftaranId);
-        $pendaftaran->update([
-            $request->input('nama_kamar')
-        ]);
-
-        return redirect()->route('camp.pembayaran', ['id' => $pendaftaran->id]);
+        return view('camp.room', compact('program', 'rooms'));
     }
+
+
 
     public function pembayaran($id)
     {
