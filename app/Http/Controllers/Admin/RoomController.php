@@ -22,6 +22,7 @@ class RoomController extends Controller
         $programs = ProgramCamp::all();
         return view('admin.rooms.edit', compact('room', 'programs'));
     }
+  
     public function update(Request $request, $id)
     {
         $room = Rooms::findOrFail($id);
@@ -42,6 +43,8 @@ class RoomController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+
 
 
 
