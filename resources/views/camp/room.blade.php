@@ -1,16 +1,17 @@
 @extends('layouts.app')
 @section('content')
+    <div class="container py-5">
+        <h2 class="text-center mb-4">Pilih Kamar Camp</h2>
 
-<div class="container py-5">
-    <h2 class="text-center mb-4">Pilih Kamar Camp</h2>
-
-          @php
+        @php
             use App\Helpers\RoomDummy as RD;
         @endphp
 
 
-    {{-- <form action="{{ route('camp.pendaftaran.store') }}" method="POST">
-        @csrf --}}
+
+
+        <form action="{{ route('camp.pendaftaran.store') }}" method="POST">
+        @csrf
 
 
         {{-- === Hidden Input untuk Kamar Terpilih === --}}
@@ -23,8 +24,8 @@
         </div>
 
         {{-- ===================== VVIP ===================== --}}
-        <div class="room-section mt-5">
-            <h3 class="section-title">Kamar VVIP</h3>
+        <div class="room-layout-wrapper">
+            <h4 class="text-center mb-4">Layout Kamar VIP - Putra</h4>
             <div class="row">
                 {{-- Putri --}}
                 <div class="col-md-6">
@@ -33,13 +34,10 @@
                         <div class="room-grid">
                             @foreach (RD::filter($rooms, 'A', 19, 23) as $kamar)
                                 @if ($kamar->nomor_kamar != 'A-12A')
-                                    <div class="room-card {{ RD::getStatusClass($kamar) }}"
-                                        data-id="{{ $kamar->id }}" data-nama="{{ $kamar->nomor_kamar }}"
-                                        data-kamar="{{ $kamar->nomor_kamar }}"
-                                        data-gender="{{ $kamar->gender }}"
-                                        data-kategori="{{ $kamar->kategori }}"
-                                        data-kapasitas="{{ $kamar->kapasitas }}"
-                                        data-penghuni="{{ $kamar->penghuni }}"
+                                    <div class="room-card {{ RD::getStatusClass($kamar) }}" data-id="{{ $kamar->id }}"
+                                        data-nama="{{ $kamar->nomor_kamar }}" data-kamar="{{ $kamar->nomor_kamar }}"
+                                        data-gender="{{ $kamar->gender }}" data-kategori="{{ $kamar->kategori }}"
+                                        data-kapasitas="{{ $kamar->kapasitas }}" data-penghuni="{{ $kamar->penghuni }}"
                                         onclick="selectRoom(this)">
                                         <span class="room-number">{{ $kamar->nomor_kamar }}</span>
                                         <span class="room-status">{{ RD::getStatusText($kamar) }}</span>
@@ -56,13 +54,10 @@
                         <div class="gender-title">Putra</div>
                         <div class="room-grid">
                             @foreach (RD::filter($rooms, 'A', 24, 28) as $kamar)
-                                <div class="room-card {{ RD::getStatusClass($kamar) }}"
-                                    data-id="{{ $kamar->id }}" data-nama="{{ $kamar->nomor_kamar }}"
-                                    data-kamar="{{ $kamar->nomor_kamar }}"
-                                    data-gender="{{ $kamar->gender }}"
-                                    data-kategori="{{ $kamar->kategori }}"
-                                    data-kapasitas="{{ $kamar->kapasitas }}"
-                                    data-penghuni="{{ $kamar->penghuni }}"
+                                <div class="room-card {{ RD::getStatusClass($kamar) }}" data-id="{{ $kamar->id }}"
+                                    data-nama="{{ $kamar->nomor_kamar }}" data-kamar="{{ $kamar->nomor_kamar }}"
+                                    data-gender="{{ $kamar->gender }}" data-kategori="{{ $kamar->kategori }}"
+                                    data-kapasitas="{{ $kamar->kapasitas }}" data-penghuni="{{ $kamar->penghuni }}"
                                     onclick="selectRoom(this)">
                                     <span class="room-number">{{ $kamar->nomor_kamar }}</span>
                                     <span class="room-status">{{ RD::getStatusText($kamar) }}</span>
@@ -88,16 +83,15 @@
                                     ->merge(RD::filter($rooms, 'A', 1, 18))
                                     ->merge(RD::filter($rooms, 'B', 1, 25))
                                     ->merge(RD::filter($rooms, 'C', 1, 25))
-                                    ->reject(fn($k) => $k->nomor_kamar === 'A-12A' || strtoupper($k->kategori) !== 'VIP');
+                                    ->reject(
+                                        fn($k) => $k->nomor_kamar === 'A-12A' || strtoupper($k->kategori) !== 'VIP',
+                                    );
                             @endphp
                             @foreach ($vipPutri->unique('nomor_kamar') as $kamar)
-                                <div class="room-card {{ RD::getStatusClass($kamar) }}"
-                                    data-id="{{ $kamar->id }}" data-nama="{{ $kamar->nomor_kamar }}"
-                                    data-kamar="{{ $kamar->nomor_kamar }}"
-                                    data-gender="{{ $kamar->gender }}"
-                                    data-kategori="{{ $kamar->kategori }}"
-                                    data-kapasitas="{{ $kamar->kapasitas }}"
-                                    data-penghuni="{{ $kamar->penghuni }}"
+                                <div class="room-card {{ RD::getStatusClass($kamar) }}" data-id="{{ $kamar->id }}"
+                                    data-nama="{{ $kamar->nomor_kamar }}" data-kamar="{{ $kamar->nomor_kamar }}"
+                                    data-gender="{{ $kamar->gender }}" data-kategori="{{ $kamar->kategori }}"
+                                    data-kapasitas="{{ $kamar->kapasitas }}" data-penghuni="{{ $kamar->penghuni }}"
                                     onclick="selectRoom(this)">
                                     <span class="room-number">{{ $kamar->nomor_kamar }}</span>
                                     <span class="room-status">{{ RD::getStatusText($kamar) }}</span>
@@ -115,23 +109,28 @@
                             @php
                                 $vipPutra = collect()
                                     ->merge(
-                                        RD::filter($rooms, 'A', 29, 46, 'putra')->reject(fn($k) =>
-                                            $k->nomor_kamar === 'A-35' ||
-                                            ($k->nomor_kamar >= 'A-24' && $k->nomor_kamar <= 'A-28') ||
-                                            strtoupper($k->kategori) !== 'VIP'
-                                        )
+                                        RD::filter($rooms, 'A', 29, 46, 'putra')->reject(
+                                            fn($k) => $k->nomor_kamar === 'A-35' ||
+                                                ($k->nomor_kamar >= 'A-24' && $k->nomor_kamar <= 'A-28') ||
+                                                strtoupper($k->kategori) !== 'VIP',
+                                        ),
                                     )
-                                    ->merge(RD::filter($rooms, 'B', 26, 50, 'putra')->reject(fn($k) => strtoupper($k->kategori) !== 'VIP'))
-                                    ->merge(RD::filter($rooms, 'C', 26, 50, 'putra')->reject(fn($k) => strtoupper($k->kategori) !== 'VIP'));
+                                    ->merge(
+                                        RD::filter($rooms, 'B', 26, 50, 'putra')->reject(
+                                            fn($k) => strtoupper($k->kategori) !== 'VIP',
+                                        ),
+                                    )
+                                    ->merge(
+                                        RD::filter($rooms, 'C', 26, 50, 'putra')->reject(
+                                            fn($k) => strtoupper($k->kategori) !== 'VIP',
+                                        ),
+                                    );
                             @endphp
                             @foreach ($vipPutra->unique('nomor_kamar') as $kamar)
-                                <div class="room-card {{ RD::getStatusClass($kamar) }}"
-                                    data-id="{{ $kamar->id }}" data-nama="{{ $kamar->nomor_kamar }}"
-                                    data-kamar="{{ $kamar->nomor_kamar }}"
-                                    data-gender="{{ $kamar->gender }}"
-                                    data-kategori="{{ $kamar->kategori }}"
-                                    data-kapasitas="{{ $kamar->kapasitas }}"
-                                    data-penghuni="{{ $kamar->penghuni }}"
+                                <div class="room-card {{ RD::getStatusClass($kamar) }}" data-id="{{ $kamar->id }}"
+                                    data-nama="{{ $kamar->nomor_kamar }}" data-kamar="{{ $kamar->nomor_kamar }}"
+                                    data-gender="{{ $kamar->gender }}" data-kategori="{{ $kamar->kategori }}"
+                                    data-kapasitas="{{ $kamar->kapasitas }}" data-penghuni="{{ $kamar->penghuni }}"
                                     onclick="selectRoom(this)">
                                     <span class="room-number">{{ $kamar->nomor_kamar }}</span>
                                     <span class="room-status">{{ RD::getStatusText($kamar) }}</span>
@@ -155,14 +154,12 @@
                             @php $kamarPutriBarack = $rooms->firstWhere('nomor_kamar', 'A-12A'); @endphp
                             @if ($kamarPutriBarack)
                                 <div class="room-card {{ RD::getStatusClass($kamarPutriBarack) }}"
-                                    data-id="{{ $kamarPutriBarack->id }}"
-                                    data-nama="{{ $kamarPutriBarack->nomor_kamar }}"
+                                    data-id="{{ $kamarPutriBarack->id }}" data-nama="{{ $kamarPutriBarack->nomor_kamar }}"
                                     data-kamar="{{ $kamarPutriBarack->nomor_kamar }}"
                                     data-gender="{{ $kamarPutriBarack->gender }}"
                                     data-kategori="{{ $kamarPutriBarack->kategori }}"
                                     data-kapasitas="{{ $kamarPutriBarack->kapasitas }}"
-                                    data-penghuni="{{ $kamarPutriBarack->penghuni }}"
-                                    onclick="selectRoom(this)">
+                                    data-penghuni="{{ $kamarPutriBarack->penghuni }}" onclick="selectRoom(this)">
                                     <span class="room-number">{{ $kamarPutriBarack->nomor_kamar }}</span>
                                     <span class="room-status">{{ RD::getStatusText($kamarPutriBarack) }}</span>
                                 </div>
@@ -185,8 +182,7 @@
                                     data-gender="{{ $kamarPutraBarack->gender }}"
                                     data-kategori="{{ $kamarPutraBarack->kategori }}"
                                     data-kapasitas="{{ $kamarPutraBarack->kapasitas }}"
-                                    data-penghuni="{{ $kamarPutraBarack->penghuni }}"
-                                    onclick="selectRoom(this)">
+                                    data-penghuni="{{ $kamarPutraBarack->penghuni }}" onclick="selectRoom(this)">
                                     <span class="room-number">{{ $kamarPutraBarack->nomor_kamar }}</span>
                                     <span class="room-status">{{ RD::getStatusText($kamarPutraBarack) }}</span>
                                 </div>
@@ -201,32 +197,92 @@
         <div class="text-center mt-4">
             <button type="submit" class="btn btn-primary px-5">Daftar Sekarang</button>
         </div>
-    </form>
-</div>
+        </form>
+    </div>
+    <style>
+        .room-layout-wrapper {
+            padding: 20px;
+        }
 
-{{-- SCRIPT PILIH KAMAR --}}
-<script>
-    function selectRoom(element) {
-        const kamarId = element.getAttribute('data-id');
-        const namaKamar = element.getAttribute('data-nama');
+        .gender-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 18px;
+            color: #555;
+        }
 
-        document.getElementById('inputKamarId').value = kamarId;
-        document.getElementById('inputNamaKamar').value = namaKamar;
+        .room-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
 
-        document.getElementById('selectedRoomName').textContent = namaKamar;
-        document.getElementById('selectedRoomInfo').classList.remove('d-none');
+        .room-card {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            background-color: #f3f3f3;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.3s ease;
+            position: relative;
+        }
 
-        document.querySelectorAll('.room-card').forEach(card => card.classList.remove('selected-room'));
-        element.classList.add('selected-room');
-    }
-</script>
+        .room-card:hover {
+            transform: scale(1.05);
+            border-color: #007bff;
+        }
 
-{{-- CSS PILIHAN --}}
-<style>
-    .room-card.selected-room {
-        border: 3px solid #007bff;
-        box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-    }
-</style>
+        .room-card.occupied {
+            background-color: #ffc4c4;
+            border-color: #ff0000;
+        }
 
+        .room-card.available {
+            background-color: #c8facc;
+            border-color: #28a745;
+        }
+
+        .room-number {
+            font-weight: bold;
+        }
+
+        .room-status {
+            font-size: 10px;
+            color: #666;
+        }
+    </style>
+
+
+    {{-- SCRIPT PILIH KAMAR --}}
+    <script>
+        function selectRoom(element) {
+            const kamarId = element.getAttribute('data-id');
+            const namaKamar = element.getAttribute('data-nama');
+
+            document.getElementById('inputKamarId').value = kamarId;
+            document.getElementById('inputNamaKamar').value = namaKamar;
+
+            document.getElementById('selectedRoomName').textContent = namaKamar;
+            document.getElementById('selectedRoomInfo').classList.remove('d-none');
+
+            document.querySelectorAll('.room-card').forEach(card => card.classList.remove('selected-room'));
+            element.classList.add('selected-room');
+        }
+    </script>
+
+    {{-- CSS PILIHAN --}}
+    <style>
+        .room-card.selected-room {
+            border: 3px solid #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+    </style>
 @endsection

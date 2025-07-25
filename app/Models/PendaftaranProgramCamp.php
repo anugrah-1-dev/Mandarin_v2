@@ -2,15 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\ProgramCamp;
-use App\Models\Banks;
 
 class PendaftaranProgramCamp extends Model
 {
-    use HasFactory;
-
     protected $table = 'pendaftaran_program_camp';
 
     protected $fillable = [
@@ -24,20 +19,22 @@ class PendaftaranProgramCamp extends Model
         'nama_kamar',
         'bukti_pembayaran',
         'status',
+        'bank_id',
     ];
 
-    // Relasi ke program camp
+    // Relasi ke ProgramCamp
     public function programCamp()
     {
-        return $this->belongsTo(ProgramCamp::class, 'program_camp_id');
+        return $this->belongsTo(ProgramCamp::class);
     }
 
-    // Relasi ke periode
+    // Relasi ke Period
     public function period()
     {
         return $this->belongsTo(Period::class);
     }
 
+    // Relasi ke Bank
     public function bank()
     {
         return $this->belongsTo(Banks::class);

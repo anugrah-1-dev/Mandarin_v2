@@ -31,11 +31,10 @@ class TransportsController extends Controller
         ]);
 
         return redirect()->back()->with('alert', [
-    'icon' => 'success',
-    'title' => 'Berhasil!',
-    'text' => 'Transportasi berhasil ditambahkan.'
-]);
-
+            'icon' => 'success',
+            'title' => 'Berhasil!',
+            'text' => 'Transportasi berhasil ditambahkan.'
+        ]);
     }
 
     public function edit($id)
@@ -60,11 +59,10 @@ class TransportsController extends Controller
         ]);
 
         return redirect()->route('admin.transports.index')->with('alert', [
-    'icon' => 'success',
-    'title' => 'Berhasil!',
-    'text' => 'Data transportasi berhasil diperbarui.'
-]);
-
+            'icon' => 'success',
+            'title' => 'Berhasil!',
+            'text' => 'Data transportasi berhasil diperbarui.'
+        ]);
     }
 
     public function destroy($id)
@@ -77,7 +75,5 @@ class TransportsController extends Controller
             'title' => 'Berhasil!',
             'text' => 'Transports berhasil dihapus.'
         ]);
-        }
-
-
+    }
 }

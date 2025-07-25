@@ -24,7 +24,8 @@ use App\Http\Controllers\Admin\SosmedController;
 use App\Http\Controllers\CampController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\PaymentController;
-
+use App\Http\Controllers\Admin\PendaftaranProgramCampController;
+use App\Http\Controllers\PendaftranCampController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,8 +43,16 @@ Route::post('/pendaftaran_program_camp/{programCampId}', [CampController::class,
 Route::post('/camp/room/{pendaftaranId}', [CampController::class, 'pilihKamar'])->name('camp.pilihKamar');
 Route::get('/camp/pembayaran/{id}', [CampController::class, 'pembayaran'])->name('camp.pembayaran');
 Route::post('/camp/pembayaran/{id}', [CampController::class, 'submitBuktiPembayaran'])->name('camp.submitPembayaran');
-
 Route::get('/camp/{slug}/room', [CampController::class, 'pilihKamar'])->name('camp.room');
+
+Route::get('/camp/{program}/daftar', [PendaftranCampController::class, 'showCampPublic'])->name('public.camp.show');
+Route::post('/camp/{program}/daftar', [PendaftranCampController::class, 'daftar'])->name('public.pendaftaran.camp.daftar');
+Route::get('/camp/{trx_id}/kamar', [PendaftranCampController::class, 'halamanKamar'])->name('public.pendaftaran.camp.kamar');
+Route::get('/camp/{trx_id}/pembayaran', [PendaftranCampController::class, 'halamanPembayaran'])->name('public.pendaftaran.camp.pembayaran');
+
+
+Route::get('/camp/{program}/daftar', [PendaftranCampController::class, 'showForm'])->name('camp.pendaftaran.form');
+Route::post('/camp/{program}/daftar', [PendaftranCampController::class, 'store'])->name('camp.pendaftaran.store');
 
 
 
@@ -138,6 +147,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')  ->name('admin.') ->g
     Route::get('/pendaftaran/program-offline', [PendaftaranOfflineController::class, 'create'])->name('pendaftaran.program_offline.create');
     Route::post('/pendaftaran/program-offline', [PendaftaranOfflineController::class, 'store'])->name('pendaftaran.program_offline.store');
 
+    // Pendaftaran Program Camp
+    Route::get('/pendaftaran/camp', [PendaftaranProgramCampController::class, 'index'])->name('pendaftaran.camp.index');
+    Route::get('/pendaftaran/camp/{id}/edit', [PendaftaranProgramCampController::class, 'edit'])->name('pendaftaran.camp.edit');
+    Route::put('/pendaftaran/camp/{id}', [PendaftaranProgramCampController::class, 'update'])->name('pendaftaran.camp.update');
+    Route::delete('/pendaftaran/camp/{id}', [PendaftaranProgramCampController::class, 'destroy'])->name('pendaftaran.camp.destroy');
+    Route::get('/pendaftaran/camp/{id}/bukti', [PendaftaranProgramCampController::class, 'showBukti'])->name('pendaftaran.camp.bukti');
     //periods
     Route::resource('periods', PeriodsController::class)->only(['index','store', 'update', 'destroy']);
 
@@ -149,6 +164,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')  ->name('admin.') ->g
         ->name('pendaftaran.online.export');
 
     //CSV Export
-    Route::get('/pendaftaran-offline/export', [PendaftaranOfflineController::class, 'exportCsvOffline'])
-        ->name('pendaftaran.offline.export');
+        Route::get('/pendaftaran-offline/export', [PendaftaranOfflineController::class, 'exportCsvOffline'])
+            ->name('pendaftaran.offline.export');
+    //csv export camp
+    Route::get('/pendaftaran-camp/export', [PendaftaranProgramCampController::class, 'exportCsv'])
+        ->name('camp.export');
 });
