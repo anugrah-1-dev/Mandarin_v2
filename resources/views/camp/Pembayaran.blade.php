@@ -124,29 +124,33 @@
                                     </div>
                                     </h2>
                                 </div>
-
                                 {{-- Instruksi Pembayaran --}}
                                 <div class="instructions mb-4">
                                     <h5 class="text-center mb-3">Instruksi Pembayaran</h5>
-                                    <p class="text-center">Silakan transfer ke salah satu rekening berikut:</p>
-                                    <ul class="list-group">
-                                        {{-- Loop melalui data bank dari controller --}}
-                                        @forelse($banks as $bank)
+                                    <p class="text-center">Silakan transfer ke rekening berikut:</p>
+
+                                    @if ($pendaftaran->bank)
+                                        <ul class="list-group">
                                             <li class="list-group-item">
-                                                <div><i class="bi bi-bank"></i> <strong>{{ $bank->name }}:</strong>
-                                                    {{ $bank->number }} (a.n. {{ $bank->owner }})</div>
+                                                <div>
+                                                    <i class="bi bi-bank"></i>
+                                                    <strong>{{ $pendaftaran->bank->name }}:</strong>
+                                                    {{ $pendaftaran->bank->number }} (a.n. {{ $pendaftaran->bank->owner }})
+                                                </div>
                                                 <button class="btn btn-sm btn-outline-secondary btn-copy"
-                                                    onclick="copyToClipboard('{{ $bank->number }}', this)"
+                                                    onclick="copyToClipboard('{{ $pendaftaran->bank->number }}', this)"
                                                     title="Salin Nomor Rekening">
                                                     <i class="bi bi-clipboard"></i>
                                                 </button>
                                             </li>
-                                        @empty
-                                            <li class="list-group-item text-center text-muted">Informasi rekening bank tidak
-                                                tersedia.</li>
-                                        @endforelse
-                                    </ul>
+                                        </ul>
+                                    @else
+                                        <div class="text-center text-danger">
+                                            <em>Informasi bank tidak tersedia.</em>
+                                        </div>
+                                    @endif
                                 </div>
+
 
                                 <hr>
 

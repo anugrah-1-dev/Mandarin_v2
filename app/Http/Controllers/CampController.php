@@ -24,39 +24,40 @@ class CampController extends Controller
         $program = ProgramCamp::where('slug', $slug)->firstOrFail();
         $facilities = !empty($program->fasilitas) ? explode(',', $program->fasilitas) : [];
         $periods = Period::where('is_active', 1)->get();
+        $banks = Banks::all();
 
-        return view('camp.show', compact('program', 'facilities', 'periods'));
+        return view('camp.show', compact('program', 'facilities', 'periods', 'banks'));
     }
 
-    public function storePendaftaran(Request $request, $programCampId)
-    {
-        $request->validate([
-            'nama_lengkap' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'no_hp' => 'required|string|max:20',
-            'asal_kota' => 'required|string|max:255',
-            'durasi_paket' => 'required|string',
-            'period_id' => 'required|exists:periods,id',
-        ]);
+    // public function storePendaftaran(Request $request, $programCampId)
+    // {
+    //     $request->validate([
+    //         'nama_lengkap' => 'required|string|max:255',
+    //         'email' => 'required|email|max:255',
+    //         'no_hp' => 'required|string|max:20',
+    //         'asal_kota' => 'required|string|max:255',
+    //         'durasi_paket' => 'required|string',
+    //         'period_id' => 'required|exists:periods,id',
+    //     ]);
 
-        $pendaftaran = PendaftaranProgramCamp::create([
-            'nama_lengkap'     => $request->input('nama_lengkap'),
-            'email'            => $request->input('email'),
-            'no_hp'            => $request->input('no_hp'),
-            'asal_kota'        => $request->input('asal_kota'),
-            'program_camp_id'  => $programCampId,
-            'period_id'        => $request->input('period_id'),
-            'durasi_paket'     => $request->input('durasi_paket'),
-            'status'           => 'pending',
-        ]);
+    //     $pendaftaran = PendaftaranProgramCamp::create([
+    //         'nama_lengkap'     => $request->input('nama_lengkap'),
+    //         'email'            => $request->input('email'),
+    //         'no_hp'            => $request->input('no_hp'),
+    //         'asal_kota'        => $request->input('asal_kota'),
+    //         'program_camp_id'  => $programCampId,
+    //         'period_id'        => $request->input('period_id'),
+    //         'durasi_paket'     => $request->input('durasi_paket'),
+    //         'status'           => 'pending',
+    //     ]);
 
-        session(['pendaftaran_camp_id' => $pendaftaran->id]);
+    //     session(['pendaftaran_camp_id' => $pendaftaran->id]);
 
-        return redirect()->route('camp.room', [
-            'slug' => $pendaftaran->programCamp->slug,
-            'id'   => $pendaftaran->id
-        ])->with('success', 'Silakan pilih kamar Anda.');
-    }
+    //     return redirect()->route('camp.room', [
+    //         'slug' => $pendaftaran->programCamp->slug,
+    //         'id'   => $pendaftaran->id
+    //     ])->with('success', 'Silakan pilih kamar Anda.');
+    // }
 
     public function room($slug)
     {

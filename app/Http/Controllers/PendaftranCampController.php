@@ -48,6 +48,7 @@ class PendaftranCampController extends Controller
             'period_id'      => 'required|exists:periods,id',
             'durasi_paket'   => 'required|in:perhari,satu_minggu,dua_minggu,satu_bulan,dua_bulan,tiga_bulan',
             'gender'         => 'required|in:putra,putri', // ← tambah validasi gender
+            'bank_id'        => 'required|exists:banks,id',
         ]);
 
         $prefix = 'TRXC-' . now()->format('Ymd') . '-';
@@ -64,6 +65,7 @@ class PendaftranCampController extends Controller
             'program_camp_id'  => $program->id,
             'period_id'        => $request->period_id,
             'durasi_paket'     => $request->durasi_paket,
+            'bank_id'          => $request->bank_id,
             'status'           => 'pending',
             'nama_kamar'       => null,
             'trx_id'           => $trx_id,
@@ -121,10 +123,11 @@ class PendaftranCampController extends Controller
     public function halamanPembayaran($trx_id)
     {
         $pendaftaran = PendaftaranProgramCamp::where('trx_id', $trx_id)->firstOrFail();
-        $banks = Banks::all(); // Atau bisa disesuaikan
+        $pendaftaran = PendaftaranProgramCamp::with('bank')->where('trx_id', $trx_id)->firstOrFail();
 
 
-        return view('camp.pembayaran', compact('pendaftaran', 'banks'));
+
+        return view('camp.pembayaran', compact('pendaftaran'));
     }
 
     public function showPembayaran($id)

@@ -97,6 +97,18 @@
                                 </select>
                             </div>
 
+                            <div class="col-12 col-md-6 mt-3">
+                                <label for="bank_id" class="form-label fw-semibold">Pilih Bank</label>
+                                <select name="bank_id" id="bank_id" class="form-select form-select-lg" required>
+                                    <option value="">-- Pilih Bank --</option>
+                                    @isset($banks) <!-- Pastikan variabel banks ada -->
+                                        @foreach ($banks as $bank)
+                                            <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                        @endforeach
+                                    @endisset
+                                </select>
+                            </div>
+
                             <div class="col-12">
                                 <label class="form-label fw-semibold d-block mb-2">Package Duration</label>
                                 <div class="duration-options-container">
