@@ -72,7 +72,10 @@
                             </div>
                             <div class="col-12 col-md-6">
                                 <label for="asal_kota" class="form-label fw-semibold">City of Origin</label>
-                                <input type="text" name="asal_kota" class="form-control form-control-lg" required>
+                           <input type="text" id="asal_kota" name="asal_kota" class="form-control form-control-lg" required>
+
+
+
                             </div>
 
                             <div class="col-12 col-md-6">
@@ -136,11 +139,11 @@
                                                 'harga' => $program->harga_tiga_bulan,
                                             ],
                                             'enam_bulan' => [
-                                                'label' => 'six Months',
+                                                'label' => '6 Months',
                                                 'harga' => $program->harga_enam_bulan,
                                             ],
                                             'satu_tahun' => [
-                                                'label' => 'one Years',
+                                                'label' => '1 Years',
                                                 'harga' => $program->harga_satu_tahun,
                                             ],
                                         ];
@@ -172,21 +175,29 @@
                     </form>
                 </div>
             </div>
-
-
-
-
-            {{-- <a href="{{ route('camp.room', ['slug' => $program->slug]) }}" class="btn btn-primary mt-3">
-                Pilih Kamar Sekarang
-            </a> --}}
-
-
-
-            {{-- <!-- Back Button -->
-            <div class="text-center mb-4 mb-lg-5">
-                <a href="{{ route('camps.index') }}" class="btn btn-outline-secondary px-4 py-2 fw-semibold">
-                    <i class="fas fa-arrow-left me-2"></i> Back to Camp List
-                </a>
-            </div> --}}
         </div>
-    @endsection
+
+            <!-- jQuery UI CDN -->
+            <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+            <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+            <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<script>
+    $(function() {
+        $.getJSON('/indonesia-indonesian.json', function(data) {
+            let kotaList = [];
+
+            // Gabungkan semua kota/kab dari semua provinsi jadi satu array
+            for (let provinsi in data) {
+                kotaList = kotaList.concat(data[provinsi]);
+            }
+
+            // Inisialisasi autocomplete
+            $('#asal_kota').autocomplete({
+                source: kotaList,
+                minLength: 2
+            });
+        });
+    });
+</script>
+
+        @endsection

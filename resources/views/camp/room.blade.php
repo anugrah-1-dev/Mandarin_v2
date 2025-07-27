@@ -262,9 +262,11 @@
                             <div class="room-grid">
                                 @php $kamarPutriBarack = $rooms->firstWhere('nomor_kamar', 'A-12A'); @endphp
                                 @php
+                                    $kamarPutriBarack = $rooms->firstWhere('nomor_kamar', 'A-12A');
                                     $kamar = $kamarPutriBarack;
-                                    $isFull = $kamar->penghuni >= $kamar->kapasitas;
+                                    $isFull = $kamar ? $kamar->penghuni >= $kamar->kapasitas : false;
                                 @endphp
+
 
                                 @if ($kamarPutriBarack)
                                     <div class="room-card {{ RD::getStatusClass($kamar) }}" data-id="{{ $kamar->id }}"
@@ -290,9 +292,12 @@
                             <div class="room-grid">
                                 @php $kamarPutraBarack = $rooms->firstWhere('nomor_kamar', 'A-35'); @endphp
                                 @php
+                                    $kamarPutraBarack = $rooms->firstWhere('nomor_kamar', 'A-35');
                                     $kamar = $kamarPutraBarack;
-                                    $isFull = $kamar->penghuni >= $kamar->kapasitas;
+
+                                    $isFull = $kamar ? $kamar->penghuni >= $kamar->kapasitas : false;
                                 @endphp
+
 
                                 @if ($kamarPutraBarack)
                                     <div class="room-card {{ RD::getStatusClass($kamar) }}"
