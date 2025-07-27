@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Carbon\Carbon;
+
 class Period extends Model
 {
     use SoftDeletes;
@@ -21,6 +23,15 @@ class Period extends Model
         'is_active' => 'boolean',
     ];
 
+    public function getIsActiveAttribute($value)
+    {
+        if ($this->date < Carbon::today()) {
+            return false;
+        }
+
+        return $value;
+    }
+
     // Relasi ke pendaftaran program online
     public function pendaftaranOnline()
     {
@@ -32,4 +43,6 @@ class Period extends Model
     {
         return $this->hasMany(PendaftaranProgramOffline::class, 'period_id');
     }
+
+
 }

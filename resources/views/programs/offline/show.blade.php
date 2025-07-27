@@ -26,6 +26,7 @@
                             <div class="card-body">
                                 @if ($program->thumbnail)
                                     <div class="text-center mb-3">
+
                                         <img src="{{ asset('storage/' . $program->thumbnail) }}" class="img-fluid rounded"
                                             alt="{{ $program->nama }}">
                                     </div>
@@ -39,8 +40,9 @@
                                     <tr>
                                         <th class="bg-light">Jadwal</th>
                                         <td>{{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('d M Y') }} -
-                                            {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('d M Y') }}
-                                        </td>
+
+                                            {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('d M Y') }}</td>
+
                                     </tr>
                                     <tr>
                                         <th class="bg-light">Kuota</th>
@@ -53,39 +55,35 @@
                                                 $features = $program->features_program;
                                                 if (is_string($features)) {
                                                     $decoded = json_decode($features, true);
-                                                    $features = json_last_error() === JSON_ERROR_NONE && is_array($decoded)
-                                                        ? $decoded
-                                                        : explode("\n", $features);
-                                                }
 
-                                                function getFeatureIcon($fitur)
-                                                {
-                                                    $fitur = strtolower($fitur);
 
-                                                    return str_contains($fitur, 'kamar') ? '🛏' :
-                                                        (str_contains($fitur, 'wifi') ? '📶' :
-                                                            (str_contains($fitur, 'makan') ? '🍽' :
-                                                                (str_contains($fitur, 'laundry') ? '🧺' :
-                                                                    (str_contains($fitur, 'ac') ? '❄' :
-                                                                        (str_contains($fitur, 'parkir') ? '🅿' : '✅')))));
+                                                    $features =
+                                                        json_last_error() === JSON_ERROR_NONE && is_array($decoded)
+                                                            ? $decoded
+                                                            : explode("\n", $features);
 
                                                 }
                                             @endphp
+
                                             @if (!empty($features) && is_array($features))
                                                 <ul class="list-unstyled mb-0">
                                                     @foreach ($features as $fitur)
-                                                        <li>{{ getFeatureIcon($fitur) }} {{ trim($fitur) }}</li>
+                                                        <li>{{ \App\Helpers\FeatureHelper::getFeatureIcon($fitur) }}
+                                                            {{ trim($fitur) }}</li>
+
                                                     @endforeach
                                                 </ul>
                                             @else
                                                 <em>Tidak ada fasilitas tersedia.</em>
                                             @endif
                                         </td>
+
                                     </tr>
                                     <tr>
                                         <th class="bg-light">Status</th>
                                         <td>
-                                            @if($program->is_active)
+                                            @if ($program->is_active)
+
                                                 <span class="badge bg-success">Aktif</span>
                                             @else
                                                 <span class="badge bg-danger">Tidak Aktif</span>
@@ -106,11 +104,14 @@
                                 <p class="text-muted mb-3">Silakan lengkapi data diri Anda untuk mendaftar program ini.
                                 </p>
                                 <div class="card-body">
+
                                     @if(session('success'))
+
                                         <div class="alert alert-success">{{ session('success') }}</div>
                                     @endif
 
                                     @php
+
                                         $activePeriods = $periods->where('is_active', 1);
                                     @endphp
 
@@ -153,31 +154,42 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label class="form-label"><i class="bi bi-bus-front-fill"></i>
-                                                Transportasi</label>
-                                            <select name="transport_id" class="form-select">
-                                                <option value="">Pilih Transportasi</option>
-                                                @foreach($transports->where('status', 'active') as $transport)
-                                                    <option value="{{ $transport->id }}">{{ $transport->name }}</option>
-                                                @endforeach
 
+                                            <label class="form-label"><i class="bi bi-bus-front-fill"></i> Transportasi
+                                                (Optional)</label>
+                                            <select name="transport_id" class="form-select">
+                                                <option value="">Pilih Transportasi </option>
+                                                @foreach ($transports as $transport)
+                                                    <option value="{{ $transport->id }}">{{ $transport->name }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
+
+                                        {{-- ====================================================== --}}
+                                        {{-- PERUBAHAN DIMULAI: Tambah Pilihan Bank --}}
+                                        {{-- ====================================================== --}}
 
                                         <div class="mb-3">
                                             <label class="form-label"><i class="bi bi-bank"></i> Bank untuk
                                                 Pembayaran</label>
                                             <select name="bank_id" class="form-select" required>
                                                 <option value="">Pilih Bank</option>
-                                                @if(isset($banks) && $banks->isNotEmpty())
-                                                    @foreach($banks as $bank)
-                                                        <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+
+                                                {{-- Pastikan Anda mengirimkan variabel $banks dari controller --}}
+                                                {{-- Contoh di Controller: $banks = \App\Models\Bank::where('status', 'active')->get(); --}}
+                                                @if (isset($banks) && $banks->isNotEmpty())
+                                                    @foreach ($banks as $bank)
+                                                        <option value="{{ $bank->id }}">{{ $bank->name }}
+                                                        </option>
                                                     @endforeach
                                                 @else
-                                                    <option value="" disabled>Tidak ada pilihan bank tersedia</option>
+                                                    <option value="" disabled>Tidak ada pilihan bank tersedia
+                                                    </option>
                                                 @endif
                                             </select>
-                                            @if(!isset($banks) || $banks->isEmpty())
+                                            @if (!isset($banks) || $banks->isEmpty())
+
                                                 <div class="form-text text-danger">Pilihan bank tidak tersedia. Hubungi
                                                     admin.</div>
                                             @endif
@@ -188,31 +200,42 @@
                                                 Periode</label>
                                             <select name="period_id" class="form-select" required>
                                                 <option value="">Pilih Periode</option>
-                                                @if($activePeriods->isNotEmpty())
-                                                    @foreach($activePeriods as $period)
-                                                        @php
-                                                            $startDate = \Carbon\Carbon::parse($period->tanggal_mulai ?? $period->date);
-                                                            $endDate = \Carbon\Carbon::parse($period->tanggal_selesai ?? $period->date);
-                                                            $periodText = $startDate->isSameDay($endDate)
-                                                                ? $startDate->format('d F Y')
-                                                                : $startDate->format('d M Y') . ' - ' . $endDate->format('d M Y');
-                                                        @endphp
-                                                        <option value="{{ $period->id }}">{{ $periodText }}</option>
-                                                    @endforeach
-                                                @endif
+
+                                                @php
+                                                    $today = \Carbon\Carbon::now('Asia/Jakarta')->toDateString();
+                                                @endphp
+
+                                                @forelse ($activePeriods as $period)
+                                                    @php
+                                                        $periodDate = \Carbon\Carbon::parse(
+                                                            $period->date,
+                                                        )->toDateString();
+                                                        $isToday = $periodDate === $today;
+                                                    @endphp
+                                                    <option value="{{ $period->id }}"
+                                                        {{ $isToday ? 'selected' : '' }}>
+                                                        Periode:
+                                                        {{ \Carbon\Carbon::parse($period->date)->translatedFormat('d M Y') }}
+                                                        {{ $isToday ? '(Aktif Hari Ini)' : '' }}
+                                                    </option>
+                                                @empty
+                                                    {{-- Kosong --}}
+                                                @endforelse
                                             </select>
-                                            @if($activePeriods->isEmpty())
-                                                <div class="form-text text-danger">Tidak ada periode pendaftaran yang aktif
-                                                    saat ini.</div>
+
+                                            @if ($activePeriods->isEmpty())
+                                                <div class="form-text text-danger">Tidak ada periode pendaftaran yang
+                                                    aktif saat ini.</div>
+
                                             @endif
                                         </div>
 
                                         <button type="submit" class="btn btn-primary w-100"
-                                            @if($activePeriods->isEmpty() || !isset($banks) || $banks->isEmpty())
-                                            disabled @endif>
+
+                                            @if ($activePeriods->isEmpty() || !isset($banks) || $banks->isEmpty()) disabled @endif>
                                             <i class="bi bi-send-fill"></i>
-                                            @if($activePeriods->isNotEmpty() && isset($banks) && $banks->isNotEmpty())
-                                                Daftar Sekarang
+                                            @if ($activePeriods->isNotEmpty() && isset($banks) && $banks->isNotEmpty())
+                                  Daftar Sekarang
                                             @else
                                                 Pendaftaran Ditutup
                                             @endif
@@ -228,6 +251,9 @@
             </div>
         </div>
     </div>
+
+
+
 
     <!-- Bootstrap Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -259,3 +285,4 @@
 </body>
 
 </html>
+

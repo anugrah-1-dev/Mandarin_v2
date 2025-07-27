@@ -16,6 +16,22 @@ class PeriodsController extends Controller
         return view('admin.periods.index', compact('periods'));
     }
 
+    // public function index()
+    // {
+    //     $today = now();
+    //     $periods = Period::all();
+
+    //     foreach ($periods as $period) {
+    //         if ($period->date < $today && $period->is_active) {
+    //             $period->update(['is_active' => false]);
+    //         }
+    //     }
+
+    //     // Lanjutkan ke pagination dan tampilan
+    //     $periods = Period::orderBy('date', 'desc')->paginate(10);
+    //     return view('admin.periods.index', compact('periods'));
+    // }
+
     // TAMBAH DATA
     public function store(Request $request)
     {

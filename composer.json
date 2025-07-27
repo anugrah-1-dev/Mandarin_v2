@@ -38,7 +38,8 @@
         },
         "files": [
             "app/Helpers/YoutubeHelpers.php",
-            "app/Helpers/GeneralHelper.php"
+            "app/Helpers/GeneralHelper.php",
+            "app/Helpers/FeatureHelper.php"
         ]
     },
     "autoload-dev": {

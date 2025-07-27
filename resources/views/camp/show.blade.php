@@ -72,7 +72,8 @@
                             </div>
                             <div class="col-12 col-md-6">
                                 <label for="asal_kota" class="form-label fw-semibold">City of Origin</label>
-                           <input type="text" id="asal_kota" name="asal_kota" class="form-control form-control-lg" required>
+                                <input type="text" id="asal_kota" name="asal_kota" class="form-control form-control-lg"
+                                    required>
 
 
 
@@ -87,18 +88,27 @@
                                 </select>
                             </div>
 
+                            @php
+                                $today = \Carbon\Carbon::now('Asia/Jakarta')->toDateString(); // format: '2025-07-27'
+                            @endphp
+
+
                             <div class="col-12 col-md-6">
                                 <label for="period_id" class="form-label fw-semibold">Select Period</label>
                                 <select name="period_id" class="form-select form-select-lg" required>
                                     <option value="">-- Select Period --</option>
                                     @foreach ($periods as $period)
-                                        <option value="{{ $period->id }}">
-                                            {{ $period->nama }}
-                                            ({{ \Carbon\Carbon::parse($period->tanggal)->translatedFormat('d M Y') }})
+                                        @php
+                                            $periodDate = \Carbon\Carbon::parse($period->date)->toDateString();
+                                        @endphp
+                                        <option value="{{ $period->id }}" {{ $periodDate == $today ? 'selected' : '' }}>
+                                            Periode: {{ \Carbon\Carbon::parse($period->date)->translatedFormat('d M Y') }}
+                                            {{ $periodDate == $today ? '(Aktif Hari Ini)' : '' }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
+
 
                             <div class="col-12 col-md-6 mt-3">
                                 <label for="bank_id" class="form-label fw-semibold">Pilih Bank</label>
@@ -177,27 +187,27 @@
             </div>
         </div>
 
-            <!-- jQuery UI CDN -->
-            <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-            <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-            <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
-<script>
-    $(function() {
-        $.getJSON('/indonesia-indonesian.json', function(data) {
-            let kotaList = [];
+        <!-- jQuery UI CDN -->
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+        <script>
+            $(function() {
+                $.getJSON('/indonesia-indonesian.json', function(data) {
+                    let kotaList = [];
 
-            // Gabungkan semua kota/kab dari semua provinsi jadi satu array
-            for (let provinsi in data) {
-                kotaList = kotaList.concat(data[provinsi]);
-            }
+                    // Gabungkan semua kota/kab dari semua provinsi jadi satu array
+                    for (let provinsi in data) {
+                        kotaList = kotaList.concat(data[provinsi]);
+                    }
 
-            // Inisialisasi autocomplete
-            $('#asal_kota').autocomplete({
-                source: kotaList,
-                minLength: 2
+                    // Inisialisasi autocomplete
+                    $('#asal_kota').autocomplete({
+                        source: kotaList,
+                        minLength: 2
+                    });
+                });
             });
-        });
-    });
-</script>
+        </script>
 
-        @endsection
+    @endsection
