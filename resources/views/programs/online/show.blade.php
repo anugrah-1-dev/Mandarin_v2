@@ -54,12 +54,14 @@
                                                 function getFeatureIcon($fitur)
                                                 {
                                                     $fitur = strtolower($fitur);
-                                                    return str_contains($fitur, 'kamar') ? '🛏️' :
+
+                                                    return str_contains($fitur, 'kamar') ? '🛏' :
                                                         (str_contains($fitur, 'wifi') ? '📶' :
-                                                            (str_contains($fitur, 'makan') ? '🍽️' :
+                                                            (str_contains($fitur, 'makan') ? '🍽' :
                                                                 (str_contains($fitur, 'laundry') ? '🧺' :
-                                                                    (str_contains($fitur, 'ac') ? '❄️' :
-                                                                        (str_contains($fitur, 'parkir') ? '🅿️' : '✅')))));
+                                                                    (str_contains($fitur, 'ac') ? '❄' :
+                                                                        (str_contains($fitur, 'parkir') ? '🅿' : '✅')))));
+
                                                 }
                                             @endphp
                                             @if (!empty($features) && is_array($features))
