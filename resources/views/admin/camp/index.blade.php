@@ -51,6 +51,7 @@
                             <th>Paket</th>
                             <th>Kamar</th>
                             <th>Status</th>
+                            <th>Bank</th>
                             <th>Bukti</th>
                             <th width="10%">Aksi</th>
                         </tr>
@@ -80,8 +81,11 @@
                                     <span class="badge badge-{{ $statusClass }}">{{ ucfirst($data->status) }}</span>
                                 </td>
                                 <td>
+                                    {{ $data->bank->name ?? '-' }}
+                                </td>
+                                <td>
                                     @if ($data->bukti_pembayaran)
-                                        <a href="{{ route('pendaftaran.camp.bukti', $data->id) }}" target="_blank"
+                                        <a href="{{ route('admin.pendaftaran.camp.bukti', $data->id) }}" target="_blank"
                                             title="Lihat Bukti">
                                             <img src="{{ asset('storage/' . $data->bukti_pembayaran) }}" alt="Bukti"
                                                 class="img-thumbnail" style="max-width: 60px; height: auto;">
@@ -92,11 +96,11 @@
                                 </td>
                                 <td>
                                     <div class="btn-group btn-group-sm">
-                                        <a href="{{ route('pendaftaran.camp.edit', $data->id) }}" class="btn btn-primary"
+                                        <a href="{{ route('admin.pendaftaran.camp.edit', $data->id) }}" class="btn btn-primary"
                                             title="Edit Status">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
-                                        <form action="{{ route('pendaftaran.camp.destroy', $data->id) }}" method="POST"
+                                        <form action="{{ route('admin.pendaftaran.camp.destroy', $data->id) }}" method="POST"
                                             onsubmit="return confirm('Yakin ingin menghapus pendaftaran ini?');">
                                             @csrf
                                             @method('DELETE')

@@ -124,11 +124,10 @@ class PendaftranCampController extends Controller
     {
         $pendaftaran = PendaftaranProgramCamp::where('trx_id', $trx_id)->firstOrFail();
         $pendaftaran = PendaftaranProgramCamp::with('bank')->where('trx_id', $trx_id)->firstOrFail();
-
-
-
         return view('camp.pembayaran', compact('pendaftaran'));
     }
+
+    
 
     public function showPembayaran($id)
     {

@@ -40,7 +40,7 @@
                 <a href="#program" class="cta-button" data-aos="fade-up" data-aos-delay="200">
                     DAFTAR SEKARANG
                 </a>
-                
+
             </div>
             <button class="nav prev">&#10094;</button>
             <button class="nav next">&#10095;</button>
@@ -167,9 +167,9 @@
     </div>
     <div class="container">
         @foreach ($programs->where('status', 'aktif') as $index => $program)
-
             {{-- Container utama diberi animasi 'fade-up' --}}
-            <div class="program-detail @if ($index % 2 == 0) layout-left @else layout-right @endif" data-aos="fade-up">
+            <div class="program-detail @if ($index % 2 == 0) layout-left @else layout-right @endif"
+                data-aos="fade-up">
 
                 <div class="program-content-container">
 
@@ -203,8 +203,8 @@
                     </div>
 
                     {{-- Gambar diberi animasi berdasarkan posisi genap/ganjil --}}
-                    <div class="content-image card-image" data-aos="{{ $index % 2 == 0 ? 'fade-left' : 'fade-right' }}"
-                        data-aos-delay="200">
+                    <div class="content-image card-image"
+                        data-aos="{{ $index % 2 == 0 ? 'fade-left' : 'fade-right' }}" data-aos-delay="200">
                         <img src="{{ asset('uploads/programs/' . $program->gambar) }}" alt="{{ $program->judul }}"
                             onclick="openLightbox(this)">
                     </div>
@@ -247,7 +247,8 @@
                                 <h5 class="card-title program-card-title">{{ $program->nama }}</h5>
                                 <p class="card-text text-muted small mb-2">
                                     <i class="fas fa-calendar-alt me-1"></i>
-                                    {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('d M') }} - {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('d M Y') }}
+                                    {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('d M') }} -
+                                    {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('d M Y') }}
                                 </p>
                                 <p class="card-text program-card-price mb-3">Rp
                                     {{ number_format($program->harga, 0, ',', '.') }}
@@ -306,8 +307,7 @@
 
 
     <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
             const filterButtons = document.querySelectorAll('.filter-btn');
             const programItems = document.querySelectorAll('.program-item');
@@ -332,7 +332,7 @@
             }
 
             filterButtons.forEach(button => {
-                button.addEventListener('click', function () {
+                button.addEventListener('click', function() {
 
                     filterButtons.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
@@ -359,7 +359,7 @@
     <link rel="stylesheet" href="{{ asset('css/program.css') }}">
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const tabs = document.querySelectorAll('.program-tabs .tab-button');
             const contents = document.querySelectorAll('.program-detail');
 
@@ -489,11 +489,11 @@
                         @foreach ($galleries as $gallery)
                             @if ($gallery->images->isNotEmpty())
                                 {{-- Setiap frame galeri diberi animasi fade-up dengan delay --}}
-                                <div class="gallery-frame text-center" data-index="{{ $index }}" data-aos="fade-up"
-                                    data-aos-delay="{{ 100 * ($index + 1) }}">
+                                <div class="gallery-frame text-center" data-index="{{ $index }}"
+                                    data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                                     <img src="{{ asset('storage/' . $gallery->images->first()->image_path) }}"
-                                         alt="{{ $gallery->title }}" class="gallery-thumbnail"
-                                         onclick="openGalleryModal({{ $gallery->id }})">
+                                        alt="{{ $gallery->title }}" class="gallery-thumbnail"
+                                        onclick="openGalleryModal({{ $gallery->id }})">
 
                                     <div class="gallery-caption">
                                         <h5>{{ $gallery->title }}</h5>
@@ -503,14 +503,16 @@
 
                                 <div id="modal-{{ $gallery->id }}" class="gallery-modal">
                                     <div class="modal-content">
-                                        <span class="close-btn" onclick="closeGalleryModal({{ $gallery->id }})">&times;</span>
+                                        <span class="close-btn"
+                                            onclick="closeGalleryModal({{ $gallery->id }})">&times;</span>
                                         <h3>{{ $gallery->title }}</h3>
                                         <div class="modal-slider-wrapper">
                                             <button class="nav-btn left"
                                                 onclick="slideGallery({{ $gallery->id }}, -1)">&#8592;</button>
                                             <div class="modal-slider" id="slider-{{ $gallery->id }}">
                                                 @foreach ($gallery->images as $image)
-                                                    <img src="{{ asset('storage/' . $image->image_path) }}" alt="Image">
+                                                    <img src="{{ asset('storage/' . $image->image_path) }}"
+                                                        alt="Image">
                                                 @endforeach
                                             </div>
                                             <button class="nav-btn right"
@@ -585,19 +587,18 @@
                                         <div class="sosmed-card-image">
                                             @if (strtolower($platform) === 'youtube')
                                                 <div class="sosmed-card-video">
-                                                    <iframe
-                                                        width="100%"
-                                                        height="200"
+                                                    <iframe width="100%" height="200"
                                                         src="https://www.youtube.com/embed/{{ getYoutubeVideoId($item->url) }}"
-                                                        title="YouTube video player"
-                                                        frameborder="0"
+                                                        title="YouTube video player" frameborder="0"
                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                         allowfullscreen>
                                                     </iframe>
                                                 </div>
                                             @elseif (strtolower($platform) === 'instagram')
-                                                <a href="{{ $item->url }}" target="_blank" rel="noopener noreferrer">
-                                                    <img src="{{ asset('storage/' . $item->image_path) }}" alt="Instagram Image">
+                                                <a href="{{ $item->url }}" target="_blank"
+                                                    rel="noopener noreferrer">
+                                                    <img src="{{ asset('storage/' . $item->image_path) }}"
+                                                        alt="Instagram Image">
                                                 </a>
                                             @endif
                                         </div>
@@ -636,8 +637,8 @@
 
             <div class="kontak-maps">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1983.9865810139294!2d106.8271534!3d-6.1751106!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e60bf5b3df%3A0xa8e2b1c079cdee9f!2sMonas!5e0!3m2!1sen!2sid!4v1652738953732!5m2!1sen!2sid"
-                    width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.299223137717!2d112.1899974!3d-7.758055899999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e785db5d1b27adb%3A0xa8f77ed278eedc6!2sBrilliant%20English%20Course%20Kampung%20Inggris%20Pare!5e0!3m2!1sen!2sid!4v1753597882357!5m2!1sen!2sid"
+                width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
                 </iframe>
             </div>
         </div>
@@ -658,7 +659,7 @@
 <script>
     AOS.init({
         duration: 800, // Durasi animasi
-        once: true,    // Animasi hanya berjalan sekali
+        once: true, // Animasi hanya berjalan sekali
     });
 </script>
 

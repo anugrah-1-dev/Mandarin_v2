@@ -63,11 +63,10 @@
                     <hr>
                     <div class="upload-section mt-4">
                         <h5 class="text-center mb-3">Unggah Bukti Pembayaran</h5>
-                        <p class="text-center text-muted small">Setelah transfer, unggah bukti Anda di sini (JPG, PNG, PDF. Maks 2MB).</p>
-                        
+                        <p class="text-center text-muted small">Setelah transfer, ungg  ah bukti Anda di sini (JPG, PNG, PDF. Maks 2MB).</p>
+
                         <form action="{{ route('payment.upload') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            
                             {{-- Input tersembunyi untuk mengirim ID dan Tipe pendaftaran ke Controller --}}
                             <input type="hidden" name="id" value="{{ $pendaftaran->id }}">
                             <input type="hidden" name="type" value="{{ str_contains($pendaftaran->getTable(), 'online') ? 'online' : 'offline' }}">

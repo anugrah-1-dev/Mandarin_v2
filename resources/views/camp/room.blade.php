@@ -99,7 +99,7 @@
             <input type="hidden" name="trx_id" value="{{ $trx_id }}">
             <input type="hidden" name="nama_kamar" id="inputNamaKamar">
             <input type="hidden" name="kamar_id" id="inputKamarId">
-            
+
 
 
             <div id="selectedRoomInfo" class="alert alert-info d-none text-center mt-3">
@@ -262,8 +262,10 @@
                             <div class="room-grid">
                                 @php $kamarPutriBarack = $rooms->firstWhere('nomor_kamar', 'A-12A'); @endphp
                                 @php
+                                    $kamar = $kamarPutriBarack;
                                     $isFull = $kamar->penghuni >= $kamar->kapasitas;
                                 @endphp
+
                                 @if ($kamarPutriBarack)
                                     <div class="room-card {{ RD::getStatusClass($kamar) }}" data-id="{{ $kamar->id }}"
                                         data-nama="{{ $kamar->nomor_kamar }}" data-kamar="{{ $kamar->nomor_kamar }}"
@@ -288,8 +290,10 @@
                             <div class="room-grid">
                                 @php $kamarPutraBarack = $rooms->firstWhere('nomor_kamar', 'A-35'); @endphp
                                 @php
+                                    $kamar = $kamarPutraBarack;
                                     $isFull = $kamar->penghuni >= $kamar->kapasitas;
                                 @endphp
+
                                 @if ($kamarPutraBarack)
                                     <div class="room-card {{ RD::getStatusClass($kamar) }}"
                                         data-id="{{ $kamar->id }}" data-nama="{{ $kamar->nomor_kamar }}"

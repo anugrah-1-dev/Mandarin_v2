@@ -27,6 +27,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Admin\PendaftaranProgramCampController;
 use App\Http\Controllers\PendaftranCampController;
 use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\TrackingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,8 +54,9 @@ Route::post('/camp/{program}/daftar', [PendaftranCampController::class, 'store']
 // Halaman pilih kamar berdasarkan trx_id
 Route::get('/camp/room/{trx_id}', [PendaftranCampController::class, 'halamanKamar'])->name('camp.room');
 
-    Route::post('/camp/proses-kamar', [PendaftranCampController::class, 'proseskamaruser'])->name('camp.proseskamaruser');
-    Route::get('/camp/pembayaran/{trx_id}', [PendaftranCampController::class, 'halamanPembayaran'])->name('camp.pembayaran');
+Route::post('/camp/proses-kamar', [PendaftranCampController::class, 'proseskamaruser'])->name('camp.proseskamaruser');
+Route::get('/camp/pembayaran/{trx_id}', [PendaftranCampController::class, 'halamanPembayaran'])->name('camp.pembayaran');
+Route::post('/pembayaran/upload', [PendaftranCampController::class, 'uploadBukti'])->name('payment.upload');
 
 
 
@@ -86,13 +88,16 @@ Route::get('/pendaftaran/online/pembayaran/{trx_id}', [ProgramOnlinePublicContro
 // ===== ROUTE UNTUK UPLOAD BUKTI PEMBAYARAN =====
 Route::post('/payment/upload', [PaymentController::class, 'uploadProof'])->name('payment.upload');
 
+Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking.index');
+Route::post('/tracking', [TrackingController::class, 'search'])->name('tracking.search');
+
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 
 //Landing page
 Auth::routes();
 
-Route::middleware(['auth', 'role:admin'])->prefix('admin')  ->name('admin.') ->group(function () {
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
 
     //dashboard admin
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -132,7 +137,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')  ->name('admin.') ->g
     //program camp
     Route::resource('programs/camp', ProgramCampController::class)->names('programs.camp');
 
-    Route::resource('rooms',RoomController::class);
+    Route::resource('rooms', RoomController::class);
 
 
     // Pendaftaran Program Online
@@ -160,7 +165,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')  ->name('admin.') ->g
     Route::delete('/pendaftaran/camp/{id}', [PendaftaranProgramCampController::class, 'destroy'])->name('pendaftaran.camp.destroy');
     Route::get('/pendaftaran/camp/{id}/bukti', [PendaftaranProgramCampController::class, 'showBukti'])->name('pendaftaran.camp.bukti');
     //periods
-    Route::resource('periods', PeriodsController::class)->only(['index','store', 'update', 'destroy']);
+    Route::resource('periods', PeriodsController::class)->only(['index', 'store', 'update', 'destroy']);
 
     //sosmed
     Route::resource('sosmed', SosmedController::class);
@@ -170,8 +175,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')  ->name('admin.') ->g
         ->name('pendaftaran.online.export');
 
     //CSV Export
-        Route::get('/pendaftaran-offline/export', [PendaftaranOfflineController::class, 'exportCsvOffline'])
-            ->name('pendaftaran.offline.export');
+    Route::get('/pendaftaran-offline/export', [PendaftaranOfflineController::class, 'exportCsvOffline'])
+        ->name('pendaftaran.offline.export');
     //csv export camp
     Route::get('/pendaftaran-camp/export', [PendaftaranProgramCampController::class, 'exportCsv'])
         ->name('camp.export');

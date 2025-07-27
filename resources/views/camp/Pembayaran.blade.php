@@ -164,17 +164,42 @@
                                         enctype="multipart/form-data">
                                         @csrf
 
-                                        {{-- Input tersembunyi untuk mengirim ID pendaftaran ke Controller --}}
-                                        <input type="hidden" name="pendaftaran_id" value="{{ $pendaftaran->id }}">
+                                        {{-- Hidden input: ID pendaftaran camp --}}
+                                        <input type="hidden" name="id" value="{{ $pendaftaran->id }}">
 
+                                        {{-- Hidden input: Tipe program --}}
+                                        <input type="hidden" name="type" value="camp">
+
+                                        {{-- Label dan input dalam satu baris --}}
+                                        <label for="bukti_pembayaran" class="form-label mb-1">Upload Bukti
+                                            Pembayaran</label>
                                         <div class="input-group">
-                                            <input type="file" class="form-control" name="bukti_pembayaran"
-                                                id="bukti_pembayaran" required>
+                                            <input type="file"
+                                                class="form-control @error('bukti_pembayaran') is-invalid @enderror"
+                                                name="bukti_pembayaran" id="bukti_pembayaran" accept=".jpg,.jpeg,.png,.pdf"
+                                                required>
                                             <button class="btn btn-primary" type="submit">
-                                                <i class="bi bi-upload"></i> Unggah
+                                                <i class="bi bi-upload"></i> Kirim Bukti
                                             </button>
                                         </div>
+                                        @error('bukti_pembayaran')
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        @enderror
                                     </form>
+
+
+
+
+                                    @if ($pendaftaran->bukti_pembayaran)
+                                        <div class="text-center mt-3">
+                                            <a href="{{ asset('storage/' . $pendaftaran->bukti_pembayaran) }}"
+                                                class="btn btn-success btn-sm" target="_blank">
+                                                <i class="bi bi-eye"></i> Lihat Bukti Pembayaran
+                                            </a>
+                                        </div>
+                                    @endif
+
+
                                 </div>
 
                                 {{-- Tombol Aksi Tambahan --}}
