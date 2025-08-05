@@ -44,10 +44,10 @@
                                     </option>
                                 </x-adminlte-select>
                             </div>
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <x-adminlte-input name="stok" label="Stok" type="number" min="0"
                                     placeholder="Jumlah kuota" value="{{ old('stok', $program->stok) }}" />
-                            </div>
+                            </div> --}}
                         </div>
 
                         <!-- Harga -->

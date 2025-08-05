@@ -189,3 +189,42 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Route::post('/upload-bukti', [PembayaranController::class, 'uploadBukti'])->name('bukti.upload');
 
 });
+
+
+Route::middleware(['auth', 'role:officer'])->prefix('officer')->name('officer.')->group(function () {
+
+    // Dashboard untuk officer
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Lihat data pamflet program (tanpa akses create/edit/delete)
+    Route::get('pamflet_programs', [ProgramController::class, 'index'])->name('pamflet_programs.index');
+    Route::get('pamflet_programs/{program}', [ProgramController::class, 'show'])->name('pamflet_programs.show');
+
+    // Lihat daftar program camp/offline/online (jika diperlukan)
+    Route::get('programs/camp', [ProgramCampController::class, 'index'])->name('programs.camp.index');
+    Route::get('programs/offline', [ProgramOfflineController::class, 'index'])->name('programs.offline.index');
+    Route::get('programs/online', [ProgramOnlineController::class, 'index'])->name('programs.online.index');
+
+    // Lihat galeri
+    Route::get('galleries', [GalleryController::class, 'index'])->name('galleries.index');
+    Route::get('rooms', [RoomController::class, 'index'])->name('rooms.index');
+
+    // Pendaftaran Online
+    Route::get('pendaftaran/online', [PendaftaranOnlineController::class, 'index'])->name('pendaftaran.online.index');
+    Route::get('pendaftaran/online/{id}/edit', [PendaftaranOnlineController::class, 'edit'])->name('pendaftaran.online.edit');
+    Route::put('pendaftaran/online/{id}', [PendaftaranOnlineController::class, 'update'])->name('pendaftaran.online.update');
+    Route::get('pendaftaran/online/{id}/bukti', [PendaftaranOnlineController::class, 'showBukti'])->name('pendaftaran.online.bukti');
+
+    // Pendaftaran Offline
+    Route::get('pendaftaran/offline', [PendaftaranOfflineController::class, 'index'])->name('pendaftaran.offline.index');
+    Route::get('pendaftaran/offline/{id}/edit', [PendaftaranOfflineController::class, 'edit'])->name('pendaftaran.offline.edit');
+    Route::put('pendaftaran/offline/{id}', [PendaftaranOfflineController::class, 'update'])->name('pendaftaran.offline.update');
+    Route::get('pendaftaran/offline/{id}/bukti', [PendaftaranOfflineController::class, 'showBukti'])->name('pendaftaran.offline.bukti');
+
+    // Pendaftaran Camp
+    Route::get('pendaftaran/camp', [PendaftaranProgramCampController::class, 'index'])->name('pendaftaran.camp.index');
+    Route::get('pendaftaran/camp/{id}/edit', [PendaftaranProgramCampController::class, 'edit'])->name('pendaftaran.camp.edit');
+    Route::put('pendaftaran/camp/{id}', [PendaftaranProgramCampController::class, 'update'])->name('pendaftaran.camp.update');
+    Route::get('pendaftaran/camp/{id}/bukti', [PendaftaranProgramCampController::class, 'showBukti'])->name('pendaftaran.camp.bukti');
+
+});

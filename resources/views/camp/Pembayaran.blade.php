@@ -85,20 +85,65 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8 col-lg-6">
 
-                    {{-- Menampilkan pesan sukses atau error --}}
-                    @if (session('success'))
-                        <div class="alert alert-success text-center shadow-sm"><i class="bi bi-check-circle-fill"></i>
-                            {{ session('success') }}</div>
-                    @endif
-                    @if ($errors->any())
-                        <div class="alert alert-danger shadow-sm">
-                            <ul class="mb-0">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                   <!-- SweetAlert untuk pesan sukses/error -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{{-- SCRIPT BARU UNTUK MENAMPILKAN POP-UP SUKSES DENGAN TOMBOL SALIN --}}
+@if (session('success_message') && session('trx_id'))
+    <script>
+        // Fungsi ini khusus untuk tombol salin di dalam SweetAlert
+        function copySwalId(text, buttonElement) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                const copyTextSpan = buttonElement.querySelector('span');
+                const icon = buttonElement.querySelector('i');
+
+                if (copyTextSpan) copyTextSpan.textContent = ' Tersalin!';
+                icon.classList.remove('bi-clipboard');
+                icon.classList.add('bi-check-lg');
+                buttonElement.disabled = true; // Nonaktifkan tombol setelah disalin
+            } catch (err) {
+                console.error('Gagal menyalin teks: ', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        const trxId = "{{ session('trx_id') }}";
+        const successMessage = "{{ session('success_message') }}";
+
+        // Membuat konten HTML untuk SweetAlert
+        const alertHtml = `
+            <div class="text-start">
+                <p>${successMessage}</p>
+                <div class="mt-3">
+                    <strong>ID Transaksi Anda:</strong>
+                    <div class="input-group mt-1">
+                        <input type="text" class="form-control bg-light" value="${trxId}" readonly>
+                        <button class="btn btn-outline-secondary" onclick="copySwalId('${trxId}', this)">
+                            <i class="bi bi-clipboard"></i>
+                            <span class="copy-text"> Salin</span>
+                        </button>
+                    </div>
+                    <small class="form-text text-muted">Silakan simpan ID ini untuk referensi Anda.</small>
+                </div>
+            </div>
+        `;
+
+        // Menampilkan SweetAlert
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            html: alertHtml,
+            showConfirmButton: true,
+            confirmButtonText: 'Tutup'
+        });
+    </script>
+@endif
+
 
                     <div class="card shadow-sm payment-card">
                         <div class="card-header bg-primary text-white text-center py-3">
@@ -108,16 +153,16 @@
                             {{-- Detail Pendaftaran --}}
                             <div class="payment-details text-center mb-4">
                                 <h5 class="mb-3">Detail Pendaftaran</h5>
-                                <p class="mb-1"><strong>ID Transaksi:</strong></p>
+                                {{-- <p class="mb-1"><strong>ID Transaksi:</strong></p> --}}
                                 {{-- Diasumsikan $pendaftaran memiliki properti trx_id --}}
-                                <div class="d-flex justify-content-center align-items-center gap-2">
+                                {{-- <div class="d-flex justify-content-center align-items-center gap-2">
                                     <h3 class="fw-bold text-primary mb-0">{{ $pendaftaran->trx_id }}</h3>
                                     <button class="btn btn-sm btn-outline-secondary btn-copy"
                                         onclick="copyToClipboard('{{ $pendaftaran->trx_id }}', this)"
                                         title="Salin ID Transaksi">
                                         <i class="bi bi-clipboard"></i>
                                     </button>
-                                </div>
+                                </div> --}}
 
                                 <hr>
                                 <div class="row">

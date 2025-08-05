@@ -4,32 +4,65 @@
 
     @section('content')
         <link rel="stylesheet" href="{{ asset('css/camp.css') }}">
-    <!-- Letakkan di bawah @section('content') atau bagian bawah halaman -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- SweetAlert untuk pesan sukses/error -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        @if (session('success'))
-            <script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil!',
-                    text: '{{ session('success') }}',
-                    timer: 3000,
-                    showConfirmButton: false
-                });
-            </script>
-        @endif
+{{-- SCRIPT BARU UNTUK MENAMPILKAN POP-UP SUKSES DENGAN TOMBOL SALIN --}}
+@if (session('success_message') && session('trx_id'))
+    <script>
+        // Fungsi ini khusus untuk tombol salin di dalam SweetAlert
+        function copySwalId(text, buttonElement) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                const copyTextSpan = buttonElement.querySelector('span');
+                const icon = buttonElement.querySelector('i');
 
-        @if (session('error'))
-            <script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Gagal!',
-                    text: '{{ session('error') }}',
-                    timer: 3000,
-                    showConfirmButton: false
-                });
-            </script>
-        @endif
+                if (copyTextSpan) copyTextSpan.textContent = ' Tersalin!';
+                icon.classList.remove('bi-clipboard');
+                icon.classList.add('bi-check-lg');
+                buttonElement.disabled = true; // Nonaktifkan tombol setelah disalin
+            } catch (err) {
+                console.error('Gagal menyalin teks: ', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        const trxId = "{{ session('trx_id') }}";
+        const successMessage = "{{ session('success_message') }}";
+
+        // Membuat konten HTML untuk SweetAlert
+        const alertHtml = `
+            <div class="text-start">
+                <p>${successMessage}</p>
+                <div class="mt-3">
+                    <strong>ID Transaksi Anda:</strong>
+                    <div class="input-group mt-1">
+                        <input type="text" class="form-control bg-light" value="${trxId}" readonly>
+                        <button class="btn btn-outline-secondary" onclick="copySwalId('${trxId}', this)">
+                            <i class="bi bi-clipboard"></i>
+                            <span class="copy-text"> Salin</span>
+                        </button>
+                    </div>
+                    <small class="form-text text-muted">Silakan simpan ID ini untuk referensi Anda.</small>
+                </div>
+            </div>
+        `;
+
+        // Menampilkan SweetAlert
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            html: alertHtml,
+            showConfirmButton: true,
+            confirmButtonText: 'Tutup'
+        });
+    </script>
+@endif
+
 
 
         <div class="container my-4 my-lg-5 px-3 px-lg-4">

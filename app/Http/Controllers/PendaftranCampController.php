@@ -145,7 +145,34 @@ class PendaftranCampController extends Controller
     {
         $pendaftaran = PendaftaranProgramCamp::with('programCamp')->findOrFail($id);
         return view('camp.pembayaran', compact('pendaftaran'));
+      
     }
+    public function uploadBukti(Request $request)
+{
+    $request->validate([
+        'bukti_pembayaran' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        'trx_id' => 'required|exists:pendaftaran_program_camps,trx_id',
+    ]);
+
+    $pendaftaran = PendaftaranProgramCamp::where('trx_id', $request->trx_id)->firstOrFail();
+
+    // Simpan file
+    $file = $request->file('bukti_pembayaran');
+    $path = $file->store('bukti_pembayaran', 'public');
+
+    // Update pendaftaran
+    $pendaftaran->update([
+        'bukti_pembayaran' => $path,
+        'status' => 'menunggu_verifikasi'
+    ]);
+
+    // Kembalikan ke halaman yang sama dengan pesan dan trx_id
+    return back()
+        ->with('success_message', "Bukti pembayaran Anda telah berhasil diunggah.")
+        ->with('trx_id', $pendaftaran->trx_id);
+}
+
+    
 
 
 }

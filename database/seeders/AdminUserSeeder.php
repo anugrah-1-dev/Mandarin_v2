@@ -17,7 +17,7 @@ class AdminUserSeeder extends Seeder
             'name' => 'admin',
             'password' => '$2y$12$BdkciryJxhZGxgVDyG91.esYrE2v80NmSvifm9F51zZWKqOmVs25K', // password sudah di-hash
         ]);
-//pw : admintest!
+        //pw : admintest!
         // Buat role admin kalau belum ada
         $role = Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
 
