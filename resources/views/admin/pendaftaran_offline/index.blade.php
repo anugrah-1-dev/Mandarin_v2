@@ -41,7 +41,7 @@
                 <table id="pendaftarTable" class="table table-hover table-bordered mb-0">
                     <thead>
                         <tr>
-                            <th width="5%">#</th>
+                            <th width="5%"></th>
                             <th>TRX ID</th>
                             <th>Nama</th>
                             <th>Email</th>
@@ -97,23 +97,24 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <div class="btn-group btn-group-sm">
-                                        <a href="{{ route('admin.pendaftaran.offline.edit', $data->id) }}"
-                                            class="btn btn-primary" title="Edit Status">
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </a>
-                                        <form action="{{ route('admin.pendaftaran.offline.destroy', $data->id) }}"
-                                            method="POST"
-                                            onsubmit="return confirm('Anda yakin ingin menghapus pendaftaran ini secara permanen?');"
-                                            class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" title="Hapus">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
+    <div class="btn-group btn-group-sm">
+        <a href="{{ route('admin.pendaftaran.offline.edit', $data->id) }}"
+            class="btn btn-primary btn-action" title="Edit Status">
+            <i class="fas fa-pencil-alt"></i>
+        </a>
+        <form action="{{ route('admin.pendaftaran.offline.destroy', $data->id) }}"
+            method="POST"
+            onsubmit="return confirm('Anda yakin ingin menghapus pendaftaran ini secara permanen?');"
+            class="d-inline">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger btn-action" title="Hapus">
+                <i class="fas fa-trash"></i>
+            </button>
+        </form>
+    </div>
+</td>
+
                             </tr>
                         @empty
                             <tr>
@@ -142,8 +143,21 @@
         }
 
         .table-responsive {
-            max-height: 500px;
-        }
+    min-height: 480px; /* TINGGI MINIMAL agar tabel tampak penuh */
+    max-height: 500px; /* tetap boleh scroll kalau data banyak */
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.table-placeholder {
+    height: 100px;
+    text-align: center;
+    vertical-align: middle;
+    color: #aaa;
+    font-style: italic;
+}
+
+
 
         .table-responsive::-webkit-scrollbar {
             height: 6px;
@@ -157,6 +171,16 @@
         .btn-group-sm .btn {
             padding: 0.25rem 0.5rem;
         }
+
+        .btn-action {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
     </style>
 @stop
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

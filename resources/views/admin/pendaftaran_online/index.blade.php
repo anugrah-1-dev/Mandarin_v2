@@ -99,22 +99,24 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <div class="btn-group btn-group-sm">
-                                        <a href="{{ route('admin.pendaftaran.online.edit', $data->id) }}"
-                                            class="btn btn-primary" title="Edit Status">
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </a>
-                                        <form action="{{ route('admin.pendaftaran.online.destroy', $data->id) }}"
-                                            method="POST"
-                                            onsubmit="return confirm('Anda yakin ingin menghapus pendaftaran ini?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" title="Hapus">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
+    <div class="btn-group btn-group-sm">
+        <a href="{{ route('admin.pendaftaran.online.edit', $data->id) }}"
+            class="btn btn-primary btn-action" title="Edit Status">
+            <i class="fas fa-pencil-alt"></i>
+        </a>
+        <form action="{{ route('admin.pendaftaran.online.destroy', $data->id) }}"
+            method="POST"
+            onsubmit="return confirm('Anda yakin ingin menghapus pendaftaran ini?');"
+            class="d-inline">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger btn-action" title="Hapus">
+                <i class="fas fa-trash"></i>
+            </button>
+        </form>
+    </div>
+</td>
+
                             </tr>
                         @empty
                             <tr>
@@ -169,7 +171,7 @@
         }
 
         .table-responsive {
-            max-height: 500px;
+            max-height: 470px;
         }
 
         .table-responsive::-webkit-scrollbar {
@@ -180,6 +182,15 @@
             background-color: #aaa;
             border-radius: 10px;
         }
+
+        .btn-action {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
     </style>
 @stop
 

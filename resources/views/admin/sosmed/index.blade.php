@@ -56,22 +56,23 @@
                                             <i class="fas fa-share-alt text-lightblue fa-lg"></i>
                                         @endif
                                     </td>
-                                    <td>
-                                        <div class="d-flex justify-content-center">
-                                            <a href="{{ route('admin.sosmed.edit', $sosmed->id) }}"
-                                                class="btn btn-warning btn-sm mr-1">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <form action="{{ route('admin.sosmed.destroy', $sosmed->id) }}" method="POST"
-                                                onsubmit="confirmDelete(event)">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
+                                   <td>
+    <div class="d-flex justify-content-center gap-1">
+        <a href="{{ route('admin.sosmed.edit', $sosmed->id) }}"
+            class="btn btn-warning btn-action mr-1" title="Edit">
+            <i class="fas fa-edit"></i>
+        </a>
+        <form action="{{ route('admin.sosmed.destroy', $sosmed->id) }}" method="POST"
+            onsubmit="confirmDelete(event)">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger btn-action" title="Hapus">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </form>
+    </div>
+</td>
+
                                 </tr>
                             @empty
                                 <tr>
@@ -108,6 +109,15 @@
             max-height: 350px;
             overflow-y: auto;
         }
+
+         .btn-action {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
     </style>
 @stop
 
