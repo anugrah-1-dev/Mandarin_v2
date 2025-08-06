@@ -22,8 +22,9 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $pendaftaranOnline = PendaftaranProgramOnline::with('programOnline')->get();
-        $pendaftaranOffline = PendaftaranProgramOffline::with('programOffline')->get();
+        $pendaftaranOnline = PendaftaranProgramOnline::with('program')->get();
+
+        $pendaftaranOffline = PendaftaranProgramOffline::with('program')->get();
         $pendaftaranCamp = PendaftaranProgramCamp::with('programCamp')->get();
 
         $years = range(now()->year - 1, now()->year);
@@ -38,7 +39,8 @@ class DashboardController extends Controller
             if ($item->status !== 'diterima') continue;
 
             $date = Carbon::parse($item->created_at);
-            $monthlyProfit[$date->year][$date->month] += $item->programOnline->harga ?? 0;
+            $monthlyProfit[$date->year][$date->month] += $item->program->harga ?? 0;
+
         }
 
         // Hitung keuntungan offline
@@ -46,7 +48,7 @@ class DashboardController extends Controller
             if ($item->status !== 'diterima') continue;
 
             $date = Carbon::parse($item->created_at);
-            $monthlyProfit[$date->year][$date->month] += $item->programOffline->harga ?? 0;
+            $monthlyProfit[$date->year][$date->month] += $item->program->harga ?? 0;
         }
 
         // Hitung keuntungan camp dengan semua opsi durasi
@@ -68,13 +70,13 @@ class DashboardController extends Controller
         $totalKursus = array_sum($salesData);
 
         $totalKeuntungan = array_reduce(
-            $pendaftaranOnline->all(),
-            fn($sum, $p) => $sum + (($p->status === 'diterima') ? ($p->programOnline->harga ?? 0) : 0),
-            0
-        )
+    $pendaftaranOnline->all(),
+    fn($sum, $p) => $sum + (($p->status === 'diterima') ? ($p->program->harga ?? 0) : 0),
+    0
+)
             + array_reduce(
                 $pendaftaranOffline->all(),
-                fn($sum, $p) => $sum + (($p->status === 'diterima') ? ($p->programOffline->harga ?? 0) : 0),
+                fn($sum, $p) => $sum + (($p->status === 'diterima') ? ($p->program->harga ?? 0) : 0),
                 0
             )
             + array_reduce($pendaftaranCamp->all(), function ($sum, $p) {
