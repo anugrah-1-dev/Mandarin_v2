@@ -5,16 +5,20 @@
 @section('content_header')
     <div class="d-flex justify-content-between align-items-center">
         <h1 class="m-0">Daftar Program Camp</h1>
-        {{-- <a href="{{ route('admin.programs.camp.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Tambah Program
-        </a> --}}
-        <button id="btn-sync-stok" class="btn btn-success mt-3">
-            <i class="fas fa-sync-alt"></i> Sync Stok dari Rooms
-        </button>
+
+        <div class="d-flex" style="gap: 1rem;">
+            <button id="btn-sync-stok" class="btn btn-success mt-3">
+                <i class="fas fa-sync-alt"></i> Sync kapasitas stok Rooms
+            </button>
+
+            <button id="btn-sync-stok-penghuni" class="btn btn-warning mt-3">
+                <i class="fas fa-sync-alt"></i> Sync Stok (Kapasitas - Penghuni)
+            </button>
+
+        </div>
     </div>
+@endsection
 
-
-@stop
 
 @section('content')
     <div class="row">
@@ -244,6 +248,8 @@
         }
     </style>
 @stop
+
+
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
@@ -345,10 +351,73 @@
             });
         });
 
+        $(function() {
+            $('#btn-sync-stok-penghuni').click(function() {
+                Swal.fire({
+                    title: 'Konfirmasi',
+                    text: 'Yakin ingin sinkronisasi stok dari penghuni yang aktif sekarang?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, sinkronkan',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // disable tombol dan ubah icon
+                        $('#btn-sync-stok-penghuni').prop('disabled', true).html(
+                            '<i class="fas fa-spinner fa-spin"></i> Syncing...'
+                        );
+
+                        $.ajax({
+                            url: "{{ route('admin.programs.camp.syncStokWithPenghuni') }}",
+                            method: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                if (response.success) {
+                                    Swal.fire({
+                                        title: 'Berhasil!',
+                                        text: 'Stok berhasil disinkronkan berdasarkan kapasitas dan penghuni.',
+                                        icon: 'success',
+                                        timer: 1500,
+                                        showConfirmButton: false
+                                    }).then(() => {
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: 'Gagal',
+                                        text: 'Gagal sinkronisasi stok.',
+                                        icon: 'error'
+                                    });
+                                }
+                            },
+                            error: function(xhr) {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: 'Terjadi kesalahan saat sinkronisasi: ' +
+                                        xhr.responseText,
+                                    icon: 'error'
+                                });
+                            },
+                            complete: function() {
+                                $('#btn-sync-stok-penghuni').prop('disabled', false)
+                                    .html(
+                                        '<i class="fas fa-sync-alt"></i> Sync Stok (Kapasitas - Penghuni)'
+                                    );
+                            }
+                        });
+                    }
+                });
+            });
+        });
+
         @if (session('alert'))
             Swal.fire(@json(session('alert')));
         @endif
     </script>
+
+
 @endsection
 
 

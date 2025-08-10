@@ -59,7 +59,6 @@ class RoomController extends Controller
     }
 
 
-
     public function edit(Rooms $room)
     {
         $programs = ProgramCamp::all();
@@ -100,6 +99,8 @@ class RoomController extends Controller
     }
 
 
+
+
     public function updateByKategori(Request $request)
     {
         $request->validate([
@@ -136,21 +137,62 @@ class RoomController extends Controller
 
 
 
+    // public function kickPenghuni($trx_id)
+    // {
+    //     $pendaftar = PendaftaranProgramCamp::where('trx_id', $trx_id)->first();
+
+    //     if (!$pendaftar) {
+    //         return response()->json(['success' => false, 'message' => 'Peserta tidak ditemukan.']);
+    //     }
+
+    //     $pendaftar->update([
+    //         'room_id' => null,
+    //         'nama_kamar' => null
+    //     ]);
+
+    //     return response()->json(['success' => true, 'message' => 'Penghuni berhasil dikeluarkan.']);
+    // }
+
     public function kickPenghuni($trx_id)
     {
-        $pendaftar = PendaftaranProgramCamp::where('trx_id', $trx_id)->first();
+        try {
+            $pendaftaran = PendaftaranProgramCamp::where('trx_id', $trx_id)->firstOrFail();
 
-        if (!$pendaftar) {
-            return response()->json(['success' => false, 'message' => 'Peserta tidak ditemukan.']);
+            // Simpan room_id sebelum dihapus
+            $roomId = $pendaftaran->room_id;
+
+            // Kosongkan room_id peserta
+            $pendaftaran->room_id = null;
+            $pendaftaran->save();
+
+            // Kurangi jumlah penghuni di tabel rooms (kalau masih > 0)
+            $room = null;
+            if ($roomId) {
+                $room = Rooms::find($roomId);
+                if ($room && $room->penghuni > 0) {
+                    $room->decrement('penghuni', 1);
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Penghuni berhasil dikeluarkan',
+                'room' => $room ? [
+                    'id' => $room->id,
+                    'penghuni' => $room->penghuni,
+                ] : null
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
         }
-
-        $pendaftar->update([
-            'room_id' => null,
-            'nama_kamar' => null
-        ]);
-
-        return response()->json(['success' => true, 'message' => 'Penghuni berhasil dikeluarkan.']);
     }
+
+
+
+
 
     public function listAktif()
     {

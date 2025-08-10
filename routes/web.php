@@ -140,7 +140,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     //program camp
     Route::resource('programs/camp', ProgramCampController::class)->names('programs.camp');
-    Route::post('/programs/camp/sync-stok', [ProgramCampController::class, 'syncAllStokFromRoomsAjax'])->name('programs.camp.syncAllStokFromRoomsAjax');
+    Route::post('/programs/camp/sync-all-stok-from-rooms', [ProgramCampController::class, 'syncAllStokFromRoomsAjax'])->name('programs.camp.syncAllStokFromRoomsAjax');
+
+    Route::post('/programs/camp/sync-stok', [ProgramCampController::class, 'syncStokWithPenghuni'])->name('programs.camp.syncStokWithPenghuni');
 
 
     Route::resource('rooms', RoomController::class);
@@ -152,6 +154,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('/peserta/{id}/pindah-kamar', [PendaftaranProgramCampController::class, 'pindahKamar']);
     Route::post('/rooms/update-by-kategori', [RoomController::class, 'updateByKategori'])
         ->name('rooms.update-by-kategori');
+    Route::post('/rooms/sync-penghuni', [PendaftaranProgramCampController::class, 'syncPenghuniFromRoomsAjax'])->name('rooms.sync-penghuni');
+
 
 
     // Pendaftaran Program Online

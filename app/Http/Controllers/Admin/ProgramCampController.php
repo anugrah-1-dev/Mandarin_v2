@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\File; // Gunakan File facade untuk operasi file
 use Illuminate\Support\Facades\Storage;
 use App\Models\Rooms;
 use Illuminate\Support\Facades\DB;
+use App\Models\PendaftaranProgramCamp;
+
 
 class ProgramCampController extends Controller
 {
@@ -126,30 +128,26 @@ class ProgramCampController extends Controller
         return view('admin.programs.camp.show', compact('program'));
     }
 
-    
+
     public function syncAllStokFromRoomsAjax()
     {
-        // Ambil data stok berdasarkan kapasitas dan penghuni
-        $stokData = DB::table('rooms')
-            ->select(
-                'program_camp_id',
-                DB::raw('SUM(kapasitas) as total_kapasitas'),
-                DB::raw('SUM(penghuni) as total_penghuni')
-            )
+        // Ambil total kapasitas per program_camp_id tanpa hitung penghuni
+        $kapasitasData = DB::table('rooms')
+            ->select('program_camp_id', DB::raw('SUM(kapasitas) as total_kapasitas'))
             ->groupBy('program_camp_id')
             ->get();
 
-        foreach ($stokData as $data) {
-            $stok = $data->total_kapasitas - $data->total_penghuni;
-
+        // Update stok di tabel program_camp dengan total kapasitas
+        foreach ($kapasitasData as $data) {
             ProgramCamp::where('id', $data->program_camp_id)->update([
-                'stok' => $stok
+                'stok' => $data->total_kapasitas
             ]);
         }
 
-        // Return updated stok ke frontend
+        // Ambil data stok terbaru untuk response
         $programs = ProgramCamp::select(['id', 'stok'])->get();
 
+        // Return response JSON ke frontend
         return response()->json([
             'success' => true,
             'programs' => $programs
@@ -157,7 +155,31 @@ class ProgramCampController extends Controller
     }
 
 
+    public function syncStokWithPenghuni()
+    {
+        $data = DB::table('rooms')
+            ->leftJoin('pendaftaran_program_camp', function ($join) {
+                $join->on('rooms.id', '=', 'pendaftaran_program_camp.room_id');
+                // jangan pakai whereNull('deleted_at') di sini
+            })
+            ->select(
+                'rooms.program_camp_id',
+                DB::raw('SUM(rooms.kapasitas) as total_kapasitas'),
+                DB::raw('COUNT(pendaftaran_program_camp.id) as total_penghuni')
+            )
+            ->groupBy('rooms.program_camp_id')
+            ->get();
 
+        foreach ($data as $row) {
+            $stok = max(0, $row->total_kapasitas - $row->total_penghuni);
+
+            ProgramCamp::where('id', $row->program_camp_id)->update([
+                'stok' => $stok
+            ]);
+        }
+
+        return response()->json(['success' => true]);
+    }
 
 
     /**

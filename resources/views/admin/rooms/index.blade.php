@@ -33,10 +33,11 @@
 
             <div class="card-body">
                 <div class="row justify-content-center">
-                    <div class=" mt-3">
+                    <div class="mt-3 ms-3">
                         <x-adminlte-button label="Atur Kapasitas & Kategori" theme="primary" icon="fas fa-edit"
                             data-toggle="modal" data-target="#aturKapasitasKategori" />
                     </div>
+
 
                     <div class="col-12 col-md-9 col-lg-6">
                         <x-adminlte-input name="search" placeholder="Cari kamar..." class="search-box">
@@ -347,8 +348,9 @@
                         <div class="mb-3">
                             <label for="modalRoomPenghuni" class="form-label">Penghuni</label>
                             <input type="number" class="form-control" id="modalRoomPenghuni" name="penghuni"
-                                min="0">
+                                min="0" readonly>
                         </div>
+
 
                         <div class="mb-3">
                             <label class="form-label">Penghuni Kamar</label>
@@ -503,7 +505,7 @@
 
     <script>
         const durasiToDays = {
-            perhari: 1,
+            perhari: 0.1,
             satu_minggu: 7,
             dua_minggu: 14,
             satu_bulan: 30,
@@ -564,7 +566,7 @@
                                 `<br><a href="https://wa.me/${cleanedNoHP}" target="_blank" class="text-success">Hubungi via WA</a>`;
                         }
                         kickButton =
-                            `<br><button class="btn btn-sm btn-outline-danger mt-2" onclick="kickPenghuni('${p.trx_id}')">Keluarkan</button>`;
+                            `<button type="button"class="btn btn-sm btn-outline-danger mt-2"onclick="kickPenghuni('${p.trx_id}', event)"> Keluarkan</button>`;
                     }
 
                     const formattedDate = startDate.toLocaleString('id-ID', {
@@ -597,9 +599,25 @@
             modal.show();
         }
 
-        function kickPenghuni(trx_id) {
-            if (!confirm('Yakin ingin mengeluarkan penghuni ini?')) return;
+        function kickPenghuni(trx_id, event) {
+            if (event) event.preventDefault(); // cegah submit form
 
+            Swal.fire({
+                title: 'Yakin?',
+                text: "Penghuni ini akan dikeluarkan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, keluarkan',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Panggil AJAX kalau user klik 'Ya'
+                    kickPenghuniAjax(trx_id);
+                }
+            });
+        }
+
+        function kickPenghuniAjax(trx_id) {
             $.ajax({
                 url: `/admin/rooms/penghuni/${trx_id}`,
                 type: 'DELETE',
@@ -608,24 +626,48 @@
                 },
                 success: function(response) {
                     if (response.success) {
-                        alert('Penghuni berhasil dikeluarkan.');
-                        $('#listPenghuni').html('<li class="list-group-item text-muted">Memuat ulang...</li>');
+                        Swal.fire({
+                            title: 'Berhasil',
+                            text: 'Penghuni berhasil dikeluarkan.',
+                            icon: 'success',
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
 
-                        setTimeout(() => {
-                            // Reload modal data
-                            openEditModal(document.querySelector(
-                                `[data-id="${$('#modalRoomId').val()}"]`));
-                        }, 500);
+                        // update UI
+                        $('#listPenghuni').find(`[data-trx="${trx_id}"]`).remove();
+                        if ($('#listPenghuni li').length === 0) {
+                            $('#listPenghuni').html(
+                                '<li class="list-group-item text-muted">Tidak ada penghuni</li>'
+                            );
+                        }
+                        if (response.room && response.room.id) {
+                            let roomCard = $(`#room-${response.room.id}`);
+                            roomCard.find('.jumlah-penghuni').text(response.room.penghuni ?? 0);
+                            roomCard.removeClass('room-empty room-partial room-full room-nonaktif')
+                                .addClass(response.room.status_class || '');
+                        }
+
+                        // kasih jeda 1,5 detik sebelum reload
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1500);
+
                     } else {
-                        alert('Gagal mengeluarkan: ' + response.message);
+                        Swal.fire('Gagal', response.message, 'error');
                     }
                 },
                 error: function(xhr) {
-                    alert('Terjadi kesalahan saat mengeluarkan penghuni.');
-                    console.error(xhr);
+                    Swal.fire(
+                        'Error',
+                        'Terjadi kesalahan saat mengeluarkan penghuni.\nStatus: ' + xhr.status,
+                        'error'
+                    );
                 }
             });
         }
+
+
 
         function saveRoomChanges() {
             const id = $('#modalRoomId').val();

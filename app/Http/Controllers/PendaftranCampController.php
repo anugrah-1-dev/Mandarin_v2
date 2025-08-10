@@ -188,9 +188,8 @@ class PendaftranCampController extends Controller
             'nama_kamar' => $room->nomor_kamar,
         ]);
 
-        // Tidak perlu increment kolom penghuni secara manual,
-        // karena kita sekarang pakai hitungan dinamis berbasis waktu
-
+        $room->increment('penghuni', 1);
+        
         // Kurangi stok jika setelah ditambahkan jumlah penghuni = kapasitas
         if ($penghuniAktif + 1 >= $room->kapasitas) {
             $program = ProgramCamp::findOrFail($room->program_camp_id);
