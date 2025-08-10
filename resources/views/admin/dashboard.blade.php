@@ -35,10 +35,6 @@
                 </x-adminlte-card>
             </div>
         </div>
-
-        @if($stokData->isEmpty())
-        <div class="alert alert-info p-3">Silakan pilih Program Camp dan Gender lalu klik Filter untuk menampilkan data.</div>
-    @else
         <div class="card shadow-sm">
             <div class="card-header bg-primary d-flex justify-content-between align-items-center">
                 <h5 class="card-title mb-0 text-white">Data Stok Kamar</h5>
@@ -92,7 +88,7 @@
                 </div>
             </div>
         </div>
-    @endif
+    
     
         {{-- Grafik Stok --}}
         {{-- Galeri Media Sosial --}}
