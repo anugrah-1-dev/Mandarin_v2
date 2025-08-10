@@ -105,6 +105,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     //dashboard admin
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('dashboard/stok', [DashboardController::class, 'dashboardStok'])->name('admin.dashboard.stok');
+
     //roles
     Route::resource('roles', RoleController::class);
     //permissions

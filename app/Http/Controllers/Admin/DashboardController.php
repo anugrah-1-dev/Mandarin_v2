@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\ProgramOffline;
-use App\Models\ProgramOnline;
-use Illuminate\Support\Carbon;
+use App\Models\Rooms;
+use App\Models\ProgramCamp;
 use App\Models\Sosmed;
 use App\Models\PendaftaranProgramOnline;
 use App\Models\PendaftaranProgramOffline;
 use App\Models\PendaftaranProgramCamp;
-
+use Illuminate\Support\Carbon;
 
 class DashboardController extends Controller
 {
@@ -20,16 +19,14 @@ class DashboardController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $pendaftaranOnline = PendaftaranProgramOnline::with('program')->get();
-
         $pendaftaranOffline = PendaftaranProgramOffline::with('program')->get();
         $pendaftaranCamp = PendaftaranProgramCamp::with('programCamp')->get();
 
         $years = range(now()->year - 1, now()->year);
         $monthlyProfit = [];
-
         foreach ($years as $year) {
             $monthlyProfit[$year] = array_fill(1, 12, 0);
         }
@@ -37,24 +34,20 @@ class DashboardController extends Controller
         // Hitung keuntungan online
         foreach ($pendaftaranOnline as $item) {
             if ($item->status !== 'diterima') continue;
-
             $date = Carbon::parse($item->created_at);
             $monthlyProfit[$date->year][$date->month] += $item->program->harga ?? 0;
-
         }
 
         // Hitung keuntungan offline
         foreach ($pendaftaranOffline as $item) {
             if ($item->status !== 'diterima') continue;
-
             $date = Carbon::parse($item->created_at);
             $monthlyProfit[$date->year][$date->month] += $item->program->harga ?? 0;
         }
 
-        // Hitung keuntungan camp dengan semua opsi durasi
+        // Hitung keuntungan camp
         foreach ($pendaftaranCamp as $item) {
             if ($item->status !== 'diterima') continue;
-
             $date = Carbon::parse($item->created_at);
             $harga = $this->calculateCampPrice($item);
             $monthlyProfit[$date->year][$date->month] += $harga;
@@ -66,25 +59,45 @@ class DashboardController extends Controller
             'Offline' => $pendaftaranOffline->where('status', 'diterima')->count(),
             'Camp' => $pendaftaranCamp->where('status', 'diterima')->count(),
         ];
-
         $totalKursus = array_sum($salesData);
 
         $totalKeuntungan = array_reduce(
-    $pendaftaranOnline->all(),
-    fn($sum, $p) => $sum + (($p->status === 'diterima') ? ($p->program->harga ?? 0) : 0),
-    0
-)
-            + array_reduce(
-                $pendaftaranOffline->all(),
-                fn($sum, $p) => $sum + (($p->status === 'diterima') ? ($p->program->harga ?? 0) : 0),
-                0
-            )
-            + array_reduce($pendaftaranCamp->all(), function ($sum, $p) {
-                return $sum + (($p->status === 'diterima') ? $this->calculateCampPrice($p) : 0);
-            }, 0);
+            $pendaftaranOnline->all(),
+            fn($sum, $p) => $sum + (($p->status === 'diterima') ? ($p->program->harga ?? 0) : 0),
+            0
+        ) + array_reduce(
+            $pendaftaranOffline->all(),
+            fn($sum, $p) => $sum + (($p->status === 'diterima') ? ($p->program->harga ?? 0) : 0),
+            0
+        ) + array_reduce($pendaftaranCamp->all(), function ($sum, $p) {
+            return $sum + (($p->status === 'diterima') ? $this->calculateCampPrice($p) : 0);
+        }, 0);
 
         $totalMediaSosial = 20;
         $sosmedList = Sosmed::latest()->take(12)->get();
+
+        // Ambil list program camp untuk filter dropdown
+        $programCamps = ProgramCamp::orderBy('nama')->get();
+
+        // Filter wajib: Program Camp dan Gender
+        $stokData = collect(); // default kosong
+
+        if ($request->filled('program_camp_nama') && $request->filled('gender')) {
+            $query = Rooms::with('programCamp')->where('gender', $request->gender)
+                ->whereHas('programCamp', function ($q) use ($request) {
+                    $q->where('nama', $request->program_camp_nama);
+                });
+
+            $stokData = $query->get()->map(function ($room) {
+                return [
+                    'nama_kamar' => $room->nomor_kamar ?? '-',
+                    'stok' => max(0, ($room->kapasitas ?? 0) - ($room->penghuni ?? 0)),
+                    'kategori' => $room->kategori ?? '-',
+                    'program' => optional($room->programCamp)->nama ?? '-',
+                    'gender' => $room->gender ?? '-',
+                ];
+            });
+        }
 
         return view('admin.dashboard', compact(
             'monthlyProfit',
@@ -92,13 +105,12 @@ class DashboardController extends Controller
             'totalKursus',
             'totalKeuntungan',
             'totalMediaSosial',
-            'sosmedList'
+            'sosmedList',
+            'programCamps',
+            'stokData'
         ));
     }
 
-    /**
-     * Helper method to calculate camp price based on duration
-     */
     protected function calculateCampPrice($pendaftaranCamp)
     {
         if (!$pendaftaranCamp->programCamp) return 0;
@@ -126,7 +138,7 @@ class DashboardController extends Controller
             case 'perhari':
                 return $program->harga_perhari ?? 0;
             default:
-                return $program->harga_perhari ?? 0; // Fallback
+                return $program->harga_perhari ?? 0;
         }
     }
 }

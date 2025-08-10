@@ -36,7 +36,65 @@
             </div>
         </div>
 
-
+        @if($stokData->isEmpty())
+        <div class="alert alert-info p-3">Silakan pilih Program Camp dan Gender lalu klik Filter untuk menampilkan data.</div>
+    @else
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0 text-white">Data Stok Kamar</h5>
+    
+                {{-- Filter Form --}}
+                <form method="GET" class="d-flex align-items-center" style="gap: 0.5rem;">
+                    <select name="program_camp_nama" class="form-control form-control-sm" required>
+                        <option value="" disabled {{ !request('program_camp_nama') ? 'selected' : '' }}>-- Pilih Program Camp --</option>
+                        @foreach ($programCamps as $program)
+                            <option value="{{ $program->nama }}" {{ request('program_camp_nama') == $program->nama ? 'selected' : '' }}>
+                                {{ $program->nama }}
+                            </option>
+                        @endforeach
+                    </select>
+    
+                    <select name="gender" class="form-control form-control-sm" required>
+                        <option value="" disabled {{ !request('gender') ? 'selected' : '' }}>-- Pilih Gender --</option>
+                        <option value="putra" {{ request('gender') == 'putra' ? 'selected' : '' }}>Putra</option>
+                        <option value="putri" {{ request('gender') == 'putri' ? 'selected' : '' }}>Putri</option>
+                    </select>
+    
+                    <button type="submit" class="btn btn-orange btn-sm" id="filterBtn" style="white-space: nowrap;">
+                        <span id="btnText">Filter</span>
+                        <span id="btnSpinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+                    </button>
+                </form>
+            </div>
+    
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped mb-0">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Nama Program</th>
+                                <th>Nomor Kamar</th>
+                                <th>Ketersediaan</th>
+                                <th>Gender</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($stokData as $stok)
+                                <tr>
+                                    <td>{{ $stok['program'] }}</td>
+                                    <td>{{ $stok['nama_kamar'] }}</td>
+                                    <td>{{ $stok['stok'] }}</td>
+                                    <td>{{ ucfirst($stok['gender']) }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    @endif
+    
+        {{-- Grafik Stok --}}
         {{-- Galeri Media Sosial --}}
         <div class="row mt-4 justify-content-center">
             <div class="col-12">
@@ -146,4 +204,59 @@
 
             console.log('Dashboard dengan data real dimuat.');
         </script>
+        <script>
+            const form = document.querySelector('form');
+            const filterBtn = document.getElementById('filterBtn');
+            const btnText = document.getElementById('btnText');
+            const btnSpinner = document.getElementById('btnSpinner');
+          
+            form.addEventListener('submit', function(e) {
+              // Disable tombol dan show spinner
+              filterBtn.disabled = true;
+              btnText.textContent = 'Loading...';
+              btnSpinner.classList.remove('d-none');
+            });
+          </script>
+          
+        <style>
+            /* Warna biru tua untuk header card */
+            .card-header.bg-primary {
+                background-color: #0d3b66 !important; /* biru tua */
+                color: white;
+            }
+        
+            /* Warna biru muda pudar untuk header tabel */
+            .table-primary {
+                background-color: #74a9d8 !important; /* biru muda pudar */
+                color: #0d3b66;
+            }
+        
+            /* Warna orange untuk baris tabel ganjil */
+            .table-striped > tbody > tr:nth-of-type(odd) {
+                background-color: #ffd8b1; /* orange pudar */
+            }
+        
+            /* Hover efek oranye lebih gelap */
+            .table-striped > tbody > tr:hover {
+                background-color: #ffa726 !important; /* orange cerah */
+                color: #fff;
+            }
+        
+            /* Button filter warna orange */
+            .btn-orange {
+                background-color: #f57c00;
+                border-color: #f57c00;
+                color: white;
+            }
+        
+            .btn-orange:hover {
+                background-color: #ef6c00;
+                border-color: #ef6c00;
+                color: white;
+            }
+            .spinner-border {
+            transition: opacity 0.3s ease;
+            }
+        </style>
+        
     @endsection

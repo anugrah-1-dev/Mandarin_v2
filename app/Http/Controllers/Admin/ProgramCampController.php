@@ -185,5 +185,33 @@ class ProgramCampController extends Controller
     /**
      * Menampilkan halaman daftar semua camp untuk publik.
      */
+    public function dashboardStok(Request $request)
+{
+    // Ambil semua nama_kamar unik dari rooms
+    $namaKamarList = rooms::select('nama_kamar')
+        ->distinct()
+        ->orderBy('nama_kamar')
+        ->pluck('nama_kamar');
 
+    // Query rooms
+    $query = rooms::with('programCamp');
+
+    if ($request->filled('nama_kamar')) {
+        $query->where('nama_kamar', $request->nama_kamar);
+    }
+
+    $stokData = $query->get()->map(function ($room) {
+        return [
+            'nama'       => $room->nama,
+            'stok'       => $room->kapasitas - $room->penghuni,
+            'nama_kamar' => $room->nama_kamar,
+            'program'    => optional($room->programCamp)->nama,
+        ];
+    });
+
+    return view('admin.dashboard.stok', [
+        'categories' => $namaKamarList,
+        'stokData'   => $stokData,
+    ]);
+} 
 }
