@@ -394,44 +394,105 @@
                     strategis untuk mendukung pengalaman belajar terbaik Anda di Kampung Inggris Pare.</p>
             </div>
 
-                <div class="camp-grid">
-                    {{-- Loop data dari controller --}}
-                    @forelse ($camps as $index => $camp)
-                        {{-- Setiap kartu diberi animasi fade-up dengan delay yang meningkat --}}
-                        <div class="camp-card" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
-                            {{-- <div class="camp-card-image">
+            <div class="camp-grid">
+                {{-- Loop data dari controller --}}
+                @forelse ($camps as $index => $camp)
+                    {{-- Setiap kartu diberi animasi fade-up dengan delay yang meningkat --}}
+                    <div class="camp-card" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
+                        {{-- <div class="camp-card-image">
                                 <img src="{{ asset('upload/camp/' . $camp->thumbnail) }}" alt="{{ $camp->nama }}">
                             </div> --}}
-                            <div class="camp-card-images">
-    @foreach($camp->thumbnail_urls as $url)
-        <div class="camp-card-image">
-            <img src="{{ $url }}" alt="{{ $camp->nama }}">
-        </div>
-    @endforeach
-</div>
+                        <div class="camp-card-images">
+                            @foreach ($camp->thumbnail_urls->take(6) as $index => $url)
+                                <div class="camp-card-image item-{{ $index + 1 }}">
+                                    <img src="{{ $url }}" alt="{{ $camp->nama }}">
+                                </div>
+                            @endforeach
+                        </div>
 
-<style>
-.camp-card-images {
-    display: grid;
-    gap: 10px; /* jarak antar gambar */
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-}
+                        <style>
+                            .camp-card-images {
+                                display: grid;
+                                gap: 10px;
+                                grid-template-areas:
+                                    "main main side1"
+                                    "main main side2"
+                                    "side3 side4 side5";
+                                grid-template-columns: repeat(3, 1fr);
+                                grid-auto-rows: 150px;
+                            }
 
-.camp-card-image img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 8px;
-}
+                            .camp-card-image img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                border-radius: 8px;
+                            }
 
-</style>
+                            /* Area besar untuk gambar pertama */
+                            .item-1 {
+                                grid-area: main;
+                            }
+
+                            .item-2 {
+                                grid-area: side1;
+                            }
+
+                            .item-3 {
+                                grid-area: side2;
+                            }
+
+                            .item-4 {
+                                grid-area: side3;
+                            }
+
+                            .item-5 {
+                                grid-area: side4;
+                            }
+
+                            .item-6 {
+                                grid-area: side5;
+                            }
+
+                            /* Responsif */
+                            @media (max-width: 768px) {
+                                .camp-card-images {
+                                    grid-template-areas:
+                                        "main"
+                                        "side1"
+                                        "side2"
+                                        "side3"
+                                        "side4"
+                                        "side5";
+                                    grid-template-columns: 1fr;
+                                    grid-auto-rows: 200px;
+                                }
+                            }
+                        </style>
+                        {{--
+                        <style>
+                            .camp-card-images {
+                                display: grid;
+                                gap: 10px;
+                                /* jarak antar gambar */
+                                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                            }
+
+                            .camp-card-image img {
+                                width: 100%;
+                                height: 150px;
+                                object-fit: cover;
+                                border-radius: 8px;
+                            }
+                        </style> --}}
 
 
-                            <div class="camp-card-body">
-                                <h3 class="camp-card-title text-center fw-bold text-decoration-underline fs-4" style="color: #0d47a1;">
-                                    {{ $camp->nama }}
-                                </h3>
-                                <div class="camp-card-description">
+                        <div class="camp-card-body">
+                            <h3 class="camp-card-title text-center fw-bold text-decoration-underline fs-4"
+                                style="color: #0d47a1;">
+                                {{ $camp->nama }}
+                            </h3>
+                            <div class="camp-card-description">
 
                                 {{-- ============================== --}}
                                 {{-- Deskripsi Berdasarkan Urutan Index --}}
@@ -439,40 +500,46 @@
                                 @php
                                     $posisi = $loop->index % 3; // 0,1,2 berulang
                                 @endphp
-                            
+
                                 @switch($posisi)
                                     @case(0)
                                         <p style="text-align: justify;">
-                                            <strong>BIE+ Camp (VVIP)</strong> adalah pilihan premium kami yang dirancang khusus untuk memberikan privasi dan kenyamanan maksimal bagi peserta. Cocok bagi Anda yang ingin fokus belajar dengan fasilitas terbaik.
+                                            <strong>BIE+ Camp (VVIP)</strong> adalah pilihan premium kami yang dirancang khusus
+                                            untuk memberikan privasi dan kenyamanan maksimal bagi peserta. Cocok bagi Anda yang
+                                            ingin fokus belajar dengan fasilitas terbaik.
                                         </p>
-                                        @break
-                            
+                                    @break
+
                                     @case(1)
                                         <p style="text-align: justify;">
-                                            <strong>BIE+ Camp (VIP)</strong> menawarkan perpaduan ideal antara fasilitas modern dan kenyamanan. Pilihan ini cocok bagi peserta yang ingin belajar secara intensif dengan suasana nyaman.
+                                            <strong>BIE+ Camp (VIP)</strong> menawarkan perpaduan ideal antara fasilitas modern
+                                            dan kenyamanan. Pilihan ini cocok bagi peserta yang ingin belajar secara intensif
+                                            dengan suasana nyaman.
                                         </p>
-                                        @break
-                            
+                                    @break
+
                                     @case(2)
                                         <p style="text-align: justify;">
-                                            <strong>BIE+ Camp (Barack)</strong> adalah solusi ekonomis bagi peserta yang mengutamakan kebersamaan dan efisiensi. Fasilitas memadai untuk menunjang proses belajar di Kampung Inggris.
+                                            <strong>BIE+ Camp (Barack)</strong> adalah solusi ekonomis bagi peserta yang
+                                            mengutamakan kebersamaan dan efisiensi. Fasilitas memadai untuk menunjang proses
+                                            belajar di Kampung Inggris.
                                         </p>
-                                        @break
+                                    @break
                                 @endswitch
-                            
+
                                 {{-- ============================== --}}
                                 {{-- Fasilitas Dinamis --}}
                                 {{-- ============================== --}}
-                               <strong>Fasilitas:</strong>
-<ul>
-    @foreach(array_slice(explode(',', $camp->fasilitas), 0, 6) as $fasilitas)
-        <li>{{ trim($fasilitas) }}</li>
-    @endforeach
-</ul>
+                                <strong>Fasilitas:</strong>
+                                <ul>
+                                    @foreach (array_slice(explode(',', $camp->fasilitas), 0, 6) as $fasilitas)
+                                        <li>{{ trim($fasilitas) }}</li>
+                                    @endforeach
+                                </ul>
 
-                            
+
                             </div>
-                            
+
                             <div class="promo-banner">
                                 <i class="fas fa-star"></i> Special Promo Available <i class="fas fa-fire"></i>
                             </div>
@@ -480,212 +547,216 @@
                                 Selengkapnya →</a>
                         </div>
                     </div>
-                @empty
-                    <div class="col-12 text-center">
-                        <p class="text-muted">Belum ada informasi camp yang tersedia.</p>
-                    </div>
-                @endforelse
+                    @empty
+                        <div class="col-12 text-center">
+                            <p class="text-muted">Belum ada informasi camp yang tersedia.</p>
+                        </div>
+                    @endforelse
+                </div>
             </div>
+        </section>
+
+        <div class="wave-divider5">
+            <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path class="shape-fill5"
+                    d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                </path>
+            </svg>
         </div>
-    </section>
 
-    <div class="wave-divider5">
-        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-            <path class="shape-fill5"
-                d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-            </path>
-        </svg>
-    </div>
+        <section id="galeri" class="gallery">
+            <div class="container" data-aos="fade-up">
+                <h2 class="section-title">GALLERY</h2>
+                <p class="section-subtitle text-center mb-4">
+                    Dokumentasi kegiatan dan momen-momen seru bersama Brilliant English Course
+                </p>
 
-    <section id="galeri" class="gallery">
-        <div class="container" data-aos="fade-up">
-            <h2 class="section-title">GALLERY</h2>
-            <p class="section-subtitle text-center mb-4">
-                Dokumentasi kegiatan dan momen-momen seru bersama Brilliant English Course
-            </p>
+                <div class="gallery-slider-wrapper">
+                    <button class="gallery-nav left" onclick="slideGalleryGrid(-1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
 
-            <div class="gallery-slider-wrapper">
-                <button class="gallery-nav left" onclick="slideGalleryGrid(-1)">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
+                    <div class="gallery-scroll-outer">
+                        <div class="gallery-scroll-inner" id="gallerySlider">
+                            @php $index = 0; @endphp
+                            @foreach ($galleries as $gallery)
+                                @if ($gallery->images->isNotEmpty())
+                                    {{-- Setiap frame galeri diberi animasi fade-up dengan delay --}}
+                                    <div class="gallery-frame text-center" data-index="{{ $index }}"
+                                        data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
+                                        <img src="{{ asset('storage/' . $gallery->images->first()->image_path) }}"
+                                            alt="{{ $gallery->title }}" class="gallery-thumbnail"
+                                            onclick="openGalleryModal({{ $gallery->id }})">
 
-                <div class="gallery-scroll-outer">
-                    <div class="gallery-scroll-inner" id="gallerySlider">
-                        @php $index = 0; @endphp
-                        @foreach ($galleries as $gallery)
-                            @if ($gallery->images->isNotEmpty())
-                                {{-- Setiap frame galeri diberi animasi fade-up dengan delay --}}
-                                <div class="gallery-frame text-center" data-index="{{ $index }}"
-                                    data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
-                                    <img src="{{ asset('storage/' . $gallery->images->first()->image_path) }}"
-                                        alt="{{ $gallery->title }}" class="gallery-thumbnail"
-                                        onclick="openGalleryModal({{ $gallery->id }})">
-
-                                    <div class="gallery-caption">
-                                        <h5>{{ $gallery->title }}</h5>
-                                        <p>{{ Str::limit($gallery->deskripsi ?? 'Galeri kegiatan Brilliant', 50) }}</p>
-                                    </div>
-                                </div>
-
-                                <div id="modal-{{ $gallery->id }}" class="gallery-modal">
-                                    <div class="modal-content">
-                                        <span class="close-btn"
-                                            onclick="closeGalleryModal({{ $gallery->id }})">&times;</span>
-                                        <h3>{{ $gallery->title }}</h3>
-                                        <div class="modal-slider-wrapper">
-                                            <button class="nav-btn left"
-                                                onclick="slideGallery({{ $gallery->id }}, -1)">&#8592;</button>
-                                            <div class="modal-slider" id="slider-{{ $gallery->id }}">
-                                                @foreach ($gallery->images as $image)
-                                                    <img src="{{ asset('storage/' . $image->image_path) }}"
-                                                        alt="Image">
-                                                @endforeach
-                                            </div>
-                                            <button class="nav-btn right"
-                                                onclick="slideGallery({{ $gallery->id }}, 1)">&#8594;</button>
+                                        <div class="gallery-caption">
+                                            <h5>{{ $gallery->title }}</h5>
+                                            <p>{{ Str::limit($gallery->deskripsi ?? 'Galeri kegiatan Brilliant', 50) }}</p>
                                         </div>
                                     </div>
-                                </div>
-                                @php $index++; @endphp
-                            @endif
-                        @endforeach
+
+                                    <div id="modal-{{ $gallery->id }}" class="gallery-modal">
+                                        <div class="modal-content">
+                                            <span class="close-btn"
+                                                onclick="closeGalleryModal({{ $gallery->id }})">&times;</span>
+                                            <h3>{{ $gallery->title }}</h3>
+                                            <div class="modal-slider-wrapper">
+                                                <button class="nav-btn left"
+                                                    onclick="slideGallery({{ $gallery->id }}, -1)">&#8592;</button>
+                                                <div class="modal-slider" id="slider-{{ $gallery->id }}">
+                                                    @foreach ($gallery->images as $image)
+                                                        <img src="{{ asset('storage/' . $image->image_path) }}"
+                                                            alt="Image">
+                                                    @endforeach
+                                                </div>
+                                                <button class="nav-btn right"
+                                                    onclick="slideGallery({{ $gallery->id }}, 1)">&#8594;</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @php $index++; @endphp
+                                @endif
+                            @endforeach
+                        </div>
                     </div>
+
+                    <button class="gallery-nav right" onclick="slideGalleryGrid(1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <script>
+            function openGalleryModal(id) {
+                document.getElementById('modal-' + id).classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeGalleryModal(id) {
+                document.getElementById('modal-' + id).classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+
+            // Geser slider ke kiri atau kanan
+            function slideGallery(id, direction) {
+                const slider = document.getElementById('slider-' + id);
+                const scrollAmount = 300; // px
+                slider.scrollBy({
+                    left: scrollAmount * direction,
+                    behavior: 'smooth'
+                });
+            }
+        </script>
+
+        <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+            <span class="lightbox-close" onclick="closeLightbox()">x</span>
+            <img class="lightbox-content" id="lightboxImg">
+        </div>
+
+        <div class="wave-divider6">
+            <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path class="shape-fill6"
+                    d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                </path>
+            </svg>
+        </div>
+
+        <link rel="stylesheet" href="{{ asset('css/sosmed.css') }}">
+
+        <section id="sosmed" class="sosmed-section">
+            <div class="container">
+                <h2 class="section-title">Sosial Media Kami</h2>
+                @if (!$hasSosmed)
+                    <p class="text-center">Belum ada data yang ditambahkan. Stay tuned!</p>
+                @else
+                    @foreach ($groupedSosmed as $platform => $items)
+                        @if (count($items) > 0)
+                            <div class="mb-5">
+                                <h4 class="section-subtitle fw-semibold mb-4">{{ $platform }}</h4>
+                                <div class="sosmed-grid">
+                                    @foreach ($items as $item)
+                                        <div class="sosmed-card" data-platform="{{ strtolower($platform) }}">
+                                            <div class="sosmed-card-image">
+                                                @if (strtolower($platform) === 'youtube')
+                                                    <div class="sosmed-card-video">
+                                                        <iframe width="100%" height="200"
+                                                            src="https://www.youtube.com/embed/{{ getYoutubeVideoId($item->url) }}"
+                                                            title="YouTube video player" frameborder="0"
+                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                            allowfullscreen>
+                                                        </iframe>
+                                                    </div>
+                                                @elseif (strtolower($platform) === 'instagram')
+                                                    <a href="{{ $item->url }}" target="_blank"
+                                                        rel="noopener noreferrer">
+                                                        <img src="{{ asset('storage/' . $item->image_path) }}"
+                                                            alt="Instagram Image">
+                                                    </a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                @endif
+            </div>
+        </section>
+
+        <link rel="stylesheet" href="{{ asset('css/kontak.css') }}">
+
+        <div class="wave-dividerkontak">
+            <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path class="shape-fillkontak"
+                    d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                </path>
+            </svg>
+        </div>
+
+        <section id="kontak" class="kontak-section">
+            <div class="container">
+                <h2 class="section-title">Kontak Kami</h2>
+                <p class="kontak-subtitle">
+                    Ingin terhubung dengan kami? Silakan hubungi lewat email atau sosial media berikut.
+                </p>
+
+                <div class="kontak-info">
+                    <p><strong>Instagram:</strong> <a
+                            href="https://www.instagram.com/biecast_brilliankampunginggris?igsh=bzdhMGVyemIxZGQ="
+                            target="_blank">@biecast_brilliankampunginggris</a></p>
+                    <p><strong>YouTube:</strong> <a
+                            href="https://youtube.com/@bieplusbrilliantenglishcourse?si=VxZw3YfiD4t5LciM"
+                            target="_blank">BIECAST Brilliant English Course</a></p>
                 </div>
 
-                <button class="gallery-nav right" onclick="slideGalleryGrid(1)">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
+                <div class="kontak-maps">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.299223137717!2d112.1899974!3d-7.758055899999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e785db5d1b27adb%3A0xa8f77ed278eedc6!2sBrilliant%20English%20Course%20Kampung%20Inggris%20Pare!5e0!3m2!1sen!2sid!4v1753597882357!5m2!1sen!2sid"
+                        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
+
+
+        <footer>
+            © 2025 Brilliant English Course. Hak Cipta Dilindungi Oleh Undang-Undang
+        </footer>
+
+
+        @include('partials.whatsapp-floating')
+
+    </body>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
     <script>
-        function openGalleryModal(id) {
-            document.getElementById('modal-' + id).classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeGalleryModal(id) {
-            document.getElementById('modal-' + id).classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Geser slider ke kiri atau kanan
-        function slideGallery(id, direction) {
-            const slider = document.getElementById('slider-' + id);
-            const scrollAmount = 300; // px
-            slider.scrollBy({
-                left: scrollAmount * direction,
-                behavior: 'smooth'
-            });
-        }
+        AOS.init({
+            duration: 800, // Durasi animasi
+            once: true, // Animasi hanya berjalan sekali
+        });
     </script>
 
-    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-        <span class="lightbox-close" onclick="closeLightbox()">x</span>
-        <img class="lightbox-content" id="lightboxImg">
-    </div>
-
-    <div class="wave-divider6">
-        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-            <path class="shape-fill6"
-                d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-            </path>
-        </svg>
-    </div>
-
-    <link rel="stylesheet" href="{{ asset('css/sosmed.css') }}">
-
-    <section id="sosmed" class="sosmed-section">
-        <div class="container">
-            <h2 class="section-title">Sosial Media Kami</h2>
-            @if (!$hasSosmed)
-                <p class="text-center">Belum ada data yang ditambahkan. Stay tuned!</p>
-            @else
-                @foreach ($groupedSosmed as $platform => $items)
-                    @if (count($items) > 0)
-                        <div class="mb-5">
-                            <h4 class="section-subtitle fw-semibold mb-4">{{ $platform }}</h4>
-                            <div class="sosmed-grid">
-                                @foreach ($items as $item)
-                                    <div class="sosmed-card" data-platform="{{ strtolower($platform) }}">
-                                        <div class="sosmed-card-image">
-                                            @if (strtolower($platform) === 'youtube')
-                                                <div class="sosmed-card-video">
-                                                    <iframe width="100%" height="200"
-                                                        src="https://www.youtube.com/embed/{{ getYoutubeVideoId($item->url) }}"
-                                                        title="YouTube video player" frameborder="0"
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                        allowfullscreen>
-                                                    </iframe>
-                                                </div>
-                                            @elseif (strtolower($platform) === 'instagram')
-                                                <a href="{{ $item->url }}" target="_blank"
-                                                    rel="noopener noreferrer">
-                                                    <img src="{{ asset('storage/' . $item->image_path) }}"
-                                                        alt="Instagram Image">
-                                                </a>
-                                            @endif
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    @endif
-                @endforeach
-            @endif
-        </div>
-    </section>
-
-    <link rel="stylesheet" href="{{ asset('css/kontak.css') }}">
-
-    <div class="wave-dividerkontak">
-        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-            <path class="shape-fillkontak"
-                d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-            </path>
-        </svg>
-    </div>
-
-    <section id="kontak" class="kontak-section">
-        <div class="container">
-            <h2 class="section-title">Kontak Kami</h2>
-            <p class="kontak-subtitle">
-                Ingin terhubung dengan kami? Silakan hubungi lewat email atau sosial media berikut.
-            </p>
-
-            <div class="kontak-info">
-                <p><strong>Instagram:</strong> <a href="https://www.instagram.com/biecast_brilliankampunginggris?igsh=bzdhMGVyemIxZGQ=" target="_blank">@biecast_brilliankampunginggris</a></p>
-                <p><strong>YouTube:</strong> <a href="https://youtube.com/@bieplusbrilliantenglishcourse?si=VxZw3YfiD4t5LciM" target="_blank">BIECAST Brilliant English Course</a></p>
-            </div>
-
-            <div class="kontak-maps">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.299223137717!2d112.1899974!3d-7.758055899999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e785db5d1b27adb%3A0xa8f77ed278eedc6!2sBrilliant%20English%20Course%20Kampung%20Inggris%20Pare!5e0!3m2!1sen!2sid!4v1753597882357!5m2!1sen!2sid"
-                width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
-                </iframe>
-            </div>
-        </div>
-    </section>
-
-
-
-    <footer>
-        © 2025 Brilliant English Course. Hak Cipta Dilindungi Oleh Undang-Undang
-    </footer>
-
-
-    @include('partials.whatsapp-floating')
-
-</body>
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
-<script>
-    AOS.init({
-        duration: 800, // Durasi animasi
-        once: true, // Animasi hanya berjalan sekali
-    });
-</script>
-
-</html>
+    </html>

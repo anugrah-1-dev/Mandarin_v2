@@ -118,7 +118,7 @@ class RoomController extends Controller
 
     public function getPenghuni($id)
     {
-        $penghuni = PendaftaranProgramCamp::with('period') // penting untuk akses period.created_at
+        $penghuni = PendaftaranProgramCamp::with('period') // untuk akses period.date
             ->where('room_id', $id)
             ->orderBy('updated_at', 'desc')
             ->get([
@@ -128,12 +128,14 @@ class RoomController extends Controller
                 'no_hp',
                 'gender',
                 'period_id',
+                'status', 
                 'updated_at',
                 'nama_kamar'
             ]);
 
         return response()->json($penghuni);
     }
+
 
 
 

@@ -43,9 +43,19 @@ class PendaftaranProgramCampController extends Controller
         ]);
 
         $pendaftar = PendaftaranProgramCamp::findOrFail($id);
-        $pendaftar->update([
-            'status' => $request->status,
-        ]);
+
+        $pendaftar->status = $request->status;
+
+        // Kalau status diterima, set tanggal mulai untuk countdown
+        if ($request->status === 'diterima') {
+            // Kalau punya relasi period
+            $pendaftar->period()->updateOrCreate(
+                ['pendaftaran_id' => $pendaftar->id],
+                ['date' => now()] // bisa juga pakai Carbon::now()
+            );
+        }
+
+        $pendaftar->save();
 
         return redirect()->route('admin.camp.index')->with('success', 'Status berhasil diperbarui.');
     }
@@ -62,16 +72,16 @@ class PendaftaranProgramCampController extends Controller
     public function showBukti($id)
     {
         $pendaftar = PendaftaranProgramCamp::findOrFail($id);
-    
+
         // Pastikan file bukti pembayaran ada
         if (empty($pendaftar->bukti_pembayaran) || !Storage::disk('public')->exists($pendaftar->bukti_pembayaran)) {
             abort(404, 'Bukti pembayaran tidak ditemukan.');
         }
-    
+
         // Ambil path lengkap file di storage
         $path = storage_path('app/public/' . $pendaftar->bukti_pembayaran);
         $mimeType = mime_content_type($path);
-    
+
         // Tampilkan file secara langsung di browser
         return response()->file($path, [
             'Content-Type' => $mimeType,

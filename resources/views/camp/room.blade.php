@@ -176,8 +176,12 @@
                                             style="{{ $isFull || $isInactive ? 'cursor: not-allowed; opacity: 0.6;' : '' }}">
 
                                             <span class="room-number">{{ $kamar->nomor_kamar }}</span>
+                                            <span class="room-number">{{ $kamar->nomor_kamar }}</span>
                                             <span
                                                 class="room-status">{{ RD::getStatusText($kamar, $penghuniAktif) }}</span>
+                                            <span class="room-capacity">
+                                                {{ $kamar->kapasitas }}/{{ $penghuniAktif }}
+                                            </span>
 
                                         </div>
                                     @endif
@@ -211,6 +215,9 @@
                                             <span class="room-number">{{ $kamar->nomor_kamar }}</span>
                                             <span
                                                 class="room-status">{{ RD::getStatusText($kamar, $penghuniAktif) }}</span>
+                                            <span class="room-capacity">
+                                                {{ $kamar->kapasitas }}/{{ $penghuniAktif }}
+                                            </span>
 
                                         </div>
                                     @endif
@@ -280,7 +287,9 @@
 
                                     <span class="room-number">{{ $kamar->nomor_kamar }}</span>
                                     <span class="room-status">{{ RD::getStatusText($kamar, $penghuniAktif) }}</span>
-
+                                    <span class="room-capacity">
+                                        {{ $kamar->kapasitas }}/{{ $penghuniAktif }}
+                                    </span>
                                 </div>
                             @endforeach
                         </div>
@@ -322,7 +331,9 @@
 
                                         <span class="room-number">{{ $kamar->nomor_kamar }}</span>
                                         <span class="room-status">{{ RD::getStatusText($kamar, $penghuniAktif) }}</span>
-
+                                        <span class="room-capacity">
+                                            {{ $kamar->kapasitas }}/{{ $penghuniAktif }}
+                                        </span>
                                     </div>
                                 @endif
 
@@ -358,7 +369,9 @@
 
                                         <span class="room-number">{{ $kamar->nomor_kamar }}</span>
                                         <span class="room-status">{{ RD::getStatusText($kamar, $penghuniAktif) }}</span>
-
+                                        <span class="room-capacity">
+                                            {{ $kamar->kapasitas }}/{{ $penghuniAktif }}
+                                        </span>
                                     </div>
                                 @endif
                             </div>

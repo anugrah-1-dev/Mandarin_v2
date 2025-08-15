@@ -157,7 +157,7 @@ class PendaftranCampController extends Controller
         $pendaftar = PendaftaranProgramCamp::where('trx_id', $request->trx_id)->firstOrFail();
         $room = Rooms::findOrFail($request->kamar_id);
 
-        // Cek penghuni aktif di kamar ini (berdasarkan durasi paket)
+        // Mapping durasi ke hari
         $durasiToDays = [
             'perhari' => 1,
             'satu_minggu' => 7,
@@ -168,6 +168,7 @@ class PendaftranCampController extends Controller
             'enam_minggu' => 42,
         ];
 
+        // Hitung penghuni aktif
         $penghuniAktif = PendaftaranProgramCamp::where('room_id', $room->id)
             ->get()
             ->filter(function ($p) use ($durasiToDays) {
@@ -177,20 +178,19 @@ class PendaftranCampController extends Controller
             })
             ->count();
 
-        // Jika penuh, tolak
         if ($penghuniAktif >= $room->kapasitas) {
             return redirect()->back()->with('error', 'Kamar sudah penuh!');
         }
 
-        // Update data pendaftar
+        // Update data pendaftar + start date countdown
         $pendaftar->update([
             'room_id'    => $room->id,
             'nama_kamar' => $room->nomor_kamar,
+            'updated_at' => now(), // start countdown sekarang
         ]);
 
         $room->increment('penghuni', 1);
 
-        // Kurangi stok jika setelah ditambahkan jumlah penghuni = kapasitas
         if ($penghuniAktif + 1 >= $room->kapasitas) {
             $program = ProgramCamp::findOrFail($room->program_camp_id);
             if ($program->stok > 0) {

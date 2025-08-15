@@ -536,9 +536,21 @@
                 }
 
                 data.forEach(function(p) {
-                    const durasiHari = durasiToDays[p.durasi_paket] || 0;
+                    // Kalau status bukan diterima → langsung skip
+                    if (p.status !== 'diterima') {
+                        $('#listPenghuni').append(`
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>${$('<div>').text(p.nama_lengkap).html()}</strong><br>
+                    <small class="text-muted">Durasi: ${p.durasi_paket}</small><br>
+                    <span class="badge bg-secondary">Belum diterima</span>
+                </div>
+            </li>
+        `);
+                        return;
+                    }
 
-                    // Gunakan period.date sebagai tanggal mulai
+                    const durasiHari = durasiToDays[p.durasi_paket] || 0;
                     const startDate = p.period && p.period.date ? new Date(p.period.date) : new Date(p
                         .updated_at);
                     const endDate = new Date(startDate);
@@ -546,7 +558,6 @@
 
                     const now = new Date();
                     const timeDiff = endDate - now;
-
 
                     let countdownText = '';
                     let kontakWA = '';
@@ -566,7 +577,7 @@
                                 `<br><a href="https://wa.me/${cleanedNoHP}" target="_blank" class="text-success">Hubungi via WA</a>`;
                         }
                         kickButton =
-                            `<button type="button"class="btn btn-sm btn-outline-danger mt-2"onclick="kickPenghuni('${p.trx_id}', event)"> Keluarkan</button>`;
+                            `<button type="button" class="btn btn-sm btn-outline-danger mt-2" onclick="kickPenghuni('${p.trx_id}', event)">Keluarkan</button>`;
                     }
 
                     const formattedDate = startDate.toLocaleString('id-ID', {
@@ -576,20 +587,23 @@
                         day: 'numeric'
                     });
 
+                    
 
                     $('#listPenghuni').append(`
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <strong>${$('<div>').text(p.nama_lengkap).html()}</strong><br>
-                        <small class="text-muted">Durasi: ${p.durasi_paket}</small><br>
-                        ${countdownText}
-                        ${kontakWA}
-                        ${kickButton}
-                    </div>
-                    <small class="text-muted">${formattedDate}</small>
-                </li>
-            `);
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <strong>${$('<div>').text(p.nama_lengkap).html()}</strong><br>
+                <small class="text-muted">Durasi: ${p.durasi_paket}</small><br>
+                ${countdownText}
+                ${kontakWA}
+                ${kickButton}
+            </div>
+            <small class="text-muted">${formattedDate}</small>
+        </li>
+    `);
                 });
+
+
 
             }).fail(function() {
                 $('#listPenghuni').html('<li class="list-group-item text-danger">Gagal memuat data penghuni.</li>');
@@ -598,6 +612,7 @@
             const modal = new bootstrap.Modal(document.getElementById('roomModal'));
             modal.show();
         }
+
 
         function kickPenghuni(trx_id, event) {
             if (event) event.preventDefault(); // cegah submit form
