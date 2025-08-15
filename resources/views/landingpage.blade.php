@@ -394,19 +394,44 @@
                     strategis untuk mendukung pengalaman belajar terbaik Anda di Kampung Inggris Pare.</p>
             </div>
 
-            <div class="camp-grid">
-                {{-- Loop data dari controller --}}
-                @forelse ($camps as $index => $camp)
-                    {{-- Setiap kartu diberi animasi fade-up dengan delay yang meningkat --}}
-                    <div class="camp-card" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
-                        <div class="camp-card-image">
-                            <img src="{{ asset('upload/camp/' . $camp->thumbnail) }}" alt="{{ $camp->nama }}">
-                        </div>
-                        <div class="camp-card-body">
-                            <h3 class="camp-card-title text-center fw-bold text-decoration-underline fs-4" style="color: #0d47a1;">
-                                {{ $camp->nama }}
-                            </h3>
-                            <div class="camp-card-description">
+                <div class="camp-grid">
+                    {{-- Loop data dari controller --}}
+                    @forelse ($camps as $index => $camp)
+                        {{-- Setiap kartu diberi animasi fade-up dengan delay yang meningkat --}}
+                        <div class="camp-card" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
+                            {{-- <div class="camp-card-image">
+                                <img src="{{ asset('upload/camp/' . $camp->thumbnail) }}" alt="{{ $camp->nama }}">
+                            </div> --}}
+                            <div class="camp-card-images">
+    @foreach($camp->thumbnail_urls as $url)
+        <div class="camp-card-image">
+            <img src="{{ $url }}" alt="{{ $camp->nama }}">
+        </div>
+    @endforeach
+</div>
+
+<style>
+.camp-card-images {
+    display: grid;
+    gap: 10px; /* jarak antar gambar */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.camp-card-image img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+</style>
+
+
+                            <div class="camp-card-body">
+                                <h3 class="camp-card-title text-center fw-bold text-decoration-underline fs-4" style="color: #0d47a1;">
+                                    {{ $camp->nama }}
+                                </h3>
+                                <div class="camp-card-description">
 
                                 {{-- ============================== --}}
                                 {{-- Deskripsi Berdasarkan Urutan Index --}}
@@ -438,12 +463,13 @@
                                 {{-- ============================== --}}
                                 {{-- Fasilitas Dinamis --}}
                                 {{-- ============================== --}}
-                                <strong>Fasilitas:</strong>
-                                <ul>
-                                    @foreach(explode(',', $camp->fasilitas) as $fasilitas)
-                                        <li>{{ trim($fasilitas) }}</li>
-                                    @endforeach
-                                </ul>
+                               <strong>Fasilitas:</strong>
+<ul>
+    @foreach(array_slice(explode(',', $camp->fasilitas), 0, 6) as $fasilitas)
+        <li>{{ trim($fasilitas) }}</li>
+    @endforeach
+</ul>
+
                             
                             </div>
                             

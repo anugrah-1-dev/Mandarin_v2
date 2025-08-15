@@ -36,6 +36,17 @@ class LandingPageController extends Controller
             'TikTok'    => [],
         ];
 
+
+        $camps = ProgramCamp::with(['thumbnails' => function ($q) {
+            $q->orderBy('id', 'asc'); // ambil urutan pertama
+        }])->orderBy('id', 'asc')->get();
+
+        // mapping supaya setiap camp punya field 'thumbnail' langsung
+        $camps->map(function ($camp) {
+            $camp->thumbnail = optional($camp->thumbnails->first())->image ?? 'placeholder.jpg';
+            return $camp;
+        });
+
         foreach ($sosmed as $item) {
             $platform = $this->detectPlatformFromUrl($item->url);
 

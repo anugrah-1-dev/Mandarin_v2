@@ -19,15 +19,16 @@ class CampController extends Controller
         return view('camp.index', compact('camps'));
     }
 
-    public function show($slug)
-    {
-        $program = ProgramCamp::where('slug', $slug)->firstOrFail();
-        $facilities = !empty($program->fasilitas) ? explode(',', $program->fasilitas) : [];
-        $periods = Period::where('is_active', 1)->get();
-        $banks = Banks::all();
+public function show($slug)
+{
+    $program = ProgramCamp::with('thumbnails')->where('slug', $slug)->firstOrFail();
+    $facilities = !empty($program->fasilitas) ? explode(',', $program->fasilitas) : [];
+    $periods = Period::where('is_active', 1)->get();
+    $banks = Banks::all();
 
-        return view('camp.show', compact('program', 'facilities', 'periods', 'banks'));
-    }
+    return view('camp.show', compact('program', 'facilities', 'periods', 'banks'));
+}
+
 
     // public function storePendaftaran(Request $request, $programCampId)
     // {

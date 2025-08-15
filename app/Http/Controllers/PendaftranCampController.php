@@ -50,8 +50,8 @@ class PendaftranCampController extends Controller
             'gender'         => 'required|in:putra,putri',
             'payment_type' => 'required|in:tunai,nontunai',
             'bank_id'      => 'nullable|required_if:payment_type,nontunai|exists:banks,id',
-                                ], [
-                                    'bank_id.required_if' => 'Bank harus dipilih jika metode pembayaran non tunai.',
+        ], [
+            'bank_id.required_if' => 'Bank harus dipilih jika metode pembayaran non tunai.',
         ]);
 
         // Cek stok terlebih dahulu
@@ -232,31 +232,27 @@ class PendaftranCampController extends Controller
 
 
     public function uploadBukti(Request $request)
-{
-    $request->validate([
-        'bukti_pembayaran' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        'trx_id' => 'required|exists:pendaftaran_program_camps,trx_id',
-    ]);
+    {
+        $request->validate([
+            'bukti_pembayaran' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'trx_id' => 'required|exists:pendaftaran_program_camps,trx_id',
+        ]);
 
-    $pendaftaran = PendaftaranProgramCamp::where('trx_id', $request->trx_id)->firstOrFail();
+        $pendaftaran = PendaftaranProgramCamp::where('trx_id', $request->trx_id)->firstOrFail();
 
-    // Simpan file
-    $file = $request->file('bukti_pembayaran');
-    $path = $file->store('bukti_pembayaran', 'public');
+        // Simpan file
+        $file = $request->file('bukti_pembayaran');
+        $path = $file->store('bukti_pembayaran', 'public');
 
-    // Update pendaftaran
-    $pendaftaran->update([
-        'bukti_pembayaran' => $path,
-        'status' => 'menunggu_verifikasi'
-    ]);
+        // Update pendaftaran
+        $pendaftaran->update([
+            'bukti_pembayaran' => $path,
+            'status' => 'menunggu_verifikasi'
+        ]);
 
-    // Kembalikan ke halaman yang sama dengan pesan dan trx_id
-    return back()
-        ->with('success_message', "Bukti pembayaran Anda telah berhasil diunggah.")
-        ->with('trx_id', $pendaftaran->trx_id);
-}
-
-
-
-
+        // Kembalikan ke halaman yang sama dengan pesan dan trx_id
+        return back()
+            ->with('success_message', "Bukti pembayaran Anda telah berhasil diunggah.")
+            ->with('trx_id', $pendaftaran->trx_id);
+    }
 }
