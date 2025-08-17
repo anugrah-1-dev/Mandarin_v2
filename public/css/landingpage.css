@@ -1602,22 +1602,22 @@ body {
         }
 
         .pilih1-button {
-            display: block;
-            width: 100%;
-            padding: 12px 0;
-            border: none;
-            border-radius: 25px;
+            background: #007bff;
             color: white;
-            font-weight: bold;
-            font-size: 1em;
+            padding: 6px 12px;
+            border-radius: 5px;
             text-decoration: none;
-            cursor: pointer;
-            transition: opacity 0.2s;
-            background: linear-gradient(to right, #f39c12 70%, #000000 100%);/* Purple gradient button */
+            font-size: 14px;
+            transition: 0.2s;
         }
-
+        
         .pilih1-button:hover {
-            opacity: 0.9;
+            background: #0056b3;
+        }
+        .pilih1-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
         }
 
         /* Responsive Design for Mobile */

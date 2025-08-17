@@ -23,7 +23,8 @@ class ProgramOffline extends Model
         'jadwal_selesai',
         'kuota',
         'is_active',
-        'thumbnail'
+        'thumbnail',
+        'program_bahasa',
     ];
 
     // public function getRouteKeyName()

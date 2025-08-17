@@ -21,6 +21,17 @@
                         @enderror
                     </div>
 
+                    <div class="form-group">
+                        <label for="program_bahasa">Program Bahasa</label>
+                        <select name="program_bahasa" id="program_bahasa" class="form-control" required>
+                            <option value="" disabled selected>-- Pilih Bahasa --</option>
+                            <option value="inggris" {{ old('program_bahasa', $offline->program_bahasa ?? '') == 'inggris' ? 'selected' : '' }}>Bahasa Inggris</option>
+                            <option value="jerman" {{ old('program_bahasa', $offline->program_bahasa ?? '') == 'jerman' ? 'selected' : '' }}>Bahasa Jerman</option>
+                            <option value="mandarin" {{ old('program_bahasa', $offline->program_bahasa ?? '') == 'mandarin' ? 'selected' : '' }}>Bahasa Mandarin</option>
+                            <option value="arab" {{ old('program_bahasa', $offline->program_bahasa ?? '') == 'arab' ? 'selected' : '' }}>Bahasa Arab</option>
+                        </select>
+                    </div>
+
                     {{-- Slug --}}
                     <div class="mb-3">
                         <label for="slug" class="form-label">Slug</label>

@@ -97,7 +97,13 @@ Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking.in
 Route::post('/tracking', [TrackingController::class, 'search'])->name('tracking.search');
 
 
+// Route spesifik untuk setiap halaman bahasa
+Route::get('/program/bahasa-inggris', [ProgramController::class, 'showInggris'])->name('program.inggris');
+Route::get('/program/bahasa-jerman', [ProgramController::class, 'showJerman'])->name('program.jerman');
+Route::get('/program/bahasa-arab', [ProgramController::class, 'showArab'])->name('program.arab');
+Route::get('/program/bahasa-mandarin', [ProgramController::class, 'showMandarin'])->name('program.mandarin');
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
+
 
 //Landing page
 Auth::routes();
@@ -171,6 +177,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('pendaftaran/online/{id}/bukti', [PendaftaranOnlineController::class, 'showBukti'])->name('pendaftaran.online.bukti');
     Route::get('/pendaftaran/program-online', [PendaftaranOnlineController::class, 'create'])->name('pendaftaran.program_online.create');
     Route::post('/pendaftaran/program-online', [PendaftaranOnlineController::class, 'store'])->name('pendaftaran.program_online.store');
+
+
+   
 
     // Pendaftaran Program Offline
     Route::get('pendaftaran/offline', [PendaftaranOfflineController::class, 'index'])->name('pendaftaran.offline.index');
@@ -249,5 +258,4 @@ Route::middleware(['auth', 'role:officer'])->prefix('officer')->name('officer.')
     Route::get('pendaftaran/camp/{id}/edit', [PendaftaranProgramCampController::class, 'edit'])->name('pendaftaran.camp.edit');
     Route::put('pendaftaran/camp/{id}', [PendaftaranProgramCampController::class, 'update'])->name('pendaftaran.camp.update');
     Route::get('pendaftaran/camp/{id}/bukti', [PendaftaranProgramCampController::class, 'showBukti'])->name('pendaftaran.camp.bukti');
-
 });

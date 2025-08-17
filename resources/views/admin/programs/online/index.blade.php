@@ -37,6 +37,7 @@
                                     <th width="5%">No</th>
                                     <th width="15%">Thumbnail</th>
                                     <th>Nama Program</th>
+                                    <th>Program Bahasa</th>
                                     <th width="15%">Kategori</th>
                                     <th width="12%">Harga</th>
                                     <th width="10%">Status</th>
@@ -58,6 +59,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $program->nama }}</td>
+                                        <td>{{ ucfirst($program->program_bahasa) }}</td>
                                         <td>{{ $program->kategori ?? '-' }}</td>
                                         <td class="text-right">Rp {{ number_format($program->harga, 0, ',', '.') }}</td>
                                         <td class="text-center">

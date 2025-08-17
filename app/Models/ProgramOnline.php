@@ -31,6 +31,7 @@ class ProgramOnline extends Model
         'features_program',
         'is_active',
         'thumbnail',
+        'program_bahasa',
     ];
 
     /**

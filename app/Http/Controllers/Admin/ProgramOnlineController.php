@@ -39,6 +39,7 @@ class ProgramOnlineController extends Controller
             'features_program' => 'required|string',
             'is_active'        => 'required|boolean',
             'thumbnail'        => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'program_bahasa'   => 'required|in:inggris,jerman,mandarin,arab', 
         ]);
 
         // Konversi fitur dari textarea ke array
@@ -69,6 +70,7 @@ class ProgramOnlineController extends Controller
             'features_program' => 'nullable|string',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'is_active' => 'required|in:0,1',
+            'program_bahasa' => 'required|in:inggris,jerman,mandarin,arab',
         ]);
 
         $data = $request->only([
@@ -117,4 +119,13 @@ class ProgramOnlineController extends Controller
 
         return redirect()->route('admin.online.index')->with('success', 'Program online berhasil dihapus.');
     }
+    public function byLanguage($bahasa)
+{
+    // Contoh: ambil data program online berdasarkan bahasa
+    $programs = ProgramOnline::where('tipe', 'online')
+                        ->where('bahasa', $bahasa)
+                        ->get();
+
+    return view('program.online', compact('programs', 'bahasa'));
+}
 }

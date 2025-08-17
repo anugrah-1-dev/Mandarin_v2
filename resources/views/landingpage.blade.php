@@ -53,29 +53,19 @@
                     </div>
                     
                     <div class="program1-grid">
-                        <div class="program1-card">
-                            <div class="program1-icon icon-inggris">A文</div>
+                        <a href="{{ route('program.inggris') }}" class="program1-card">
                             <h3>Bahasa Inggris</h3>
-                            <a href="#program" class="pilih1-button">Pilih</a>
-                        </div>
-        
-                        <div class="program1-card">
-                            <div class="program1-icon icon-mandarin">A文</div>
-                            <h3>Bahasa Mandarin</h3>
-                            <a href="#program" class="pilih1-button">Pilih</a>
-                        </div>
-        
-                        <div class="program1-card">
-                            <div class="program1-icon icon-jerman">AÜ</div>
+                        </a>
+                        <a href="{{ route('program.jerman') }}" class="program1-card">
                             <h3>Bahasa Jerman</h3>
-                            <a href="#program" class="pilih1-button">Pilih</a>
-                        </div>
-        
-                        <div class="program1-card">
-                            <div class="program1-icon icon-arab">Aع</div>
+                        </a>
+                        <a href="{{ route('program.arab') }}" class="program1-card">
                             <h3>Bahasa Arab</h3>
-                            <a href="#program" class="pilih1-button">Pilih</a>
-                        </div>
+                        </a>
+                        <a href="{{ route('program.mandarin') }}" class="program1-card">
+                            <h3>Bahasa Mandarin</h3>
+                        </a>
+                    </div>
                     </div>
                 </div>
             </div>

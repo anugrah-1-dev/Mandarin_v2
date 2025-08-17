@@ -28,6 +28,14 @@
                     <x-adminlte-input name="nama" label="Nama Program" placeholder="Masukkan nama program"
                         value="{{ old('nama') }}" required />
 
+                        <x-adminlte-select name="program_bahasa" label="Program Bahasa" required>
+                            <option value="" disabled selected>-- Pilih Bahasa --</option>
+                            <option value="inggris" {{ old('program_bahasa') == 'inggris' ? 'selected' : '' }}>Bahasa Inggris</option>
+                            <option value="jerman" {{ old('program_bahasa') == 'jerman' ? 'selected' : '' }}>Bahasa Jerman</option>
+                            <option value="mandarin" {{ old('program_bahasa') == 'mandarin' ? 'selected' : '' }}>Bahasa Mandarin</option>
+                            <option value="arab" {{ old('program_bahasa') == 'arab' ? 'selected' : '' }}>Bahasa Arab</option>
+                        </x-adminlte-select>
+
                     <x-adminlte-input name="slug" label="Slug (URL Friendly)" placeholder="contoh-program-offline"
                         value="{{ old('slug') }}" required />
 

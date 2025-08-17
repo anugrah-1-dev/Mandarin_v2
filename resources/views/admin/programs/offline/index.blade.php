@@ -38,6 +38,7 @@
                                     <th style="width: 10px">#</th>
                                     <th>Thumbnail</th>
                                     <th>Nama Program</th>
+                                    <th>Program Bahasa</th>
                                     <th>Harga</th>
                                     <th>Jadwal</th>
                                     <th>Kuota</th>
@@ -59,6 +60,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $program->nama }}</td>
+                                        <td>{{ ucfirst($program->program_bahasa) }}</td>
                                         <td>Rp {{ number_format($program->harga, 0, ',', '.') }}</td>
                                         <td>
                                             {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('d M Y') }} -

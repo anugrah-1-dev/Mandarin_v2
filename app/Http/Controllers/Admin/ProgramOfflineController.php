@@ -36,6 +36,7 @@ class ProgramOfflineController extends Controller
             'kuota'            => 'required|integer|min:1',
             'is_active'        => 'required|boolean',
             'thumbnail'        => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'program_bahasa'   => 'required|in:inggris,jerman,mandarin,arab', 
         ]);
 
         // Convert features_program ke string jika bentuknya array (misalnya dari checkbox atau textarea multiline)
@@ -78,6 +79,7 @@ class ProgramOfflineController extends Controller
             'kuota' => 'required|integer|min:1',
             'is_active' => 'required|in:0,1',
             'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'program_bahasa' => 'required|in:inggris,jerman,mandarin,arab',
         ]);
 
         $data = $request->only([
@@ -133,4 +135,14 @@ class ProgramOfflineController extends Controller
 
         return redirect()->route('admin.offline.index')->with('success', 'Program offline berhasil dihapus.');
     }
+    public function byLanguage($bahasa)
+{
+    // Contoh: ambil data program offline berdasarkan bahasa
+    $programs = ProgramOffline::where('tipe', 'offline')
+                        ->where('bahasa', $bahasa)
+                        ->get();
+
+    return view('program.offline', compact('programs', 'bahasa'));
+}
+
 }
