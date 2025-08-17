@@ -4,117 +4,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brilliant English Course</title>
-
-    {{-- CSS & Fonts --}}
-    <link rel="stylesheet" href="{{ asset('css/landingpage.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-
-    {{-- JS --}}
-    <script src="{{ asset('js/landingpage.js') }}" defer></script>
-    <script src="{{ asset('js/gallery.js') }}" defer></script>
+    <title>Kursus Bahasa Arab</title>
+    <link rel="stylesheet" href="{{ asset('css/arablandingpage.css') }}">
 </head>
 
 <body>
-    {{-- Navbar selalu muncul --}}
-    @include('navbar.navbar')
+@include('navbar.navbar')
+    <!-- Hero Carousel -->
+    <section class="hero">
+        <div class="carousel">
+            <div class="slides">
+                <div class="slide active">
+                    <img src={{ asset('asset/img/brilliant1.jpg') }} alt="Belajar Bahasa Arab 1">
+                </div>
+                <div class="slide">
+                    <img src={{ asset('asset/img/brilliant2.jpg') }} alt="Belajar Bahasa Arab 2">
+                </div>
+                <div class="slide">
+                    <img src={{ asset('asset/img/brilliant3.jpg') }} alt="Belajar Bahasa Arab 3">
+                </div>
+            </div>
+            <button class="prev">&#10094;</button>
+            <button class="next">&#10095;</button>
+        </div>
 
-    {{-- Konten utama landing page --}}
-  <section class="program-section bg-light py-5" id="program">
+        <div class="hero-text">
+            <h1>BRILLIANT ENGLISH COURSE</h1>
+            <h2>(Kursus Bahasa Arab)</h2>
+            <p>Kuasai bahasa Arab dengan metode interaktif dan pengajar berpengalaman.</p>
+            
+        </div>
+    </section>
+        <section class="program-section">
         <div class="container">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h2>PILIHAN PROGRAM</h2>
-                <p class="lead text-muted">Temukan program yang paling sesuai dengan tujuan Anda.</p>
-            </div>
-
-            <div class="filter-buttons-wrapper" data-aos="fade-up" data-aos-delay="100">
-                <button class="filter-btn active" data-filter="offline">Program Offline</button>
-                <button class="filter-btn" data-filter="online">Program Online</button>
-            </div>
+            <h2 class="section-title">Program Bahasa Arab</h2>
+            <p class="section-subtitle">Pilih program yang sesuai dengan kebutuhan belajar bahasa Arab Anda.</p>
 
             <div class="program-grid">
-                @forelse ($offlinePrograms as $index => $program)
-                    <div class="program-item" data-filter="offline" data-aos="fade-up"
-                         data-aos-delay="{{ 100 * ($index + 1) }}">
-                        <div class="program-card">
-                            <div class="program-card-image-wrapper">
-                                <img src="{{ asset('storage/' . $program->thumbnail) }}"
-                                     class="program-card-img"
-                                     alt="{{ $program->nama }}">
-                                @if ($program->is_active)
-                                    <span class="badge bg-success program-badge">Tersedia</span>
-                                @endif
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title program-card-title">{{ $program->nama }}</h5>
-                                <p class="card-text text-muted small mb-2">
-                                    <i class="fas fa-calendar-alt me-1"></i>
-                                    {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('d M') }} -
-                                    {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('d M Y') }}
-                                </p>
-                                <p class="card-text program-card-price mb-3">
-                                    Rp {{ number_format($program->harga, 0, ',', '.') }}
-                                </p>
-                                <a href="{{ route('public.program.offline.show', $program->slug) }}"
-                                   class="btn btn-success mt-auto">Lihat Detail</a>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                @endforelse
+                <div class="program-card">
+                    <img src="https://picsum.photos/400/250?random=1" alt="Program 1">
+                    <h3>Kursus Bahasa Arab Dasar</h3>
+                    <p>Belajar huruf hijaiyah, kosa kata dasar, dan percakapan sehari-hari.</p>
+                    <a href="#" class="program-btn">Lihat Detail</a>
+                </div>
 
-                @forelse ($onlinePrograms as $index => $program)
-                    <div class="program-item" data-filter="online" data-aos="fade-up"
-                         data-aos-delay="{{ 100 * ($index + 1) }}">
-                        <div class="program-card">
-                            <div class="position-relative">
-                                <img src="{{ asset('storage/' . $program->thumbnail) }}"
-                                     class="program-card-img"
-                                     alt="{{ $program->nama }}">
-                                @if ($program->is_active)
-                                    <span class="badge bg-success program-badge">Tersedia</span>
-                                @endif
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title program-card-title">{{ $program->nama }}</h5>
-                                <p class="card-text text-muted small mb-2">
-                                    <i class="fas fa-tag me-1"></i>
-                                    Kategori: {{ $program->kategori ?? '-' }}
-                                </p>
-                                <p class="card-text program-card-price mb-3">
-                                    Rp {{ number_format($program->harga, 0, ',', '.') }}
-                                </p>
-                                <a href="{{ route('public.program.online.show', $program->slug) }}"
-                                   class="btn btn-success mt-auto">Lihat Detail</a>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                @endforelse
-            </div>
+                <div class="program-card">
+                    <img src="https://picsum.photos/400/250?random=2" alt="Program 2">
+                    <h3>Bahasa Arab Menengah</h3>
+                    <p>Pemahaman tata bahasa (nahwu & sharaf) serta percakapan tingkat menengah.</p>
+                    <a href="#" class="program-btn">Lihat Detail</a>
+                </div>
 
-            <div id="no-program-message" class="text-center text-muted mt-5" style="display: none;">
-                <p>Tidak ada program yang tersedia untuk kategori ini.</p>
+                <div class="program-card">
+                    <img src="https://picsum.photos/400/250?random=3" alt="Program 3">
+                    <h3>Bahasa Arab Lanjutan</h3>
+                    <p>Fokus membaca teks kitab klasik, percakapan akademik, dan diskusi formal.</p>
+                    <a href="#" class="program-btn">Lihat Detail</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <div class="wave-divider4">
+    <script>
+        const slides = document.querySelectorAll(".slide");
+        const prevBtn = document.querySelector(".prev");
+        const nextBtn = document.querySelector(".next");
+        let current = 0;
+
+        function showSlide(index) {
+            slides.forEach((s, i) => s.classList.toggle("active", i === index));
+        }
+
+        nextBtn.addEventListener("click", () => {
+            current = (current + 1) % slides.length;
+            showSlide(current);
+        });
+
+        prevBtn.addEventListener("click", () => {
+            current = (current - 1 + slides.length) % slides.length;
+            showSlide(current);
+        });
+
+        // Auto-slide
+        setInterval(() => {
+            current = (current + 1) % slides.length;
+            showSlide(current);
+        }, 5000);
+    </script>
+
+
+    <div class="wave-divider">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-            <path class="shape-fill4"
-                  d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+            <path class="shape-fill"
+                d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
             </path>
         </svg>
     </div>
+    <!-- Alur Pendaftaran -->
+    <section class="alur" id="alur">
+        <div class="container">
+            <h2>Alur Pendaftaran</h2>
+            <p>Ikuti langkah-langkah berikut untuk mendaftar di <strong>Brilliant English Course</strong>:</p>
 
-    {{-- Bootstrap & AOS --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
+            <div class="alur-timeline">
+                <div class="step">
+                    <div class="circle">1</div>
+                    <h3>Isi Formulir Pendaftaran</h3>
+                    <p>Isi data diri Anda secara lengkap melalui formulir online yang tersedia di website kami.</p>
+                </div>
+                <div class="step">
+                    <div class="circle">2</div>
+                    <h3>Verifikasi & Konfirmasi</h3>
+                    <p>Tim kami akan menghubungi Anda untuk verifikasi dan memberikan informasi lebih lanjut.</p>
+                </div>
+                <div class="step">
+                    <div class="circle">3</div>
+                    <h3>Pembayaran & Bukti Transfer</h3>
+                    <p>Lakukan pembayaran sesuai instruksi, lalu unggah bukti transfer melalui halaman konfirmasi.</p>
+                </div>
+                <div class="step">
+                    <div class="circle">4</div>
+                    <h3>Daftar Ulang</h3>
+                    <p>Melakukan daftar ulang secara langsung melalui Admin kami yang berada di Ruang Office Brilliant
+                        English Course.</p>
+                </div>
+                <div class="step">
+                    <div class="circle">5</div>
+                    <h3>Siap Belajar!</h3>
+                    <p>Selamat! Anda resmi terdaftar dan siap mengikuti program pembelajaran di Brilliant English
+                        Course.</p>
+                </div>
+            </div>
+
+        </div>
+        </div>
+    </section>
+
+       <section class="about" id="tentang">
+        <div class="container">
+            <h2>Informasi </h2>
+            <p><strong>Brilliant English Course</strong> menghadirkan program khusus <span class="highlight">Bahasa
+                    Arab</span>
+                yang dirancang untuk semua kalangan. Dengan metode pembelajaran yang interaktif, pengajar berpengalaman,
+                serta suasana belajar yang menyenangkan, kami berkomitmen membantu Anda menguasai bahasa Arab dengan
+                mudah dan efektif.</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor,
+                dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.</p>
+
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3>Metode Modern</h3>
+                    <p>Pembelajaran dengan pendekatan interaktif dan sesuai kebutuhan peserta.</p>
+                </div>
+                <div class="about-card">
+                    <h3>Pengajar Berpengalaman</h3>
+                    <p>Instruktur yang fasih dan memiliki pengalaman mengajar bertahun-tahun.</p>
+                </div>
+                <div class="about-card">
+                    <h3>Lingkungan Nyaman</h3>
+                    <p>Belajar dengan suasana kondusif, mendukung perkembangan bahasa secara alami.</p>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+  <div class="wave-divider2">
+        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path class="shape-fill2"
+                d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+            </path>
+        </svg>
+    </div>
 </body>
+
 </html>

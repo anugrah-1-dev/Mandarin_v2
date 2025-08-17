@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -8,7 +9,7 @@ use App\Models\ProgramOffline;
 
 class ProgramArabController extends Controller
 {
-    public function showIArab()
+    public function showArab()
     {
         $onlinePrograms = ProgramOnline::where('program_bahasa', 'Arab')
             ->where('is_active', 1)

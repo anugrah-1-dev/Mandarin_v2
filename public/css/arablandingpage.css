@@ -1,0 +1,403 @@
+/* AWAL */
+
+/* General */
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: #f9f6f1;
+    color: #333;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Carousel */
+.carousel {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    filter: brightness(50%);
+}
+
+.slides {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.slide.active {
+    display: block;
+}
+
+.slide img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    filter: brightness(70%);
+}
+
+/* Navigation Buttons */
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.prev {
+    left: 20px;
+}
+.next {
+    right: 20px;
+}
+
+/* Hero Text */
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #ffd700; /* emas */
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.hero-text h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #ffd700; /* emas */
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+/* CTA Button */
+.cta-button {
+    background: #0f5132; /* hijau tua */
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.cta-button:hover {
+    background: #198754;
+}
+/* AWAL */
+
+/* TENTANG KAMI */
+/* About Section */
+.about {
+    padding: 90px 20px;
+    background: #fdf7e7;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* optional: pola samar ala arabic */
+.about::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 300px;
+    height: 300px;
+    background: url("pattern.svg") no-repeat center/cover;
+    opacity: 0.05;
+}
+
+.about::after {
+    content: "";
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 300px;
+    height: 300px;
+    background: url("pattern.svg") no-repeat center/cover;
+    opacity: 0.05;
+}
+
+.about .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.about h2 {
+    font-size: 2.7rem;
+    margin-bottom: 20px;
+    color: #0f5132; /* hijau tua */
+    font-weight: 700;
+}
+
+.about h2::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #d4af37; /* emas klasik */
+    margin: 12px auto 0;
+    border-radius: 2px;
+}
+
+.about p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 25px;
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.about .highlight {
+    color: #198754;
+    font-weight: bold;
+}
+
+/* About Grid */
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 50px;
+}
+
+.about-card {
+    background: #ffffffcc;
+    padding: 35px 25px;
+    border-radius: 14px;
+    border-top: 4px solid #d4af37; /* aksen emas */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(6px);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.about-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+}
+
+.about-card h3 {
+    font-size: 1.4rem;
+    color: #0f5132;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.about-card p {
+    font-size: 1rem;
+    color: #555;
+}
+/* TENTANG KAMI */
+
+/* Alur Section */
+/* Alur Section */
+.alur {
+    padding: 90px 20px;
+    background: #0f5132; /* hijau tua */
+    color: #fff;
+    text-align: center;
+}
+
+.alur .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.alur h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #ffd700; /* emas */
+}
+
+.alur p {
+    font-size: 1.1rem;
+    margin-bottom: 60px;
+    color: #fdf7e7;
+}
+
+/* Timeline Style */
+.alur-timeline {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+.alur-timeline::before {
+    content: "";
+    position: absolute;
+    top: 40px;
+    left: 5%;
+    right: 5%;
+    height: 4px;
+    background: #ffd700; /* garis emas */
+    z-index: 0;
+}
+
+.step {
+    position: relative;
+    text-align: center;
+    flex: 1;
+    min-width: 180px;
+    max-width: 220px;
+    margin: 0 10px;
+    z-index: 1;
+}
+
+.circle {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background: #ffd700;
+    color: #0f5132;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.step h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.step p {
+    font-size: 0.9rem;
+    color: #fdf7e7;
+    line-height: 1.5;
+}
+
+/* Alur Section */
+
+.wave-divider {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    line-height: 0;
+    background: #fdf7e7; /* Bagian bawah putih */
+    margin-top: -1px; /* Hilangkan celah garis putih */
+    margin-bottom: -1px; /* Hilangkan celah garis putih */
+}
+
+.wave-divider svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.wave-divider .shape-fill {
+    fill: #0f5132; /* Warna atas gelombang */
+}
+
+/* program section */
+.program-section {
+    background-color: #fdf7e7;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0f5132; /* penting */
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.program-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.program-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.program-card:hover {
+    transform: translateY(-8px);
+}
+
+.program-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.program-card h3 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 15px 0 10px;
+    color: #0f5132; /* penting */
+}
+
+.program-card p {
+    font-size: 0.95rem;
+    color: #555;
+    padding: 0 15px 15px;
+}
+
+.program-btn {
+    display: inline-block;
+    margin: 10px 0 20px;
+    padding: 8px 16px;
+    background: #0f5132;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.program-btn:hover {
+    background: #198754;
+}
+/* Program Section */
+
