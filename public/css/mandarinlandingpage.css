@@ -68,8 +68,12 @@ body {
     background: rgba(200, 16, 46, 0.8);
 }
 
-.prev { left: 20px; }
-.next { right: 20px; }
+.prev {
+    left: 20px;
+}
+.next {
+    right: 20px;
+}
 
 /* Hero Text */
 .hero-text {
@@ -84,15 +88,15 @@ body {
 .hero-text h1 {
     font-size: 3rem;
     margin-bottom: 20px;
-    color: #FFD700; /* Kuning emas */
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+    color: #ffd700; /* Kuning emas */
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
 }
 
 .hero-text h2 {
     font-size: 2rem;
     margin-bottom: 20px;
     color: #fff;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
 }
 
 .hero-text p {
@@ -103,8 +107,8 @@ body {
 
 /* CTA Button */
 .cta-button {
-    background: #C8102E; /* Merah bendera China */
-    color: #FFD700;
+    background: #c8102e; /* Merah bendera China */
+    color: #ffd700;
     padding: 12px 30px;
     border-radius: 30px;
     text-decoration: none;
@@ -113,7 +117,7 @@ body {
 }
 
 .cta-button:hover {
-    background: #A00C24;
+    background: #a00c24;
     color: #fff;
 }
 
@@ -132,7 +136,7 @@ body {
 .about h2 {
     font-size: 2.7rem;
     margin-bottom: 20px;
-    color: #C8102E;
+    color: #c8102e;
     font-weight: 700;
 }
 
@@ -141,7 +145,7 @@ body {
     display: block;
     width: 80px;
     height: 4px;
-    background: #FFD700; /* garis kuning */
+    background: #ffd700; /* garis kuning */
     margin: 12px auto 0;
     border-radius: 2px;
 }
@@ -154,7 +158,7 @@ body {
 }
 
 .about .highlight {
-    color: #C8102E;
+    color: #c8102e;
     font-weight: bold;
 }
 
@@ -170,7 +174,7 @@ body {
     background: #fff9f2;
     padding: 35px 25px;
     border-radius: 14px;
-    border-top: 4px solid #FFD700;
+    border-top: 4px solid #ffd700;
     box-shadow: 0 6px 18px rgba(200, 16, 46, 0.15);
     transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
@@ -182,7 +186,7 @@ body {
 
 .about-card h3 {
     font-size: 1.4rem;
-    color: #C8102E;
+    color: #c8102e;
     margin-bottom: 12px;
     font-weight: 600;
 }
@@ -195,7 +199,7 @@ body {
 /* Alur Section */
 .alur {
     padding: 90px 20px;
-    background: #C8102E;
+    background: #c8102e;
     color: #fff;
     text-align: center;
 }
@@ -203,7 +207,7 @@ body {
 .alur h2 {
     font-size: 2.5rem;
     margin-bottom: 15px;
-    color: #FFD700;
+    color: #ffd700;
 }
 
 .alur p {
@@ -227,7 +231,7 @@ body {
     left: 5%;
     right: 5%;
     height: 4px;
-    background: rgba(255,215,0,0.5);
+    background: rgba(255, 215, 0, 0.5);
 }
 
 .step {
@@ -243,8 +247,8 @@ body {
     height: 70px;
     margin: 0 auto 15px;
     border-radius: 50%;
-    background: #FFD700;
-    color: #C8102E;
+    background: #ffd700;
+    color: #c8102e;
     font-weight: 700;
     display: flex;
     align-items: center;
@@ -257,11 +261,20 @@ body {
     width: 100%;
     height: 150px;
     overflow: hidden;
-    background: #fff;
+    line-height: 0;
+    background: #ffffff; /* Bagian bawah putih */
+    margin-top: -1px;
+    margin-bottom: -1px;
+}
+
+.wave-divider svg {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 .wave-divider .shape-fill {
-    fill: #C8102E;
+    fill: #c8102e; /* Warna gelombang biru tua */
 }
 
 /* Program Section */
@@ -274,7 +287,7 @@ body {
 .section-title {
     font-size: 2rem;
     font-weight: bold;
-    color: #C8102E;
+    color: #c8102e;
     margin-bottom: 10px;
 }
 
@@ -294,7 +307,7 @@ body {
     background: #fff;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s;
 }
 
@@ -313,7 +326,7 @@ body {
     font-size: 1.3rem;
     font-weight: bold;
     margin: 15px 0 10px;
-    color: #C8102E;
+    color: #c8102e;
 }
 
 .program-card p {
@@ -326,8 +339,8 @@ body {
     display: inline-block;
     margin: 10px 0 20px;
     padding: 8px 16px;
-    background: #FFD700;
-    color: #C8102E;
+    background: #ffd700;
+    color: #c8102e;
     font-weight: bold;
     border-radius: 6px;
     text-decoration: none;
@@ -335,7 +348,7 @@ body {
 }
 
 .program-btn:hover {
-    background: #C8102E;
+    background: #c8102e;
     color: #fff;
 }
 
@@ -349,18 +362,18 @@ body {
 
 .filter-btn {
     padding: 8px 20px;
-    border: 1px solid #C8102E;
+    border: 1px solid #c8102e;
     background: white;
     border-radius: 30px;
     cursor: pointer;
     transition: all 0.3s;
-    color: #C8102E;
+    color: #c8102e;
 }
 
 .filter-btn.active {
-    background: #FFD700;
-    color: #C8102E;
-    border-color: #FFD700;
+    background: #ffd700;
+    color: #c8102e;
+    border-color: #ffd700;
 }
 
 .filter-btn:hover:not(.active) {
@@ -373,7 +386,7 @@ body {
 /* ALUR - Mandarin Style */
 .alur-mandarin {
     padding: 90px 20px;
-    background: #C8102E; /* Merah khas Tiongkok */
+    background: #c8102e; /* Merah khas Tiongkok */
     color: #fff;
     text-align: center;
 }
@@ -386,9 +399,9 @@ body {
 .alur-mandarin h2 {
     font-size: 2.5rem;
     margin-bottom: 15px;
-    color: #FFD700; /* Kuning emas */
+    color: #ffd700; /* Kuning emas */
     font-weight: bold;
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .alur-mandarin p {
@@ -431,8 +444,8 @@ body {
     height: 70px;
     margin: 0 auto 15px;
     border-radius: 50%;
-    background: #FFD700; /* Lingkaran kuning emas */
-    color: #C8102E; /* Angka merah */
+    background: #ffd700; /* Lingkaran kuning emas */
+    color: #c8102e; /* Angka merah */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -445,7 +458,7 @@ body {
 .step-mandarin h3 {
     font-size: 1.1rem;
     margin-bottom: 10px;
-    color: #FFD700; /* Judul kuning emas */
+    color: #ffd700; /* Judul kuning emas */
     font-weight: bold;
 }
 
@@ -454,28 +467,10 @@ body {
     color: #ffe680; /* Teks kuning lembut */
     line-height: 1.5;
 }
-/* Wave Divider */
-.wave-divider {
-    position: relative;
-    width: 100%;
-    line-height: 0;
-}
-
-.wave-divider svg {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 120px; /* bisa disesuaikan */
-    margin-bottom: -1px; /* hilangkan gap putih */
-}
-
-.wave-divider .shape-fill {
-    fill: #C8102E; /* sama dengan background section Mandarin */
-}
 
 /* Section Mandarin */
 .alur-mandarin {
-    background-color: #C8102E; /* merah solid */
-    color: #FFD700; /* kuning emas untuk teks */
+    background-color: #c8102e; /* merah solid */
+    color: #ffd700; /* kuning emas untuk teks */
     padding: 60px 20px;
 }

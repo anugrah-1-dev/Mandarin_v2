@@ -9,7 +9,7 @@
 </head>
 
 <body>
-@include('navbar.nav')
+    @include('navbar.navbar')
     <!-- Hero Carousel -->
     <section class="hero">
         <div class="carousel">
@@ -35,35 +35,118 @@
 
         </div>
     </section>
-        <section class="program-section">
+
+    <!-- PROGRAM SECTION WITH FILTERING -->
+    <section class="program-section bg-light py-5" id="program">
         <div class="container">
-            <h2 class="section-title">Program Bahasa Arab</h2>
-            <p class="section-subtitle">Pilih program yang sesuai dengan kebutuhan belajar bahasa Arab Anda.</p>
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2>ARAB PROGRAM CHOICES</h2>
+                <p class="lead text-muted">Temukan program yang sesuai dengan tujuan Anda.</p>
+            </div>
+
+            <div class="filter-buttons-wrapper text-center mb-4" data-aos="fade-up" data-aos-delay="100">
+                <button class="filter-btn active" data-filter="offline">Offline Programs</button>
+                <button class="filter-btn" data-filter="online">Online Programs</button>
+            </div>
 
             <div class="program-grid">
-                <div class="program-card">
-                    <img src="https://picsum.photos/400/250?random=1" alt="Program 1">
-                    <h3>Kursus Bahasa Arab Dasar</h3>
-                    <p>Belajar huruf hijaiyah, kosa kata dasar, dan percakapan sehari-hari.</p>
-                    <a href="#" class="program-btn">Lihat Detail</a>
-                </div>
+                <!-- Offline Programs -->
+                @forelse ($offlinePrograms as $index => $program)
+                    <div class="program-item offline" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}"
+                        style="display: none;">
+                        <div class="program-card">
+                            <div class="program-card-image-wrapper">
+                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                    alt="{{ $program->nama }}">
+                                @if ($program->is_active)
+                                    <span class="badge bg-success program-badge">Tersedia</span>
+                                @endif
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title program-card-title">{{ $program->nama }}</h5>
+                                <p class="card-text text-muted small mb-2">
+                                    <i class="fas fa-calendar-alt me-1"></i>
+                                    {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('M d') }} -
+                                    {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('M d, Y') }}
+                                </p>
+                                <p class="card-text program-card-price mb-3">
+                                    Rp {{ number_format($program->harga, 0, ',', '.') }}
+                                </p>
+                                <a href="{{ route('public.program.offline.show', $program->slug) }}"
+                                    class="btn btn-primary mt-auto">Lihat Detail</a>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="program-item offline" style="display: none;">
+                        <p class="text-muted">Belum ada program offline tersedia</p>
+                    </div>
+                @endforelse
 
-                <div class="program-card">
-                    <img src="https://picsum.photos/400/250?random=2" alt="Program 2">
-                    <h3>Bahasa Arab Menengah</h3>
-                    <p>Pemahaman tata bahasa (nahwu & sharaf) serta percakapan tingkat menengah.</p>
-                    <a href="#" class="program-btn">Lihat Detail</a>
-                </div>
-
-                <div class="program-card">
-                    <img src="https://picsum.photos/400/250?random=3" alt="Program 3">
-                    <h3>Bahasa Arab Lanjutan</h3>
-                    <p>Fokus membaca teks kitab klasik, percakapan akademik, dan diskusi formal.</p>
-                    <a href="#" class="program-btn">Lihat Detail</a>
-                </div>
+                <!-- Online Programs -->
+                @forelse ($onlinePrograms as $index => $program)
+                    <div class="program-item online" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}"
+                        style="display: none;">
+                        <div class="program-card">
+                            <div class="program-card-image-wrapper">
+                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                    alt="{{ $program->nama }}">
+                                @if ($program->is_active)
+                                    <span class="badge bg-success program-badge">Tersedia</span>
+                                @endif
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title program-card-title">{{ $program->nama }}</h5>
+                                <p class="card-text text-muted small mb-2">
+                                    <i class="fas fa-tag me-1"></i>
+                                    Kategori: {{ $program->kategori ?? '-' }}
+                                </p>
+                                <p class="card-text program-card-price mb-3">
+                                    Rp {{ number_format($program->harga, 0, ',', '.') }}
+                                </p>
+                                <a href="{{ route('public.program.online.show', $program->slug) }}"
+                                    class="btn btn-danger mt-auto">Lihat Detail</a>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="program-item online" style="display: none;">
+                        <p class="text-muted">Belum ada program online tersedia</p>
+                    </div>
+                @endforelse
             </div>
         </div>
     </section>
+
+    {{-- JS filter program sama seperti versi Inggris --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const programItems = document.querySelectorAll('.program-item');
+
+            // Show offline by default
+            document.querySelector('.filter-btn[data-filter="offline"]').classList.add('active');
+            document.querySelectorAll('.program-item.offline').forEach(item => {
+                item.style.display = 'block';
+            });
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const filterValue = this.getAttribute('data-filter');
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    programItems.forEach(item => {
+                        if (item.classList.contains(filterValue)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 
     <script>
         const slides = document.querySelectorAll(".slide");
@@ -140,7 +223,16 @@
         </div>
     </section>
 
-       <section class="about" id="tentang">
+    </section>
+    <div class="wave-divider2">
+        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path class="shape-fill2"
+                d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+            </path>
+        </svg>
+    </div>
+
+    <section class="about" id="tentang">
         <div class="container">
             <h2>Informasi </h2>
             <p><strong>Brilliant English Course</strong> menghadirkan program khusus <span class="highlight">Bahasa
@@ -168,15 +260,52 @@
             </div>
         </div>
 
+    </section>
 
     </section>
-  <div class="wave-divider2">
+    <div class="wave-divider3">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-            <path class="shape-fill2"
+            <path class="shape-fill3"
                 d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
             </path>
         </svg>
     </div>
+
+    <section id="kontak" class="kontak-section">
+        <div class="container">
+            <h2 class="section-title">Kontak Kami</h2>
+            <p class="kontak-subtitle">
+                Ingin terhubung dengan kami? Silakan hubungi lewat email atau sosial media berikut.
+            </p>
+
+            <div class="kontak-info">
+                <p><strong>Instagram:</strong> <a
+                        href="https://www.instagram.com/biecast_brilliankampunginggris?igsh=bzdhMGVyemIxZGQ="
+                        target="_blank">@biecast_brilliankampunginggris</a></p>
+                <p><strong>YouTube:</strong> <a
+                        href="https://youtube.com/@bieplusbrilliantenglishcourse?si=VxZw3YfiD4t5LciM"
+                        target="_blank">BIECAST Brilliant English Course</a></p>
+            </div>
+
+            <div class="kontak-maps">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.299223137717!2d112.1899974!3d-7.758055899999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e785db5d1b27adb%3A0xa8f77ed278eedc6!2sBrilliant%20English%20Course%20Kampung%20Inggris%20Pare!5e0!3m2!1sen!2sid!4v1753597882357!5m2!1sen!2sid"
+                    width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </section>
+    <div class="wave-divider4">
+        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path class="shape-fill4"
+                d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+            </path>
+        </svg>
+    </div>
+    <footer>
+        © 2025 Brilliant English Course. Hak Cipta Dilindungi Oleh Undang-Undang
+    </footer>
+
 </body>
 
 </html>

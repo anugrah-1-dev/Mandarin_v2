@@ -9,7 +9,7 @@
 </head>
 
 <body>
-@include('navbar.nav')
+    @include('navbar.nav')
     <!-- Hero Carousel -->
     <section class="hero">
         <div class="carousel">
@@ -35,159 +35,163 @@
         </div>
     </section>
 
-<!-- PROGRAM SECTION WITH FILTERING -->
-<section class="program-section bg-light py-5" id="program">
-    <div class="container">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2>MANDARIN PROGRAM CHOICES</h2>
-            <p class="lead text-muted">Temukan program yang sesuai dengan tujuan Anda.</p>
-        </div>
+    <!-- PROGRAM SECTION WITH FILTERING -->
+    <section class="program-section bg-light py-5" id="program">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2>MANDARIN PROGRAM CHOICES</h2>
+                <p class="lead text-muted">Temukan program yang sesuai dengan tujuan Anda.</p>
+            </div>
 
-        <div class="filter-buttons-wrapper text-center mb-4" data-aos="fade-up" data-aos-delay="100">
-            <button class="filter-btn active" data-filter="offline">Offline Programs</button>
-            <button class="filter-btn" data-filter="online">Online Programs</button>
-        </div>
+            <div class="filter-buttons-wrapper text-center mb-4" data-aos="fade-up" data-aos-delay="100">
+                <button class="filter-btn active" data-filter="offline">Offline Programs</button>
+                <button class="filter-btn" data-filter="online">Online Programs</button>
+            </div>
 
-        <div class="program-grid">
-            <!-- Offline Programs -->
-            @forelse ($offlinePrograms as $index => $program)
-                <div class="program-item offline" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}" style="display: none;">
-                    <div class="program-card">
-                        <div class="program-card-image-wrapper">
-                            <img src="{{ asset('storage/' . $program->thumbnail) }}"
-                                 class="program-card-img"
-                                 alt="{{ $program->nama }}">
-                            @if ($program->is_active)
-                                <span class="badge bg-success program-badge">Tersedia</span>
-                            @endif
-                        </div>
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title program-card-title">{{ $program->nama }}</h5>
-                            <p class="card-text text-muted small mb-2">
-                                <i class="fas fa-calendar-alt me-1"></i>
-                                {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('M d') }} -
-                                {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('M d, Y') }}
-                            </p>
-                            <p class="card-text program-card-price mb-3">
-                                Rp {{ number_format($program->harga, 0, ',', '.') }}
-                            </p>
-                            <a href="{{ route('public.program.offline.show', $program->slug) }}"
-                               class="btn btn-primary mt-auto">Lihat Detail</a>
-                        </div>
-                    </div>
-                </div>
-            @empty
-                <div class="program-item offline" style="display: none;">
-                    <p class="text-muted">Belum ada program offline tersedia</p>
-                </div>
-            @endforelse
-
-            <!-- Online Programs -->
-            @forelse ($onlinePrograms as $index => $program)
-                <div class="program-item online" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}" style="display: none;">
-                    <div class="program-card">
-                        <div class="program-card-image-wrapper">
-                            <img src="{{ asset('storage/' . $program->thumbnail) }}"
-                                 class="program-card-img"
-                                 alt="{{ $program->nama }}">
-                            @if ($program->is_active)
-                                <span class="badge bg-success program-badge">Tersedia</span>
-                            @endif
-                        </div>
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title program-card-title">{{ $program->nama }}</h5>
-                            <p class="card-text text-muted small mb-2">
-                                <i class="fas fa-tag me-1"></i>
-                                Kategori: {{ $program->kategori ?? '-' }}
-                            </p>
-                            <p class="card-text program-card-price mb-3">
-                                Rp {{ number_format($program->harga, 0, ',', '.') }}
-                            </p>
-                            <a href="{{ route('public.program.online.show', $program->slug) }}"
-                               class="btn btn-danger mt-auto">Lihat Detail</a>
+            <div class="program-grid">
+                <!-- Offline Programs -->
+                @forelse ($offlinePrograms as $index => $program)
+                    <div class="program-item offline" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}"
+                        style="display: none;">
+                        <div class="program-card">
+                            <div class="program-card-image-wrapper">
+                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                    alt="{{ $program->nama }}">
+                                @if ($program->is_active)
+                                    <span class="badge bg-success program-badge">Tersedia</span>
+                                @endif
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title program-card-title">{{ $program->nama }}</h5>
+                                <p class="card-text text-muted small mb-2">
+                                    <i class="fas fa-calendar-alt me-1"></i>
+                                    {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('M d') }} -
+                                    {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('M d, Y') }}
+                                </p>
+                                <p class="card-text program-card-price mb-3">
+                                    Rp {{ number_format($program->harga, 0, ',', '.') }}
+                                </p>
+                                <a href="{{ route('public.program.offline.show', $program->slug) }}"
+                                    class="btn btn-primary mt-auto">Lihat Detail</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @empty
-                <div class="program-item online" style="display: none;">
-                    <p class="text-muted">Belum ada program online tersedia</p>
-                </div>
-            @endforelse
+                @empty
+                    <div class="program-item offline" style="display: none;">
+                        <p class="text-muted">Belum ada program offline tersedia</p>
+                    </div>
+                @endforelse
+
+                <!-- Online Programs -->
+                @forelse ($onlinePrograms as $index => $program)
+                    <div class="program-item online" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}"
+                        style="display: none;">
+                        <div class="program-card">
+                            <div class="program-card-image-wrapper">
+                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                    alt="{{ $program->nama }}">
+                                @if ($program->is_active)
+                                    <span class="badge bg-success program-badge">Tersedia</span>
+                                @endif
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title program-card-title">{{ $program->nama }}</h5>
+                                <p class="card-text text-muted small mb-2">
+                                    <i class="fas fa-tag me-1"></i>
+                                    Kategori: {{ $program->kategori ?? '-' }}
+                                </p>
+                                <p class="card-text program-card-price mb-3">
+                                    Rp {{ number_format($program->harga, 0, ',', '.') }}
+                                </p>
+                                <a href="{{ route('public.program.online.show', $program->slug) }}"
+                                    class="btn btn-danger mt-auto">Lihat Detail</a>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="program-item online" style="display: none;">
+                        <p class="text-muted">Belum ada program online tersedia</p>
+                    </div>
+                @endforelse
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-{{-- JS filter program sama seperti versi Inggris --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const programItems = document.querySelectorAll('.program-item');
+    {{-- JS filter program sama seperti versi Inggris --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const programItems = document.querySelectorAll('.program-item');
 
-        // Show offline by default
-        document.querySelector('.filter-btn[data-filter="offline"]').classList.add('active');
-        document.querySelectorAll('.program-item.offline').forEach(item => {
-            item.style.display = 'block';
-        });
+            // Show offline by default
+            document.querySelector('.filter-btn[data-filter="offline"]').classList.add('active');
+            document.querySelectorAll('.program-item.offline').forEach(item => {
+                item.style.display = 'block';
+            });
 
-        filterButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const filterValue = this.getAttribute('data-filter');
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const filterValue = this.getAttribute('data-filter');
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
 
-                programItems.forEach(item => {
-                    if (item.classList.contains(filterValue)) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
+                    programItems.forEach(item => {
+                        if (item.classList.contains(filterValue)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
                 });
             });
         });
-    });
-</script>
-<div class="wave-divider">
-    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-        <path class="shape-fill"
-              d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-        </path>
-    </svg>
-</div>
-<!-- Registration Flow Mandarin -->
-<section class="alur-mandarin" id="alur-mandarin">
-    <div class="container">
-        <h2>报名流程</h2>
-        <p>请按照以下步骤在 <strong>Brilliant Mandarin Course</strong> 完成报名：</p>
+    </script>
 
-        <div class="alur-timeline-mandarin">
-            <div class="step-mandarin">
-                <div class="circle-mandarin">1</div>
-                <h3>填写报名表</h3>
-                <p>通过我们网站提供的在线表格填写完整的个人信息。</p>
-            </div>
-            <div class="step-mandarin">
-                <div class="circle-mandarin">2</div>
-                <h3>验证与确认</h3>
-                <p>我们的团队将联系您进行验证并提供进一步的信息。</p>
-            </div>
-            <div class="step-mandarin">
-                <div class="circle-mandarin">3</div>
-                <h3>支付与上传凭证</h3>
-                <p>根据指示完成付款，然后在确认页面上传转账凭证。</p>
-            </div>
-            <div class="step-mandarin">
-                <div class="circle-mandarin">4</div>
-                <h3>现场确认</h3>
-                <p>通过我们 Brilliant Mandarin Course 办公室的管理员完成现场确认。</p>
-            </div>
-            <div class="step-mandarin">
-                <div class="circle-mandarin">5</div>
-                <h3>准备学习！</h3>
-                <p>恭喜！您已成功注册并准备好参加课程。</p>
+
+    <div class="wave-divider">
+        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path class="shape-fill"
+                d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+            </path>
+        </svg>
+    </div>
+    <!-- Registration Flow Mandarin -->
+
+    <section class="alur-mandarin" id="alur-mandarin">
+
+        <div class="container">
+            <h2>报名流程</h2>
+            <p>请按照以下步骤在 <strong>Brilliant Mandarin Course</strong> 完成报名：</p>
+
+            <div class="alur-timeline-mandarin">
+                <div class="step-mandarin">
+                    <div class="circle-mandarin">1</div>
+                    <h3>填写报名表</h3>
+                    <p>通过我们网站提供的在线表格填写完整的个人信息。</p>
+                </div>
+                <div class="step-mandarin">
+                    <div class="circle-mandarin">2</div>
+                    <h3>验证与确认</h3>
+                    <p>我们的团队将联系您进行验证并提供进一步的信息。</p>
+                </div>
+                <div class="step-mandarin">
+                    <div class="circle-mandarin">3</div>
+                    <h3>支付与上传凭证</h3>
+                    <p>根据指示完成付款，然后在确认页面上传转账凭证。</p>
+                </div>
+                <div class="step-mandarin">
+                    <div class="circle-mandarin">4</div>
+                    <h3>现场确认</h3>
+                    <p>通过我们 Brilliant Mandarin Course 办公室的管理员完成现场确认。</p>
+                </div>
+                <div class="step-mandarin">
+                    <div class="circle-mandarin">5</div>
+                    <h3>准备学习！</h3>
+                    <p>恭喜！您已成功注册并准备好参加课程。</p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
     {{-- JS for Carousel --}}
@@ -229,4 +233,5 @@
         });
     </script>
 </body>
+
 </html>

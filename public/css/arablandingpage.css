@@ -24,6 +24,14 @@ body {
     filter: brightness(50%);
 }
 
+.carousel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(15, 81, 50, 0.5); /* hijau transparan */
+    pointer-events: none; /* biar gak ganggu klik */
+}
+
 .slides {
     height: 100%;
     width: 100%;
@@ -327,77 +335,324 @@ body {
     fill: #0f5132; /* Warna atas gelombang */
 }
 
-/* program section */
+/* === PROGRAM SECTION CLEAN STYLE === */
 .program-section {
     background-color: #fdf7e7;
     padding: 60px 20px;
-    text-align: center;
+    text-align: center; /* konten rata tengah */
 }
 
-.section-title {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #0f5132; /* penting */
+/* Section Title */
+.program-section h2 {
+    color: #0f5132;
+    font-weight: 800; /* lebih tebal */
+    font-size: 2.3rem; /* sedikit lebih besar */
     margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
 }
 
-.section-subtitle {
-    font-size: 1.1rem;
-    margin-bottom: 40px;
-    color: #333;
+/* garis emas dekoratif di bawah judul */
+.program-section h2::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 3px;
+    background-color: #d4af37;
+    margin: 12px auto 0;
+    border-radius: 2px;
 }
 
+.program-section p.lead {
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+/* === FILTER BUTTONS === */
+.filter-buttons-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.filter-buttons-wrapper .filter-btn {
+    border: 2px solid #0f5132;
+    background: transparent;
+    color: #0f5132;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-buttons-wrapper .filter-btn.active,
+.filter-buttons-wrapper .filter-btn:hover {
+    background-color: #0f5132;
+    color: #fff;
+    border-color: #d4af37; /* aksen emas */
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+}
+
+/* === GRID === */
 .program-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+    max-width: 1100px; /* biar gak terlalu melebar */
+    margin-left: auto; /* center horizontal */
+    margin-right: auto;
 }
 
+/* === CARD === */
 .program-card {
     background: #fff;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    text-align: left; /* isi card tetap natural */
 }
 
 .program-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
 }
 
-.program-card img {
+.program-card-image-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.program-card-img {
     width: 100%;
     height: 180px;
     object-fit: cover;
+    transition: transform 0.4s ease;
 }
 
-.program-card h3 {
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin: 15px 0 10px;
-    color: #0f5132; /* penting */
+.program-card:hover .program-card-img {
+    transform: scale(1.05);
 }
 
-.program-card p {
-    font-size: 0.95rem;
-    color: #555;
-    padding: 0 15px 15px;
-}
-
-.program-btn {
-    display: inline-block;
-    margin: 10px 0 20px;
-    padding: 8px 16px;
-    background: #0f5132;
+/* === BADGE === */
+.program-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 8px;
+    background-color: #d4af37; /* aksen emas */
     color: #fff;
     font-weight: bold;
-    border-radius: 6px;
+}
+
+/* === CARD BODY === */
+.card-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.program-card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0f5132;
+    margin-bottom: 8px;
+}
+
+.program-card-price {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #d4af37; /* harga pakai emas */
+    margin-bottom: 12px;
+}
+
+/* === DETAIL BUTTONS === */
+.program-card .btn {
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid #0f5132;
+    color: #fff;
+    background: #0f5132; /* hijau default */
+    transition: all 0.3s ease;
+}
+
+.program-card .btn:hover {
+    background-color: #d4af37; /* emas saat hover */
+    border-color: #d4af37;
+    color: #fff;
+}
+
+/* program */
+
+.wave-divider2 {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    line-height: 0;
+    background: #0f5132; /* Bagian bawah putih */
+    margin-top: -1px; /* Hilangkan celah garis putih */
+    margin-bottom: -1px; /* Hilangkan celah garis putih */
+}
+
+.wave-divider2 svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.wave-divider2 .shape-fill2 {
+    fill: #fdf7e7; /* Warna atas gelombang */
+}
+
+/* === Kontak Section === */
+.kontak-section {
+    background-color: #0f5132; /* hijau solid */
+    color: #ffffff;
+    padding: 80px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Judul Section */
+.kontak-section .section-title {
+    font-size: 2.3rem;
+    font-weight: bold;
+    color: #ffd700;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+}
+
+/* garis emas dekoratif di bawah judul */
+.kontak-section .section-title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 3px;
+    background-color: #ffd700;
+    margin: 12px auto 0;
+    border-radius: 2px;
+}
+
+/* Subjudul */
+.kontak-section .kontak-subtitle {
+    font-size: 1.1rem;
+    color: #e6e6e6;
+    margin-bottom: 40px;
+    line-height: 1.6;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Info Kontak */
+.kontak-section .kontak-info {
+    margin-bottom: 40px;
+}
+
+.kontak-section .kontak-info p {
+    margin: 12px 0;
+    font-size: 1.15rem;
+}
+
+.kontak-section .kontak-info strong {
+    color: #ffd700;
+}
+
+/* Link */
+.kontak-section .kontak-info a {
+    color: #ffd700;
     text-decoration: none;
-    transition: background 0.3s ease;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
-.program-btn:hover {
-    background: #198754;
+.kontak-section .kontak-info a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 6px rgba(255, 215, 0, 0.7);
 }
-/* Program Section */
 
+/* Maps */
+.kontak-section .kontak-maps {
+    margin: 30px auto 0; /* tengah otomatis */
+    max-width: 800px; /* batas maksimal lebar */
+    width: 100%; /* tetap fleksibel di HP */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.kontak-section .kontak-maps iframe {
+    width: 100%;
+    height: 350px; /* sedikit lebih tinggi supaya proporsional */
+    border: 0;
+}
+
+.kontak-section .kontak-maps:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+}
+/* kontak section */
+
+.wave-divider3 {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    line-height: 0;
+    background: #fdf7e7; /* Bagian bawah putih */
+    margin-top: -1px; /* Hilangkan celah garis putih */
+    margin-bottom: -1px; /* Hilangkan celah garis putih */
+}
+
+.wave-divider3 svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.wave-divider3 .shape-fill3 {
+    fill: #0f5132; /* Warna atas gelombang */
+}
+/* footer */
+footer {
+    background-color: #062d1f; /* hijau pekat */
+    color: #ffffff; /* teks putih biar kontras */
+    text-align: center; /* teks rata tengah */
+    padding: 15px 0; /* ruang atas bawah */
+    font-size: 0.9rem; /* ukuran teks sedikit kecil */
+}
+/* footer */
+.wave-divider4 {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    line-height: 0;
+    background: #0f5132; /* Bagian bawah putih */
+    margin-top: -1px; /* Hilangkan celah garis putih */
+    margin-bottom: -1px; /* Hilangkan celah garis putih */
+}
+
+.wave-divider4 svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.wave-divider4 .shape-fill4 {
+    fill: #062d1f; /* Warna atas gelombang */
+}
