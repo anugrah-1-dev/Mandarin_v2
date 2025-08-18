@@ -6,8 +6,7 @@
 </script>
 <script src="{{ asset('js/landingpage.js') }}"></script>
 <!-- Navbar css-->
-<link rel="stylesheet" href="{{ asset('css/navbarblade.css') }}">
-
+<link rel="stylesheet" href="{{ asset('css/nvbr.css') }}">
 
 
 <nav id="navbar">
@@ -45,7 +44,6 @@
         <a href="{{ url('/#galeri') }}">GALLERI</a>
         <a href="{{ url('/#sosmed') }}">SOSMED</a>
         <a href="{{ url('/#kontak') }}">KONTAK</a>
-
         <a href="{{ route('tracking.index') }}" class="btn">Tracking Transaksi</a>
     </div>
 </nav>
