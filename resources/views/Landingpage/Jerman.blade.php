@@ -20,7 +20,7 @@
 
 <body>
     {{-- Navbar selalu muncul --}}
-    @include('navbar.navbar')
+    @include('navbar.nav')
 
     {{-- Konten utama landing page --}}
   <section class="program-section bg-light py-5" id="program">

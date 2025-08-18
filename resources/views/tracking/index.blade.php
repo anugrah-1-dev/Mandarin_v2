@@ -48,9 +48,17 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <h5 class="text-muted">Status</h5>
-                                    <span class="badge bg-{{ $camp->status == 'aktif' ? 'success' : 'warning' }} fs-6">
+                                    <span
+                                        class="badge fs-6 bg-{{ $camp->status == 'diterima'
+                                            ? 'success'
+                                            : ($camp->status == 'diproses'
+                                                ? 'warning text-dark'
+                                                : ($camp->status == 'ditolak'
+                                                    ? 'danger'
+                                                    : 'secondary')) }}">
                                         {{ ucfirst($camp->status) }}
                                     </span>
+
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <h5 class="text-muted">Nama Program</h5>

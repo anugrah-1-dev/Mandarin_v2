@@ -9,7 +9,7 @@
 </head>
 
 <body>
-@include('navbar.navbar')
+@include('navbar.nav')
     <!-- Hero Carousel -->
     <section class="hero">
         <div class="carousel">
@@ -32,7 +32,7 @@
             <h1>BRILLIANT ENGLISH COURSE</h1>
             <h2>(Kursus Bahasa Arab)</h2>
             <p>Kuasai bahasa Arab dengan metode interaktif dan pengajar berpengalaman.</p>
-            
+
         </div>
     </section>
         <section class="program-section">

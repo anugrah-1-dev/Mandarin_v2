@@ -73,7 +73,7 @@ class LandingPageController extends Controller
             'contactServices' => $contactServices,
             'groupedSosmed' => $groupedSosmed,
             'hasSosmed' => $hasSosmed,
-
+            
         ]);
     }
 

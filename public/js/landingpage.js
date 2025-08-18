@@ -78,27 +78,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // --- TAMBAHAN: Ubah warna shape-fill3 & tampilkan wave-divider4 saat tab diklik ---
-    // const tabButtons = document.querySelectorAll(".tab-button");
-    // const shapeFill = document.querySelector(".wave-divider3 .shape-fill3");
-    // const waveDivider4 = document.querySelector(".wave-divider4");
-
-    // if (tabButtons.length > 0) {
-    //     tabButtons.forEach((button) => {
-    //         button.addEventListener("click", () => {
-    //             // Ubah warna fill gelombang atas
-    //             if (shapeFill) {
-    //                 shapeFill.style.fill = "#2c3e50";
-    //             }
-
-    //             // Tampilkan wave-divider4 kalau ada dan belum tampil
-    //             if (waveDivider4 && waveDivider4.style.display !== "block") {
-    //                 waveDivider4.style.display = "block";
-    //             }
-    //         });
-    //     });
-    // }
-    // --- TAMBAHAN SELESAI ---
 });
 
 // Scroll ke atas saat logo diklik (redundan tapi aman kalau mau dibiarkan)

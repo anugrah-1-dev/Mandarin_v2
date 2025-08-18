@@ -9,7 +9,7 @@
 </head>
 
 <body>
-@include('navbar.navbar')
+@include('navbar.nav')
     <!-- Hero Carousel -->
     <section class="hero">
         <div class="carousel">
@@ -34,7 +34,7 @@
             <p>Kuasai bahasa Mandarin dengan metode interaktif dan pengajar berpengalaman.</p>
         </div>
     </section>
-   
+
 <!-- PROGRAM SECTION WITH FILTERING -->
 <section class="program-section bg-light py-5" id="program">
     <div class="container">
@@ -54,8 +54,8 @@
                 <div class="program-item offline" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}" style="display: none;">
                     <div class="program-card">
                         <div class="program-card-image-wrapper">
-                            <img src="{{ asset('storage/' . $program->thumbnail) }}" 
-                                 class="program-card-img" 
+                            <img src="{{ asset('storage/' . $program->thumbnail) }}"
+                                 class="program-card-img"
                                  alt="{{ $program->nama }}">
                             @if ($program->is_active)
                                 <span class="badge bg-success program-badge">Tersedia</span>
@@ -65,13 +65,13 @@
                             <h5 class="card-title program-card-title">{{ $program->nama }}</h5>
                             <p class="card-text text-muted small mb-2">
                                 <i class="fas fa-calendar-alt me-1"></i>
-                                {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('M d') }} - 
+                                {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('M d') }} -
                                 {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('M d, Y') }}
                             </p>
                             <p class="card-text program-card-price mb-3">
                                 Rp {{ number_format($program->harga, 0, ',', '.') }}
                             </p>
-                            <a href="{{ route('public.program.offline.show', $program->slug) }}" 
+                            <a href="{{ route('public.program.offline.show', $program->slug) }}"
                                class="btn btn-primary mt-auto">Lihat Detail</a>
                         </div>
                     </div>
@@ -87,8 +87,8 @@
                 <div class="program-item online" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}" style="display: none;">
                     <div class="program-card">
                         <div class="program-card-image-wrapper">
-                            <img src="{{ asset('storage/' . $program->thumbnail) }}" 
-                                 class="program-card-img" 
+                            <img src="{{ asset('storage/' . $program->thumbnail) }}"
+                                 class="program-card-img"
                                  alt="{{ $program->nama }}">
                             @if ($program->is_active)
                                 <span class="badge bg-success program-badge">Tersedia</span>
@@ -103,7 +103,7 @@
                             <p class="card-text program-card-price mb-3">
                                 Rp {{ number_format($program->harga, 0, ',', '.') }}
                             </p>
-                            <a href="{{ route('public.program.online.show', $program->slug) }}" 
+                            <a href="{{ route('public.program.online.show', $program->slug) }}"
                                class="btn btn-danger mt-auto">Lihat Detail</a>
                         </div>
                     </div>
@@ -122,19 +122,19 @@
     document.addEventListener('DOMContentLoaded', function() {
         const filterButtons = document.querySelectorAll('.filter-btn');
         const programItems = document.querySelectorAll('.program-item');
-        
+
         // Show offline by default
         document.querySelector('.filter-btn[data-filter="offline"]').classList.add('active');
         document.querySelectorAll('.program-item.offline').forEach(item => {
             item.style.display = 'block';
         });
-        
+
         filterButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const filterValue = this.getAttribute('data-filter');
                 filterButtons.forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
-                
+
                 programItems.forEach(item => {
                     if (item.classList.contains(filterValue)) {
                         item.style.display = 'block';

@@ -3,9 +3,6 @@
 <script>
     const logo1URL = "{{ asset('asset/img/b2.png') }}";
     const logo2URL = "{{ asset('asset/img/b2.png') }}";
-
-
-
 </script>
 <script src="{{ asset('js/landingpage.js') }}"></script>
 <!-- Navbar css-->
@@ -14,10 +11,13 @@
 
 
 <nav id="navbar">
-    <div class="logo">
-        <img src="{{ asset('asset/img/b2.png') }}" alt="Logo" id="navbarLogo" style="height: 75px;">
 
+    <div class="logo">
+        <a href="{{ route('landing') }}">
+            <img src="{{ asset('asset/img/b2.png') }}" alt="Logo" style="height: 75px;">
+        </a>
     </div>
+
 
     <div class="burger" onclick="toggleNavbar()">
         <span></span>
@@ -26,7 +26,8 @@
     </div>
 
     <div class="nav-links" id="navLinks">
-        <a href="#">TENTANG KAMI</a>
+        <a href="{{ url('/#tentang') }}">TENTANG KAMI</a>
+
 
         <div class="dropdown" id="programDropdown">
             <button class="dropbtn">
@@ -40,10 +41,11 @@
             </div>
         </div>
 
-        <a href="#camp">CAMP</a>
-        <a href="#galeri">GALLERI</a>
-        <a href="#sosmed">SOSMED</a>
-        <a href="#kontak">KONTAK</a>
+        <a href="{{ url('/#camp') }}">CAMP</a>
+        <a href="{{ url('/#galeri') }}">GALLERI</a>
+        <a href="{{ url('/#sosmed') }}">SOSMED</a>
+        <a href="{{ url('/#kontak') }}">KONTAK</a>
+
         <a href="{{ route('tracking.index') }}" class="btn">Tracking Transaksi</a>
     </div>
 </nav>
