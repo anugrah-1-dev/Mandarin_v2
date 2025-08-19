@@ -25,8 +25,7 @@ class LandingPageController extends Controller
         $camps           = ProgramCamp::orderBy('id', 'asc')->get();
         $sosmed          = Sosmed::all();
         $contactServices = Customer_Service::all();
-        // Periksa apakah ada data sosmed sama sekali
-
+        $programsgambar = Program::where('status', 'aktif')->first();
 
         // Kelompokkan berdasarkan platform sosial media
         $groupedSosmed = [
@@ -73,7 +72,8 @@ class LandingPageController extends Controller
             'contactServices' => $contactServices,
             'groupedSosmed' => $groupedSosmed,
             'hasSosmed' => $hasSosmed,
-            
+            'programsgambar' => $programsgambar,
+
         ]);
     }
 

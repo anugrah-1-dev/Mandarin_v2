@@ -20,13 +20,100 @@
 
     @include('navbar.navbar')
 
+    @if ($programsgambar)
+        <div id="pamflet-popup" class="pamflet-popup" style="display:none;">
+            <div class="pamflet-content position-relative">
+                <!-- Tombol silang -->
+                <button id="closePamflet" class="btn-close-custom" aria-label="Close">&times;</button>
+
+                <img src="{{ asset('uploads/programs/' . $programsgambar->gambar) }}" alt="{{ $programsgambar->judul }}"
+                    class="img-fluid rounded shadow mb-2">
+            </div>
+        </div>
+    @endif
+
+
+    <style>
+        .pamflet-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            /* agak lebih gelap */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 15px;
+            /* biar ada jarak di pinggir hp kecil */
+        }
+
+        .pamflet-content {
+            background: #fff;
+            padding: 10px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 90%;
+            /* responsif */
+            max-height: 90%;
+            /* biar gak keluar layar */
+            position: relative;
+            overflow: auto;
+            /* kalau konten panjang bisa scroll */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .pamflet-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .btn-close-custom {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            font-weight: bold;
+            color: #444;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .btn-close-custom:hover {
+            color: red;
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (!sessionStorage.getItem("pamfletShown")) {
+                document.getElementById("pamflet-popup").style.display = "flex";
+            }
+
+            document.getElementById("closePamflet").addEventListener("click", function() {
+                document.getElementById("pamflet-popup").style.display = "none";
+                sessionStorage.setItem("pamfletShown", "true");
+            });
+        });
+    </script>
+
+
 
     <section class="carousel" id="carousel">
         <div class="carousel-container">
             <div class="slides">
-                <img src="{{ asset('asset/img/brilliant1.jpg') }}" class="slide active" alt="Slide 1">
+                <img src="{{ asset('asset/img/bie.jpg') }}" class="slide" alt="Slide 1">
                 <img src="{{ asset('asset/img/brilliant2.jpg') }}" class="slide" alt="Slide 2">
-                <img src="{{ asset('asset/img/brilliant3.jpg') }}" class="slide" alt="Slide 3">
+                <img src="{{ asset('asset/img/bies.jpg') }}" class="slide" alt="Slide 3">
+                <img src="{{ asset('asset/img/brilliant1.jpg') }}" class="slide active" alt="Slide 4">
+                <img src="{{ asset('asset/img/brilliant3.jpg') }}" class="slide" alt="Slide 5">
             </div>
             <div class="overlay"></div>
             <div class="carousel-text">
@@ -39,7 +126,7 @@
 
 
                 <a href="#" id="openPopupBtn" class="cta-button" data-aos="fade-up" data-aos-delay="200">
-                    DAFTAR SEKARANG
+                    DAFTAR PROGRAM
                 </a>
             </div>
             <button class="nav prev">&#10094;</button>
@@ -471,6 +558,28 @@
                                         "side5";
                                     grid-template-columns: 1fr;
                                     grid-auto-rows: 200px;
+                                }
+                            }
+
+                            @media (max-width: 768px) {
+                                .camp-card-images {
+                                    display: flex;
+                                    overflow-x: auto;
+                                    gap: 10px;
+                                    scroll-snap-type: x mandatory;
+                                    padding-bottom: 10px;
+                                }
+
+                                .camp-card-image {
+                                    flex: 0 0 80%;
+                                    /* tiap item 80% lebar layar */
+                                    scroll-snap-align: start;
+                                }
+
+                                .camp-card-image img {
+                                    height: 250px;
+                                    object-fit: cover;
+                                    border-radius: 8px;
                                 }
                             }
                         </style>

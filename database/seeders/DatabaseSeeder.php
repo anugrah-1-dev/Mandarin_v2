@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PendaftaranProgramOnlineSeeder::class);
         $this->call(ProgramCampSeeder::class);
         $this->call(RoomSeeder::class);
+        $this->call(ThumbnailSeeder::class);
 
     }
 }

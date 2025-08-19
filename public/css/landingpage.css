@@ -1652,3 +1652,71 @@ body {
         padding: 12px;
     }
 }
+.program-content-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Desktop */
+.layout-left .program-content-container {
+    flex-direction: row;
+}
+
+.layout-right .program-content-container {
+    flex-direction: row-reverse;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .program-content-container {
+        flex-direction: column !important;
+             align-items: center;
+    }
+
+    .content-image {
+        order: -1; /* gambar ditaruh di atas */
+        width: 120%;
+    }
+
+    .card-info {
+        order: 2;
+        width: 100%;
+    }
+
+@media (max-width: 768px) {
+    .program-content-container {
+        flex-direction: column; /* jadi vertikal */
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        padding: 15px;
+    }
+
+    .content-image {
+        order: -1; /* gambar di atas */
+        width: 100%;
+    }
+
+    .content-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .card-info {
+        width: 100%;
+    }
+
+    .card-info h3 {
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .card-info p {
+        font-size: 14px;
+        text-align: justify;
+    }
+}
