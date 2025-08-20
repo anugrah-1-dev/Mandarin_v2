@@ -13,6 +13,18 @@
                 <div class="card-header">
                     <h3 class="card-title">Form Tambah Program Camp</h3>
                 </div>
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <strong>Ups!</strong> Ada kesalahan dalam input:
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <form action="{{ route('admin.programs.camp.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">

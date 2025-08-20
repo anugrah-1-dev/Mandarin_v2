@@ -49,7 +49,7 @@ class ProgramCampController extends Controller
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'thumbnail' => 'nullable|array|max:5',
-            'thumbnail.*' => 'image|max:2048',
+            'thumbnail.*' => 'image|max:5048',
 
         ]);
 
@@ -103,7 +103,7 @@ class ProgramCampController extends Controller
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'thumbnail' => 'nullable|array|max:5',
-            'thumbnail.*' => 'image|mimes:jpg,jpeg,png|max:2048',
+            'thumbnail.*' => 'image|mimes:jpg,jpeg,png|max:5048',
         ]);
 
         $data = $request->except(['_token', '_method', 'thumbnail']);

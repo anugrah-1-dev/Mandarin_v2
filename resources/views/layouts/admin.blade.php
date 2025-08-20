@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>@yield('title', 'Halaman')</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @yield('css')
+
+    <link rel="icon" href="{{ asset('favicon-v2.png') }}" type="image/png">
+
 </head>
+
 <body>
 
     <header>
@@ -23,4 +28,5 @@
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('js')
 </body>
+
 </html>

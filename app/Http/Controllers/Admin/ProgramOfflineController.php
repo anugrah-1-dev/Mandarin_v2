@@ -35,11 +35,11 @@ class ProgramOfflineController extends Controller
             'jadwal_selesai'   => 'required|date|after_or_equal:jadwal_mulai',
             'kuota'            => 'required|integer|min:1',
             'is_active'        => 'required|boolean',
-            'thumbnail'        => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'program_bahasa'   => 'required|in:inggris,jerman,mandarin,arab', 
+            'thumbnail'        => 'required|image|mimes:jpg,jpeg,png|max:5048',
+            'program_bahasa'   => 'required|in:inggris,jerman,mandarin,arab',
         ]);
 
-        
+
         // Convert features_program ke string jika bentuknya array (misalnya dari checkbox atau textarea multiline)
         if (is_array($request->features_program)) {
             $validated['features_program'] = implode(', ', $request->features_program);
@@ -107,6 +107,7 @@ class ProgramOfflineController extends Controller
             }
             $data['thumbnail'] = null;
         }
+        
 
         if ($request->hasFile('thumbnail')) {
             if ($offline->thumbnail && Storage::disk('public')->exists($offline->thumbnail)) {

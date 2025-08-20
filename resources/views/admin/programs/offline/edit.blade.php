@@ -7,9 +7,22 @@
             <div class="container mt-4">
                 <h3>Edit Program Offline</h3>
 
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <strong>Ups!</strong> Ada kesalahan dalam input:
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+
                 <form action="{{ route('admin.offline.update', $offline->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
+
 
                     {{-- Nama Program --}}
                     <div class="mb-3">
@@ -162,7 +175,7 @@
             </div>
         @endsection
 
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         @if (session('success'))
             <script>

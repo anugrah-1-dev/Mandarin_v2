@@ -38,8 +38,8 @@ class ProgramOnlineController extends Controller
             'harga'            => 'required|numeric|min:0',
             'features_program' => 'required|string',
             'is_active'        => 'required|boolean',
-            'thumbnail'        => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'program_bahasa'   => 'required|in:inggris,jerman,mandarin,arab', 
+            'thumbnail'        => 'required|image|mimes:jpg,jpeg,png|max:5048',
+            'program_bahasa'   => 'required|in:inggris,jerman,mandarin,arab',
         ]);
 
         // Konversi fitur dari textarea ke array
@@ -68,7 +68,7 @@ class ProgramOnlineController extends Controller
             'kategori' => 'nullable|string|max:255',
             'harga' => 'required|integer|min:0',
             'features_program' => 'nullable|string',
-            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5048',
             'is_active' => 'required|in:0,1',
             'program_bahasa' => 'required|in:inggris,jerman,mandarin,arab',
         ]);

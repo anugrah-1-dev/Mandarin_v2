@@ -4,6 +4,17 @@
 
 @section('content_header')
     <h1>Edit Galeri: {{ $gallery->title }}</h1>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <strong>Ups!</strong> Ada kesalahan dalam input:
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
 @stop
 
 @section('content')

@@ -216,9 +216,9 @@
             line-height: 0;
         }
         .wave-line svg {
-            width: 200%;
+            width: 250%;
             /* dibuat lebar supaya bisa digeser */
-            height: 80px;
+            height: 180px;
             animation: waveMove 6s linear infinite;
         }
 
