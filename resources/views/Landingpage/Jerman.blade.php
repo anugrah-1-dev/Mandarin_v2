@@ -22,6 +22,15 @@
         <div class="carousel">
             <div class="slides">
                 <div class="slide active">
+
+                    <img src="{{ asset('asset/img/brilliant1.jpg') }}" alt="Belajar Bahasa Jerman di Berlin">
+                </div>
+                <div class="slide">
+                    <img src="{{ asset('asset/img/brilliant2.jpg') }}" alt="Kelas Bahasa Jerman yang Interaktif">
+                </div>
+                <div class="slide">
+                    <img src="{{ asset('asset/img/brilliant3.jpg') }}" alt="Pemandangan Kastil Jerman">
+
                     <img src="{{ asset('asset/img/brilliantclass6.jpg') }}" alt="Belajar Bahasa Jerman di Berlin">
                 </div>
                 <div class="slide">
@@ -29,15 +38,16 @@
                 </div>
                 <div class="slide">
                     <img src="{{ asset('asset/img/brilliantcourse8.jpg') }}" alt="Pemandangan Kastil Jerman">
+
                 </div>
             </div>
             <button class="prev">&#10094;</button>
             <button class="next">&#10095;</button>
         </div>
         <div class="hero-text">
-            <h1>DEUTSCH BRILLIANT</h1>
-            <h2>Gerbang Anda Menuju Jerman</h2>
-            <p>Taklukkan Bahasa Jerman bersama tutor bersertifikat dengan kurikulum berstandar internasional.</p>
+            <h1>BRILLIANT ENGLISH COURSE</h1>
+            <h2>(Kursus Bahasa Jerman)</h2>
+            <p>Kuasai bahasa Jerman dengan metode interaktif dan pengajar berpengalaman.</p>
             <a href="#program" class="cta-button">Lihat Program Kami</a>
         </div>
     </section>
