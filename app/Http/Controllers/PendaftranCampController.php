@@ -46,7 +46,7 @@ class PendaftranCampController extends Controller
             'no_hp'          => 'required|string|max:20',
             'asal_kota'      => 'required|string|max:100',
             'period_id'      => 'required|exists:periods,id',
-            'durasi_paket'   => 'required|in:perhari,satu_minggu,dua_minggu,satu_bulan,dua_bulan,tiga_bulan',
+            'durasi_paket'   => 'required|in:perhari,satu_minggu,dua_minggu,satu_bulan,dua_bulan,tiga_bulan,enam_bulan,satu_tahun',
             'gender'         => 'required|in:putra,putri',
             'payment_type' => 'required|in:tunai,nontunai',
             'bank_id'      => 'nullable|required_if:payment_type,nontunai|exists:banks,id',
@@ -108,8 +108,11 @@ class PendaftranCampController extends Controller
             'dua_minggu' => 14,
             'tiga_minggu' => 21,
             'empat_minggu' => 28,
-            'lima_minggu' => 35,
-            'enam_minggu' => 42,
+            'satu_bulan' => 30,
+            'dua_bulan' => 60,
+            'tiga_bulan' => 90,
+            'enam_bulan' => 180,
+            'satu_tahun' => 365,
         ];
 
         // Hitung penghuni aktif per kamar
@@ -164,8 +167,11 @@ class PendaftranCampController extends Controller
             'dua_minggu' => 14,
             'tiga_minggu' => 21,
             'empat_minggu' => 28,
-            'lima_minggu' => 35,
-            'enam_minggu' => 42,
+            'satu_bulan' => 30,
+            'dua_bulan' => 60,
+            'tiga_bulan' => 90,
+            'enam_bulan' => 180,
+            'satu_tahun' => 365,
         ];
 
         // Hitung penghuni aktif

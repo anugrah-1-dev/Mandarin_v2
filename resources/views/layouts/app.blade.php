@@ -67,4 +67,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // kalau user sudah login tapi sessionStorage kosong
+    if ({{ Auth::check() ? 'true' : 'false' }} && !sessionStorage.getItem("tab_active")) {
+        // logout otomatis (tab baru atau tab ditutup lalu buka lagi)
+        window.location.href = "{{ route('logout') }}";
+    }
+
+    // set flag di sessionStorage
+    sessionStorage.setItem("tab_active", "1");
+});
+</script>
+
 </html>

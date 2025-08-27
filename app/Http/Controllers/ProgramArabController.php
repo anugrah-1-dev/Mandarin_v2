@@ -19,6 +19,6 @@ class ProgramArabController extends Controller
             ->where('is_active', 1)
             ->get();
 
-        return view('Landingpage.Arab', compact('onlinePrograms', 'offlinePrograms'));
+        return view('Landingpage.arab', compact('onlinePrograms', 'offlinePrograms'));
     }
 }

@@ -34,7 +34,7 @@ use App\Http\Controllers\ProgramInggrisController;
 use App\Http\Controllers\ProgramJermanController;
 use App\Http\Controllers\ProgramArabController;
 use App\Http\Controllers\ProgramMandarinController;
-
+use App\Http\Controllers\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -116,6 +116,9 @@ Route::post('/tracking', [TrackingController::class, 'search'])->name('tracking.
 
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
+
+
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 //Landing page
