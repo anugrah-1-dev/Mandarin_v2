@@ -33,55 +33,83 @@ class ProgramOnlinePublicController extends Controller
      */
     public function daftar(Request $request, ProgramOnline $program)
     {
+        // Validasi
         $validated = $request->validate([
-            'nama_lengkap'    => 'required|string|max:255',
-            'email'           => 'required|email',
-            'no_hp'           => 'required|string|max:20',
-            'asal_kota'       => 'nullable|string|max:100',
-            'period_id'       => 'required|exists:periods,id',
-            'payment_type'    => 'required|in:tunai,transfer',
-            'bank_id'         => 'required_if:payment_type,transfer|nullable|exists:banks,id',
+            'nama_lengkap' => 'required|string|max:255',
+            'email'        => 'required|email',
+            'no_hp'        => 'required|string|max:20',
+            'asal_kota'    => 'nullable|string|max:100',
+            'period_id'    => 'required|exists:periods,id',
+            'payment_type' => 'required|in:tunai,transfer',
+            'bank_id'      => 'required_if:payment_type,transfer|nullable|exists:banks,id',
+            'akomodasi'    => 'nullable|string', // ✅ pakai string "vip" / "reguler"
         ]);
 
-        // Membuat trx_id unik per hari
-        $today = Carbon::now()->format('Ymd');
+        // === TRX-ID unik ===
+        $today  = Carbon::now()->format('Ymd');
         $prefix = 'TRX-ONL-' . $today . '-';
 
         $lastRegistration = PendaftaranProgramOnline::where('trx_id', 'like', $prefix . '%')
-                                ->orderBy('id', 'desc')
-                                ->first();
+            ->orderBy('id', 'desc')
+            ->first();
 
-        $nextSequence = 1;
-        if ($lastRegistration) {
-            $lastSequence = (int) str_replace($prefix, '', $lastRegistration->trx_id);
-            $nextSequence = $lastSequence + 1;
-        }
+        $nextSequence = $lastRegistration
+            ? (int) str_replace($prefix, '', $lastRegistration->trx_id) + 1
+            : 1;
+
         $newTrxId = $prefix . $nextSequence;
 
-        // Simpan data pendaftaran
+        // === Harga Program ===
+        $programPrice = $program->harga ?? 0;
+
+        // === Akomodasi (VIP / Reguler) ===
+        $akomodasiTipe  = null;
+        $akomodasiHarga = 0;
+
+        if (!empty($validated['akomodasi'])) {
+            if ($validated['akomodasi'] === 'vip') {
+                $akomodasiTipe  = 'vip';
+                $akomodasiHarga = $program->harga_vip ?? 0; // ambil dari kolom program (kalau ada)
+            } elseif ($validated['akomodasi'] === 'reguler') {
+                $akomodasiTipe  = 'reguler';
+                $akomodasiHarga = 180000; // static reguler
+            }
+        }
+
+        // === Subtotal ===
+        $subtotal = $programPrice + $akomodasiHarga;
+
+        // === Simpan ke DB ===
         $pendaftaran = PendaftaranProgramOnline::create([
-            'trx_id'       => $newTrxId,
-            'program_id'   => $program->id,
-            'period_id'    => $validated['period_id'],
-            'bank_id'      => $validated['bank_id'] ?? null,
-            'nama_lengkap' => $validated['nama_lengkap'],
-            'email'        => $validated['email'],
-            'no_hp'        => $validated['no_hp'],
-            'asal_kota'    => $validated['asal_kota'] ?? null,
-            'payment_type' => $validated['payment_type'],
-            'status'       => 'pending',
+            'trx_id'          => $newTrxId,
+            'program_id'      => $program->id,
+            'period_id'       => $validated['period_id'],
+            'bank_id'         => $validated['bank_id'] ?? null,
+            'nama_lengkap'    => $validated['nama_lengkap'],
+            'email'           => $validated['email'],
+            'no_hp'           => $validated['no_hp'],
+            'asal_kota'       => $validated['asal_kota'] ?? null,
+            'payment_type'    => $validated['payment_type'],
+            'status'          => 'pending',
+
+            // ✅ field baru
+            'akomodasi_tipe'  => $akomodasiTipe,
+            'akomodasi_harga' => $akomodasiHarga,
+            'subtotal'        => $subtotal,
         ]);
 
         // Redirect sesuai metode pembayaran
         if ($pendaftaran->payment_type === 'tunai') {
-            // Jika bayar tunai, arahkan ke halaman sukses khusus tunai
-            return redirect()->route('public.pendaftaran.online.sukses.tunai', ['trx_id' => $pendaftaran->trx_id]);
+            return redirect()->route('public.pendaftaran.online.sukses.tunai', [
+                'trx_id' => $pendaftaran->trx_id,
+            ]);
         } else {
-            // Jika transfer bank, arahkan ke halaman pembayaran
-            return redirect()->route('public.pendaftaran.online.pembayaran', ['trx_id' => $newTrxId])
-                             ->with('success_message', 'Pendaftaran awal berhasil! Silakan lanjutkan ke tahap pembayaran.');
+            return redirect()->route('public.pendaftaran.online.pembayaran', [
+                'trx_id' => $newTrxId,
+            ])->with('success_message', 'Pendaftaran awal berhasil! Silakan lanjutkan ke tahap pembayaran.');
         }
     }
+
 
     /**
      * Menampilkan halaman pembayaran berdasarkan trx_id untuk program online.
@@ -89,8 +117,8 @@ class ProgramOnlinePublicController extends Controller
     public function halamanPembayaran($trx_id)
     {
         $pendaftaran = PendaftaranProgramOnline::with(['program', 'bank'])
-                            ->where('trx_id', $trx_id)
-                            ->firstOrFail();
+            ->where('trx_id', $trx_id)
+            ->firstOrFail();
 
         // Jika metode pembayaran tunai, langsung redirect ke halaman sukses tunai
         if ($pendaftaran->payment_type === 'tunai') {

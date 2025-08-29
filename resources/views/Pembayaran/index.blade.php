@@ -49,7 +49,7 @@
                             <p class="mb-1"><strong>Program:</strong></p>
                             <p class="lead">{{ $pendaftaran->program->nama }}</p>
                             <p class="mb-1"><strong>Total Pembayaran:</strong></p>
-                            <h2 class="fw-bolder">Rp {{ number_format($pendaftaran->total_harga, 0, ',', '.') }}</h2>
+                            <h2 class="fw-bolder">Rp {{ number_format($pendaftaran->subtotal, 0, ',', '.') }}</h2>
 
 
                             <div class="instructions mb-4">
