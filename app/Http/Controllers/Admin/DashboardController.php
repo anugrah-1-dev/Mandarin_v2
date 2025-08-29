@@ -32,11 +32,13 @@ class DashboardController extends Controller
         }
 
         // Hitung keuntungan online
+        // Hitung keuntungan online
         foreach ($pendaftaranOnline as $item) {
             if ($item->status !== 'diterima') continue;
             $date = Carbon::parse($item->created_at);
-            $monthlyProfit[$date->year][$date->month] += $item->program->harga ?? 0;
+            $monthlyProfit[$date->year][$date->month] += $this->calculateOnlinePrice($item);
         }
+
 
         // Hitung keuntungan offline
         foreach ($pendaftaranOffline as $item) {
@@ -63,7 +65,7 @@ class DashboardController extends Controller
 
         $totalKeuntungan = array_reduce(
             $pendaftaranOnline->all(),
-            fn($sum, $p) => $sum + (($p->status === 'diterima') ? ($p->program->harga ?? 0) : 0),
+            fn($sum, $p) => $sum + (($p->status === 'diterima') ? $this->calculateOnlinePrice($p) : 0),
             0
         ) + array_reduce(
             $pendaftaranOffline->all(),
@@ -151,5 +153,16 @@ class DashboardController extends Controller
         $hargaAkomodasi = $pendaftaranOffline->akomodasi_harga ?? 0;
 
         return $hargaProgram + $hargaTransport + $hargaAkomodasi;
+    }
+
+    // Tambahkan method baru di bawah calculateOfflinePrice
+    protected function calculateOnlinePrice($pendaftaranOnline)
+    {
+        if (!$pendaftaranOnline->program) return 0;
+
+        $hargaProgram   = $pendaftaranOnline->program->harga ?? 0;
+        $hargaAkomodasi = $pendaftaranOnline->akomodasi_harga ?? 0;
+
+        return $hargaProgram + $hargaAkomodasi;
     }
 }

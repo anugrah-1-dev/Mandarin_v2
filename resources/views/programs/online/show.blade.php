@@ -203,89 +203,76 @@
                                     </div>
 
                                     {{-- Modal struk --}}
-                                    <div class="modal fade" id="modalTotal" tabindex="-1" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content shadow-sm">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Rincian Pembayaran</h5>
-                                                    <button type="button" class="btn-close"
-                                                        data-bs-dismiss="modal"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="d-flex justify-content-between mb-2">
-                                                        <span>Harga Program</span>
-                                                        <span
-                                                            id="hargaProgram">Rp{{ number_format($program->harga, 0, ',', '.') }}</span>
-                                                    </div>
-                                                    {{-- <div class="d-flex justify-content-between mb-2">
-                                                        <span>Transportasi</span>
-                                                        <span id="hargaTransport">Rp0</span>
-                                                    </div> --}}
-                                                    <div class="d-flex justify-content-between mb-2">
-                                                        <span>Akomodasi Camp (Reguler)</span>
-                                                        <span id="hargaCamp">Rp0</span>
-                                                    </div>
+<div class="modal fade" id="modalTotal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-sm">
+            <div class="modal-header">
+                <h5 class="modal-title">Rincian Pembayaran</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Harga Program</span>
+                    <span id="hargaProgram">
+                        Rp{{ number_format($program->harga, 0, ',', '.') }}
+                    </span>
+                </div>
+               
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Akomodasi Camp</span>
+                    <span id="hargaCamp">Rp0</span>
+                </div>
 
-                                                    {{-- <div class="d-flex justify-content-between mb-2">
-                                                            <span>Camp (VIP/Reguler)</span>
-                                                            <span id="hargaCamp">Rp0</span>
-                                                        </div> --}}
-                                                    <hr>
-                                                    <div class="d-flex justify-content-between fw-bold fs-5">
-                                                        <span>Total</span>
-                                                        <span
-                                                            id="totalModal">Rp{{ number_format($program->harga, 0, ',', '.') }}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                <hr>
+                <div class="d-flex justify-content-between fw-bold fs-5">
+                    <span>Total</span>
+                    <span id="totalModal">
+                        Rp{{ number_format($program->harga, 0, ',', '.') }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    let basePrice = {{ $program->harga }};
+    let selectCamp = document.getElementById("campSelect");
+    let btnLihatTotal = document.getElementById("btnLihatTotal");
 
-                                    <script>
-                                        document.addEventListener("DOMContentLoaded", function() {
-                                            let basePrice = {{ $program->harga }};
-                                            let selectTransport = document.getElementById("transportSelect");
-                                            let selectCamp = document.getElementById("campSelect");
-                                            let btnLihatTotal = document.getElementById("btnLihatTotal");
+    let hargaProgram = document.getElementById("hargaProgram");
+    let hargaCamp = document.getElementById("hargaCamp");
+    let totalPreview = document.getElementById("totalPreview");
+    let totalModal = document.getElementById("totalModal");
 
-                                            let hargaProgram = document.getElementById("hargaProgram");
-                                            let hargaTransport = document.getElementById("hargaTransport");
-                                            let hargaCamp = document.getElementById("hargaCamp");
-                                            let totalPreview = document.getElementById("totalPreview");
-                                            let totalModal = document.getElementById("totalModal");
+    function updateTotal() {
+        let campPrice = selectCamp?.selectedOptions[0]?.dataset.harga
+            ? parseInt(selectCamp.selectedOptions[0].dataset.harga)
+            : 0;
 
-                                            function updateTotal() {
-                                                let transportPrice = selectTransport?.selectedOptions[0]?.dataset.harga ?
-                                                    parseInt(selectTransport.selectedOptions[0].dataset.harga) :
-                                                    0;
+        let total = basePrice + campPrice;
 
-                                                let campPrice = selectCamp?.selectedOptions[0]?.dataset.harga ?
-                                                    parseInt(selectCamp.selectedOptions[0].dataset.harga) :
-                                                    0;
+        // update preview total
+        if (totalPreview) totalPreview.textContent = "Rp" + total.toLocaleString('id-ID');
 
-                                                let total = basePrice + transportPrice + campPrice;
+        // update detail modal
+        hargaProgram.textContent = "Rp" + basePrice.toLocaleString('id-ID');
+        hargaCamp.textContent = "Rp" + campPrice.toLocaleString('id-ID');
+        totalModal.textContent = "Rp" + total.toLocaleString('id-ID');
+    }
 
-                                                // update preview total
-                                                totalPreview.textContent = "Rp" + total.toLocaleString('id-ID');
+    if (selectCamp) selectCamp.addEventListener("change", updateTotal);
 
-                                                // update detail modal
-                                                hargaProgram.textContent = "Rp" + basePrice.toLocaleString('id-ID');
-                                                hargaTransport.textContent = "Rp" + transportPrice.toLocaleString('id-ID');
-                                                hargaCamp.textContent = "Rp" + campPrice.toLocaleString('id-ID');
-                                                totalModal.textContent = "Rp" + total.toLocaleString('id-ID');
-                                            }
+    if (btnLihatTotal) {
+        btnLihatTotal.addEventListener("click", function() {
+            updateTotal();
+            new bootstrap.Modal(document.getElementById('modalTotal')).show();
+        });
+    }
+});
+</script>
 
-                                            // trigger saat pilih transport / camp
-                                            if (selectTransport) selectTransport.addEventListener("change", updateTotal);
-                                            if (selectCamp) selectCamp.addEventListener("change", updateTotal);
-
-                                            // buka modal
-                                            btnLihatTotal.addEventListener("click", function() {
-                                                new bootstrap.Modal(document.getElementById('modalTotal')).show();
-                                            });
-                                        });
-                                    </script>
                                     <br>
 
 
