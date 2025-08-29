@@ -23,6 +23,9 @@ class PendaftaranProgramOnline extends Model
         'status',
         'bank_id',       // sudah ada
         'payment_type',  // tambahkan agar bisa diisi massal
+        'subtotal',
+        'akomodasi_tipe',   // <--- baru
+        'akomodasi_harga',  // <--- baru
     ];
 
     public function program()

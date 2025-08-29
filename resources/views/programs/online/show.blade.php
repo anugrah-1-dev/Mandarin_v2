@@ -166,28 +166,156 @@
                                             value="{{ old('asal_kota') }}">
                                     </div>
 
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            <i class="bi bi-house-fill"></i> Akomodasi (Camp Reguler) - Optional
+                                        </label>
+                                        <select name="akomodasi" class="form-select" id="campSelect">
+                                            <option value="" data-harga="0">Pilih Akomodasi (Opsional)
+                                            </option>
+
+                                            {{-- Static Reguler --}}
+                                            <option value="reguler" data-harga="180000">Reguler (Rp 180.000)
+                                            </option>
+
+                                            {{-- Camp VIP dari database --}}
+                                            {{-- @foreach ($camps as $camp)
+                                                    @if ($camp->kategori === 'VIP')
+                                                        <option value="camp-{{ $camp->id }}"
+                                                            data-harga="{{ $camp->harga }}">
+                                                            {{ $camp->nama }} (VIP) - Rp
+                                                            {{ number_format($camp->harga, 0, ',', '.') }}
+                                                        </option>
+                                                    @endif
+                                                @endforeach --}}
+                                        </select>
+                                    </div>
+
+                                    <div class="d-flex align-items-center border rounded p-2 bg-light mt-2">
+                                        <strong>Total:</strong>
+                                        <span id="totalPreview"
+                                            class="ms-2">Rp{{ number_format($program->harga, 0, ',', '.') }}</span>
+
+                                        <a href="javascript:void(0)" id="btnLihatTotal"
+                                            class="ms-auto btn btn-sm btn-link" style="text-decoration:none;">
+                                            Lihat lebih lanjut
+                                        </a>
+                                    </div>
+
+                                    {{-- Modal struk --}}
+                                    <div class="modal fade" id="modalTotal" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content shadow-sm">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Rincian Pembayaran</h5>
+                                                    <button type="button" class="btn-close"
+                                                        data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="d-flex justify-content-between mb-2">
+                                                        <span>Harga Program</span>
+                                                        <span
+                                                            id="hargaProgram">Rp{{ number_format($program->harga, 0, ',', '.') }}</span>
+                                                    </div>
+                                                    {{-- <div class="d-flex justify-content-between mb-2">
+                                                        <span>Transportasi</span>
+                                                        <span id="hargaTransport">Rp0</span>
+                                                    </div> --}}
+                                                    <div class="d-flex justify-content-between mb-2">
+                                                        <span>Akomodasi Camp (Reguler)</span>
+                                                        <span id="hargaCamp">Rp0</span>
+                                                    </div>
+
+                                                    {{-- <div class="d-flex justify-content-between mb-2">
+                                                            <span>Camp (VIP/Reguler)</span>
+                                                            <span id="hargaCamp">Rp0</span>
+                                                        </div> --}}
+                                                    <hr>
+                                                    <div class="d-flex justify-content-between fw-bold fs-5">
+                                                        <span>Total</span>
+                                                        <span
+                                                            id="totalModal">Rp{{ number_format($program->harga, 0, ',', '.') }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", function() {
+                                            let basePrice = {{ $program->harga }};
+                                            let selectTransport = document.getElementById("transportSelect");
+                                            let selectCamp = document.getElementById("campSelect");
+                                            let btnLihatTotal = document.getElementById("btnLihatTotal");
+
+                                            let hargaProgram = document.getElementById("hargaProgram");
+                                            let hargaTransport = document.getElementById("hargaTransport");
+                                            let hargaCamp = document.getElementById("hargaCamp");
+                                            let totalPreview = document.getElementById("totalPreview");
+                                            let totalModal = document.getElementById("totalModal");
+
+                                            function updateTotal() {
+                                                let transportPrice = selectTransport?.selectedOptions[0]?.dataset.harga ?
+                                                    parseInt(selectTransport.selectedOptions[0].dataset.harga) :
+                                                    0;
+
+                                                let campPrice = selectCamp?.selectedOptions[0]?.dataset.harga ?
+                                                    parseInt(selectCamp.selectedOptions[0].dataset.harga) :
+                                                    0;
+
+                                                let total = basePrice + transportPrice + campPrice;
+
+                                                // update preview total
+                                                totalPreview.textContent = "Rp" + total.toLocaleString('id-ID');
+
+                                                // update detail modal
+                                                hargaProgram.textContent = "Rp" + basePrice.toLocaleString('id-ID');
+                                                hargaTransport.textContent = "Rp" + transportPrice.toLocaleString('id-ID');
+                                                hargaCamp.textContent = "Rp" + campPrice.toLocaleString('id-ID');
+                                                totalModal.textContent = "Rp" + total.toLocaleString('id-ID');
+                                            }
+
+                                            // trigger saat pilih transport / camp
+                                            if (selectTransport) selectTransport.addEventListener("change", updateTotal);
+                                            if (selectCamp) selectCamp.addEventListener("change", updateTotal);
+
+                                            // buka modal
+                                            btnLihatTotal.addEventListener("click", function() {
+                                                new bootstrap.Modal(document.getElementById('modalTotal')).show();
+                                            });
+                                        });
+                                    </script>
+                                    <br>
+
+
                                     {{-- Metode Pembayaran --}}
-<div class="mb-3">
-    <label class="form-label fw-bold"><i class="bi bi-wallet2"></i> Metode Pembayaran</label>
-    <div class="d-flex flex-wrap gap-3">
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="payment_type" id="pay_tunai" value="tunai" 
-                   {{ old('payment_type') == 'tunai' ? 'checked' : '' }} required>
-            <label class="form-check-label" for="pay_tunai">Bayar Tunai (Cash)</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="payment_type" id="pay_transfer" value="transfer"
-                   {{ old('payment_type') == 'transfer' ? 'checked' : '' }} required>
-            <label class="form-check-label" for="pay_transfer">Transfer Bank</label>
-        </div>
-    </div>
-</div>
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold"><i class="bi bi-wallet2"></i> Metode
+                                            Pembayaran</label>
+                                        <div class="d-flex flex-wrap gap-3">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="payment_type"
+                                                    id="pay_tunai" value="tunai"
+                                                    {{ old('payment_type') == 'tunai' ? 'checked' : '' }} required>
+                                                <label class="form-check-label" for="pay_tunai">Bayar Tunai
+                                                    (Cash)</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="payment_type"
+                                                    id="pay_transfer" value="transfer"
+                                                    {{ old('payment_type') == 'transfer' ? 'checked' : '' }} required>
+                                                <label class="form-check-label" for="pay_transfer">Transfer
+                                                    Bank</label>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="mb-3">
                                         <label class="form-label"><i class="bi bi-bank"></i> Bank untuk
                                             Pembayaran</label>
-                                        <select name="bank_id" class="form-select" 
-    @if(old('payment_type') === 'transfer') required @endif>
+                                        <select name="bank_id" class="form-select"
+                                            @if (old('payment_type') === 'transfer') required @endif>
 
                                             <option value="">Pilih Bank</option>
                                             @if (isset($banks) && $banks->isNotEmpty())
@@ -197,7 +325,8 @@
                                                         {{ $bank->name }}</option>
                                                 @endforeach
                                             @else
-                                                <option value="" disabled>Tidak ada pilihan bank tersedia</option>
+                                                <option value="" disabled>Tidak ada pilihan bank tersedia
+                                                </option>
                                             @endif
                                         </select>
 
@@ -208,38 +337,35 @@
                                     </div>
 
                                     <div class="mb-3">
-                                            <label class="form-label"><i class="bi bi-calendar-check-fill"></i>
-                                                Periode</label>
-                                            <select name="period_id" class="form-select" required>
-                                                <option value="">Pilih Periode</option>
+                                        <label class="form-label"><i class="bi bi-calendar-check-fill"></i>
+                                            Periode</label>
+                                        <select name="period_id" class="form-select" required>
+                                            <option value="">Pilih Periode</option>
 
+                                            @php
+                                                $today = \Carbon\Carbon::now('Asia/Jakarta')->toDateString();
+                                            @endphp
+
+                                            @forelse ($activePeriods as $period)
                                                 @php
-                                                    $today = \Carbon\Carbon::now('Asia/Jakarta')->toDateString();
+                                                    $periodDate = \Carbon\Carbon::parse($period->date)->toDateString();
+                                                    $isToday = $periodDate === $today;
                                                 @endphp
+                                                <option value="{{ $period->id }}" {{ $isToday ? 'selected' : '' }}>
+                                                    Periode:
+                                                    {{ \Carbon\Carbon::parse($period->date)->translatedFormat('d M Y') }}
+                                                    {{ $isToday ? '(Aktif Hari Ini)' : '' }}
+                                                </option>
+                                            @empty
+                                                {{-- Kosong --}}
+                                            @endforelse
+                                        </select>
 
-                                                @forelse ($activePeriods as $period)
-                                                    @php
-                                                        $periodDate = \Carbon\Carbon::parse(
-                                                            $period->date,
-                                                        )->toDateString();
-                                                        $isToday = $periodDate === $today;
-                                                    @endphp
-                                                    <option value="{{ $period->id }}"
-                                                        {{ $isToday ? 'selected' : '' }}>
-                                                        Periode:
-                                                        {{ \Carbon\Carbon::parse($period->date)->translatedFormat('d M Y') }}
-                                                        {{ $isToday ? '(Aktif Hari Ini)' : '' }}
-                                                    </option>
-                                                @empty
-                                                    {{-- Kosong --}}
-                                                @endforelse
-                                            </select>
-
-                                            @if ($activePeriods->isEmpty())
-                                                <div class="form-text text-danger">Tidak ada periode pendaftaran yang
-                                                    aktif saat ini.</div>
-                                            @endif
-                                        </div>
+                                        @if ($activePeriods->isEmpty())
+                                            <div class="form-text text-danger">Tidak ada periode pendaftaran yang
+                                                aktif saat ini.</div>
+                                        @endif
+                                    </div>
 
 
                                     {{-- PERUBAHAN: Tombol pendaftaran dengan kondisi disabled --}}
@@ -289,32 +415,32 @@
         });
     </script>
 
-{{-- pilihan bank --}}
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const paymentRadios = document.querySelectorAll('input[name="payment_type"]');
-        const bankField = document.querySelector('select[name="bank_id"]').closest('.mb-3');
+    {{-- pilihan bank --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const paymentRadios = document.querySelectorAll('input[name="payment_type"]');
+            const bankField = document.querySelector('select[name="bank_id"]').closest('.mb-3');
 
-        // Fungsi untuk toggle tampilan bank
-        function toggleBankField() {
-            const selected = document.querySelector('input[name="payment_type"]:checked');
-            if (selected && selected.value === 'transfer') {
-                bankField.style.display = '';
-            } else {
-                bankField.style.display = 'none';
-                bankField.querySelector('select').value = ''; // reset pilihan
+            // Fungsi untuk toggle tampilan bank
+            function toggleBankField() {
+                const selected = document.querySelector('input[name="payment_type"]:checked');
+                if (selected && selected.value === 'transfer') {
+                    bankField.style.display = '';
+                } else {
+                    bankField.style.display = 'none';
+                    bankField.querySelector('select').value = ''; // reset pilihan
+                }
             }
-        }
 
-        // Saat load pertama
-        toggleBankField();
+            // Saat load pertama
+            toggleBankField();
 
-        // Saat radio berubah
-        paymentRadios.forEach(radio => {
-            radio.addEventListener('change', toggleBankField);
+            // Saat radio berubah
+            paymentRadios.forEach(radio => {
+                radio.addEventListener('change', toggleBankField);
+            });
         });
-    });
-</script>
+    </script>
 
 </body>
 
