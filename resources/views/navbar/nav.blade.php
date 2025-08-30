@@ -14,9 +14,11 @@
     <div class="logo">
         <a href="{{ route('landing') }}">
             @if (request()->routeIs('program.arab'))
-                <img src="{{ asset('asset/img/alsaeid logo.png') }}" alt="Logo Arab" style="height: 100px;">
+                <img src="{{ asset('asset/img/alsaeid logo.png') }}" alt="Logo Arab" style="height: 150px;">
             @elseif (request()->routeIs('program.mandarin'))
-                <img src="{{ asset('asset/img/Mandarin logo.jpg') }}" alt="Logo Mandarin" style="height: 70px;">
+                <img src="{{ asset('asset/img/MandarinLogo.png') }}" alt="Logo Mandarin" style="height: 240px;">
+            @elseif (request()->routeIs('program.jerman'))
+                <img src="{{ asset('asset/img/JermanLogo.png') }}" alt="Logo Jerman" style="height: 95px;">
             @else
                 <img src="{{ asset('asset/img/b2.png') }}" alt="Logo Default" style="height: 75px;">
             @endif

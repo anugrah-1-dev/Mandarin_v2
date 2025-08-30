@@ -45,8 +45,7 @@
             <button class="next">&#10095;</button>
         </div>
         <div class="hero-text">
-            <h1>BRILLIANT ENGLISH COURSE</h1>
-            <h2>(Kursus Bahasa Jerman)</h2>
+            <h1>BRILLIANT DEUTSCHE SPARCHE</h1>
             <p>Kuasai bahasa Jerman dengan metode interaktif dan pengajar berpengalaman.</p>
             <a href="#program" class="cta-button">Lihat Program Kami</a>
         </div>
@@ -246,43 +245,8 @@
 
 
     {{-- Footer Section --}}
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h4>Deutsch Brilliant</h4>
-                    <p>Membuka pintu dunia melalui bahasa Jerman. Bergabunglah dengan kami dan mulailah perjalanan Anda.
-                    </p>
-                </div>
-                <div class="footer-col">
-                    <h4>Navigasi</h4>
-                    <ul>
-                        <li><a href="#tentang">Tentang Kami</a></li>
-                        <li><a href="#alur">Alur Pendaftaran</a></li>
-                        <li><a href="#program">Program</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Hubungi Kami</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> Jl. Pendidikan No. 123, Kota Ilmu</p>
-                    <p><i class="fas fa-phone"></i> (021) 123-4567</p>
-                    <p><i class="fas fa-envelope"></i> info@deutschbrilliant.com</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Ikuti Kami</h4>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Deutsch Brilliant. Semua Hak Cipta Dilindungi.</p>
-            </div>
-        </div>
+      <footer class="footer text-center">
+        <p>© 2025 Brilliant English Course | Programming Bahasa Inggris</p>
     </footer>
 
     {{-- Script untuk Carousel --}}
