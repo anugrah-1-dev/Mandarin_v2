@@ -139,52 +139,82 @@
         <div id="programPopup" class="popup1-overlay">
             <div class="popup1-content">
                 <div class="popup1-header">
-                    <h2>Pilih Program</h2>
+                    <h2>Pilih Program Kursus Anda</h2>
                     <button id="closePopupBtn" class="close1-button">&times;</button>
                 </div>
 
                 <div class="program1-grid">
-                    <div class="program1-card">
+                    <a href="{{ route('program.inggris') }}" class="program1-card">
                         <div class="program1-icon icon-inggris">
                             <img src="{{ asset('asset/img/bendera inggris.jpg') }}" alt="Bendera Inggris"
                                 class="program1-img">
                         </div>
-                        <h3>Bahasa Inggris</h3>
-                        <a href="{{ route('program.inggris') }}" class="pilih1-button">Pilih</a>
-                    </div>
+                        <h3>Kursus Bahasa Inggris</h3>
+                        <span class="pilih1-button">Pilih</span>
+                    </a>
 
-                    <div class="program1-card">
+                    <a href="{{ route('program.jerman') }}" class="program1-card">
                         <div class="program1-icon icon-jerman">
                             <img src="{{ asset('asset/img/bendera jerman.jpg') }}" alt="Bendera Jerman"
                                 class="program1-img">
                         </div>
-                        <h3>Bahasa Jerman</h3>
-                        <a href="{{ route('program.jerman') }}" class="pilih1-button">Pilih</a>
-                    </div>
+                        <h3>Kursus Bahasa Jerman</h3>
+                        <span class="pilih1-button">Pilih</span>
+                    </a>
 
-                    <!-- Program tengah -->
-                    <div class="program1-card center-card">
+                    <a href="{{ route('program.mandarin') }}" class="program1-card center-card">
                         <div class="program1-icon icon-mandarin">
                             <img src="{{ asset('asset/img/bendera mandarin.jpg') }}" alt="Bendera Mandarin"
                                 class="program1-img">
                         </div>
-                        <h3>Bahasa Mandarin</h3>
-                        <a href="{{ route('program.mandarin') }}" class="pilih1-button">Pilih</a>
-                    </div>
+                        <h3>Kursus Bahasa Mandarin</h3>
+                        <span class="pilih1-button">Pilih</span>
+                    </a>
 
-                    <div class="program1-card">
+                    <a href="{{ route('program.arab') }}" class="program1-card">
                         <div class="program1-icon icon-arab">
                             <img src="{{ asset('asset/img/bendera arab.jpg') }}" alt="Bendera Arab"
                                 class="program1-img">
                         </div>
-                        <h3>Bahasa Arab</h3>
-                        <a href="{{ route('program.arab') }}" class="pilih1-button">Pilih</a>
-                    </div>
-
-
+                        <h3>Kursus Bahasa Arab</h3>
+                        <span class="pilih1-button">Pilih</span>
+                    </a>
                 </div>
 
+                <style>
+                    .program1-card {
+                        display: block;
+                        text-decoration: none;
+                        color: inherit;
+                        padding: 20px;
+                        border-radius: 10px;
+                        transition: transform 0.2s ease, box-shadow 0.2s ease;
+                    }
+
+                    .program1-card:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+                    }
+
+                    .pilih1-button {
+                        display: inline-block;
+                        margin-top: 10px;
+                        padding: 8px 16px;
+                        background: #007bff;
+                        color: #fff;
+                        border-radius: 6px;
+                        font-size: 14px;
+                        transition: background 0.2s;
+                    }
+
+                    .pilih1-button:hover {
+                        background: #0056b3;
+                    }
+                </style>
+
             </div>
+
+        </div>
         </div>
         </div>
 

@@ -39,7 +39,7 @@
         </div>
 
         <div class="hero-text">
-            <h1>MANDAARIN CENTER PARE</h1>
+            <h1>MANDARIN CENTER PARE</h1>
             <h2>(Kursus Bahasa Mandarin)</h2>
             <p>Kuasai bahasa Mandarin dengan metode interaktif dan pengajar berpengalaman.</p>
         </div>
@@ -203,7 +203,7 @@
         <div class="container">
             <h2>Alur Pendaftaran</h2>
             <p>Silakan ikuti langkah-langkah berikut untuk menyelesaikan pendaftaran di <strong>Mandarin Center Pare</strong>:</p>
-    
+
             <div class="alur-timeline-mandarin">
                 <div class="step-mandarin">
                     <div class="circle-mandarin">1</div>
@@ -233,7 +233,7 @@
             </div>
         </div>
     </section>
-    
+
 
     {{-- JS for Carousel --}}
     <script>
