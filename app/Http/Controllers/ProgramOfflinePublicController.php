@@ -109,9 +109,15 @@ class ProgramOfflinePublicController extends Controller
             'akomodasi_harga' => $akomodasiHarga,  // disimpan
             'subtotal' => $subtotal,
         ]);
-
         // Kurangi kuota
         $program->decrement('kuota');
+
+        // Cek lagi jumlah kuota setelah dikurangi
+        $program->refresh();
+        if ($program->kuota <= 0 && $program->is_active == 1) {
+            $program->update(['is_active' => 0]);
+        }
+
 
         // Redirect
         if ($pendaftaran->payment_type === 'tunai') {

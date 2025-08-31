@@ -101,7 +101,13 @@ Route::get('/program/bahasa/inggris', [ProgramInggrisController::class, 'showIng
 Route::get('/program/bahasa/jerman', [ProgramJermanController::class, 'showJerman'])->name('program.jerman');
 
 
-Route::get('/program/bahasa/arab', [ProgramArabController::class, 'showArab'])->name('program.arab');
+// Route baru
+Route::get('/brilliantalsaeidarabic', [ProgramArabController::class, 'showArab'])->name('program.arab');
+
+// Redirect dari URL lama ke URL baru
+Route::redirect('/program/bahasa/arab', '/brilliantalsaeidarabic');
+
+
 Route::get('/program/bahasa/mandarin', [ProgramMandarinController::class, 'showMandarin'])->name('program.mandarin');
 
 
