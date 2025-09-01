@@ -42,8 +42,9 @@ class ProgramOnlineController extends Controller
             'program_bahasa'   => 'required|in:inggris,jerman,mandarin,arab',
         ]);
 
-        // Konversi fitur dari textarea ke array
-        $validated['features_program'] = array_filter(array_map('trim', explode("\n", $validated['features_program'])));
+        // Ubah textarea ke array dan encode ke JSON
+        $features = array_filter(array_map('trim', explode("\n", $validated['features_program'])));
+        $validated['features_program'] = json_encode($features);
 
         // Upload thumbnail
         if ($request->hasFile('thumbnail')) {
@@ -55,11 +56,17 @@ class ProgramOnlineController extends Controller
         return redirect()->route('admin.online.index')->with('success', 'Program online berhasil ditambahkan.');
     }
 
-
     public function edit(ProgramOnline $online)
     {
-        return view('admin.programs.online.edit', ['online' => $online]);
+        // decode JSON menjadi array
+        $features = json_decode($online->features_program, true);
+
+        // gabungkan ke string per baris untuk textarea
+        $online->features_program = is_array($features) ? implode("\n", $features) : $online->features_program;
+
+        return view('admin.programs.online.edit', compact('online'));
     }
+
     public function update(Request $request, ProgramOnline $online)
     {
         $request->validate([
@@ -89,16 +96,13 @@ class ProgramOnlineController extends Controller
 
         // Handle thumbnail
         if ($request->hasFile('thumbnail')) {
-            // Hapus lama
             if ($online->thumbnail && Storage::disk('public')->exists($online->thumbnail)) {
                 Storage::disk('public')->delete($online->thumbnail);
             }
-
-            $path = $request->file('thumbnail')->store('thumbnails/program_online', 'public');
-            $data['thumbnail'] = $path;
+            $data['thumbnail'] = $request->file('thumbnail')->store('thumbnails/program_online', 'public');
         }
 
-    
+        // Ubah textarea menjadi array → JSON
         $features = array_filter(array_map('trim', explode("\n", $request->input('features_program', ''))));
         $data['features_program'] = json_encode($features);
 
@@ -123,12 +127,12 @@ class ProgramOnlineController extends Controller
         return redirect()->route('admin.online.index')->with('success', 'Program online berhasil dihapus.');
     }
     public function byLanguage($bahasa)
-{
-    // Contoh: ambil data program online berdasarkan bahasa
-    $programs = ProgramOnline::where('tipe', 'online')
-                        ->where('bahasa', $bahasa)
-                        ->get();
+    {
+        // Contoh: ambil data program online berdasarkan bahasa
+        $programs = ProgramOnline::where('tipe', 'online')
+            ->where('bahasa', $bahasa)
+            ->get();
 
-    return view('program.online', compact('programs', 'bahasa'));
-}
+        return view('program.online', compact('programs', 'bahasa'));
+    }
 }

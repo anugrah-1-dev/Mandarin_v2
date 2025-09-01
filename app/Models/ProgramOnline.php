@@ -6,9 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property string $features_program
+ */
 class ProgramOnline extends Model
 {
-    use HasFactory  ;
+
+    use HasFactory;
 
     /**
      * The table associated with the model.
@@ -41,7 +45,7 @@ class ProgramOnline extends Model
      */
     protected $casts = [
         'is_active' => 'boolean',
-        'features_program' => 'array', // Casting JSON ke array
+
     ];
 
     // public function getRouteKeyName()

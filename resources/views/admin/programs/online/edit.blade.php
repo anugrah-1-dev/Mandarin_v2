@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-12">
+        <div class="col-10">
             <div class="card card-primary">
                 <div class="card-header">
                     <h3 class="card-title">Form Edit Program Online</h3>
@@ -115,12 +115,13 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="features_program">Fitur Program (Pisahkan dengan Enter)</label>
-                                    <textarea class="form-control @error('features_program') is-invalid @enderror" id="features_program"
-                                        name="features_program" rows="4">{{ old('features_program', is_array(json_decode($online->features_program)) ? implode("\n", json_decode($online->features_program)) : $online->features_program) }}</textarea>
+                                   <textarea class="form-control @error('features_program') is-invalid @enderror" 
+    id="features_program" name="features_program" rows="4">{{ old('features_program', $online->features_program) }}</textarea>
 
-                                    <small class="form-text text-muted">
-                                        Gunakan emoji ✅ untuk menandai fitur. Setiap fitur pada baris baru.
-                                    </small>
+<small class="form-text text-muted">
+    Gunakan emoji ✅ untuk menandai fitur. Setiap fitur pada baris baru.
+</small>
+
                                 </div>
                             </div>
                         </div>
@@ -152,7 +153,7 @@
                                 @if ($online->thumbnail)
                                     <div class="thumbnail-preview-container">
                                         <p class="font-weight-bold">Thumbnail Saat Ini:</p>
-                                        <img src="{{ asset('storage/' . $offline->thumbnail) }}" class="img-thumbnail"
+                                        <img src="{{ asset('storage/' . $online->thumbnail) }}" class="img-thumbnail"
                                             id="currentThumbnail" width="200">
                                     </div>
                                 @endif
