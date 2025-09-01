@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-12">
         <x-adminlte-card theme="lightblue" title="Form Tambah Program Offline">
 
             @if ($errors->any())
@@ -25,47 +25,73 @@
             <form action="{{ route('admin.offline.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                <x-adminlte-input name="nama" label="Nama Program" placeholder="Masukkan nama program"
-                    value="{{ old('nama') }}" required />
+                <div class="row">
+                    <div class="col-md-6">
+                        <x-adminlte-input name="nama" label="Nama Program" placeholder="Masukkan nama program"
+                            value="{{ old('nama') }}" required />
+                    </div>
+                    <div class="col-md-6">
+                        <x-adminlte-input name="slug" label="Slug (URL Friendly)" placeholder="contoh-program-offline"
+                            value="{{ old('slug') }}" required />
+                    </div>
+                </div>
 
-                <x-adminlte-select name="program_bahasa" label="Program Bahasa" required>
-                    <option value="" disabled selected>-- Pilih Bahasa --</option>
-                    <option value="inggris" {{ old('program_bahasa') == 'inggris' ? 'selected' : '' }}>Bahasa Inggris
-                    </option>
-                    <option value="jerman" {{ old('program_bahasa') == 'jerman' ? 'selected' : '' }}>Bahasa Jerman
-                    </option>
-                    <option value="mandarin" {{ old('program_bahasa') == 'mandarin' ? 'selected' : '' }}>Bahasa Mandarin
-                    </option>
-                    <option value="arab" {{ old('program_bahasa') == 'arab' ? 'selected' : '' }}>Bahasa Arab</option>
-                </x-adminlte-select>
+                <div class="row">
+                    <div class="col-md-6">
+                        <x-adminlte-input name="lama_program" label="Durasi Program"
+                            placeholder="Contoh: 2 bulan / 10 minggu" value="{{ old('lama_program') }}" required />
+                    </div>
+                    <div class="col-md-6">
+                        <x-adminlte-input name="kategori" label="Kategori Program"
+                            placeholder="Contoh: Intensif, Reguler, Khusus" value="{{ old('kategori') }}" required />
+                    </div>
+                </div>
 
-                <x-adminlte-input name="slug" label="Slug (URL Friendly)" placeholder="contoh-program-offline"
-                    value="{{ old('slug') }}" required />
+                <div class="row">
+                    <div class="col-md-6">
+                        <x-adminlte-input name="harga" label="Harga (Rp)" placeholder="Contoh: 1500000" type="number"
+                            value="{{ old('harga') }}" required />
+                    </div>
+                    <div class="col-md-6">
+                        <x-adminlte-input name="kuota" label="Kuota Peserta" type="number" value="{{ old('kuota') }}"
+                            required />
+                    </div>
+                </div>
 
-                <x-adminlte-input name="lama_program" label="Durasi Program" placeholder="Contoh: 2 bulan / 10 minggu"
-                    value="{{ old('lama_program') }}" required />
-
-                <x-adminlte-input name="kategori" label="Kategori Program"
-                    placeholder="Contoh: Intensif, Reguler, Khusus" value="{{ old('kategori') }}" required />
-
-                <x-adminlte-input name="harga" label="Harga (Rp)" placeholder="Contoh: 1500000" type="number"
-                    value="{{ old('harga') }}" required />
+                <div class="row">
+                    <div class="col-md-6">
+                        <x-adminlte-input name="lokasi" label="Lokasi Program" placeholder="Masukkan lokasi"
+                            value="{{ old('lokasi') }}" required />
+                    </div>
+                    <div class="col-md-6">
+                        <x-adminlte-select name="program_bahasa" label="Program Bahasa" required>
+                            <option value="" disabled selected>-- Pilih Bahasa --</option>
+                            <option value="inggris" {{ old('program_bahasa') == 'inggris' ? 'selected' : '' }}>Bahasa
+                                Inggris</option>
+                            <option value="jerman" {{ old('program_bahasa') == 'jerman' ? 'selected' : '' }}>Bahasa Jerman
+                            </option>
+                            <option value="mandarin" {{ old('program_bahasa') == 'mandarin' ? 'selected' : '' }}>Bahasa
+                                Mandarin</option>
+                            <option value="arab" {{ old('program_bahasa') == 'arab' ? 'selected' : '' }}>Bahasa Arab
+                            </option>
+                        </x-adminlte-select>
+                    </div>
+                </div>
 
                 <x-adminlte-textarea name="features_program" label="Fitur Program (Pisahkan dengan enter)" rows="4"
                     placeholder="Contoh:✅ Sertifikat ✅ Materi cetak ✅ Tutor berpengalaman"
                     required>{{ old('features_program') }}</x-adminlte-textarea>
 
-                <x-adminlte-input name="lokasi" label="Lokasi Program" placeholder="Masukkan lokasi"
-                    value="{{ old('lokasi') }}" required />
-
-                <x-adminlte-input name="jadwal_mulai" label="Jadwal Mulai" type="date" value="{{ old('jadwal_mulai') }}"
-                    required />
-
-                <x-adminlte-input name="jadwal_selesai" label="Jadwal Selesai" type="date"
-                    value="{{ old('jadwal_selesai') }}" required />
-
-                <x-adminlte-input name="kuota" label="Kuota Peserta" type="number" value="{{ old('kuota') }}"
-                    required />
+                <div class="row">
+                    <div class="col-md-6">
+                        <x-adminlte-input name="jadwal_mulai" label="Jadwal Mulai" type="date"
+                            value="{{ old('jadwal_mulai') }}" required />
+                    </div>
+                    <div class="col-md-6">
+                        <x-adminlte-input name="jadwal_selesai" label="Jadwal Selesai" type="date"
+                            value="{{ old('jadwal_selesai') }}" required />
+                    </div>
+                </div>
 
                 <x-adminlte-select name="is_active" label="Status Program" required>
                     <option value="1" {{ old('is_active') == '1' ? 'selected' : '' }}>Aktif</option>
@@ -82,6 +108,7 @@
                     </a>
                 </div>
             </form>
+
 
         </x-adminlte-card>
     </div>
