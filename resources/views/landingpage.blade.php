@@ -179,6 +179,14 @@
                         <h3>Kursus Bahasa Arab</h3>
                         <span class="pilih1-button">Pilih</span>
                     </a>
+                    <a href="{{ route('landing.nhc') }}" class="program1-card">
+                        <div class="program1-icon icon-nhc">
+                            <img src="{{ asset('asset/img/logonhc.png') }}" alt="Logo NHC"
+                                  class="program1-img">
+                         </div>
+                        <h3>Program Perhotelan (NHC)</h3>
+                        <span class="pilih1-button">Pilih</span>
+    </a>
                 </div>
 
                 <style>

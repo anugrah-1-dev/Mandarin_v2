@@ -35,6 +35,8 @@ use App\Http\Controllers\ProgramJermanController;
 use App\Http\Controllers\ProgramArabController;
 use App\Http\Controllers\ProgramMandarinController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ProgramNHCController; // <-- PERUBAIKAN 1: Controller NHC ditambahkan
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -118,7 +120,9 @@ Route::get('/MandarinCenterPare', [ProgramMandarinController::class, 'showMandar
 // Alihkan (redirect) URL LAMA ke URL BARU dengan status 301 (Moved Permanently)
 Route::redirect('/program/bahasa/mandarin', '/MandarinCenterPare', 301);
 
-
+// PERUBAIKAN 2: Rute NHC diubah ke controller yang benar
+// ===============================================
+Route::get('/nhc', [ProgramNHCController::class, 'index'])->name('landing.nhc');
 
 // ===== ROUTE UNTUK UPLOAD BUKTI PEMBAYARAN =====
 Route::post('/payment/upload', [PaymentController::class, 'uploadProof'])->name('payment.upload');

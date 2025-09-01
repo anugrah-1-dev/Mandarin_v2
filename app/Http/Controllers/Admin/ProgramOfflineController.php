@@ -36,7 +36,7 @@ class ProgramOfflineController extends Controller
             'kuota'            => 'required|integer|min:1',
             'is_active'        => 'required|boolean',
             'thumbnail'        => 'required|image|mimes:jpg,jpeg,png|max:5048',
-            'program_bahasa'   => 'required|in:inggris,jerman,mandarin,arab',
+            'program_bahasa'   => 'required|in:inggris,jerman,mandarin,arab,nhc',
         ]);
 
 
@@ -85,7 +85,7 @@ class ProgramOfflineController extends Controller
             'kuota' => 'required|integer|min:1',
             'is_active' => 'required|in:0,1',
             'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'program_bahasa' => 'required|in:inggris,jerman,mandarin,arab',
+            'program_bahasa' => 'required|in:inggris,jerman,mandarin,arab,nhc',
         ]);
 
         $data = $request->only([

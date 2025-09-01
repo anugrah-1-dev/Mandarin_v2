@@ -39,7 +39,7 @@ class ProgramOnlineController extends Controller
             'features_program' => 'required|string',
             'is_active'        => 'required|boolean',
             'thumbnail'        => 'required|image|mimes:jpg,jpeg,png|max:5048',
-            'program_bahasa'   => 'required|in:inggris,jerman,mandarin,arab',
+            'program_bahasa'   => 'required|in:inggris,jerman,mandarin,arab,nhc',
         ]);
 
         // Ubah textarea ke array dan encode ke JSON
@@ -77,7 +77,7 @@ class ProgramOnlineController extends Controller
             'features_program' => 'nullable|string',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5048',
             'is_active' => 'required|in:0,1',
-            'program_bahasa' => 'required|in:inggris,jerman,mandarin,arab',
+            'program_bahasa' => 'required|in:inggris,jerman,mandarin,arab,nhc',
         ]);
 
         $data = $request->only([

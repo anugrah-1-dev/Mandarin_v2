@@ -19,6 +19,8 @@
                 <img src="{{ asset('asset/img/MandarinLogo.png') }}" alt="Logo Mandarin" style="height: 240px;">
             @elseif (request()->routeIs('program.jerman'))
                 <img src="{{ asset('asset/img/JermanLogo.png') }}" alt="Logo Jerman" style="height: 95px;">
+            @elseif (request()->routeIs('landing.nhc'))
+                <img src="{{ asset('asset/img/logonhc.png') }}" alt="Logo NHC" style="height: 95px;">
             @else
                 <img src="{{ asset('asset/img/bietest.png') }}" alt="Logo Default" style="height: 90px;">
             @endif
@@ -45,6 +47,8 @@
                 <a href="{{ route('program.jerman') }}">Bahasa Jerman</a>
                 <a href="{{ route('program.mandarin') }}">Bahasa Mandarin</a>
                 <a href="{{ route('program.arab') }}">Bahasa Arab</a>
+                <a href="{{ route('landing.nhc') }}">NHC</a>
+
 
             </div>
         </div>
