@@ -44,7 +44,8 @@
         <div class="container">
             <div class="text-center mb-5" data-aos="fade-up">
                 <h2>Pilihan Program Unggulan</h2>
-                <p class="lead text-muted">Tersedia kelas tatap muka yang siap mengantarkan Anda ke pintu gerbang karir profesional.</p>
+                <p class="lead text-muted">Tersedia kelas tatap muka yang siap mengantarkan Anda ke pintu gerbang karir
+                    profesional.</p>
             </div>
             <div class="filter-buttons-wrapper text-center mb-4" data-aos="fade-up" data-aos-delay="100">
                 <button class="filter-btn active" data-filter="offline">Program Tatap Muka</button>
@@ -68,11 +69,12 @@
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title program-card-title">{{ $program->nama }}</h5>
-                                    
+
                                     {{-- Menampilkan Tanggal Program --}}
                                     <p class="card-text text-muted small mb-2">
                                         <i class="fas fa-calendar-alt"></i>
-                                        {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('M d') }} - {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('M d, Y') }}
+                                        {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('M d') }} -
+                                        {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('M d, Y') }}
                                     </p>
 
                                     {{-- Menampilkan Fitur Program dengan ikon topi toga --}}
@@ -85,24 +87,24 @@
                                             $features = json_last_error() === JSON_ERROR_NONE && is_array($decoded) ? $decoded : explode("\n", $features);
                                         }
                                     @endphp
-                                    
-                                        {{-- Jika tidak ada program offline sama sekali, tampilkan pesan ini --}}
-                   @if (!empty($features) && is_array($features))
-                                    <ul class="small mb-2" style="list-style: none; padding-left: 0;">
-                                        @foreach (array_slice($features, 0, 4) as $fitur)
-                                            <li>
-                                                {!! \App\Helpers\FeatureHelper::getFeatureIcon($fitur) !!}
-                                                {{ trim($fitur) }}
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @else
-                                    <small class="text-muted">Tidak ada fasilitas tersedia</small>
-                                @endif
-                                    
-                                        <p class="card-text program-card-price mb-3 mt-auto">
-                                            Rp {{ number_format($program->harga, 0, ',', '.') }}
-                                        </p>
+
+                                    {{-- Jika tidak ada program offline sama sekali, tampilkan pesan ini --}}
+                                    @if (!empty($features) && is_array($features))
+                                        <ul class="small mb-2" style="list-style: none; padding-left: 0;">
+                                            @foreach (array_slice($features, 0, 4) as $fitur)
+                                                <li>
+                                                    {!! \App\Helpers\FeatureHelper::getFeatureIcon($fitur) !!}
+                                                    {{ trim($fitur) }}
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @else
+                                        <small class="text-muted">Tidak ada fasilitas tersedia</small>
+                                    @endif
+
+                                    <p class="card-text program-card-price mb-3 mt-auto">
+                                        Rp {{ number_format($program->harga, 0, ',', '.') }}
+                                    </p>
                                     <a href="{{ route('public.program.offline.show', $program->slug) }}"
                                         class="btn btn-program">Lihat Detail</a>
                                 </div>
@@ -112,7 +114,7 @@
                         {{-- Dibiarkan kosong agar jika hanya online yang ada, tidak muncul pesan ini --}}
                     @endforelse
 
-                
+
 
                 @endif
             </div>
@@ -124,7 +126,8 @@
         <div class="container" data-aos="fade-up">
             <div class="text-center mb-5">
                 <h2>Keunggulan Belajar di LPK NHC Pare</h2>
-                <p class="lead text-muted">Temukan alasan mengapa LPK NHC Pare adalah pilihan terbaik untuk karir Anda di
+                <p class="lead text-muted">Temukan alasan mengapa LPK NHC Pare adalah pilihan terbaik untuk karir Anda
+                    di
                     dunia perhotelan.</p>
             </div>
             <div class="about-grid">
@@ -163,6 +166,12 @@
                     <h3>Waktu Belajar Efisien</h3>
                     <p>Program pendidikan dirancang singkat namun padat, sehingga mahasiswa bisa segera siap kerja
                         dengan keterampilan yang relevan.</p>
+                </div>
+                <div class="about-card" data-aos="fade-up" data-aos-delay="350">
+                    <div class="icon-wrapper"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>Program Beasiswa untuk Siswa Berprestasi</h3>
+                    <p>LPK NHC Pare memberikan beasiswa khusus bagi siswa yang menunjukkan prestasi akademik maupun
+                        non-akademik sebagai bentuk apresiasi dan dukungan terhadap generasi unggul.</p>
                 </div>
             </div>
         </div>
@@ -223,7 +232,7 @@
             duration: 800,
             once: true,
         });
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const slides = document.querySelectorAll(".hero .slide");
             const prevBtn = document.querySelector(".hero .prev");
             const nextBtn = document.querySelector(".hero .next");
@@ -260,7 +269,7 @@
             }
             if (filterButtons.length > 0) {
                 filterButtons.forEach(button => {
-                    button.addEventListener('click', function() {
+                    button.addEventListener('click', function () {
                         filterButtons.forEach(btn => btn.classList.remove('active'));
                         this.classList.add('active');
                         const filterValue = this.getAttribute('data-filter');
