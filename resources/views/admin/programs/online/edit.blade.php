@@ -118,7 +118,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="features_program">Fitur Program (Pisahkan dengan Enter)</label>
-                                   <textarea class="form-control @error('features_program') is-invalid @enderror" 
+                                   <textarea class="form-control @error('features_program') is-invalid @enderror"
     id="features_program" name="features_program" rows="4">{{ old('features_program', $online->features_program) }}</textarea>
 
 <small class="form-text text-muted">

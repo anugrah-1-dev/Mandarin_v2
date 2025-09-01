@@ -42,9 +42,8 @@ class ProgramOnlineController extends Controller
             'program_bahasa'   => 'required|in:inggris,jerman,mandarin,arab,nhc',
         ]);
 
-        // Ubah textarea ke array dan encode ke JSON
-        $features = array_filter(array_map('trim', explode("\n", $validated['features_program'])));
-        $validated['features_program'] = json_encode($features);
+        // Konversi fitur dari textarea ke array
+        $validated['features_program'] = array_filter(array_map('trim', explode("\n", $validated['features_program'])));
 
         // Upload thumbnail
         if ($request->hasFile('thumbnail')) {
@@ -56,17 +55,11 @@ class ProgramOnlineController extends Controller
         return redirect()->route('admin.online.index')->with('success', 'Program online berhasil ditambahkan.');
     }
 
+
     public function edit(ProgramOnline $online)
     {
-        // decode JSON menjadi array
-        $features = json_decode($online->features_program, true);
-
-        // gabungkan ke string per baris untuk textarea
-        $online->features_program = is_array($features) ? implode("\n", $features) : $online->features_program;
-
-        return view('admin.programs.online.edit', compact('online'));
+        return view('admin.programs.online.edit', ['online' => $online]);
     }
-
     public function update(Request $request, ProgramOnline $online)
     {
         $request->validate([
@@ -96,13 +89,16 @@ class ProgramOnlineController extends Controller
 
         // Handle thumbnail
         if ($request->hasFile('thumbnail')) {
+            // Hapus lama
             if ($online->thumbnail && Storage::disk('public')->exists($online->thumbnail)) {
                 Storage::disk('public')->delete($online->thumbnail);
             }
-            $data['thumbnail'] = $request->file('thumbnail')->store('thumbnails/program_online', 'public');
+
+            $path = $request->file('thumbnail')->store('thumbnails/program_online', 'public');
+            $data['thumbnail'] = $path;
         }
 
-        // Ubah textarea menjadi array → JSON
+
         $features = array_filter(array_map('trim', explode("\n", $request->input('features_program', ''))));
         $data['features_program'] = json_encode($features);
 

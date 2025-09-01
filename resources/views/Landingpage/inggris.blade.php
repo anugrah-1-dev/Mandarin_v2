@@ -17,6 +17,7 @@
 <body>
     @include('navbar.nav')
 
+
     <!-- Hero Carousel -->
     <section class="hero">
         <div class="carousel">
@@ -65,8 +66,7 @@
                                 <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
                                     alt="{{ $program->nama }}">
                                 @if ($program->is_active)
-                            <span class="badge bg-success program-badge">Available</span>
-
+                                    <span class="badge bg-success program-badge">Available</span>
                                 @endif
                             </div>
                             <div class="card-body d-flex flex-column">
@@ -80,6 +80,45 @@
                                 <p class="card-text program-card-price mb-3">
                                     Rp {{ number_format($program->harga, 0, ',', '.') }}
                                 </p>
+                                {{-- Garis pemisah sebelum fitur --}}
+
+                                <hr class="my-3 mx-auto hr-half">
+
+                                <h5 class="text-center mb-4">Fasilitas Program</h5>
+
+                                @php
+                                    $features = $program->features_program;
+
+                                    if (is_string($features)) {
+                                        $decoded = json_decode($features, true);
+                                        $features =
+                                            json_last_error() === JSON_ERROR_NONE && is_array($decoded)
+                                                ? $decoded
+                                                : preg_split('/\r\n|\r|\n/', $features);
+                                    }
+                                @endphp
+
+                                @if (!empty($features) && is_array($features))
+                                    <div class="text-center">
+                                        <ul class="list-unstyled d-inline-block text-start mb-0">
+                                            @foreach ($features as $fitur)
+                                                <li class="d-flex align-items-center mb-2">
+                                                    {!! \App\Helpers\FeatureHelper::getFeatureIcon($fitur) !!}
+                                                    <span class="ms-2">{{ trim($fitur) }}</span>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @else
+                                    <p class="text-center text-muted mb-0">
+                                        <em>Tidak ada fasilitas tersedia.</em>
+                                    </p>
+                                @endif
+                                <br>
+
+
+
+
                                 <a href="{{ route('public.program.offline.show', $program->slug) }}"
                                     class="btn btn-primary mt-auto">View Details</a>
                             </div>
@@ -112,11 +151,47 @@
                                 <p class="card-text program-card-price mb-3">
                                     Rp {{ number_format($program->harga, 0, ',', '.') }}
                                 </p>
+
+
+                                <hr class="my-3 mx-auto hr-half">
+
+                                <h5 class="text-center mb-4">Fasilitas Program</h5>
+
+                                @php
+                                    $features = $program->features_program;
+
+                                    if (is_string($features)) {
+                                        $decoded = json_decode($features, true);
+                                        $features =
+                                            json_last_error() === JSON_ERROR_NONE && is_array($decoded)
+                                                ? $decoded
+                                                : preg_split('/\r\n|\r|\n/', $features);
+                                    }
+                                @endphp
+
+                                @if (!empty($features) && is_array($features))
+                                    <div class="text-center">
+                                        <ul class="list-unstyled d-inline-block text-start mb-0">
+                                            @foreach ($features as $fitur)
+                                                <li class="d-flex align-items-center mb-2">
+                                                    {!! \App\Helpers\FeatureHelper::getFeatureIcon($fitur) !!}
+                                                    <span class="ms-2">{{ trim($fitur) }}</span>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @else
+                                    <p class="text-center text-muted mb-0">
+                                        <em>Tidak ada fasilitas tersedia.</em>
+                                    </p>
+                                @endif
+                                <br>
                                 <a href="{{ route('public.program.online.show', $program->slug) }}"
                                     class="btn btn-danger mt-auto">View Details</a>
                             </div>
                         </div>
                     </div>
+
                 @empty
                     <div class="program-item online" style="display: none;">
                         <p class="text-muted">No online programs available</p>
@@ -220,248 +295,10 @@
 
 
     <style>
-        .wave-line {
-            overflow: hidden;
-            line-height: 0;
-        }
-
-        .wave-line svg {
-            width: 250%;
-            /* dibuat lebar supaya bisa digeser */
-            height: 180px;
-            animation: waveMove 6s linear infinite;
-        }
-
-        @keyframes waveMove {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-
-        .footer {
-            background: linear-gradient(105deg, #0b2470, #3c1361);
-            /* coklat tua → coklat sedang → coklat pasir */
-            color: #f1f1f1;
-            font-size: 12px;
-            font-weight: 100;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: -1px;
-        }
 
 
 
 
-
-        /* About Section */
-        .about {
-            background: #ffff;
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .about-card {
-            background: #fff;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .about-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .about-card .icon-wrapper {
-            font-size: 2rem;
-            color: #ffc107;
-            margin-bottom: 1rem;
-        }
-
-        .about .highlight {
-            color: #012169;
-            font-weight: bold;
-        }
-
-        /* Alur Pendaftaran */
-        .alur {
-            background: #1d3fa3;
-            position: relative;
-            color: white;
-        }
-
-
-        .alur-timeline {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        .step {
-            max-width: 200px;
-        }
-
-        .step .circle {
-            width: 50px;
-            height: 50px;
-            background: #ffc107;
-            color: #010b44;
-            font-weight: bold;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 1rem;
-            font-size: 1.2rem;
-        }
-
-
-        .wave-line {
-            position: relative;
-            width: 100%;
-
-
-
-        }
-
-        .wave-line svg {
-            display: block;
-
-
-
-        }
-
-        .step h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .step p {
-            font-size: 0.9rem;
-        }
-
-        /* Filter Button Styles */
-        .filter-buttons-wrapper {
-            margin-bottom: 2rem;
-        }
-
-        .filter-btn {
-            padding: 0.5rem 1.5rem;
-            margin: 0 0.5rem;
-            border: 2px solid #012169;
-            background-color: white;
-            color: #012169;
-            font-weight: 600;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn.active {
-            background-color: #012169;
-            color: white;
-        }
-
-        .filter-btn:hover:not(.active) {
-            background-color: #f0f0f0;
-        }
-
-        /* Program Grid Layout */
-        .program-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            justify-content: center;
-        }
-
-        /* Program Card Styles with UK Flag Colors */
-        .program-card {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            background: white;
-            border: 1px solid #e0e0e0;
-        }
-
-        .program-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .program-card-image-wrapper {
-            position: relative;
-            height: 180px;
-            overflow: hidden;
-        }
-
-        .program-card-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .program-card:hover .program-card-img {
-            transform: scale(1.05);
-        }
-
-        .program-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 0.8rem;
-        }
-
-        .card-body {
-            padding: 1.5rem;
-            flex-grow: 1;
-        }
-
-        .program-card-title {
-            color: #012169;
-            margin-bottom: 0.75rem;
-            font-size: 1.1rem;
-        }
-
-        .program-card-price {
-            color: #C8102E;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        /* Button Colors */
-        .btn-primary {
-            background-color: #012169;
-            border-color: #012169;
-        }
-
-        .btn-danger {
-            background-color: #C8102E;
-            border-color: #C8102E;
-        }
-
-        .btn-primary:hover {
-            background-color: #00114d;
-            border-color: #00114d;
-        }
-
-        .btn-danger:hover {
-            background-color: #a50e26;
-            border-color: #a50e26;
-        }
     </style>
 
     <script>
@@ -495,6 +332,78 @@
                 });
             });
         });
+
+        // Function untuk mendeteksi elemen yang terlihat di viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85 &&
+                rect.bottom >= 0
+            );
+        }
+
+        // Function untuk menangani scroll animation
+        function handleScrollAnimation() {
+            const programSection = document.querySelector('.program-section');
+
+            if (programSection && isInViewport(programSection)) {
+                programSection.classList.add('visible');
+                // Hapus event listener setelah animasi dipicu sekali
+                window.removeEventListener('scroll', handleScrollAnimation);
+            }
+        }
+
+        // Event listener untuk scroll dan load
+        window.addEventListener('scroll', handleScrollAnimation);
+        window.addEventListener('load', handleScrollAnimation);
+
+        // Function untuk mendeteksi elemen yang terlihat di viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85 &&
+                rect.bottom >= 0
+            );
+        }
+
+        // Function untuk menangani scroll animation timeline
+        function handleTimelineAnimation() {
+            const alurSection = document.querySelector('.alur');
+
+            if (alurSection && isInViewport(alurSection)) {
+                alurSection.classList.add('visible');
+                // Hapus event listener setelah animasi dipicu sekali
+                window.removeEventListener('scroll', handleTimelineAnimation);
+            }
+        }
+
+        // Event listener untuk scroll dan load
+        window.addEventListener('scroll', handleTimelineAnimation);
+        window.addEventListener('load', handleTimelineAnimation);
+
+        // Function untuk mendeteksi elemen yang terlihat di viewport
+function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85 &&
+        rect.bottom >= 0
+    );
+}
+
+// Function untuk menangani scroll animation about section
+function handleAboutAnimation() {
+    const aboutSection = document.querySelector('.about');
+
+    if (aboutSection && isInViewport(aboutSection)) {
+        aboutSection.classList.add('visible');
+        // Hapus event listener setelah animasi dipicu sekali
+        window.removeEventListener('scroll', handleAboutAnimation);
+    }
+}
+
+// Event listener untuk scroll dan load
+window.addEventListener('scroll', handleAboutAnimation);
+window.addEventListener('load', handleAboutAnimation);  
     </script>
 </body>
 

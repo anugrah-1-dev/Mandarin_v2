@@ -4,10 +4,35 @@
     <div class="container py-5" id="TrackingTrx">
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
-                <div class="text-center mb-5">
-                    <h1 class="display-5 fw-bold text-primary">Tracking Transaksi</h1>
-                    <p class="lead text-muted">Cek status transaksi dan program Anda dengan mudah</p>
+                <div id="tracking-section"
+                    class="text-center mb-5 text-white d-flex flex-column justify-content-center align-items-center"
+                    style="height: 300px; background-size: cover; background-position: center; transition: background-image 1s ease-in-out;">
+
+                    <h1 class="display-5 fw-bold">Tracking Transaksi</h1>
+                    <p class="lead">Cek status transaksi dan program Anda dengan mudah</p>
                 </div>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        let images = [
+                            "{{ asset('asset/gif/a.gif') }}",
+                               "{{ asset('asset/gif/b.gif') }}",
+                                  "{{ asset('asset/gif/c.gif') }}",
+                          
+                        ];
+                        let index = 0;
+                        let section = document.getElementById("tracking-section");
+
+                        // Set awal
+                        section.style.backgroundImage = `url('${images[index]}')`;
+
+                        // Ganti tiap 5 detik
+                        setInterval(() => {
+                            index = (index + 1) % images.length;
+                            section.style.backgroundImage = `url('${images[index]}')`;
+                        }, 5000);
+                    });
+                </script>
 
                 @if (session('error'))
                     <div class="alert alert-danger alert-dismissible fade show text-center">
@@ -104,7 +129,11 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <h5 class="text-muted">Status</h5>
-                                    <span class="badge bg-{{ $offline->status == 'aktif' ? 'success' : 'warning' }} fs-6">
+                                    <span
+                                        class="badge
+                                      @if ($offline->status == 'aktif') bg-success
+                                       @elseif($offline->status == 'ditolak') bg-danger
+                                       @else bg-warning @endif fs-6">
                                         {{ ucfirst($offline->status) }}
                                     </span>
                                 </div>
@@ -118,6 +147,14 @@
                                     <h5 class="text-muted">Transportasi</h5>
                                     <p class="fs-5">{{ $offline->transport_id }}</p>
                                 </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <h5 class="text-muted">Total Harga</h5>
+                                    <p class="fs-5">
+                                        Rp. {{ number_format($online->subtotal, 0, ',', '.') }}
+                                    </p>
+                                </div>
+
                                 @if ($offline->bukti_pembayaran)
                                     <div class="col-md-12 mb-3">
                                         <h5 class="text-muted">Bukti Pembayaran</h5>
@@ -148,16 +185,28 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <h5 class="text-muted">Status</h5>
-                                    <span class="badge bg-{{ $online->status == 'aktif' ? 'success' : 'warning' }} fs-6">
+                                    <span
+                                        class="badge
+                                      @if ($online->status == 'aktif') bg-success
+                                       @elseif($online->status == 'ditolak') bg-danger
+                                       @else bg-warning @endif fs-6">
                                         {{ ucfirst($online->status) }}
                                     </span>
                                 </div>
+
                                 <div class="col-md-12 mb-3">
                                     <h5 class="text-muted">Program</h5>
                                     @if ($online)
                                         <p class="fs-5">{{ $online->program->nama ?? '-' }}</p>
                                     @endif
 
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <h5 class="text-muted">Total Harga</h5>
+                                    <p class="fs-5">
+                                        Rp. {{ number_format($online->subtotal, 0, ',', '.') }}
+                                    </p>
                                 </div>
 
                             </div>

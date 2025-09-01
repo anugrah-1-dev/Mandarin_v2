@@ -18,6 +18,24 @@ class ProgramInggrisController extends Controller
             ->where('is_active', 1)
             ->get();
 
+        // Convert features_program JSON to array for each program
+        foreach ($onlinePrograms as $program) {
+            if (!empty($program->features_program)) {
+                $decoded = json_decode($program->features_program, true);
+                $program->features_program = is_array($decoded) ? $decoded : [];
+            } else {
+                $program->features_program = [];
+            }
+        }
+        foreach ($offlinePrograms as $program) {
+            if (!empty($program->features_program)) {
+                $decoded = json_decode($program->features_program, true);
+                $program->features_program = is_array($decoded) ? $decoded : [];
+            } else {
+                $program->features_program = [];
+            }
+        }
+
         return view('Landingpage.inggris', compact('onlinePrograms', 'offlinePrograms'));
     }
 }

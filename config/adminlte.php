@@ -1,8 +1,8 @@
     <?php
 
-return [
+    return [
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Title
     |--------------------------------------------------------------------------
@@ -14,13 +14,13 @@ return [
     |
     */
 
-    // 'title' => 'AdminLTE 3',
-    // 'title_prefix' => '',
-    // 'title_postfix' => '',
-    'title' => 'Dashboard Admin',
-    'use_ico_only' => false,
-    'use_full_favicon' => false,
-    /*
+        // 'title' => 'AdminLTE 3',
+        // 'title_prefix' => '',
+        // 'title_postfix' => '',
+        'title' => 'Dashboard Admin',
+        'use_ico_only' => false,
+        'use_full_favicon' => false,
+        /*
     |--------------------------------------------------------------------------
     | Favicon
     |--------------------------------------------------------------------------
@@ -32,10 +32,10 @@ return [
     |
     */
 
-    // 'use_ico_only' => false,
-    // 'use_full_favicon' => false,
+        // 'use_ico_only' => false,
+        // 'use_full_favicon' => false,
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Google Fonts
     |--------------------------------------------------------------------------
@@ -49,11 +49,11 @@ return [
     |
     */
 
-    'google_fonts' => [
-        'allowed' => true,
-    ],
+        'google_fonts' => [
+            'allowed' => true,
+        ],
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Admin Panel Logo
     |--------------------------------------------------------------------------
@@ -66,15 +66,15 @@ return [
     */
 
 
-    // 'logo_img_xl' => null,
-    // 'logo_img_xl_class' => 'brand-image-xs',
-    // 'logo_img_alt' => 'Admin Logo',
+        // 'logo_img_xl' => null,
+        // 'logo_img_xl_class' => 'brand-image-xs',
+        // 'logo_img_alt' => 'Admin Logo',
 
-    'logo' => '<b>Briliant</b>Courses',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+        'logo' => '<b>Briliant</b>Courses',
+        'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+        'logo_img_class' => 'brand-image img-circle elevation-3',
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Authentication Logo
     |--------------------------------------------------------------------------
@@ -87,18 +87,18 @@ return [
     |
     */
 
-    'auth_logo' => [
-        'enabled' => false,
-        'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'Auth Logo',
-            'class' => '',
-            'width' => 50,
-            'height' => 50,
+        'auth_logo' => [
+            'enabled' => false,
+            'img' => [
+                'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+                'alt' => 'Auth Logo',
+                'class' => '',
+                'width' => 50,
+                'height' => 50,
+            ],
         ],
-    ],
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Preloader Animation
     |--------------------------------------------------------------------------
@@ -113,19 +113,19 @@ return [
     |
     */
 
-    'preloader' => [
-        'enabled' => false,
-        'mode' => 'fullscreen',
-        'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'AdminLTE Preloader Image',
-            'effect' => 'animation__shake',
-            'width' => 60,
-            'height' => 60,
+        'preloader' => [
+            'enabled' => false,
+            'mode' => 'fullscreen',
+            'img' => [
+                'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+                'alt' => 'AdminLTE Preloader Image',
+                'effect' => 'animation__shake',
+                'width' => 60,
+                'height' => 60,
+            ],
         ],
-    ],
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | User Menu
     |--------------------------------------------------------------------------
@@ -137,18 +137,18 @@ return [
     |
     */
 
-    'user_menu' => true,
-    'user_menu_profile_url' => false,
+        'user_menu' => true,
+        'user_menu_profile_url' => false,
 
-    // 'usermenu_enabled' => true,
-    // 'usermenu_header' => false,
-    // 'usermenu_header_class' => 'bg-primary',
-    // 'usermenu_image' => false,
-    // 'usermenu_desc' => false,
-    // 'usermenu_profile_url' => false,
+        // 'usermenu_enabled' => true,
+        // 'usermenu_header' => false,
+        // 'usermenu_header_class' => 'bg-primary',
+        // 'usermenu_image' => false,
+        // 'usermenu_desc' => false,
+        // 'usermenu_profile_url' => false,
 
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Layout
     |--------------------------------------------------------------------------
@@ -159,21 +159,21 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
     |
     */
-    'layout' => [
-        'topnav' => false,
-        'boxed' => false,
-        'fixed_sidebar' => true,
-        'fixed_navbar' => true,
-        'fixed_footer' => false,
-    ],
-    // 'layout_topnav' => null,
-    // 'layout_boxed' => null,
-    // 'layout_fixed_sidebar' => null,
-    // 'layout_fixed_navbar' => null,
-    // 'layout_fixed_footer' => null,
-    // 'layout_dark_mode' => null,
+        'layout' => [
+            'topnav' => false,
+            'boxed' => false,
+            'fixed_sidebar' => true,
+            'fixed_navbar' => true,
+            'fixed_footer' => false,
+        ],
+        // 'layout_topnav' => null,
+        // 'layout_boxed' => null,
+        // 'layout_fixed_sidebar' => null,
+        // 'layout_fixed_navbar' => null,
+        // 'layout_fixed_footer' => null,
+        // 'layout_dark_mode' => null,
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Authentication Views Classes
     |--------------------------------------------------------------------------
@@ -185,14 +185,14 @@ return [
     |
     */
 
-    'classes_auth_card' => 'card-outline card-primary',
-    'classes_auth_header' => '',
-    'classes_auth_body' => '',
-    'classes_auth_footer' => '',
-    'classes_auth_icon' => '',
-    'classes_auth_btn' => 'btn-flat btn-primary',
+        'classes_auth_card' => 'card-outline card-primary',
+        'classes_auth_header' => '',
+        'classes_auth_body' => '',
+        'classes_auth_footer' => '',
+        'classes_auth_icon' => '',
+        'classes_auth_btn' => 'btn-flat btn-primary',
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Admin Panel Classes
     |--------------------------------------------------------------------------
@@ -204,19 +204,19 @@ return [
     |
     */
 
-    'classes_body' => '',
-    'classes_brand' => '',
-    'classes_brand_text' => '',
-    'classes_content_wrapper' => '',
-    'classes_content_header' => '',
-    'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
-    'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
-    'classes_topnav_nav' => 'navbar-expand',
-    'classes_topnav_container' => 'container',
+        'classes_body' => '',
+        'classes_brand' => '',
+        'classes_brand_text' => '',
+        'classes_content_wrapper' => '',
+        'classes_content_header' => '',
+        'classes_content' => '',
+        'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+        'classes_sidebar_nav' => '',
+        'classes_topnav' => 'navbar-white navbar-light',
+        'classes_topnav_nav' => 'navbar-expand',
+        'classes_topnav_container' => 'container',
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Sidebar
     |--------------------------------------------------------------------------
@@ -228,17 +228,17 @@ return [
     |
     */
 
-    'sidebar_mini' => 'lg',
-    'sidebar_collapse' => false,
-    'sidebar_collapse_auto_size' => false,
-    'sidebar_collapse_remember' => false,
-    'sidebar_collapse_remember_no_transition' => true,
-    'sidebar_scrollbar_theme' => 'os-theme-light',
-    'sidebar_scrollbar_auto_hide' => 'l',
-    'sidebar_nav_accordion' => true,
-    'sidebar_nav_animation_speed' => 300,
+        'sidebar_mini' => 'lg',
+        'sidebar_collapse' => false,
+        'sidebar_collapse_auto_size' => false,
+        'sidebar_collapse_remember' => false,
+        'sidebar_collapse_remember_no_transition' => true,
+        'sidebar_scrollbar_theme' => 'os-theme-light',
+        'sidebar_scrollbar_auto_hide' => 'l',
+        'sidebar_nav_accordion' => true,
+        'sidebar_nav_animation_speed' => 300,
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Control Sidebar (Right Sidebar)
     |--------------------------------------------------------------------------
@@ -250,15 +250,15 @@ return [
     |
     */
 
-    'right_sidebar' => false,
-    'right_sidebar_icon' => 'fas fa-cogs',
-    'right_sidebar_theme' => 'dark',
-    'right_sidebar_slide' => true,
-    'right_sidebar_push' => true,
-    'right_sidebar_scrollbar_theme' => 'os-theme-light',
-    'right_sidebar_scrollbar_auto_hide' => 'l',
+        'right_sidebar' => false,
+        'right_sidebar_icon' => 'fas fa-cogs',
+        'right_sidebar_theme' => 'dark',
+        'right_sidebar_slide' => true,
+        'right_sidebar_push' => true,
+        'right_sidebar_scrollbar_theme' => 'os-theme-light',
+        'right_sidebar_scrollbar_auto_hide' => 'l',
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | URLs
     |--------------------------------------------------------------------------
@@ -270,17 +270,17 @@ return [
     |
     */
 
-    'use_route_url' => false,
-    'dashboard_url' => '/',
-    'logout_url' => 'logout',
-    'login_url' => 'login',
-    'register_url' => 'register',
-    'password_reset_url' => 'password/reset',
-    'password_email_url' => 'password/email',
-    'profile_url' => false,
-    'disable_darkmode_routes' => false,
+        'use_route_url' => false,
+        'dashboard_url' => '/',
+        'logout_url' => 'logout',
+        'login_url' => 'login',
+        'register_url' => 'register',
+        'password_reset_url' => 'password/reset',
+        'password_email_url' => 'password/email',
+        'profile_url' => false,
+        'disable_darkmode_routes' => false,
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Laravel Asset Bundling
     |--------------------------------------------------------------------------
@@ -296,11 +296,11 @@ return [
     |
     */
 
-    'laravel_asset_bundling' => false,
-    'laravel_css_path' => 'css/app.css',
-    'laravel_js_path' => 'js/app.js',
+        'laravel_asset_bundling' => false,
+        'laravel_css_path' => 'css/app.css',
+        'laravel_js_path' => 'js/app.js',
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Menu Items
     |--------------------------------------------------------------------------
@@ -313,128 +313,129 @@ return [
     */
 
 
-    // 'menu' => [
+        // 'menu' => [
 
 
-    //         [
-    //             'type' => 'fullscreen-widget',
-    //             'topnav_right' => true,
-    //         ],
+        //         [
+        //             'type' => 'fullscreen-widget',
+        //             'topnav_right' => true,
+        //         ],
 
-    'menu' => [
+        'menu' => [
 
-        // Widget layar penuh
-        [
-            'type' => 'fullscreen-widget',
-            'topnav_right' => true,
-        ],
+            // Widget layar penuh
+            [
+                'type' => 'fullscreen-widget',
+                'topnav_right' => true,
+            ],
 
-        // [
-        //     'key' => 'darkmode-toggle',
-        //     'type' => 'custom',
-        //     'text' => '<label class="switch mt-2"><input type="checkbox" id="themeToggle"><span class="slider round"></span></label>',
-        //     'classes' => 'px-3',
-        //     'position' => 'navbar-right',
-        // ],
+            // [
+            //     'key' => 'darkmode-toggle',
+            //     'type' => 'custom',
+            //     'text' => '<label class="switch mt-2"><input type="checkbox" id="themeToggle"><span class="slider round"></span></label>',
+            //     'classes' => 'px-3',
+            //     'position' => 'navbar-right',
+            // ],
 
-        [
-            'type' => 'user-menu',
-            'topnav_right' => true,
-        ],
-
-
-
-        // Pencarian sidebar
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
-
-        [
-            'header' => 'MENU UTAMA',
-        ],
+            [
+                'type' => 'user-menu',
+                'topnav_right' => true,
+            ],
 
 
-        // ========== BAGIAN DASHBOARD ==========
-        [
-            'text' => 'Dashboard',
-            'url' => 'admin/dashboard',
-            'icon' => 'fas fa-home',
-        ],
 
-        [
-            'header' => 'PROGRAM PENDAFTARAN',
-        ],
+            // Pencarian sidebar
+            [
+                'type' => 'sidebar-menu-search',
+                'text' => 'search',
+            ],
 
-        [
-            'text' => 'Program',
-            'icon' => 'fas fa-project-diagram',
-            'submenu' => [
-                [
-                    'text' => 'Pamflet Program',
-                    'url'  => '/admin/pamflet_programs',
-                    'icon' => 'fas fa-list',
-                ],
+            [
+                'header' => 'MENU UTAMA',
+            ],
 
-                [
-                    'text' => 'Periode Program',
-                    'url'  => '/admin/periods',
-                    'icon' => 'fas fa-calendar-alt',
-                ],
 
-                [
-                    'text' => 'Program Offline',
-                    'url'  => '/admin/programs/offline',
-                    'icon' => 'fas fa-building',
-                ],
-                [
-                    'text' => 'Program Online',
-                    'url'  => '/admin/programs/online',
-                    'icon' => 'fas fa-globe',
-                ],
-
+            // ========== BAGIAN DASHBOARD ==========
+            [
+                'text' => 'Dashboard',
+                'url' => 'admin/dashboard',
+                'icon' => 'fas fa-home',
 
             ],
-        ],
-        [
-            'header' => 'CAMP',
-        ],
-        [
-            'text' => 'Menejemen Camp',
-            'icon' => 'fas fa-list',
-            'submenu' => [
-                [
-                    'text' => 'Camp',
-                    'url'  => '/admin/programs/camp',
-                    'icon' => 'fas fa-campground',
-                ],
 
-                [
-                    'text' => 'Manajemen Kamar',
-                    'url'  => 'admin/rooms',
-                    'icon' => 'fas fa-bed',
+            [
+                'header' => 'PROGRAM PENDAFTARAN',
+            ],
+
+            [
+                'text' => 'Program',
+                'icon' => 'fas fa-project-diagram',
+                'submenu' => [
+                    [
+                        'text' => 'Pamflet Program',
+                        'url'  => '/admin/pamflet_programs',
+                        'icon' => 'fas fa-list',
+                    ],
+
+                    [
+                        'text' => 'Periode Program',
+                        'url'  => '/admin/periods',
+                        'icon' => 'fas fa-calendar-alt',
+                    ],
+
+                    [
+                        'text' => 'Program Offline',
+                        'url'  => '/admin/programs/offline',
+                        'icon' => 'fas fa-building',
+                    ],
+                    [
+                        'text' => 'Program Online',
+                        'url'  => '/admin/programs/online',
+                        'icon' => 'fas fa-globe',
+                    ],
+
+
                 ],
             ],
-        ],
+            [
+                'header' => 'CAMP',
+            ],
+            [
+                'text' => 'Menejemen Camp',
+                'icon' => 'fas fa-list',
+                'submenu' => [
+                    [
+                        'text' => 'Camp',
+                        'url'  => '/admin/programs/camp',
+                        'icon' => 'fas fa-campground',
+                    ],
 
-        ['header' => 'DATA PENDAFTAR'],
-        [
-            'text' => 'Pendaftar Program',
-            'icon' => 'fas fa-user-friends',
-            'submenu' => [
+                    [
+                        'text' => 'Manajemen Kamar',
+                        'url'  => 'admin/rooms',
+                        'icon' => 'fas fa-bed',
+                    ],
+                ],
+            ],
 
-                [
-                    'text' => 'Pendaftar Offline',
-                    'route'  => 'admin.pendaftaran.offline.index',
-                    'icon'   => 'fas fa-user',
-                    'active' => ['admin/pendaftaran/offline*'],
-                ],
-                [
-                    'text' => 'Pendaftar Online',
-                    'route'  => 'admin.pendaftaran.online.index',
-                    'icon'   => 'fas fa-laptop',
-                    'active' => ['admin/pendaftaran/online*'],
-                ],
+            ['header' => 'DATA PENDAFTAR'],
+            [
+                'text' => 'Pendaftar Program',
+                'icon' => 'fas fa-user-friends',
+                'submenu' => [
+
+                    [
+                        'text' => 'Pendaftar Offline',
+                        'route'  => 'admin.pendaftaran.offline.index',
+                        'icon'   => 'fas fa-user',
+                        'active' => ['admin/pendaftaran/offline*'],
+                    ],
+                    [
+                        'text' => 'Pendaftar Online',
+                        'route'  => 'admin.pendaftaran.online.index',
+                        'icon'   => 'fas fa-laptop',
+                        'active' => ['admin/pendaftaran/online*'],
+                    ],
 
                     [
                         'text' => 'Pendaftar Camp',
@@ -442,117 +443,119 @@ return [
                         'icon'   => 'fas fa-clipboard-list',
                         'active' => ['admin/pendaftaran/camp*'],
                     ],
+                ],
+            ],
+
+
+
+            [
+                'header' => 'DATA MASTER ',
+            ],
+            [
+                'text' => 'Data Master',
+                'icon' => 'fas fa-fw fa-tools',
+                'submenu' => [
+                    [
+                        'text' => 'Transport',
+                        'url'  => '/admin/transports',
+                        'icon' => 'fas fa-shuttle-van',
+                    ],
+
+                    [
+                        'text' => 'Galleries',
+                        'url'  => '/admin/galleries',
+                        'icon' => 'fas fa-images',
+                    ],
+
+                    [
+                        'text' => 'Sosmed',
+                        'url'  => '/admin/sosmed',
+                        'icon' => 'fas fa-globe',
+                    ],
+
+                    [
+                        'text' => 'Bank',
+                        'url'  => '/admin/banks',
+                        'icon' => 'fas fa-university',
+                    ],
+                    [
+                        'text' => 'Customer Service',
+                        'url'  => '/admin/customer_services',
+                        'icon' => 'fas fa-headset',
+                    ],
+
+
+
+                ],
+            ],
+
+
+
+
+
+
+            // ===== SPACER SECTION BAWAH ==========
+            [
+                'text' => '',
+                'icon' => '',
+                // 'url'  => '#',
+                'classes' => 'spacer-item',
+            ],
+
+            [
+                'header' => 'HAK AKSES ',
+                'can' => 'akses admin'
+            ],
+
+
+            // Menu grup: Pengaturan Akses
+            [
+                'text' => 'Pengaturan Akses',
+                'icon' => 'fas fa-fw fa-tools',
+                'can' => 'akses admin',
+                'submenu' => [
+                    [
+                        'text' => 'Pengguna',
+                        'url'  => 'admin/users',
+                        'icon' => 'fas fa-users',
+                    ],
+                    [
+                        'text' => 'Roles',
+                        'url'  => '/admin/roles',
+                        'icon' => 'fas fa-user-shield',
+                    ],
+                    [
+                        'text' => 'Permissions',
+                        'url'  => '/admin/permissions',
+                        'icon' => 'fas fa-lock',
+                    ],
+
+
+                ],
             ],
         ],
 
 
 
-        [
-            'header' => 'DATA MASTER ',
-        ],
-        [
-            'text' => 'Data Master',
-            'icon' => 'fas fa-fw fa-tools',
-            'submenu' => [
-                [
-                    'text' => 'Transport',
-                    'url'  => '/admin/transports',
-                    'icon' => 'fas fa-shuttle-van',
-                ],
+        //     ['header' => 'labels'],
+        //     [
+        //         'text' => 'important',
+        //         'icon_color' => 'red',
+        //         'url' => '#',
+        //     ],
+        //     [
+        //         'text' => 'warning',
+        //         'icon_color' => 'yellow',
+        //         'url' => '#',
+        //     ],
+        //     [
+        //         'text' => 'information',
+        //         'icon_color' => 'cyan',
+        //         'url' => '#',
+        //     ],
+        // ],
 
-                [
-                    'text' => 'Galleries',
-                    'url'  => '/admin/galleries',
-                    'icon' => 'fas fa-images',
-                ],
-
-                [
-                    'text' => 'Sosmed',
-                    'url'  => '/admin/sosmed',
-                    'icon' => 'fas fa-globe',
-                ],
-
-                [
-                    'text' => 'Bank',
-                    'url'  => '/admin/banks',
-                    'icon' => 'fas fa-university',
-                ],
-                [
-                    'text' => 'Customer Service',
-                    'url'  => '/admin/customer_services',
-                    'icon' => 'fas fa-headset',
-                ],
-
-
-
-            ],
-        ],
-
-
-
-
-
-
-        // ===== SPACER SECTION BAWAH ==========
-        [
-            'text' => '',
-            'icon' => '',
-            // 'url'  => '#',
-            'classes' => 'spacer-item',
-        ],
-
-        [
-            'header' => 'HAK AKSES ',
-        ],
-
-
-        // Menu grup: Pengaturan Akses
-        [
-            'text' => 'Pengaturan Akses',
-            'icon' => 'fas fa-fw fa-tools',
-            'submenu' => [
-                [
-                    'text' => 'Pengguna',
-                    'url'  => 'admin/users',
-                    'icon' => 'fas fa-users',
-                ],
-                [
-                    'text' => 'Roles',
-                    'url'  => '/admin/roles',
-                    'icon' => 'fas fa-user-shield',
-                ],
-                [
-                    'text' => 'Permissions',
-                    'url'  => '/admin/permissions',
-                    'icon' => 'fas fa-lock',
-                ],
-
-
-            ],
-        ],
-    ],
-
-
-
-    //     ['header' => 'labels'],
-    //     [
-    //         'text' => 'important',
-    //         'icon_color' => 'red',
-    //         'url' => '#',
-    //     ],
-    //     [
-    //         'text' => 'warning',
-    //         'icon_color' => 'yellow',
-    //         'url' => '#',
-    //     ],
-    //     [
-    //         'text' => 'information',
-    //         'icon_color' => 'cyan',
-    //         'url' => '#',
-    //     ],
-    // ],
-
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Menu Filters
     |--------------------------------------------------------------------------
@@ -564,17 +567,17 @@ return [
     |
     */
 
-    'filters' => [
-        JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\SearchFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\ActiveFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\LangFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\DataFilter::class,
-    ],
+        'filters' => [
+            JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
+            JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter::class,
+            JeroenNoten\LaravelAdminLte\Menu\Filters\SearchFilter::class,
+            JeroenNoten\LaravelAdminLte\Menu\Filters\ActiveFilter::class,
+            JeroenNoten\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
+            JeroenNoten\LaravelAdminLte\Menu\Filters\LangFilter::class,
+            JeroenNoten\LaravelAdminLte\Menu\Filters\DataFilter::class,
+        ],
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Plugins Initialization
     |--------------------------------------------------------------------------
@@ -586,111 +589,111 @@ return [
     |
     */
 
-    'plugins' => [
-        'Datatables' => [
-            'active' => false,
-            'files' => [
-                [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
-                ],
-                [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
-                ],
-                [
-                    'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
-                ],
-                // 'Bootstrap' => true,
-                // 'jQuery' => true,
+        'plugins' => [
+            'Datatables' => [
+                'active' => false,
+                'files' => [
+                    [
+                        'type' => 'js',
+                        'asset' => false,
+                        'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
+                    ],
+                    [
+                        'type' => 'js',
+                        'asset' => false,
+                        'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
+                    ],
+                    [
+                        'type' => 'css',
+                        'asset' => false,
+                        'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
+                    ],
+                    // 'Bootstrap' => true,
+                    // 'jQuery' => true,
 
-            ],
-        ],
-        'Select2' => [
-            'active' => false,
-            'files' => [
-                [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
-                ],
-                [
-                    'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css',
                 ],
             ],
-        ],
-        'Chartjs' => [
-            'active' => false,
-            'files' => [
-                [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
+            'Select2' => [
+                'active' => false,
+                'files' => [
+                    [
+                        'type' => 'js',
+                        'asset' => false,
+                        'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
+                    ],
+                    [
+                        'type' => 'css',
+                        'asset' => false,
+                        'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css',
+                    ],
                 ],
             ],
-        ],
-        'Sweetalert2' => [
-            'active' => false,
-            'files' => [
-                [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+            'Chartjs' => [
+                'active' => false,
+                'files' => [
+                    [
+                        'type' => 'js',
+                        'asset' => false,
+                        'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
+                    ],
                 ],
             ],
-        ],
-        'Pace' => [
-            'active' => false,
-            'files' => [
-                [
-                    'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-center-radar.min.css',
-                ],
-                [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+            'Sweetalert2' => [
+                'active' => false,
+                'files' => [
+                    [
+                        'type' => 'js',
+                        'asset' => false,
+                        'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    ],
                 ],
             ],
+            'Pace' => [
+                'active' => false,
+                'files' => [
+                    [
+                        'type' => 'css',
+                        'asset' => false,
+                        'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-center-radar.min.css',
+                    ],
+                    [
+                        'type' => 'js',
+                        'asset' => false,
+                        'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                    ],
+                ],
+            ],
+
+            'Bootstrap' => [
+                'active' => true,
+                'files' => [
+                    [
+                        'type' => 'js',
+                        'asset' => true,
+                        'location' => 'vendor/bootstrap/js/bootstrap.bundle.min.js',
+                    ],
+                    [
+                        'type' => 'css',
+                        'asset' => true,
+                        'location' => 'vendor/bootstrap/css/bootstrap.min.css',
+                    ],
+                ],
+            ],
+            'jQuery' => [
+                'active' => true,
+                'files' => [
+                    [
+                        'type' => 'js',
+                        'asset' => true,
+                        'location' => 'vendor/jquery/jquery.min.js',
+                    ],
+                ],
+            ],
+
+
         ],
 
-        'Bootstrap' => [
-            'active' => true,
-            'files' => [
-                [
-                    'type' => 'js',
-                    'asset' => true,
-                    'location' => 'vendor/bootstrap/js/bootstrap.bundle.min.js',
-                ],
-                [
-                    'type' => 'css',
-                    'asset' => true,
-                    'location' => 'vendor/bootstrap/css/bootstrap.min.css',
-                ],
-            ],
-        ],
-        'jQuery' => [
-            'active' => true,
-            'files' => [
-                [
-                    'type' => 'js',
-                    'asset' => true,
-                    'location' => 'vendor/jquery/jquery.min.js',
-                ],
-            ],
-        ],
-
-
-    ],
-
-    /*
+        /*
     |--------------------------------------------------------------------------
     | IFrame
     |--------------------------------------------------------------------------
@@ -703,27 +706,27 @@ return [
     |
     */
 
-    'iframe' => [
-        'default_tab' => [
-            'url' => null,
-            'title' => null,
+        'iframe' => [
+            'default_tab' => [
+                'url' => null,
+                'title' => null,
+            ],
+            'buttons' => [
+                'close' => true,
+                'close_all' => true,
+                'close_all_other' => true,
+                'scroll_left' => true,
+                'scroll_right' => true,
+                'fullscreen' => true,
+            ],
+            'options' => [
+                'loading_screen' => 1000,
+                'auto_show_new_tab' => true,
+                'use_navbar_items' => true,
+            ],
         ],
-        'buttons' => [
-            'close' => true,
-            'close_all' => true,
-            'close_all_other' => true,
-            'scroll_left' => true,
-            'scroll_right' => true,
-            'fullscreen' => true,
-        ],
-        'options' => [
-            'loading_screen' => 1000,
-            'auto_show_new_tab' => true,
-            'use_navbar_items' => true,
-        ],
-    ],
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Livewire
     |--------------------------------------------------------------------------
@@ -735,5 +738,5 @@ return [
     |
     */
 
-    'livewire' => false,
-];
+        'livewire' => false,
+    ];

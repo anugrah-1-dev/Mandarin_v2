@@ -16,7 +16,7 @@ class RolePermissionSeeder extends Seeder
     public function run(): void
     {
         // Buat permission
-        $permissions = ['akses admin', 'akses officer', 'akses leader camp', 'akses guest'];
+        $permissions = ['akses admin', 'akses officer',];
         foreach ($permissions as $perm) {
             Permission::firstOrCreate(['name' => $perm, 'guard_name' => 'web']);
         }
@@ -25,8 +25,7 @@ class RolePermissionSeeder extends Seeder
         $roles = [
             'admin' => ['akses admin'],
             'officer' => ['akses officer'],
-            'leader camp' => ['akses leader camp'],
-            'user   ' => ['akses guest'],
+
         ];
 
         foreach ($roles as $role => $perms) {

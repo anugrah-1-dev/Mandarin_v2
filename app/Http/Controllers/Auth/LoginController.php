@@ -46,7 +46,6 @@ class LoginController extends Controller
         session(['last_active' => now()]);
     }
 
-
     public function logout(Request $request)
     {
         Auth::logout();                          // hapus session user
