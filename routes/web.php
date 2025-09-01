@@ -112,8 +112,11 @@ Route::get('/brilliantalsaeidarabic', [ProgramArabController::class, 'showArab']
 Route::redirect('/program/bahasa/arab', '/brilliantalsaeidarabic');
 
 
-Route::get('/program/bahasa/mandarin', [ProgramMandarinController::class, 'showMandarin'])->name('program.mandarin');
+// Definisikan route untuk URL BARU yang Anda inginkan
+Route::get('/MandarinCenterPare', [ProgramMandarinController::class, 'showMandarin'])->name('program.mandarin');
 
+// Alihkan (redirect) URL LAMA ke URL BARU dengan status 301 (Moved Permanently)
+Route::redirect('/program/bahasa/mandarin', '/MandarinCenterPare', 301);
 
 
 

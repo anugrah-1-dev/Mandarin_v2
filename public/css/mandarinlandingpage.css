@@ -107,18 +107,28 @@ body {
 
 /* CTA Button */
 .cta-button {
-    background: #c8102e; /* Merah bendera China */
-    color: #ffd700;
-    padding: 12px 30px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.3s;
+    display: inline-block;       /* biar bisa diposisikan fleksibel */
+    background: #c8102e;         /* Merah bendera China */
+    color: #ffd700;              /* Emas */
+    padding: 12px 30px;          /* Ruang dalam */
+    border: none;                /* Hilangkan border default */
+    border-radius: 30px;         /* Membulat */
+    text-decoration: none;       /* Hilangkan underline */
+    font-weight: bold;           /* Tebal */
+    font-size: 16px;             /* Ukuran teks */
+    text-align: center;          /* Rata tengah */
+    cursor: pointer;             /* Pointer saat hover */
+    transition: background 0.3s, color 0.3s, transform 0.2s;
 }
 
 .cta-button:hover {
-    background: #a00c24;
-    color: #fff;
+    background: #a00c24;         /* Warna lebih gelap saat hover */
+    color: #fff;                 /* Teks jadi putih */
+    transform: translateY(-2px); /* Efek angkat sedikit */
+}
+
+.cta-button:active {
+    transform: translateY(0);    /* Balik normal saat diklik */
 }
 
 /* About Section */
@@ -296,115 +306,208 @@ body {
     margin-bottom: 40px;
     color: #333;
 }
+/* ============================================= */
+/* ==         1. VARIABLES (VARIABEL)         == */
+/* ============================================= */
+:root {
+    --color-primary: #c8102e;      /* Merah Tua */
+    --color-secondary: #ffd700;   /* Kuning Emas */
+    --color-background: #fff;
+    --color-bg-alt: #fff4f4;       
+    --color-text-dark: #333;
+    --color-text-light: #555;
+    --color-icon-check: #4CAF50;   /* Warna hijau untuk ikon centang */
+    --color-card-border: #e0e0e0;
+    --shadow-light: 0 4px 10px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.15);
+    --shadow-btn: 0 4px 6px rgba(0,0,0,0.1);
+    --border-radius-card: 12px;
+    --border-radius-btn: 8px;
+}
+
+/* ============================================= */
+/* ==    2. GENERAL SECTION & LAYOUT          == */
+/* ============================================= */
+.program-section {
+    background-color: var(--color-bg-alt);
+    padding: 4rem 1.5rem;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text-dark);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .program-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    text-align: left;
 }
 
+/* ============================================= */
+/* ==       3. CARD STYLING (KARTU)           == */
+/* ============================================= */
 .program-card {
-    background: #fff;
-    border-radius: 12px;
+    background: #f4f4f0;
+    border-radius: 25px;
+    box-shadow: var(--shadow-light);
+   
+    border: 3px solid #c8102e;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .program-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 16px rgba(200, 16, 46, 0.25);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
 }
 
-.program-card img {
-    width: 100%;
+.program-card-image-wrapper {
     height: 180px;
+    overflow: hidden;
+    position: relative;
+  margin: 10px; 
+  height: calc(180px - 20px); /* 180px dikurangi 10px margin atas + 10px margin bawah */
+  border-radius: 20px; 
+  border: 1px solid #bc808a;
+
+}
+
+.program-card-img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease-in-out;
 }
 
-.program-card h3 {
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin: 15px 0 10px;
-    color: #c8102e;
+.program-card:hover .program-card-img {
+    transform: scale(1.05);
 }
 
-.program-card p {
-    font-size: 0.95rem;
-    color: #555;
-    padding: 0 15px 15px;
+.program-card-content {
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+   
 }
 
+/* ============================================= */
+/* ==      4. TYPOGRAPHY & CONTENT          == */
+/* ============================================= */
+.program-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.program-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    margin-bottom: 0.25rem;
+    line-height: 1.2;
+}
+
+
+/* 
+.features-heading {
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0.75rem;
+    color: var(--color-text-light);
+}
+
+.program-features ul {
+    padding-left: 0.5rem;
+} */
+
+/* .program-features li {
+    display: flex;
+    align-items: flex-start;
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.program-features li .fas.fa-check-square {
+    color: var(--color-icon-check);
+    margin-right: 8px;
+    margin-top: 3px;
+    font-size: 1rem;
+} */
+
+.program-card-content hr {
+    border-top: 1px solid #dee2e6;
+    margin: 1.5rem 0;
+}
+
+/* ============================================= */
+/* ==           5. BUTTONS (TOMBOL)           == */
+/* ============================================= */
 .program-btn {
-    display: inline-block;
-    margin: 10px 0 20px;
-    padding: 8px 16px;
-    background: #ffd700;      /* kuning emas */
-    color: #c8102e;           /* merah tua */
-    font-weight: bold;
-    border-radius: 6px;
+    display: block;
+    width: 85%;
+    margin-top: auto;
+    padding: 0.75rem 1.5rem;
+    background: #e88d04;
+    color: #fff;
+    font-weight: 600;
+    border-radius: var(--border-radius-btn);
     text-decoration: none;
     text-align: center;
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);  /* bayangan */
-    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s ease;
 }
 
-/* Hover → sedikit naik */
 .program-btn:hover {
-    background: #c8102e;
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+    background: #e88d04;
 }
 
-/* Aktif (ditekan) → turun sedikit */
-.program-btn:active {
-    transform: translateY(1px);
-    box-shadow: 0 3px 5px rgba(0,0,0,0.2);
-}
-
-/* Versi kecil */
-.program-btn.sm {
-    padding: 4px 10px;
-    font-size: 0.85rem;
-    border-radius: 4px;
-    margin: 5px 0 10px;
-}
-
-
-/* Filter */
-
+/* ============================================= */
+/* ==       6. FILTER CONTROLS (FILTER)       == */
+/* ============================================= */
 .filter-buttons-wrapper {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 30px;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
 }
 
 .filter-btn {
-    padding: 8px 20px;
-    border: 1px solid #c8102e;
-    background: white;
+    padding: 0.5rem 1.5rem;
+    border: 2px solid var(--color-primary);
+    background: var(--color-background);
+    color: var(--color-primary);
     border-radius: 30px;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s;
-    color: #c8102e;
-}
-
-.filter-btn.active {
-    background: #ffd700;
-    color: #c8102e;
-    border-color: #ffd700;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .filter-btn:hover:not(.active) {
-    background: #fff5cc;
+    background-color: #fff5f5;
 }
 
-.program-item {
-    transition: all 0.3s;
+.filter-btn.active {
+    background: var(--color-secondary);
+    color: var(--color-primary);
+    border-color: var(--color-secondary);
 }
+
 /* ALUR - Mandarin Style */
 .alur-mandarin {
     padding: 90px 20px;
@@ -549,5 +652,40 @@ body {
     .step-mandarin p {
         font-size: 0.9rem;
         padding: 0 10px;
+ 
+    }
+    .footer {
+        background-color: orange;   /* warna latar belakang */
+        color: white;               /* warna teks */
+        padding: 15px 0;            /* jarak atas-bawah */
+        position: fixed;            /* selalu di bawah */
+        bottom: 0;                  /* posisikan di bawah */
+        left: 0;
+        width: 100%;                /* full lebar layar */
+        font-size: 14px;
+    }
+    .btn-danger {
+        display: inline-block;
+        background: #c8102e;       /* Merah bendera China */
+        color: #ffd700;            /* Emas */
+        padding: 12px 30px;
+        border: none;
+        border-radius: 30px;
+        font-weight: bold;
+        font-size: 16px;
+        text-align: center;
+        cursor: pointer;
+        transition: background 0.3s, color 0.3s, transform 0.2s;
+        text-decoration: none;     /* Hilangkan underline */
+    }
+    
+    .btn-danger:hover {
+        background: #a00c24;       /* Merah lebih gelap */
+        color: #fff;
+        transform: translateY(-2px);
+    }
+    
+    .btn-danger:active {
+        transform: translateY(0);
     }
 }

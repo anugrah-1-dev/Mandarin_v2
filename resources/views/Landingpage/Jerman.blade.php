@@ -83,6 +83,30 @@
                                 <p class="card-text program-card-price mb-3">
                                     Rp {{ number_format($program->harga, 0, ',', '.') }}
                                 </p>
+                                @php
+                                $features = $program->features_program;
+                                if (is_string($features)) {
+                                    $decoded = json_decode($features, true);
+                                    $features = json_last_error() === JSON_ERROR_NONE && is_array($decoded)
+                                        ? $decoded
+                                        : explode("\n", $features);
+                                }
+                            @endphp
+                            
+                            @if (!empty($features) && is_array($features))
+                                {{-- Tambahkan text-align: left; di sini --}}
+                                <ul class="small mb-2" style="list-style: none; padding-left: 0; text-align: left;">
+                                    @foreach (array_slice($features, 0, 4) as $fitur)
+                                        <li>
+                                            {!! \App\Helpers\FeatureHelper::getFeatureIcon($fitur) !!}
+                                            {{ trim($fitur) }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                <small class="text-muted">Tidak ada fasilitas tersedia</small>
+                            @endif
+                        
                                 <a href="{{ route('public.program.offline.show', $program->slug) }}"
                                     class="btn btn-primary mt-auto">Lihat Detail</a>
                             </div>
@@ -113,6 +137,29 @@
                                 <p class="card-text program-card-price mb-3">
                                     Rp {{ number_format($program->harga, 0, ',', '.') }}
                                 </p>
+                                @php
+                                $features = $program->features_program;
+                                if (is_string($features)) {
+                                    $decoded = json_decode($features, true);
+                                    $features = json_last_error() === JSON_ERROR_NONE && is_array($decoded)
+                                        ? $decoded
+                                        : explode("\n", $features);
+                                }
+                            @endphp
+                            
+                            @if (!empty($features) && is_array($features))
+                                {{-- Tambahkan text-align: left; di sini --}}
+                                <ul class="small mb-2" style="list-style: none; padding-left: 0; text-align: left;">
+                                    @foreach (array_slice($features, 0, 4) as $fitur)
+                                        <li>
+                                            {!! \App\Helpers\FeatureHelper::getFeatureIcon($fitur) !!}
+                                            {{ trim($fitur) }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                <small class="text-muted">Tidak ada fasilitas tersedia</small>
+                            @endif
                                 <a href="{{ route('public.program.online.show', $program->slug) }}"
                                     class="btn btn-danger mt-auto">Lihat Detail</a>
                             </div>
@@ -245,9 +292,22 @@
 
 
     {{-- Footer Section --}}
-      <footer class="footer text-center">
-        <p>© 2025 Brilliant English Course | Programming Bahasa Inggris</p>
+    
+    <footer class="footer text-center">
+        <p>© 2025 Deutsch Brilliant | Kursus Bahasa Jerman</p>
     </footer>
+    <style>
+    .footer {
+        background-color: rgb(0, 0, 0);
+        color: white;
+        padding: 15px 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        font-size: 14px;
+        text-align: center;
+    }
+    </style>
 
     {{-- Script untuk Carousel --}}
     <script>
