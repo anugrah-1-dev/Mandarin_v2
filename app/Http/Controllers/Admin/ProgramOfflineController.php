@@ -45,8 +45,9 @@ class ProgramOfflineController extends Controller
             $validated['features_program'] = implode(', ', $request->features_program);
         } else {
             // kalau berupa textarea dipisah newline
+            // Simpan fitur sebagai JSON array
             $lines = array_filter(array_map('trim', explode("\n", $request->features_program)));
-            $validated['features_program'] = implode(', ', $lines);
+            $validated['features_program'] = json_encode($lines);
         }
 
         // Upload thumbnail
@@ -63,8 +64,12 @@ class ProgramOfflineController extends Controller
 
     public function edit(ProgramOffline $offline)
     {
-        return view('admin.programs.offline.edit', ['offline' => $offline]);
+        $features = json_decode($offline->features_program, true) ?? [];
+        $offline->features_program = implode("\n", $features);
+
+        return view('admin.programs.offline.edit', compact('offline'));
     }
+
     public function update(Request $request, ProgramOffline $offline)
     {
         $request->validate([
@@ -140,13 +145,12 @@ class ProgramOfflineController extends Controller
         return redirect()->route('admin.offline.index')->with('success', 'Program offline berhasil dihapus.');
     }
     public function byLanguage($bahasa)
-{
-    // Contoh: ambil data program offline berdasarkan bahasa
-    $programs = ProgramOffline::where('tipe', 'offline')
-                        ->where('bahasa', $bahasa)
-                        ->get();
+    {
+        // Contoh: ambil data program offline berdasarkan bahasa
+        $programs = ProgramOffline::where('tipe', 'offline')
+            ->where('bahasa', $bahasa)
+            ->get();
 
-    return view('program.offline', compact('programs', 'bahasa'));
-}
-
+        return view('program.offline', compact('programs', 'bahasa'));
+    }
 }

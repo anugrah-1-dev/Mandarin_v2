@@ -29,10 +29,11 @@
         </div>
 
         <div class="hero-text">
-            <h1>BRILLIANT ALSAEID ARABIC</h1>
+            <h1>BRILLIANT ALSAEID ARABIC COURSES</h1>
             <p>Kuasai bahasa Arab dengan metode interaktif dan pengajar berpengalaman.</p>
 
         </div>
+
     </section>
 
 
@@ -74,6 +75,26 @@
                 <p><em>Fasilitas: Kelas & suasana belajar yang nyaman, tutor friendly, dan area instagramable.</em></p>
             </div>
         </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const elements = document.querySelectorAll(".pamflet img, .program-info");
+
+                const observer = new IntersectionObserver(
+                    (entries, observer) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add("show");
+                                observer.unobserve(entry.target); // animasi hanya sekali
+                            }
+                        });
+                    },
+                    { threshold: 0.2 } // aktif saat 20% elemen terlihat
+                );
+
+                elements.forEach(el => observer.observe(el));
+            });
+        </script>
+
     </section>
 
     <div class="wave-divider5">
@@ -117,12 +138,38 @@
                                     {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('M d') }} -
                                     {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('M d, Y') }}
                                 </p>
+
+                                {{-- Tambahkan fitur di sini --}}
+                                @php
+                                    $features = $program->features_program;
+                                    if (is_string($features)) {
+                                        $decoded = json_decode($features, true);
+                                        $features = json_last_error() === JSON_ERROR_NONE && is_array($decoded)
+                                            ? $decoded
+                                            : explode("\n", $features);
+                                    }
+                                @endphp
+
+                                @if (!empty($features) && is_array($features))
+                                    <ul class="small mb-2" style="list-style: none; padding-left: 0;">
+                                        @foreach (array_slice($features, 0, 4) as $fitur)
+                                            <li>
+                                                {!! \App\Helpers\FeatureHelper::getFeatureIcon($fitur) !!}
+                                                {{ trim($fitur) }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <small class="text-muted">Tidak ada fasilitas tersedia</small>
+                                @endif
+
                                 <p class="card-text program-card-price mb-3">
                                     Rp {{ number_format($program->harga, 0, ',', '.') }}
                                 </p>
                                 <a href="{{ route('public.program.offline.show', $program->slug) }}"
                                     class="btn btn-primary mt-auto">Lihat Detail</a>
                             </div>
+
                         </div>
                     </div>
                 @empty
@@ -149,6 +196,31 @@
                                     <i class="fas fa-tag me-1"></i>
                                     Kategori: {{ $program->kategori ?? '-' }}
                                 </p>
+
+                                {{-- Tambahkan fitur di sini --}}
+                                @php
+                                    $features = $program->features_program;
+                                    if (is_string($features)) {
+                                        $decoded = json_decode($features, true);
+                                        $features = json_last_error() === JSON_ERROR_NONE && is_array($decoded)
+                                            ? $decoded
+                                            : explode("\n", $features);
+                                    }
+                                @endphp
+
+                                @if (!empty($features) && is_array($features))
+                                    <ul class="small mb-2" style="list-style: none; padding-left: 0;">
+                                        @foreach (array_slice($features, 0, 4) as $fitur)
+                                            <li>
+                                                {!! \App\Helpers\FeatureHelper::getFeatureIcon($fitur) !!}
+                                                {{ trim($fitur) }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <small class="text-muted">Tidak ada fasilitas tersedia</small>
+                                @endif
+
                                 <p class="card-text program-card-price mb-3">
                                     Rp {{ number_format($program->harga, 0, ',', '.') }}
                                 </p>
@@ -162,8 +234,31 @@
                         <p class="text-muted">Belum ada program online tersedia</p>
                     </div>
                 @endforelse
+
             </div>
         </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const elements = document.querySelectorAll(
+                    ".program-section .text-center, .program-section .filter-buttons-wrapper, .program-section .program-item"
+                );
+
+                const observer = new IntersectionObserver(
+                    (entries, observer) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add("show");
+                                observer.unobserve(entry.target); // animasi sekali saja
+                            }
+                        });
+                    },
+                    { threshold: 0.15 } // aktif saat 15% elemen terlihat
+                );
+
+                elements.forEach(el => observer.observe(el));
+            });
+        </script>
+
     </section>
 
     {{-- JS filter program sama seperti versi Inggris --}}
@@ -235,7 +330,7 @@
     <section class="alur" id="alur">
         <div class="container">
             <h2>Alur Pendaftaran</h2>
-            <p>Ikuti langkah-langkah berikut untuk mendaftar di <strong>Brilliant English Course</strong>:</p>
+            <p>Ikuti langkah-langkah berikut untuk mendaftar di <strong>Brilliant Alsaeid Arabic Course</strong>:</p>
 
             <div class="alur-timeline">
                 <div class="step">
@@ -262,13 +357,53 @@
                 <div class="step">
                     <div class="circle">5</div>
                     <h3>Siap Belajar!</h3>
-                    <p>Selamat! Anda resmi terdaftar dan siap mengikuti program pembelajaran di Brilliant English
+                    <p>Selamat! Anda resmi terdaftar dan siap mengikuti program pembelajaran di Brilliant Alsaeid Arabic
                         Course.</p>
                 </div>
             </div>
 
         </div>
         </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const steps = document.querySelectorAll(".step");
+                const title = document.querySelector(".alur h2");
+                const desc = document.querySelector(".alur p");
+
+                // Observer untuk timeline steps
+                const stepsObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach((entry, index) => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                entry.target.classList.add("show");
+                            }, index * 200); // delay tiap step
+                            observer.unobserve(entry.target); // animasi sekali saja
+                        }
+                    });
+                }, { threshold: 0.2 });
+
+                steps.forEach(step => {
+                    stepsObserver.observe(step);
+                });
+
+                // Observer untuk judul & paragraf
+                const headerObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            title.classList.add("show");
+                            desc.classList.add("show");
+                            observer.unobserve(entry.target); // animasi sekali
+                        }
+                    });
+                }, { threshold: 0.3 });
+
+                // cukup observe container atau section agar judul & paragraf muncul
+                const alurSection = document.querySelector("#alur");
+                headerObserver.observe(alurSection);
+            });
+
+
+        </script>
     </section>
 
     </section>
@@ -308,6 +443,24 @@
                 </div>
             </div>
         </div>
+
+        <script>document.addEventListener("DOMContentLoaded", function () {
+                const aboutElements = document.querySelectorAll(".about h2, .about p, .about-card");
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry, index) => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                entry.target.classList.add("show");
+                            }, index * 150); // delay tiap elemen 150ms
+                            observer.unobserve(entry.target); // animasi sekali saja
+                        }
+                    });
+                }, { threshold: 0.2 });
+
+                aboutElements.forEach(el => observer.observe(el));
+            });
+        </script>
     </section>
 
     </section>
@@ -342,6 +495,26 @@
                 </iframe>
             </div>
         </div>
+
+        <script>document.addEventListener("DOMContentLoaded", function () {
+                const kontakElements = document.querySelectorAll(".kontak-section .section-title, .kontak-section .kontak-subtitle, .kontak-section .kontak-info, .kontak-section .kontak-maps");
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry, index) => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                entry.target.classList.add("show");
+                            }, index * 200); // delay tiap elemen biar muncul berurutan
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.2 });
+
+                kontakElements.forEach(el => {
+                    observer.observe(el);
+                });
+            });
+        </script>
     </section>
     <div class="wave-divider4">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
@@ -351,7 +524,7 @@
         </svg>
     </div>
     <footer>
-        © 2025 Brilliant English Course. Hak Cipta Dilindungi Oleh Undang-Undang
+        © 2025 Brilliant Alsaeid Arabic Course | Program Belajar Bahasa Arab
     </footer>
 
 </body>

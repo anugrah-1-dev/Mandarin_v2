@@ -94,6 +94,22 @@ body {
     text-align: center;
     color: #fff;
     z-index: 11; /* biar selalu di atas slide */
+
+    /* animasi entry */
+    opacity: 0;
+    animation: slideUp 1s ease-out forwards;
+    animation-delay: 0.5s; /* muncul setelah setengah detik */
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%); /* sedikit lebih rendah */
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%); /* posisi normal */
+    }
 }
 
 .hero-text h1 {
@@ -237,6 +253,23 @@ body {
     font-size: 1rem;
     color: #555;
 }
+
+/* Animasi dasar fade-up */
+.about h2,
+.about p,
+.about .about-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.about h2.show,
+.about p.show,
+.about .about-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* TENTANG KAMI */
 
 /* Alur Section */
@@ -370,6 +403,42 @@ body {
     font-size: 0.9rem;
     color: #fdf7e7;
     line-height: 1.5;
+}
+
+/* Animasi Entry untuk Step */
+.step {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+}
+
+.step.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Bonus: Animasi zoom-in untuk lingkaran */
+.circle {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.step.show .circle {
+    transform: scale(1.1);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+/* Animasi untuk judul dan paragraf */
+.alur h2,
+.alur p {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+}
+
+.alur h2.show,
+.alur p.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Alur Section */
@@ -552,6 +621,23 @@ body {
     color: #fff;
 }
 
+/* keadaan awal */
+.program-section .text-center,
+.program-section .filter-buttons-wrapper,
+.program-section .program-item {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* ketika sudah terlihat */
+.program-section .text-center.show,
+.program-section .filter-buttons-wrapper.show,
+.program-section .program-item.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* program */
 
 .wave-divider2 {
@@ -666,6 +752,24 @@ body {
     transform: scale(1.02);
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
 }
+
+.kontak-section .section-title,
+.kontak-section .kontak-subtitle,
+.kontak-section .kontak-info,
+.kontak-section .kontak-maps {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.kontak-section .section-title.show,
+.kontak-section .kontak-subtitle.show,
+.kontak-section .kontak-info.show,
+.kontak-section .kontak-maps.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* kontak section */
 
 .wave-divider3 {
@@ -742,6 +846,20 @@ footer {
 .pamflet img:hover {
     transform: scale(1.05); /* efek zoom halus */
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+}
+/* keadaan awal */
+.pamflet img,
+.program-info {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* keadaan saat terlihat */
+.pamflet img.show,
+.program-info.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .program-info {
