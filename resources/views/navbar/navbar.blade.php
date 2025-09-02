@@ -42,10 +42,10 @@
 
         <div class="dropdown" id="galleryDropdown">
             <button class="dropbtn">
-                GALLERY <span class="arrow">▼</span>
+                GALERI <span class="arrow">▼</span>
             </button>
             <div class="dropdown-content">
-                <a href="{{ url('#galeri') }}">Gallery</a>
+                <a href="{{ url('#galeri') }}">Galeri</a>
                 <a href="{{ url('#sosmed') }}">Social Media</a>
             </div>
         </div>
@@ -54,14 +54,14 @@
         {{-- <a href="#galeri">GALLERI</a>
         <a href="#sosmed">SOSMED</a> --}}
         <a href="#kontak">KONTAK</a>
-          <a href="#">TENTANG KAMI</a>
+        <a href="#">TENTANG KAMI</a>
         <a href="{{ route('tracking.index') }}" class="btn">Tracking Transaksi</a>
     </div>
 
 </nav>
 <script>
     // Navbar scroll effect
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         const navbar = document.getElementById('navbar');
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
@@ -71,14 +71,14 @@
     });
 
     // Dropdown functionality (support multiple dropdowns)
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const dropdowns = document.querySelectorAll('.dropdown');
 
         dropdowns.forEach(dropdown => {
             const button = dropdown.querySelector('.dropbtn');
 
             if (button) {
-                button.addEventListener('click', function(e) {
+                button.addEventListener('click', function (e) {
                     e.preventDefault();
                     e.stopPropagation();
 
@@ -94,7 +94,7 @@
         });
 
         // Close all dropdowns when clicking outside
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             dropdowns.forEach(dropdown => {
                 if (!dropdown.contains(e.target)) {
                     dropdown.classList.remove('active');
@@ -104,7 +104,7 @@
 
         // Close dropdown when item is selected
         document.querySelectorAll('.dropdown-content a').forEach(item => {
-            item.addEventListener('click', function() {
+            item.addEventListener('click', function () {
                 dropdowns.forEach(d => d.classList.remove('active'));
             });
         });
@@ -116,4 +116,3 @@
         navLinks.classList.toggle('active');
     }
 </script>
-

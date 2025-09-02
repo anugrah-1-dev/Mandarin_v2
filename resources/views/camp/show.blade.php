@@ -36,21 +36,21 @@
 
             // Membuat konten HTML untuk SweetAlert
             const alertHtml = `
-                                                        <div class="text-start">
-                                                            <p>${successMessage}</p>
-                                                            <div class="mt-3">
-                                                                <strong>ID Transaksi Anda:</strong>
-                                                                <div class="input-group mt-1">
-                                                                    <input type="text" class="form-control bg-light" value="${trxId}" readonly>
-                                                                    <button class="btn btn-outline-secondary" onclick="copySwalId('${trxId}', this)">
-                                                                        <i class="bi bi-clipboard"></i>
-                                                                        <span class="copy-text"> Salin</span>
-                                                                    </button>
-                                                                </div>
-                                                                <small class="form-text text-muted">Silakan simpan ID ini untuk referensi Anda.</small>
-                                                            </div>
-                                                        </div>
-                                                    `;
+                                                                                                        <div class="text-start">
+                                                                                                            <p>${successMessage}</p>
+                                                                                                            <div class="mt-3">
+                                                                                                                <strong>ID Transaksi Anda:</strong>
+                                                                                                                <div class="input-group mt-1">
+                                                                                                                    <input type="text" class="form-control bg-light" value="${trxId}" readonly>
+                                                                                                                    <button class="btn btn-outline-secondary" onclick="copySwalId('${trxId}', this)">
+                                                                                                                        <i class="bi bi-clipboard"></i>
+                                                                                                                        <span class="copy-text"> Salin</span>
+                                                                                                                    </button>
+                                                                                                                </div>
+                                                                                                                <small class="form-text text-muted">Silakan simpan ID ini untuk referensi Anda.</small>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    `;
 
             // Menampilkan SweetAlert
             Swal.fire({
@@ -413,7 +413,7 @@
             </div>
             <div class="card-body p-3 p-lg-4">
 
-                <form action="{{ route('camp.pendaftaran.store', $program->id) }}" method="POST">
+                <form id="pendaftaranForm" action="{{ route('camp.pendaftaran.store', $program->id) }}" method="POST">
                     @csrf
                     <input type="hidden" name="program_id" value="{{ $program->id }}">
 
@@ -617,5 +617,26 @@
             });
         });
     </script>
+    @if($stokHabis)
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const stok = {{ $program->stok }};
+                const form = document.getElementById('pendaftaranForm');
+
+                if (form) {
+                    form.addEventListener('submit', function (e) {
+                        if (stok === 0) {
+                            e.preventDefault();
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Maaf!',
+                                text: 'Camp ini sudah penuh! Silahkan hubungi admin untuk informasi lebih lanjut',
+                            });
+                        }
+                    });
+                }
+            });
+        </script>
+    @endif
 
 @endsection

@@ -143,81 +143,173 @@
                     <button id="closePopupBtn" class="close1-button">&times;</button>
                 </div>
 
-                <div class="program1-grid">
-                    <a href="{{ route('program.inggris') }}" class="program1-card">
-                        <div class="program1-icon icon-inggris">
-                            <img src="{{ asset('asset/img/bendera inggris.jpg') }}" alt="Bendera Inggris"
-                                class="program1-img">
-                        </div>
-                        <h3>Kursus Bahasa Inggris</h3>
-                        <span class="pilih1-button">Pilih</span>
-                    </a>
+               <div class="program1-grid">
+    <a href="{{ route('program.inggris') }}" class="program1-card inggris">
+        <div class="program1-icon icon-inggris">
+            <img src="{{ asset('asset/img/bendera inggris.jpg') }}" alt="Bendera Inggris" class="program1-img">
+        </div>
+        <h3>Kursus Bahasa Inggris</h3>
+        <span class="pilih1-button">Pilih</span>
+    </a>
 
-                    <a href="{{ route('program.jerman') }}" class="program1-card">
-                        <div class="program1-icon icon-jerman">
-                            <img src="{{ asset('asset/img/bendera jerman.jpg') }}" alt="Bendera Jerman"
-                                class="program1-img">
-                        </div>
-                        <h3>Kursus Bahasa Jerman</h3>
-                        <span class="pilih1-button">Pilih</span>
-                    </a>
+    <a href="{{ route('program.arab') }}" class="program1-card arab">
+        <div class="program1-icon icon-arab">
+            <img src="{{ asset('asset/img/bendera arab.jpg') }}" alt="Bendera Arab" class="program1-img">
+        </div>
+        <h3>Kursus Bahasa Arab</h3>
+        <span class="pilih1-button">Pilih</span>
+    </a>
 
-                    <a href="{{ route('program.mandarin') }}" class="program1-card center-card">
-                        <div class="program1-icon icon-mandarin">
-                            <img src="{{ asset('asset/img/bendera mandarin.jpg') }}" alt="Bendera Mandarin"
-                                class="program1-img">
-                        </div>
-                        <h3>Kursus Bahasa Mandarin</h3>
-                        <span class="pilih1-button">Pilih</span>
-                    </a>
+    <a href="{{ route('landing.nhc') }}" class="program1-card nhc">
+        <div class="program1-icon icon-nhc">
+            <img src="{{ asset('asset/img/logonhc.png') }}" alt="Logo NHC" class="program1-img">
+        </div>
+        <h3>Program Perhotelan (NHC)</h3>
+        <span class="pilih1-button">Pilih</span>
+    </a>
 
-                    <a href="{{ route('program.arab') }}" class="program1-card">
-                        <div class="program1-icon icon-arab">
-                            <img src="{{ asset('asset/img/bendera arab.jpg') }}" alt="Bendera Arab"
-                                class="program1-img">
-                        </div>
-                        <h3>Kursus Bahasa Arab</h3>
-                        <span class="pilih1-button">Pilih</span>
-                    </a>
-                    <a href="{{ route('landing.nhc') }}" class="program1-card">
-                        <div class="program1-icon icon-nhc">
-                            <img src="{{ asset('asset/img/logonhc.png') }}" alt="Logo NHC" class="program1-img">
-                        </div>
-                        <h3>Program Perhotelan (NHC)</h3>
-                        <span class="pilih1-button">Pilih</span>
-                    </a>
-                </div>
+    <a href="{{ route('program.jerman') }}" class="program1-card jerman">
+        <div class="program1-icon icon-jerman">
+            <img src="{{ asset('asset/img/bendera jerman.jpg') }}" alt="Bendera Jerman" class="program1-img">
+        </div>
+        <h3>Kursus Bahasa Jerman</h3>
+        <span class="pilih1-button">Pilih</span>
+    </a>
 
-                <style>
-                    .program1-card {
-                        display: block;
-                        text-decoration: none;
-                        color: inherit;
-                        padding: 20px;
-                        border-radius: 10px;
-                        transition: transform 0.2s ease, box-shadow 0.2s ease;
-                    }
+    <a href="{{ route('program.mandarin') }}" class="program1-card mandarin">
+        <div class="program1-icon icon-mandarin">
+            <img src="{{ asset('asset/img/bendera mandarin.jpg') }}" alt="Bendera Mandarin" class="program1-img">
+        </div>
+        <h3>Kursus Bahasa Mandarin</h3>
+        <span class="pilih1-button">Pilih</span>
+    </a>
+</div>
 
-                    .program1-card:hover {
-                        transform: translateY(-5px);
-                        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-                    }
+<style>
+/* Grid */
+.program1-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 14px;
+    max-width: clamp(500px, 80%, 700px);  /* responsif */
+    margin: 0 auto;
+    grid-template-areas:
+        "inggris . arab"
+        ". nhc ."
+        "jerman . mandarin";
+}
 
-                    .pilih1-button {
-                        display: inline-block;
-                        margin-top: 10px;
-                        padding: 8px 16px;
-                        background: #007bff;
-                        color: #fff;
-                        border-radius: 6px;
-                        font-size: 14px;
-                        transition: background 0.2s;
-                    }
+.inggris { grid-area: inggris; }
+.arab { grid-area: arab; }
+.nhc { grid-area: nhc; }
+.jerman { grid-area: jerman; }
+.mandarin { grid-area: mandarin; }
 
-                    .pilih1-button:hover {
-                        background: #0056b3;
-                    }
-                </style>
+/* Card */
+.program1-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 14px;
+    border-radius: 9px;  /* ada typo sebelumnya: 9x → 9px */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: #f8f9fa;
+    text-align: center;
+    font-size: 14px;
+}
+
+.program1-card h3 {
+    font-size: 16px;
+    margin: 10px 0 6px;
+}
+
+.program1-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.pilih1-button {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 12px;
+    background: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 13px;
+    transition: background 0.2s;
+}
+
+.pilih1-button:hover {
+    background: #0056b3;
+}
+
+/* Overlay */
+.popup1-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    align-items: flex-start;   /* dorong popup ke atas (awal) */
+    justify-content: center;
+    z-index: 9999;
+    padding-top: 60px;         /* jarak dari atas layar */
+    box-sizing: border-box;
+}
+
+.popup1-overlay.show {
+    display: flex;
+}
+
+/* Popup Content */
+.popup1-content {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 92%;
+    max-width: clamp(500px, 85%, 650px); /* sedikit lebih kecil */
+    max-height: 80vh;                   /* batasi tinggi */
+    overflow-y: auto;                   /* biar scroll kalau kepanjangan */
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    position: relative;
+    animation: popupFade 0.25s ease;
+    margin-top: 20px;                   /* geser turun */
+}
+
+
+@keyframes popupFade {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Header */
+.popup1-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.popup1-header h2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.close1-button {
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+</style>
+
+
+
 
             </div>
 
@@ -733,7 +825,7 @@
 
         <section id="galeri" class="gallery">
             <div class="container" data-aos="fade-up">
-                <h2 class="section-title">GALLERY</h2>
+                <h2 class="section-title">GALERI</h2>
                 <p class="section-subtitle text-center mb-4">
                     Dokumentasi kegiatan dan momen-momen seru bersama Brilliant English Course
                 </p>

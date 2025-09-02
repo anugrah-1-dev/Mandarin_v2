@@ -56,10 +56,10 @@
 
         <div class="dropdown" id="programDropdown">
             <button class="dropbtn">
-                GALLERY <span class="arrow">▼</span>
+                GALERI<span class="arrow">▼</span>
             </button>
             <div class="dropdown-content">
-                <a href="{{ url('/#galeri') }}">Gallery</a>
+                <a href="{{ url('/#galeri') }}">Galeri</a>
                 <a href="{{ url('/#sosmed') }}">Social Media</a>
 
             </div>
