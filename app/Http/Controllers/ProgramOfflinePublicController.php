@@ -172,12 +172,19 @@ $message .= "*Tanggal Pendaftaran:* {$periodDateText}\n";
 $message .= "{$line}\n";
 $message .= "_Terima kasih sudah mendaftar!_ ✨";
 
-// Kirim pesan
-$response = Http::post("https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN') . "/sendMessage", [
-    'chat_id' => env('TELEGRAM_CHAT_ID'),
-    'text' => $message,
-    'parse_mode' => 'Markdown'
-]);
+        $message .= "_!>w<!_";
+
+
+        $chatIds = explode(',', env('TELEGRAM_CHAT_IDS'));
+
+        foreach ($chatIds as $chatId) {
+            Http::post("https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN') . "/sendMessage", [
+                'chat_id' => trim($chatId),
+                'text'    => $message,
+                'parse_mode' => 'Markdown'
+            ]);
+        }
+
 
         // Redirect
         if ($pendaftaran->payment_type === 'tunai') {

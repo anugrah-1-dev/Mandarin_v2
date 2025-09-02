@@ -124,12 +124,15 @@ class ProgramOnlinePublicController extends Controller
 
         $message .= "_!>w<!_";
 
-        // Kirim ke Telegram
-        Http::post("https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN') . "/sendMessage", [
-            'chat_id' => env('TELEGRAM_CHAT_ID'),
-            'text' => $message,
-            'parse_mode' => 'Markdown'
-        ]);
+        $chatIds = explode(',', env('TELEGRAM_CHAT_IDS'));
+
+        foreach ($chatIds as $chatId) {
+            Http::post("https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN') . "/sendMessage", [
+                'chat_id' => trim($chatId),
+                'text'    => $message,
+                'parse_mode' => 'Markdown'
+            ]);
+        }
 
 
         // Redirect sesuai metode pembayaran

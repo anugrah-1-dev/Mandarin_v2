@@ -108,12 +108,15 @@ class PendaftranCampController extends Controller
 
         $message .= "_!>w<!_";
 
+        $chatIds = explode(',', env('TELEGRAM_CHAT_IDS'));
 
-        Http::post("https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN') . "/sendMessage", [
-            'chat_id' => env('TELEGRAM_CHAT_ID'),
-            'text' => $message,
-            'parse_mode' => 'Markdown'
-        ]);
+        foreach ($chatIds as $chatId) {
+            Http::post("https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN') . "/sendMessage", [
+                'chat_id' => trim($chatId),
+                'text'    => $message,
+                'parse_mode' => 'Markdown'
+            ]);
+        }
 
 
         // Kurangi stok
