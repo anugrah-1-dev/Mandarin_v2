@@ -86,7 +86,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    color:#09740f;     
+    color: #09740f;
 }
 
 .hero-text h1 {
@@ -111,28 +111,28 @@ body {
 
 /* CTA Button */
 .cta-button {
-    display: inline-block;       /* biar bisa diposisikan fleksibel */
-    background: #09740f;         /* Merah bendera China */
-    color:  #09740f;                 /* Emas */
-    padding: 12px 30px;          /* Ruang dalam */
-    border: none;                /* Hilangkan border default */
-    border-radius: 30px;         /* Membulat */
-    text-decoration: none;       /* Hilangkan underline */
-    font-weight: bold;           /* Tebal */
-    font-size: 16px;             /* Ukuran teks */
-    text-align: center;          /* Rata tengah */
-    cursor: pointer;             /* Pointer saat hover */
+    display: inline-block; /* biar bisa diposisikan fleksibel */
+    background: #09740f; /* Merah bendera China */
+    color: #09740f; /* Emas */
+    padding: 12px 30px; /* Ruang dalam */
+    border: none; /* Hilangkan border default */
+    border-radius: 30px; /* Membulat */
+    text-decoration: none; /* Hilangkan underline */
+    font-weight: bold; /* Tebal */
+    font-size: 16px; /* Ukuran teks */
+    text-align: center; /* Rata tengah */
+    cursor: pointer; /* Pointer saat hover */
     transition: background 0.3s, color 0.3s, transform 0.2s;
 }
 
 .cta-button:hover {
-    background: #09740f;         /* Warna lebih gelap saat hover */
-    color: #fff;                 /* Teks jadi putih */
+    background: #09740f; /* Warna lebih gelap saat hover */
+    color: #fff; /* Teks jadi putih */
     transform: translateY(-2px); /* Efek angkat sedikit */
 }
 
 .cta-button:active {
-    transform: translateY(0);    /* Balik normal saat diklik */
+    transform: translateY(0); /* Balik normal saat diklik */
 }
 
 /* About Section */
@@ -150,7 +150,7 @@ body {
 .about h2 {
     font-size: 2.7rem;
     margin-bottom: 20px;
-    color: #09740f;      
+    color: #09740f;
     font-weight: 700;
 }
 
@@ -172,7 +172,7 @@ body {
 }
 
 .about .highlight {
-    color:#09740f;      
+    color: #09740f;
     font-weight: bold;
 }
 
@@ -200,7 +200,7 @@ body {
 
 .about-card h3 {
     font-size: 1.4rem;
-    color: #09740f;      
+    color: #09740f;
     margin-bottom: 12px;
     font-weight: 600;
 }
@@ -213,7 +213,7 @@ body {
 /* Alur Section */
 .alur {
     padding: 90px 20px;
-    background: #09740f;       
+    background: #09740f;
     color: #fff;
     text-align: center;
 }
@@ -262,7 +262,7 @@ body {
     margin: 0 auto 15px;
     border-radius: 50%;
     background: #ffd700;
-    color: #09740f;      
+    color: #09740f;
     font-weight: 700;
     display: flex;
     align-items: center;
@@ -288,7 +288,7 @@ body {
 }
 
 .wave-divider .shape-fill {
-    fill: #09740f;      
+    fill: #09740f;
 }
 
 /* Program Section */
@@ -301,7 +301,7 @@ body {
 .section-title {
     font-size: 2rem;
     font-weight: bold;
-    color: #09740f;      
+    color: #09740f;
     margin-bottom: 10px;
 }
 
@@ -314,17 +314,17 @@ body {
 /* ==         1. VARIABLES (VARIABEL)         == */
 /* ============================================= */
 :root {
-    --color-primary: #09740f;          /* Merah Tua */
-    --color-secondary: #ffd700;   /* Kuning Emas */
+    --color-primary: #09740f; /* Merah Tua */
+    --color-secondary: #ffd700; /* Kuning Emas */
     --color-background: #fff;
-    --color-bg-alt: #fff4f4;       
+    --color-bg-alt: #fff4f4;
     --color-text-dark: #333;
     --color-text-light: #555;
-    --color-icon-check: #4CAF50;   /* Warna hijau untuk ikon centang */
+    --color-icon-check: #4caf50; /* Warna hijau untuk ikon centang */
     --color-card-border: #e0e0e0;
     --shadow-light: 0 4px 10px rgba(0, 0, 0, 0.1);
     --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.15);
-    --shadow-btn: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-btn: 0 4px 6px rgba(0, 0, 0, 0.1);
     --border-radius-card: 12px;
     --border-radius-btn: 8px;
 }
@@ -368,10 +368,13 @@ body {
     background: #f4f4f0;
     border-radius: 25px;
     box-shadow: var(--shadow-light);
-   
-    border: 3px solid #09740f;      
+    border: 3px solid #09740f;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    display: flex; /* penting */
+    flex-direction: column; /* supaya isi vertikal */
+    height: 100%; /* biar penuh */
 }
 
 .program-card:hover {
@@ -380,14 +383,12 @@ body {
 }
 
 .program-card-image-wrapper {
-    height: 180px;
     overflow: hidden;
     position: relative;
-  margin: 10px; 
-  height: calc(180px - 20px); /* 180px dikurangi 10px margin atas + 10px margin bawah */
-  border-radius: 20px; 
-  border: 1px solid #09740f;  
-
+    margin: 10px;
+    height: calc(180px - 20px);
+    border-radius: 20px;
+    border: 1px solid #09740f;
 }
 
 .program-card-img {
@@ -404,9 +405,39 @@ body {
 .program-card-content {
     padding: 1.5rem 1.25rem;
     text-align: center;
-   
+
+    display: flex; /* penting */
+    flex-direction: column; /* vertikal */
+    flex-grow: 1; /* isi fleksibel */
 }
 
+.program-features {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1rem;
+    text-align: left;
+    flex-grow: 1; /* isi fitur fleksibel */
+}
+
+.program-btn {
+    display: block;
+    width: 85%;
+    margin-top: auto; /* tombol otomatis nempel bawah */
+    padding: 0.75rem 1.5rem;
+    background: #e88d04;
+    color: #fff;
+    font-weight: 600;
+    border-radius: var(--border-radius-btn);
+    text-decoration: none;
+    text-align: center;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+.program-btn:hover {
+    background: #e88d04;
+}
+`
 /* ============================================= */
 /* ==      4. TYPOGRAPHY & CONTENT          == */
 /* ============================================= */
@@ -425,8 +456,15 @@ body {
     line-height: 1.2;
 }
 
+.program-features {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1rem;
+    text-align: left;
+    flex-grow: 1; /* bagian fitur fleksibel ngisi ruang */
+}
 
-/* 
+/*
 .features-heading {
     font-weight: 600;
     text-align: left;
@@ -515,7 +553,7 @@ body {
 /* ALUR - Mandarin Style */
 .alur-mandarin {
     padding: 90px 20px;
-    background:#09740f;        /* Merah khas Tiongkok */
+    background: #09740f; /* Merah khas Tiongkok */
     color: #fff;
     text-align: center;
 }
@@ -574,7 +612,7 @@ body {
     margin: 0 auto 15px;
     border-radius: 50%;
     background: #ffd700; /* Lingkaran kuning emas */
-    color: #09740f;      
+    color: #09740f;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -599,7 +637,7 @@ body {
 
 /* Section Mandarin */
 .alur-mandarin {
-    background-color:#09740f;       
+    background-color: #09740f;
     color: #ffd700; /* kuning emas untuk teks */
     padding: 60px 20px;
 }
@@ -656,131 +694,107 @@ body {
     .step-mandarin p {
         font-size: 0.9rem;
         padding: 0 10px;
- 
     }
     .footer {
-        background-color: orange;   /* warna latar belakang */
-        color: white;               /* warna teks */
-        padding: 15px 0;            /* jarak atas-bawah */
-        position: fixed;            /* selalu di bawah */
-        bottom: 0;                  /* posisikan di bawah */
+        background-color: orange; /* warna latar belakang */
+        color: white; /* warna teks */
+        padding: 15px 0; /* jarak atas-bawah */
+        position: fixed; /* selalu di bawah */
+        bottom: 0; /* posisikan di bawah */
         left: 0;
-        width: 100%;                /* full lebar layar */
+        width: 100%; /* full lebar layar */
         font-size: 14px;
     }
-    .btn-danger {
-        display: inline-block;
-        background: #09740f;           /* Merah bendera China */
-        color: #ffd700;            /* Emas */
-        padding: 12px 30px;
-        border: none;
-        border-radius: 30px;
-        font-weight: bold;
-        font-size: 16px;
-        text-align: center;
-        cursor: pointer;
-        transition: background 0.3s, color 0.3s, transform 0.2s;
-        text-decoration: none;     /* Hilangkan underline */
-    }
-    
-    .btn-danger:hover {
-        background: #0a5b02;       /* Merah lebih gelap */
-        color: #fff;
-        transform: translateY(-2px);
-    }
-    
-    .btn-danger:active {
-        transform: translateY(0);
-    }
+
     /* --- New Section: Gallery & Contact --- */
-.gallery-contact {
-    background-color: #f7f9fc;
-    color: #333;
-}
-
-.gallery-contact h2,
-.gallery-contact p {
-    margin-bottom: 2rem;
-}
-
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    padding: 0 1rem;
-}
-
-.gallery-item {
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.gallery-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.gallery-item img {
-    width: 100%;
-    height: 200px; /* Sesuaikan tinggi foto */
-    object-fit: cover;
-    display: block;
-}
-
-/* --- Contact Card Styling --- */
-.contact-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.contact-card h3 {
-    color: #054707;
-    margin-bottom: 1rem;
-}
-
-.contact-links {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    margin-top: 1rem;
-}
-
-.contact-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background-color: #25D366; /* WhatsApp Green */
-    color: white;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.contact-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    color: white;
-}
-
-.contact-link i {
-    font-size: 1.2rem;
-}
-
-/* --- Responsive Adjustments --- */
-@media (max-width: 768px) {
-    .contact-links {
-        flex-direction: column;
-        align-items: center;
+    .gallery-contact {
+        background-color: #f7f9fc;
+        color: #333;
     }
-}
+
+    .gallery-contact h2,
+    .gallery-contact p {
+        margin-bottom: 2rem;
+    }
+
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+
+    .gallery-item {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 200px; /* Sesuaikan tinggi foto */
+        object-fit: cover;
+        display: block;
+    }
+
+    /* --- Contact Card Styling --- */
+    .contact-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .contact-card h3 {
+        color: #054707;
+        margin-bottom: 1rem;
+    }
+
+    .contact-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    .contact-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background-color: #25d366; /* WhatsApp Green */
+        color: white;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        color: white;
+    }
+
+    .contact-link i {
+        font-size: 1.2rem;
+    }
+
+    /* --- Responsive Adjustments --- */
+    @media (max-width: 768px) {
+        .contact-links {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
 }

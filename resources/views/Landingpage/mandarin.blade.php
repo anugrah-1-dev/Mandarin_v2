@@ -89,11 +89,11 @@
                                     : explode("\n", $features);
                             }
                         @endphp
-                        
+
                         @if (!empty($features) && is_array($features))
                             {{-- Tambahkan text-align: left; di sini --}}
                             <ul class="small mb-2" style="list-style: none; padding-left: 0; text-align: left;">
-                                @foreach (array_slice($features, 0, 4) as $fitur)
+                                @foreach ($features as $fitur)
                                     <li>
                                         {!! \App\Helpers\FeatureHelper::getFeatureIcon($fitur) !!}
                                         {{ trim($fitur) }}
@@ -134,11 +134,11 @@
                                     : explode("\n", $features);
                             }
                         @endphp
-                        
+
                         @if (!empty($features) && is_array($features))
                             {{-- Tambahkan text-align: left; di sini --}}
                             <ul class="small mb-2" style="list-style: none; padding-left: 0; text-align: left;">
-                                @foreach (array_slice($features, 0, 4) as $fitur)
+                                     @foreach ($features as $fitur)
                                     <li>
                                         {!! \App\Helpers\FeatureHelper::getFeatureIcon($fitur) !!}
                                         {{ trim($fitur) }}
@@ -333,7 +333,7 @@
             }, 5000);
         }
     </script>
-    
+
     {{-- Filter Program JS --}}
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -343,7 +343,7 @@
         function filterPrograms(filterValue) {
             programItems.forEach(item => {
                 if (item.classList.contains(filterValue)) {
-                    item.style.display = 'grid'; 
+                    item.style.display = 'grid';
                 } else {
                     item.style.display = 'none';
                 }
@@ -355,7 +355,7 @@
         if (defaultButton) {
             defaultButton.classList.add('active');
         }
-        
+
         programItems.forEach(item => item.style.display = 'none');
         filterPrograms(defaultFilter);
 
@@ -379,7 +379,7 @@
             duration: 800, // Durasi animasi
         });
     </script>
-     
+
 
 
     <footer class="footer text-center">
@@ -387,7 +387,7 @@
     </footer>
     <style>
     .footer {
-        background-color: #054707;     
+        background-color: #054707;
         color: white;
         padding: 15px 0;
         bottom: 0;
