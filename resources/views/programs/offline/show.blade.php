@@ -143,17 +143,11 @@
                                         @csrf
                                         <div class="mb-3">
                                             <label class="form-label"><i class="bi bi-person-fill"></i> Nama
-                                                Lengkap</label>
+                                                </label>
                                             <input type="text" name="nama_lengkap" class="form-control"
                                                 value="{{ old('nama_lengkap') }}" required>
                                         </div>
-
-                                        <div class="mb-3">
-                                            <label class="form-label"><i class="bi bi-envelope-fill"></i> Email</label>
-                                            <input type="email" name="email" class="form-control"
-                                                value="{{ old('email') }}" required>
-                                        </div>
-
+                                        
                                         <div class="mb-3">
                                             <label class="form-label"><i class="bi bi-geo-alt-fill"></i> Tempat &
                                                 Tanggal Lahir</label>
@@ -168,8 +162,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
                                         <div class="mb-3">
                                             <label class="form-label"><i class="bi bi-gender-ambiguous"></i>
                                                 Gender</label>
@@ -189,20 +181,17 @@
                                             <input type="text" name="no_hp" class="form-control"
                                                 value="{{ old('no_hp') }}" required>
                                         </div>
-
                                         <div class="mb-3">
-                                            <label class="form-label"><i class="bi bi-geo-alt-fill"></i> Asal
-                                                Kota</label>
+                                            <label class="form-label"><i class="bi bi-geo-alt-fill"></i> Kota asal</label>
                                             <input type="text" name="asal_kota" class="form-control"
                                                 value="{{ old('asal_kota') }}">
                                         </div>
-
                                         <div class="mb-3">
-                                            <label class="form-label"><i class="bi bi-person-lines-fill"></i> No. HP
-                                                Wali</label>
-                                            <input type="text" name="no_wali" class="form-control"
-                                                value="{{ old('no_wali') }}">
+                                            <label class="form-label"><i class="bi bi-envelope-fill"></i> Email</label>
+                                            <input type="email" name="email" class="form-control"
+                                                value="{{ old('email') }}" required>
                                         </div>
+                                      
 
                                         {{-- ====================================================== --}}
                                         {{-- PERUBAHAN DIMULAI: Tambah Ukuran Seragam --}}
@@ -241,6 +230,12 @@
                                                 </option>
                                                    </select>
                                         </div> --}}
+                                         <div class="mb-3">
+                                            <label class="form-label"><i class="bi bi-person-lines-fill"></i> No. HP
+                                                Wali</label>
+                                            <input type="text" name="no_wali" class="form-control"
+                                                value="{{ old('no_wali') }}">
+                                        </div>
 
                                         @if (strtolower($program->program_bahasa) === 'arab')
                                             <div class="mb-3">
@@ -344,24 +339,6 @@
 
                                         <br>
 
-
-
-
-                                        <div class="mb-3">
-                                            <label class="form-label"><i class="bi bi-bus-front-fill"></i>
-                                                Transportasi
-                                                (Optional)</label>
-                                            <select name="transport_id" class="form-select" id="transportSelect">
-                                                <option value="" data-harga="0">Pilih Transportasi </option>
-                                                @foreach ($transports as $transport)
-                                                    <option value="{{ $transport->id }}"
-                                                        data-harga="{{ $transport->price }}">
-                                                        {{ $transport->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
                                         {{-- Preview total --}}
                                         <div
                                             class="d-flex align-items-center border rounded p-3 bg-light mt-3 shadow-sm">
@@ -464,15 +441,6 @@
                                         </script>
 
                                         <br>
-
-
-                                        {{-- ====================================================== --}}
-                                        {{-- PERUBAHAN DIMULAI: Tambah Pilihan Bank --}}
-                                        {{-- ====================================================== --}}
-
-                                        {{-- ====================================================== --}}
-                                        <!-- Tambahkan sebelum </body> -->
-                                        {{-- Metode Pembayaran --}}
                                         <div class="mb-3">
                                             <label class="form-label fw-bold">
                                                 <i class="bi bi-wallet2"></i> Metode Pembayaran
@@ -526,6 +494,22 @@
                                                         </option>
                                                     @endforeach
                                                 @endif
+                                            </select>
+                                        </div>
+
+
+                                        <div class="mb-3">
+                                            <label class="form-label"><i class="bi bi-bus-front-fill"></i>
+                                                Transportasi
+                                                (Optional)</label>
+                                            <select name="transport_id" class="form-select" id="transportSelect">
+                                                <option value="" data-harga="0">Pilih Transportasi </option>
+                                                @foreach ($transports as $transport)
+                                                    <option value="{{ $transport->id }}"
+                                                        data-harga="{{ $transport->price }}">
+                                                        {{ $transport->name }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
 
