@@ -28,24 +28,16 @@ class PeriodNHCController extends Controller
             'is_active'  => 'nullable|boolean',
         ]);
 
-        // Jika periode ini diaktifkan, nonaktifkan semua periode lain
-        if ($request->has('is_active') && $request->is_active) {
-            PeriodNHC::where('is_active', true)->update(['is_active' => false]);
-        }
-
         PeriodNHC::create([
             'start_date' => $request->start_date,
             'end_date'   => $request->end_date,
-            'is_active'  => $request->boolean('is_active'), // Gunakan boolean() untuk handle checkbox
+            'is_active'  => $request->boolean('is_active'),
         ]);
 
         return redirect()->route('admin.periods_nhc.index')
             ->with('success', 'Periode baru berhasil ditambahkan!');
     }
 
-    /**
-     * Update periode yang ada
-     */
     public function update(Request $request, PeriodNHC $periods_nhc)
     {
         $request->validate([
@@ -54,22 +46,16 @@ class PeriodNHCController extends Controller
             'is_active'  => 'nullable|boolean',
         ]);
 
-        // Jika periode ini diaktifkan, nonaktifkan semua periode lain
-        if ($request->has('is_active') && $request->is_active) {
-            PeriodNHC::where('id', '!=', $periods_nhc->id)
-                ->where('is_active', true)
-                ->update(['is_active' => false]);
-        }
-
         $periods_nhc->update([
             'start_date' => $request->start_date,
             'end_date'   => $request->end_date,
-            'is_active'  => $request->boolean('is_active'), // Gunakan boolean() untuk handle checkbox
+            'is_active'  => $request->boolean('is_active'),
         ]);
 
         return redirect()->route('admin.periods_nhc.index')
             ->with('success', 'Periode berhasil diperbarui!');
     }
+
 
     /**
      * Hapus periode

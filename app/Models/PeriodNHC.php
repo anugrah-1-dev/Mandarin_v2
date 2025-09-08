@@ -19,6 +19,7 @@ class PeriodNHC extends Model
         'end_date' => 'date',
         'is_active' => 'boolean',
     ];
+    
 }
 
 
