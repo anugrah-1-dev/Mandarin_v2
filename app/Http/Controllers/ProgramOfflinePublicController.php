@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Models\ProgramCamp;
 use Illuminate\Support\Facades\Http;
+use App\Models\PeriodNHC;
 
 class ProgramOfflinePublicController extends Controller
 {
@@ -24,13 +25,23 @@ class ProgramOfflinePublicController extends Controller
     {
         $transports = Transports::all();
         $periods = Period::where('is_active', 1)->get();
+        $activePeriodsNHC = PeriodNHC::where('is_active', 1)->get(); // <── ini tambahan
         $banks = Banks::where('status', 'active')->get();
         $contactServices = Customer_Service::all();
-        $camps = ProgramCamp::all(); // atau filter khusus VIP/VVIP
+        $camps = ProgramCamp::all();
 
-
-        return view('programs.offline.show', compact('program', 'transports', 'periods', 'banks', 'contactServices', 'camps'));
+        return view('programs.offline.show', compact(
+            'program',
+            'transports',
+            'periods',
+            'activePeriodsNHC',
+            'banks',
+            'contactServices',
+            'camps'
+        ));
     }
+
+
 
     /**
      * Memproses pendaftaran untuk program offline.
@@ -38,22 +49,32 @@ class ProgramOfflinePublicController extends Controller
     public function daftar(Request $request, ProgramOffline $program)
     {
         // Validasi
-        $validated = $request->validate([
-            'nama_lengkap' => 'required|string|max:255',
-            'email' => 'required|email',
-            'no_hp' => 'required|string|max:20',
-            'asal_kota' => 'nullable|string|max:100',
+        $rules = [
+            'nama_lengkap'   => 'required|string|max:255',
+            'email'          => 'required|email',
+            'no_hp'          => 'required|string|max:20',
+            'asal_kota'      => 'nullable|string|max:100',
             'tempat_lahir'   => 'required|string|max:100',
             'tanggal_lahir'  => 'required|date',
             'gender'         => 'required|in:Laki-laki,Perempuan',
-            'no_wali' => 'nullable|string|max:20',
-            'period_id' => 'required|exists:periods,id',
-            'transport_id' => 'nullable|exists:transports,id',
-            'payment_type' => 'required|in:tunai,transfer,qris',
-            'bank_id' => 'required_if:payment_type,transfer|nullable|exists:banks,id',
-            'akomodasi' => 'nullable|string',
+            'no_wali'        => 'nullable|string|max:20',
+            'transport_id'   => 'nullable|exists:transports,id',
+            'payment_type'   => 'required|in:tunai,transfer,qris',
+            'bank_id'        => 'required_if:payment_type,transfer|nullable|exists:banks,id',
+            'akomodasi'      => 'nullable|string',
             'ukuran_seragam' => 'nullable|in:S,M,L,XL,XXL',
-        ]);
+        ];
+
+        // Periode validasi dinamis
+        if ($program->program_bahasa === 'nhc') {
+            $rules['period_nhc_id'] = 'required|exists:periods_nhc,id';
+        } else {
+            $rules['period_id'] = 'required|exists:periods,id';
+        }
+
+        // dd($request->all());
+
+        $validated = $request->validate($rules);
 
         // Cek kuota
         if ($program->kuota <= 0) {
@@ -97,25 +118,26 @@ class ProgramOfflinePublicController extends Controller
         $subtotal = $programPrice + $transportPrice + $akomodasiHarga;
 
         $pendaftaran = PendaftaranProgramOffline::create([
-            'trx_id' => $newTrxId,
-            'program_id' => $program->id,
-            'period_id' => $validated['period_id'],
-            'transport_id' => $validated['transport_id'] ?? null,
-            'nama_lengkap' => $validated['nama_lengkap'],
-            'email' => $validated['email'],
-            'no_hp' => $validated['no_hp'],
-            'asal_kota' => $validated['asal_kota'] ?? null,
-            'tempat_lahir'   => $validated['tempat_lahir'],
-            'tanggal_lahir'  => $validated['tanggal_lahir'],
-            'gender'         => $validated['gender'],
-            'no_wali' => $validated['no_wali'] ?? null,
-            'status' => 'pending',
-            'payment_type' => $validated['payment_type'],
-            'bank_id' => $validated['bank_id'] ?? null,
+            'trx_id'        => $newTrxId,
+            'program_id'    => $program->id,
+            'period_id'     => $program->program_bahasa !== 'nhc' ? ($validated['period_id'] ?? null) : null,
+            'period_nhc_id' => $program->program_bahasa === 'nhc' ? ($validated['period_nhc_id'] ?? null) : null,
+            'transport_id'  => $validated['transport_id'] ?? null,
+            'nama_lengkap'  => $validated['nama_lengkap'],
+            'email'         => $validated['email'],
+            'no_hp'         => $validated['no_hp'],
+            'asal_kota'     => $validated['asal_kota'] ?? null,
+            'tempat_lahir'  => $validated['tempat_lahir'],
+            'tanggal_lahir' => $validated['tanggal_lahir'],
+            'gender'        => $validated['gender'],
+            'no_wali'       => $validated['no_wali'] ?? null,
+            'status'        => 'pending',
+            'payment_type'  => $validated['payment_type'],
+            'bank_id'       => $validated['bank_id'] ?? null,
             'akomodasi_tipe' => $akomodasiTipe,
             'akomodasi_harga' => $akomodasiHarga,
-            'subtotal' => $subtotal,
-            'ukuran_seragam' => $validated['ukuran_seragam'] ?? null, 
+            'subtotal'      => $subtotal,
+            'ukuran_seragam' => $validated['ukuran_seragam'] ?? null,
         ]);
 
         // Kurangi kuota

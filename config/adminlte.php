@@ -377,11 +377,11 @@
                         'icon' => 'fas fa-list',
                     ],
 
-                    [
-                        'text' => 'Periode Program',
-                        'url'  => '/admin/periods',
-                        'icon' => 'fas fa-calendar-alt',
-                    ],
+                    // [
+                    //     'text' => 'Periode Program',
+                    //     'url'  => '/admin/periods',
+                    //     'icon' => 'fas fa-calendar-alt',
+                    // ],
 
                     [
                         'text' => 'Program Offline',
@@ -396,7 +396,31 @@
 
 
                 ],
+
+                
             ],
+
+            [
+                'text' => 'Periode Program',
+                'icon' => 'fas fa-project-diagram',
+                'submenu' => [
+
+
+                    [
+                        'text' => 'Periode Program',
+                        'url'  => '/admin/periods',
+                        'icon' => 'fas fa-calendar-alt',
+                    ],
+
+                    [
+                        'text' => 'Periods NHC',
+                        'url'  => 'admin/periods_nhc',
+                        'icon' => 'fas fa-calendar-alt',
+                    ],
+
+                ],
+            ],
+
             [
                 'header' => 'CAMP',
             ],

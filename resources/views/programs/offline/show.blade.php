@@ -534,50 +534,85 @@
                                         </script>
 
 
-
                                         <div class="mb-3">
-                                            <label class="form-label"><i class="bi bi-calendar-check-fill"></i>
-                                                Periode</label>
-                                            <select name="period_id" class="form-select" required>
-                                                <option value="">Pilih Periode</option>
+                                            <label class="form-label">
+                                                <i class="bi bi-calendar-check-fill"></i> Periode
+                                            </label>
 
-                                                @php
-                                                    $today = \Carbon\Carbon::now('Asia/Jakarta')->toDateString();
-                                                @endphp
+                                            @php
+                                                $today = \Carbon\Carbon::now('Asia/Jakarta')->toDateString();
+                                            @endphp
 
-                                                @forelse ($activePeriods as $period)
-                                                    @php
-                                                        $periodDate = \Carbon\Carbon::parse(
-                                                            $period->date,
-                                                        )->toDateString();
-                                                        $isToday = $periodDate === $today;
-                                                    @endphp
-                                                    <option value="{{ $period->id }}"
-                                                        {{ $isToday ? 'selected' : '' }}>
-                                                        Periode:
-                                                        {{ \Carbon\Carbon::parse($period->date)->translatedFormat('d M Y') }}
-                                                        {{ $isToday ? '(Aktif Hari Ini)' : '' }}
-                                                    </option>
-                                                @empty
-                                                    {{-- Kosong --}}
-                                                @endforelse
-                                            </select>
+                                            @if ($program->program_bahasa === 'nhc')
+                                                <select name="period_nhc_id" class="form-select" required>
+                                                    <option value="">Pilih Periode</option>
+                                                    @forelse ($activePeriodsNHC as $period)
+                                                        @php
+                                                            $isToday =
+                                                                $today >= $period->start_date->toDateString() &&
+                                                                $today <= $period->end_date->toDateString();
+                                                        @endphp
+                                                        <option value="{{ $period->id }}"
+                                                            {{ old('period_nhc_id') == $period->id ? 'selected' : ($isToday ? 'selected' : '') }}>
+                                                            {{ $period->start_date->translatedFormat('d M Y') }}
+                                                            -
+                                                            {{ $period->end_date->translatedFormat('d M Y') }}
+                                                            {{ $isToday ? '(Aktif Hari Ini)' : '' }}
+                                                        </option>
+                                                    @empty
+                                                    @endforelse
+                                                </select>
 
-                                            @if ($activePeriods->isEmpty())
-                                                <div class="form-text text-danger">Tidak ada periode pendaftaran yang
-                                                    aktif saat ini.</div>
+                                                @if ($activePeriodsNHC->isEmpty())
+                                                    <div class="form-text text-danger">
+                                                        Tidak ada periode pendaftaran NHC yang aktif saat ini.
+                                                    </div>
+                                                @endif
+                                            @else
+                                                <select name="period_id" class="form-select" required>
+                                                    <option value="">Pilih Periode</option>
+                                                    @forelse ($activePeriods as $period)
+                                                        @php
+                                                            $periodDate = \Carbon\Carbon::parse(
+                                                                $period->date,
+                                                            )->toDateString();
+                                                            $isToday = $periodDate === $today;
+                                                        @endphp
+                                                        <option value="{{ $period->id }}"
+                                                            {{ old('period_id') == $period->id ? 'selected' : ($isToday ? 'selected' : '') }}>
+                                                            {{ \Carbon\Carbon::parse($period->date)->translatedFormat('d M Y') }}
+                                                            {{ $isToday ? '(Aktif Hari Ini)' : '' }}
+                                                        </option>
+                                                    @empty
+                                                    @endforelse
+                                                </select>
+
+                                                @if ($activePeriods->isEmpty())
+                                                    <div class="form-text text-danger">
+                                                        Tidak ada periode pendaftaran yang aktif saat ini.
+                                                    </div>
+                                                @endif
                                             @endif
                                         </div>
 
                                         <button type="submit" class="btn btn-primary w-100"
-                                            @if ($activePeriods->isEmpty() || !isset($banks) || $banks->isEmpty()) disabled @endif>
+                                            @if (
+                                                ($program->program_bahasa === 'nhc' && $activePeriodsNHC->isEmpty()) ||
+                                                    ($program->program_bahasa !== 'nhc' && $periods->isEmpty()) ||
+                                                    !isset($banks) ||
+                                                    $banks->isEmpty()) disabled @endif>
+
                                             <i class="bi bi-send-fill"></i>
-                                            @if ($activePeriods->isNotEmpty() && isset($banks) && $banks->isNotEmpty())
+
+                                            @if (
+                                                ($program->program_bahasa === 'nhc' && $activePeriodsNHC->isNotEmpty()) ||
+                                                    ($program->program_bahasa !== 'nhc' && $periods->isNotEmpty()))
                                                 Daftar Sekarang
                                             @else
                                                 Pendaftaran Ditutup
                                             @endif
                                         </button>
+
                                         <a href="{{ url('/') }}" class="btn btn-outline-secondary w-100 mt-2"><i
                                                 class="bi bi-arrow-left"></i> Kembali ke Beranda</a>
                                     </form>

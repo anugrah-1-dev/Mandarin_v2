@@ -36,6 +36,7 @@ use App\Http\Controllers\ProgramArabController;
 use App\Http\Controllers\ProgramMandarinController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProgramNHCController; // <-- PERUBAIKAN 1: Controller NHC ditambahkan
+use App\Http\Controllers\Admin\PeriodNHCController;
 
 /*
 |--------------------------------------------------------------------------
@@ -229,6 +230,8 @@ Route::middleware(['auth', 'role:admin|officer'])->prefix('admin')->name('admin.
 
     //periods
     Route::resource('periods', PeriodsController::class)->only(['index', 'store', 'update', 'destroy']);
+
+    Route::resource('periods_nhc', PeriodNHCController::class);
 
     //sosmed
     Route::resource('sosmed', SosmedController::class);
