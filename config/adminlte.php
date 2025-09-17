@@ -397,7 +397,7 @@
 
                 ],
 
-                
+
             ],
 
             [
@@ -470,6 +470,31 @@
                 ],
             ],
 
+            [
+                'header' => 'Add Ons',
+            ],
+            [
+                'text' => 'Service',
+                'icon' => 'fas fa-list',
+                'submenu' => [
+            
+                    [
+                        'text' => 'Holiday Packages',
+                        'url'  => 'admin/holiday',
+                        'icon' => 'fas fa-umbrella-beach',
+                    ],
+                    [
+                        'text' => 'Catering Packages',
+                        'url'  => 'admin/catering',
+                        'icon' => 'fas fa-utensils',
+                    ],
+                    [
+                        'text' => 'Laundry Packages',
+                        'url'  => 'admin/laundry',
+                        'icon' => 'fas fa-tshirt',
+                    ],
+                ],
+            ],
 
 
             [

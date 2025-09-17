@@ -15,6 +15,9 @@ use Carbon\Carbon;
 use App\Models\ProgramCamp;
 use Illuminate\Support\Facades\Http;
 use App\Models\PeriodNHC;
+use App\Models\CateringPackage;
+use App\Models\HolidayPackage;
+use App\Models\LaundryPackage;
 
 class ProgramOfflinePublicController extends Controller
 {
@@ -25,10 +28,15 @@ class ProgramOfflinePublicController extends Controller
     {
         $transports = Transports::all();
         $periods = Period::where('is_active', 1)->get();
-        $activePeriodsNHC = PeriodNHC::where('is_active', 1)->get(); // <── ini tambahan
+        $activePeriodsNHC = PeriodNHC::where('is_active', 1)->get();
         $banks = Banks::where('status', 'active')->get();
         $contactServices = Customer_Service::all();
         $camps = ProgramCamp::all();
+
+        // tambahan sesuai kebutuhan view
+        $catering_packages = CateringPackage::where('status', 'aktif')->get();
+        $laundry_packages = LaundryPackage::where('status', 'aktif')->get();
+        $holiday_packages = HolidayPackage::where('status', 'aktif')->get();
 
         return view('programs.offline.show', compact(
             'program',
@@ -37,7 +45,10 @@ class ProgramOfflinePublicController extends Controller
             'activePeriodsNHC',
             'banks',
             'contactServices',
-            'camps'
+            'camps',
+            'catering_packages',
+            'holiday_packages',
+            'laundry_packages'
         ));
     }
 
@@ -139,6 +150,46 @@ class ProgramOfflinePublicController extends Controller
             'subtotal'      => $subtotal,
             'ukuran_seragam' => $validated['ukuran_seragam'] ?? null,
         ]);
+
+        // === setelah create $pendaftaran ===
+
+        // Helper untuk parsing JSON / array request
+        function parseRequestArray($data)
+        {
+            return is_string($data) ? json_decode($data, true) : ($data ?? []);
+        }
+
+        // === Simpan data catering (jika ada) ===
+        $caterings = parseRequestArray($request->catering);
+        foreach ($caterings as $catering) {
+            \App\Models\PendaftaranCatering::create([
+                'pendaftaran_id'      => $pendaftaran->id,
+                'catering_package_id' => $catering['id'],
+                'jumlah_porsi'        => $catering['quantity'] ?? 1, // pakai quantity sesuai data kamu
+            ]);
+        }
+
+        // === Simpan data laundry (jika ada) ===
+        $laundries = parseRequestArray($request->laundry);
+        foreach ($laundries as $laundry) {
+            \App\Models\PendaftaranLaundry::create([
+                'pendaftaran_id'      => $pendaftaran->id,
+                'laundry_package_id'  => $laundry['id'],
+                'jumlah'              => $laundry['jumlah'] ?? 1,
+            ]);
+        }
+
+        // === Simpan data holiday (jika ada) ===
+        $holidays = parseRequestArray($request->holiday);
+        foreach ($holidays as $holiday) {
+            \App\Models\PendaftaranHoliday::create([
+                'pendaftaran_id'      => $pendaftaran->id,
+                'holiday_package_id'  => $holiday['id'],
+                'jumlah_peserta'      => $holiday['jumlah'] ?? 1,
+            ]);
+        }
+
+
 
         // Kurangi kuota
         $program->decrement('kuota');

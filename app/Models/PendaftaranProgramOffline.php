@@ -74,4 +74,20 @@ class PendaftaranProgramOffline extends Model
 
         return $hargaProgram + $hargaTransport + $hargaAkomodasi;
     }
+
+
+    public function caterings()
+    {
+        return $this->hasMany(PendaftaranCatering::class, 'pendaftaran_id');
+    }
+
+    public function laundries()
+    {
+        return $this->hasMany(PendaftaranLaundry::class, 'pendaftaran_id');
+    }
+
+    public function holidays()
+    {
+        return $this->hasMany(PendaftaranHoliday::class, 'pendaftaran_id');
+    }
 }

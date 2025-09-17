@@ -38,11 +38,21 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProgramNHCController; // <-- PERUBAIKAN 1: Controller NHC ditambahkan
 use App\Http\Controllers\Admin\PeriodNHCController;
 
+//admin new
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\Admin\ServicePackageController;
+use App\Http\Controllers\Admin\HolidayPackageController;
+use App\Http\Controllers\Admin\CateringPackageController;
+use App\Http\Controllers\Admin\LaundryPackageController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 */
+
+
+
 //camp
 Route::get('/camps', [CampController::class, 'publicIndex'])->name('camps.index');
 Route::get('/camps/{camp:slug}', [CampController::class, 'publicShow'])->name('camps.show');
@@ -144,6 +154,31 @@ Auth::routes();
 
 Route::middleware(['auth', 'role:admin|officer'])->prefix('admin')->name('admin.')->group(function () {
 
+
+    // Holiday
+    Route::get('/holiday', [HolidayPackageController::class, 'index'])->name('holiday.index');
+    Route::get('/holiday/create', [HolidayPackageController::class, 'create'])->name('holiday.create');
+    Route::post('/holiday', [HolidayPackageController::class, 'store'])->name('holiday.store');
+    Route::get('/holiday/{holidayPackage}/edit', [HolidayPackageController::class, 'edit'])->name('holiday.edit');
+    Route::put('/holiday/{holidayPackage}', [HolidayPackageController::class, 'update'])->name('holiday.update');
+    Route::delete('/holiday/{holidayPackage}', [HolidayPackageController::class, 'destroy'])->name('holiday.destroy');
+    // Catering
+    Route::get('/catering', [CateringPackageController::class, 'index'])->name('catering.index');
+    Route::get('/catering/create', [CateringPackageController::class, 'create'])->name('catering.create');
+    Route::post('/catering', [CateringPackageController::class, 'store'])->name('catering.store');
+    Route::get('/catering/{cateringPackage}/edit', [CateringPackageController::class, 'edit'])->name('catering.edit');
+    Route::put('/catering/{cateringPackage}', [CateringPackageController::class, 'update'])->name('catering.update');
+    Route::delete('/catering/{cateringPackage   }', [CateringPackageController::class, 'destroy'])->name('catering.destroy');
+
+    // Laundry
+    Route::get('/laundry', [LaundryPackageController::class, 'index'])->name('laundry.index');
+    Route::get('/laundry/create', [LaundryPackageController::class, 'create'])->name('laundry.create');
+    Route::post('/laundry', [LaundryPackageController::class, 'store'])->name('laundry.store');
+    Route::get('/laundry/{laundryPackage}/edit', [LaundryPackageController::class, 'edit'])->name('laundry.edit');
+    Route::put('/laundry/{id}', [LaundryPackageController::class, 'update'])->name('laundry.update');
+    Route::delete('/laundry/{id}', [LaundryPackageController::class, 'destroy'])->name('laundry.destroy');
+
+
     //dashboard admin
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('dashboard/stok', [DashboardController::class, 'dashboardStok'])->name('admin.dashboard.stok');
@@ -160,6 +195,8 @@ Route::middleware(['auth', 'role:admin|officer'])->prefix('admin')->name('admin.
     Route::resource('transports', TransportsController::class);
     //cs
     Route::resource('customer_services', Customer_Service_Controller::class);
+
+
 
     // Pamflet
     Route::get('pamflet_programs', [ProgramController::class, 'index'])->name('pamflet_programs.index');
