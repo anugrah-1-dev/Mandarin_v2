@@ -20,6 +20,9 @@ nav {
     padding: 1rem 2rem;
     background-color: var(--primary);
 }
+.btn {
+    background-color: #e69500;
+}
 
 .logo {
     display: flex;
@@ -92,46 +95,63 @@ nav {
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
 }
+.carousel {
+    position: relative;
+    background: linear-gradient(135deg, #007bff, #00c6ff); /* gradasi biru */
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: white;
+    text-align: center;
+}
 
 .carousel-text {
     position: absolute;
     top: 50%;
-    left: 5%;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 3;
-    color: white;
-    max-width: 50%;
+    max-width: 70%;
+    text-align: center; /* teks rata tengah */
 }
 
 .carousel-text h1 {
     font-size: 3.5rem;
-    margin: 0;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #fff;
+}
+
+.carousel-text h1 span {
+    color: #ffd700; /* kuning emas */
 }
 
 .carousel-text p {
-    font-size: 1.2rem;
-    margin-top: 1rem;
-    color: #e0e0e0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: #f1f1f1;
 }
 
-.carousel-text .cta-button {
-    display: inline-block;
-    margin-top: 1.5rem;
-    background-color: var(--secondary);
+.cta-button {
+    background-color: #ffa500;
     color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
+    padding: 0.9rem 2rem;
+    border-radius: 10px;
     font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
     text-decoration: none;
-    transition: background-color 0.3s ease;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-.carousel-text .cta-button:hover {
-    background-color: #e69500;
+.cta-button:hover {
+    background-color: #ff7f00;
+    transform: translateY(-2px);
 }
+
 
 .nav {
     position: absolute;

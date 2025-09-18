@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIEPLUS Kampung Inggris Pare</title>
+    <title>Brilliant English Course</title>
 
-    <link rel="stylesheet" href="{{ asset('css/landingpage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/landingpagenew.css') }}">
     <script src="{{ asset('js/landingpage.js') }}"></script>
     <script src="{{ asset('js/gallery.js') }}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -33,7 +33,6 @@
             </div>
         </div>
     @endif
-
 
     <style>
         .pamflet-popup {
@@ -108,27 +107,23 @@
         });
     </script>
 
-
-
     <section class="carousel" id="carousel">
         <div class="carousel-container">
             <div class="slides">
-                <img src="{{ asset('asset/img/BIE1.jpg') }}" class="slide" alt="Slide 1">
-                <img src="{{ asset('asset/img/BIE2.jpg') }}" class="slide" alt="Slide 2">
+                <img src="{{ asset('asset/img/BIE01.jpg') }}" class="slide" alt="Slide 1">
+                {{-- <img src="{{ asset('asset/img/BIE2.jpg') }}" class="slide" alt="Slide 2">
                 <img src="{{ asset('asset/img/BIE3.jpg') }}" class="slide" alt="Slide 3">
                 <img src="{{ asset('asset/img/BIE4.jpg') }}" class="slide active" alt="Slide 4">
                 <img src="{{ asset('asset/img/BIE5.jpg') }}" class="slide" alt="Slide 5">
-                <img src="{{ asset('asset/img/BIE6.jpg') }}" class="slide" alt="Slide 6">
+                <img src="{{ asset('asset/img/BIE6.jpg') }}" class="slide" alt="Slide 6"> --}}
             </div>
             <div class="overlay"></div>
             <div class="carousel-text">
-                <h1 data-aos="fade-left" data-aos-delay="200">
-                    <span style="color: #007bff;">BRILLIANT INTERNATIONAL EDUCATION</span> <span style="color: #FFD700;">PLUS</span>
+                <h1 data-aos="fade-left" data-aos-delay="200" style="color: #FFA109FF;">
+                    BRILLIANT <span style="color: #C99C4FFF;">ENGLISH COURSE</span>
                 </h1>
-
-                <p data-aos="fade-right" data-aos-delay="200">
-                    Tingkatkan kemampuan Bahasa Inggris Anda dan rasakan pengalaman belajar yang berkualitas di Brilliant International Education PLUS 
-                    serta nikmati tempat tinggal atau CAMP dengan kenyamanan, fasilitas lengkap untuk mendukung pengalaman belajar terbaik Anda. Nikmati tempat di mana potensi Anda menjadi lebih gemilang!
+                <p data-aos="fade-right" data-aos-delay="200" style="color: #ECECEBFF;">
+                    Tingkatkan kemampuan Bahasa Inggris Anda secara efektif dengan metode pembelajaran inovatif dan lingkungan belajar yang mendukung di Brilliant English Course. Nikmati fasilitas asrama nyaman dan program terstruktur yang dirancang khusus untuk membantu Anda meraih prestasi maksimal. Bergabunglah sekarang dan wujudkan potensi terbaik Anda bersama kami!
                 </p>
 
 
@@ -188,196 +183,6 @@
     </a>
 </div>
 
-<style>
-/* Grid */
-.program1-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto auto auto;
-    gap: 14px;
-    max-width: clamp(500px, 80%, 700px);  /* responsif */
-    margin: 0 auto;
-    grid-template-areas:
-        "inggris . arab"
-        ". nhc ."
-        "jerman . mandarin";
-}
-
-.inggris { grid-area: inggris; }
-.arab { grid-area: arab; }
-.nhc { grid-area: nhc; }
-.jerman { grid-area: jerman; }
-.mandarin { grid-area: mandarin; }
-
-/* Card */
-.program1-card {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    padding: 14px;
-    border-radius: 9px;  /* ada typo sebelumnya: 9x → 9px */
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    background: #f8f9fa;
-    text-align: center;
-    font-size: 14px;
-}
-
-.program1-card h3 {
-    font-size: 16px;
-    margin: 10px 0 6px;
-}
-
-.program1-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-}
-
-.pilih1-button {
-    display: inline-block;
-    margin-top: 8px;
-    padding: 6px 12px;
-    background: #007bff;
-    color: #fff;
-    border-radius: 5px;
-    font-size: 13px;
-    transition: background 0.2s;
-}
-
-.pilih1-button:hover {
-    background: #0056b3;
-}
-
-/* Overlay */
-.popup1-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.6);
-    display: none;
-    align-items: center;   /* tengah layar */
-    justify-content: center;
-    z-index: 9999;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.popup1-overlay.show {
-    display: flex;
-}
-
-/* Popup Content */
-.popup1-content {
-    background: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    width: 90%;                  /* lebar popup lebih besar */
-    max-width: 900px;
-    height: auto;                /* menyesuaikan konten */
-    overflow: hidden;            /* hilangkan scroll */
-    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-    position: fixed;             /* posisi tetap */
-    animation: popupFade 0.25s ease;
-}
-
-/* Grid */
-.program1-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);  /* 3 kolom */
-    grid-template-rows: repeat(2, 1fr);     /* 2 baris */
-    gap: 10px;                              /* lebih rapat */
-    width: 100%;
-}
-
-/* Card */
-.program1-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: inherit;
-    padding: 10px;
-    border-radius: 9px;
-    background: #f8f9fa;
-    font-size: 13px;
-    text-align: center;
-}
-
-.program1-card h3 {
-    font-size: 14px;
-    margin: 6px 0 4px;
-}
-
-.pilih1-button {
-    display: inline-block;
-    margin-top: 6px;
-    padding: 5px 10px;
-    background: #007bff;
-    color: #fff;
-    border-radius: 5px;
-    font-size: 12px;
-    transition: background 0.2s;
-}
-
-.pilih1-button:hover {
-    background: #0056b3;
-}
-
-/* Icon Image */
-.program1-img {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 5px;
-}
-
-/* ===== Responsif untuk Mobile ===== */
-@media (max-width: 600px) {
-
-    /* Popup Content */
-    .popup1-content {
-        width: 95%;          /* hampir full-width di layar kecil */
-        max-width: none;     /* hapus batas max-width */
-        padding: 15px;       /* dikurangi sedikit agar muat */
-    }
-
-    /* Grid */
-    .program1-grid {
-        grid-template-columns: 1fr;   /* 1 kolom supaya muat di layar sempit */
-        grid-template-rows: auto;     /* baris mengikuti konten */
-        gap: 8px;                     /* jarak lebih kecil */
-    }
-
-    /* Card */
-    .program1-card {
-        padding: 8px;                 /* lebih ringkas */
-        font-size: 12px;
-    }
-
-    .program1-card h3 {
-        font-size: 13px;
-        margin: 5px 0 3px;
-    }
-
-    .pilih1-button {
-        padding: 4px 8px;
-        font-size: 11px;
-        margin-top: 4px;
-    }
-
-    /* Gambar */
-    .program1-img {
-        width: 50px;
-        height: 50px;
-    }
-}
-    
-</style>
-
-
-
 
             </div>
 
@@ -427,6 +232,8 @@
         </script>
     </section>
 
+
+
     {{-- ✅ Section "Tentang Kami" dengan animasi --}}
     <section class="about-us-section" id="tentang" data-aos="fade-up">
         <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -475,74 +282,78 @@
             </div>
         </div>
 
-    </section>
-    <div class="wave-divider">
-        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-            <path class="shape-fill"
-                d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-            </path>
-        </svg>
-    </div>
+   
 
     <section class="registration-flow-section" id="alur-pendaftaran">
         <div class="container">
-            <h2 class="registration-section-title">ALUR PENDAFTARAN</h2>
-            <p class="registration-section-subtitle">Ikuti langkah-langkah berikut untuk mendaftar di Brilliant International Education PLUS:</p>
-
-            <div class="flow-steps">
-                {{-- Setiap langkah diberi animasi fade-up dengan delay yang meningkat --}}
-                <div class="flow-step" data-aos="fade-up" data-aos-delay="100">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Isi Formulir Pendaftaran</h3>
-                        <p>Isi data diri Anda secara lengkap melalui formulir online yang tersedia di website kami.</p>
-                    </div>
-                </div>
-
-                <div class="flow-step" data-aos="fade-up" data-aos-delay="200">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Verifikasi & Konfirmasi</h3>
-                        <p>Tim kami akan menghubungi Anda untuk verifikasi dan memberikan informasi lebih lanjut.</p>
-                    </div>
-                </div>
-
-                <div class="flow-step" data-aos="fade-up" data-aos-delay="300">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Pembayaran & Bukti Transfer</h3>
-                        <p>Lakukan pembayaran sesuai instruksi, lalu unggah bukti transfer melalui halaman konfirmasi.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="flow-step" data-aos="fade-up" data-aos-delay="400">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>Daftar Ulang</h3>
-                        <p>Melakukan daftar ulang secara langsung melalui Admin kami yang berada di Ruang Office
-                            Brilliant International Education PLUS.</p>
-                    </div>
-                </div>
-
-                <div class="flow-step" data-aos="fade-up" data-aos-delay="500">
-                    <div class="step-number">5</div>
-                    <div class="step-content">
-                        <h3>Siap Belajar!</h3>
-                        <p>Selamat! Anda resmi terdaftar dan siap mengikuti program pembelajaran di Brilliant International Education PLUS.</p>
+            <section class="registration-flow-section" id="alur-pendaftaran">
+                <div class="container">
+                    <h2 class="registration-section-title">ALUR PENDAFTARAN</h2>
+                    <p class="registration-section-subtitle">Langkah-langkah mudah untuk bergabung dengan Brilliant English Course</p>
+            
+                    <div class="flow-steps">
+                        <div class="flow-step" data-aos="fade-up" data-aos-delay="100">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>Pilih Program</h3>
+                                <p>Pilih program yang sesuai dengan tujuan kamu agar mendapatkan hasil yang maksimal. Ingat! Kamu gak bakal bisa tiba-tiba jago ngomong Inggris dalam satu malam. Kami bukan dukun.</p>
+                            </div>
+                        </div>
+            
+                        <div class="flow-step" data-aos="fade-up" data-aos-delay="200">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>Isi Formulir</h3>
+                                <p>Isi beberapa formulir yang diperlukan dengan benar untuk melakukan pendaftaran pada program yang telah dipilih sebelumnya.</p>
+                            </div>
+                        </div>
+            
+                        <div class="flow-step" data-aos="fade-up" data-aos-delay="300">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>Lakukan Pembayaran</h3>
+                                <p>Lakukan pembayaran beserta bukti pembayaran setelah melakukan pengisian formulir. Harga pembayaran berbeda-beda tergantung dari program mana yang dipilih.</p>
+                            </div>
+                        </div>
+            
+                        <div class="flow-step" data-aos="fade-up" data-aos-delay="400">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h3>Validasi Pembayaran</h3>
+                                <p>Setelah melakukan pembayaran, tunggu beberapa jam hingga pihak dari kampung inggris pusat menyelesaikan validasi pembayaran yang telah dilakukan sebelumnya.</p>
+                            </div>
+                        </div>
+            
+                        <div class="flow-step" data-aos="fade-up" data-aos-delay="500">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <h3>Tunggu Pemberitahuan</h3>
+                                <p>Setelah validasi pembayaran selesai dilakukan oleh pihak kampung inggris pusat, kami akan mengirimkan pemberitahuan terhadap Anda melalui media sosial WhatsApp.</p>
+                            </div>
+                        </div>
+            
+                        <div class="flow-step" data-aos="fade-up" data-aos-delay="600">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <h3>Datang ke Brilliant English Course</h3>
+                                <p>Berangkat menuju Brilliant English Course sesuai periode yang telah dipilih sebelumnya.</p>
+                            </div>
+                        </div>
+            
+                        <div class="flow-step" data-aos="fade-up" data-aos-delay="700">
+                            <div class="step-number">7</div>
+                            <div class="step-content">
+                                <h3>Ikuti Aturan</h3>
+                                <p>Ikuti Aturan yang berlaku dan pulang dengan hasil yang memuaskan dengan mendapatkan akses ke materi pembelajaran.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="wave-divider2">
-        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-            <path class="shape-fill2"
-                d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-            </path>
-        </svg>
-    </div>
+
     <div class="container">
         @foreach ($programs->where('status', 'aktif') as $index => $program)
             {{-- Container utama diberi animasi 'fade-up' --}}
@@ -592,14 +403,14 @@
         @endforeach
     </div>
 
-
+{{-- 
     <div class="wave-divider4">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
             <path class="shape-fill4"
                 d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
             </path>
         </svg>
-    </div>
+    </div> --}}
 
 
     <script>
@@ -675,13 +486,13 @@
             });
         });
     </script>
-    <div class="wave-divider7">
+    {{-- <div class="wave-divider7">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
             <path class="shape-fill7"
                 d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
             </path>
         </svg>
-    </div>
+    </div> --}}
     <section class="camp-section" id="camp">
         <div class="container">
             <div class="text-center mb-5" data-aos="fade-up">
@@ -881,13 +692,13 @@
             </div>
         </section>
 
-        <div class="wave-divider5">
+        {{-- <div class="wave-divider5">
             <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
                 <path class="shape-fill5"
                     d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
                 </path>
             </svg>
-        </div>
+        </div> --}}
 
         <section id="galeri" class="gallery">
             <div class="container" data-aos="fade-up">
@@ -915,7 +726,7 @@
 
                                         <div class="gallery-caption">
                                             <h5>{{ $gallery->title }}</h5>
-                                            <p>{{ Str::limit($gallery->deskripsi ?? 'Galeri kegiatan Brilliant', 50) }}</p>
+                                            <p>{{ Str::limit($gallery->deskripsi ?? '', 50) }}</p>
                                         </div>
                                     </div>
 
@@ -975,19 +786,6 @@
         </script>
 
 
-        <style>
-            /* Transisi hanya untuk opacity */
-            .gallery-frame img {
-                opacity: 1;
-                transition: opacity 0.5s ease-in-out;
-                /* Durasi transisi diperpanjang sedikit biar lebih halus */
-            }
-
-            /* Kelas untuk gambar yang sedang memudar keluar */
-            .gallery-frame img.fade-out-only {
-                opacity: 0;
-            }
-        </style>
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -1029,14 +827,14 @@
             <span class="lightbox-close" onclick="closeLightbox()">x</span>
             <img class="lightbox-content" id="lightboxImg">
         </div>
-
+{{-- 
         <div class="wave-divider6">
             <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
                 <path class="shape-fill6"
                     d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,186.7C672,203,768,213,864,197.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
                 </path>
             </svg>
-        </div>
+        </div> --}}
 
         <link rel="stylesheet" href="{{ asset('css/sosmed.css') }}">
 

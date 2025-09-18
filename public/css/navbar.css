@@ -65,7 +65,7 @@
 
 .nav-links .btn {
     background-color: var(--secondary);
-    color: white !important;
+    color: rgb(255, 255, 255) !important;
     padding: 0.5rem 1rem;
     border-radius: 5px;
     font-weight: bold;
@@ -213,8 +213,8 @@
 }
 
 .nav-links .btn {
-    background-color: var(--secondary);
-    color: white !important;
+    background-color:#e69500 ;
+    color: rgb(2, 2, 2) !important;
     padding: 0.5rem 1rem;
     border-radius: 5px;
     font-weight: bold;
