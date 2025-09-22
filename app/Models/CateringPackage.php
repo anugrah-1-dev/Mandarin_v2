@@ -17,4 +17,6 @@ class CateringPackage extends Model
         'deskripsi',
         'thumbnail',
     ];
+
+    
 }

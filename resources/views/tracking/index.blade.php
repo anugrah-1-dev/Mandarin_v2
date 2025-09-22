@@ -16,9 +16,9 @@
                     document.addEventListener("DOMContentLoaded", function() {
                         let images = [
                             "{{ asset('asset/gif/a.gif') }}",
-                               "{{ asset('asset/gif/b.gif') }}",
-                                  "{{ asset('asset/gif/c.gif') }}",
-                          
+                            "{{ asset('asset/gif/b.gif') }}",
+                            "{{ asset('asset/gif/c.gif') }}",
+
                         ];
                         let index = 0;
                         let section = document.getElementById("tracking-section");
@@ -145,77 +145,76 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <h5 class="text-muted">Transportasi</h5>
-                                    <p class="fs-5">{{ $offline->transport_id }}</p>
+                                    <p class="fs-5">
+                                        {{ $offline->transport_id ? $offline->transport->nama : '-' }}
+                                    </p>
                                 </div>
 
                                 <div class="col-md-12 mb-3">
                                     <h5 class="text-muted">Total Harga</h5>
                                     <p class="fs-5">
-                                        Rp. {{ number_format($online->subtotal, 0, ',', '.') }}
+                                        Rp. {{ number_format($offline->subtotal, 0, ',', '.') }}
                                     </p>
                                 </div>
 
-                                @if ($offline->bukti_pembayaran)
-                                    <div class="col-md-12 mb-3">
-                                        <h5 class="text-muted">Bukti Pembayaran</h5>
-                                        <a href="{{ asset('storage/bukti_pembayaran/' . $offline->bukti_pembayaran) }}"
-                                            target="_blank">
-                                            <img src="{{ asset('storage/bukti_pembayaran/' . $offline->bukti_pembayaran) }}"
-                                                alt="Bukti Pembayaran" class="img-fluid rounded shadow-sm"
-                                                style="max-height: 300px;">
-                                        </a>
+                                {{-- Catering --}}
+                                @if ($caterings->count() > 0)
+                                    <div class="col-md-6 mb-3">
+                                        <h5 class="text-muted">Catering</h5>
+                                        @foreach ($caterings as $c)
+                                            <p class="fs-6 mb-1">
+                                                {{ $c->cateringPackage->nama_paket ?? 'Paket Tidak Ditemukan' }}
+                                                (x{{ $c->jumlah_porsi }})
+                                            </p>
+                                        @endforeach
+
                                     </div>
                                 @endif
 
+                                {{-- Laundry --}}
+                                @if ($laundries->count() > 0)
+                                    <div class="col-md-6 mb-3">
+                                        <h5 class="text-muted">Laundry</h5>
+                                        @foreach ($laundries as $l)
+                                            <p class="fs-6 mb-1">
+                                                {{ $l->laundryPackage->nama ?? 'Paket Tidak Ditemukan' }}
+                                                (x{{ $l->jumlah }})
+                                            </p>
+                                        @endforeach
+                                    </div>
+                                @endif
+
+                                {{-- Holiday --}}
+                                @if ($holidays->count() > 0)
+                                    <div class="col-md-6 mb-3">
+                                        <h5 class="text-muted">Holiday</h5>
+                                        @foreach ($holidays as $h)
+                                            <p class="fs-6 mb-1">
+                                                {{ $h->holidayPackage->nama ?? 'Paket Tidak Ditemukan' }}
+                                                (x{{ $h->jumlah }})
+                                            </p>
+                                        @endforeach
+                                    </div>
+                                @endif
+
+                                @if ($cs)
+                                    <div class="text-end">
+                                        <h6 class="text-muted mb-1">Hubungi CS</h6>
+                                        <a href="https://wa.me/+62{{ preg_replace('/[^0-9]/', '', $cs->nomor) }}"
+                                            class="btn btn-success btn-sm" target="_blank">
+                                            <i class="bi bi-whatsapp"></i> {{ $cs->nama }}
+                                        </a>
+                                    </div>
+                                @endif
                             </div>
-                        </div>
-                    </div>
-                @endisset
 
-                @isset($online)
-                    <div class="card shadow-sm mb-4 border-success">
-                        <div class="card-header bg-success text-white fw-bold">
-                            <i class="bi bi-laptop me-2"></i> Program Online
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <h5 class="text-muted">Nama Peserta</h5>
-                                    <p class="fs-5">{{ $online->nama_lengkap }}</p>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <h5 class="text-muted">Status</h5>
-                                    <span
-                                        class="badge
-                                      @if ($online->status == 'aktif') bg-success
-                                       @elseif($online->status == 'ditolak') bg-danger
-                                       @else bg-warning @endif fs-6">
-                                        {{ ucfirst($online->status) }}
-                                    </span>
-                                </div>
 
-                                <div class="col-md-12 mb-3">
-                                    <h5 class="text-muted">Program</h5>
-                                    @if ($online)
-                                        <p class="fs-5">{{ $online->program->nama ?? '-' }}</p>
-                                    @endif
-
-                                </div>
-
-                                <div class="col-md-12 mb-3">
-                                    <h5 class="text-muted">Total Harga</h5>
-                                    <p class="fs-5">
-                                        Rp. {{ number_format($online->subtotal, 0, ',', '.') }}
-                                    </p>
-                                </div>
-
-                            </div>
-                            @if ($online->bukti_pembayaran)
+                            @if ($offline->bukti_pembayaran)
                                 <div class="col-md-12 mb-3">
                                     <h5 class="text-muted">Bukti Pembayaran</h5>
-                                    <a href="{{ asset('storage/bukti_pembayaran/' . $online->bukti_pembayaran) }}"
+                                    <a href="{{ asset('storage/bukti_pembayaran/' . $offline->bukti_pembayaran) }}"
                                         target="_blank">
-                                        <img src="{{ asset('storage/bukti_pembayaran/' . $online->bukti_pembayaran) }}"
+                                        <img src="{{ asset('storage/bukti_pembayaran/' . $offline->bukti_pembayaran) }}"
                                             alt="Bukti Pembayaran" class="img-fluid rounded shadow-sm"
                                             style="max-height: 300px;">
                                     </a>
@@ -224,17 +223,72 @@
 
                         </div>
                     </div>
-                @endisset
+                </div>
+            @endisset
 
-                @if (isset($camp) || isset($offline) || isset($online))
-                    <div class="text-center mt-4">
-                        <a href="{{ route('tracking.index') }}" class="btn btn-outline-secondary">
-                            <i class="bi bi-arrow-left me-2"></i> Cari Transaksi Lain
-                        </a>
+            @isset($online)
+                <div class="card shadow-sm mb-4 border-success">
+                    <div class="card-header bg-success text-white fw-bold">
+                        <i class="bi bi-laptop me-2"></i> Program Online
                     </div>
-                @endif
-            </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <h5 class="text-muted">Nama Peserta</h5>
+                                <p class="fs-5">{{ $online->nama_lengkap }}</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h5 class="text-muted">Status</h5>
+                                <span
+                                    class="badge
+                                      @if ($online->status == 'aktif') bg-success
+                                       @elseif($online->status == 'ditolak') bg-danger
+                                       @else bg-warning @endif fs-6">
+                                    {{ ucfirst($online->status) }}
+                                </span>
+                            </div>
+
+                            <div class="col-md-12 mb-3">
+                                <h5 class="text-muted">Program</h5>
+                                @if ($online)
+                                    <p class="fs-5">{{ $online->program->nama ?? '-' }}</p>
+                                @endif
+
+                            </div>
+
+                            <div class="col-md-12 mb-3">
+                                <h5 class="text-muted">Total Harga</h5>
+                                <p class="fs-5">
+                                    Rp. {{ number_format($online->subtotal, 0, ',', '.') }}
+                                </p>
+                            </div>
+
+                        </div>
+                        @if ($online->bukti_pembayaran)
+                            <div class="col-md-12 mb-3">
+                                <h5 class="text-muted">Bukti Pembayaran</h5>
+                                <a href="{{ asset('storage/bukti_pembayaran/' . $online->bukti_pembayaran) }}"
+                                    target="_blank">
+                                    <img src="{{ asset('storage/bukti_pembayaran/' . $online->bukti_pembayaran) }}"
+                                        alt="Bukti Pembayaran" class="img-fluid rounded shadow-sm"
+                                        style="max-height: 300px;">
+                                </a>
+                            </div>
+                        @endif
+
+                    </div>
+                </div>
+            @endisset
+
+            @if (isset($camp) || isset($offline) || isset($online))
+                <div class="text-center mt-4">
+                    <a href="{{ route('tracking.index') }}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-2"></i> Cari Transaksi Lain
+                    </a>
+                </div>
+            @endif
         </div>
+    </div>
     </div>
 @endsection
 
