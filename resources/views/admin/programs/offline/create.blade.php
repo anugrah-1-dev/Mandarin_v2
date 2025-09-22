@@ -74,8 +74,6 @@
                                 Mandarin</option>
                             <option value="arab" {{ old('program_bahasa') == 'arab' ? 'selected' : '' }}>Bahasa Arab
                             </option>
-                            <option value="nhc" {{ old('program_bahasa') == 'nhc' ? 'selected' : '' }}>NHC
-                            </option>
                         </x-adminlte-select>
                     </div>
                 </div>
@@ -124,9 +122,9 @@
         Swal.fire({
             icon: 'success',
             title: 'Berhasil!',
-            text: '{{ session('success') }}',
+            text: "{{ session('success') }}",
             timer: 3000,
-            showConfirmButton: false
+            showConfirmButton: false    
         });
     </script>
 @endif
@@ -136,7 +134,7 @@
         Swal.fire({
             icon: 'error',
             title: 'Gagal!',
-            text: '{{ session('error') }}',
+            text: "{{ session('error') }}",
             timer: 3000,
             showConfirmButton: false
         });

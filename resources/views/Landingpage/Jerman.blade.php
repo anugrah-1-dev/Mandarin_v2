@@ -23,22 +23,13 @@
             <div class="slides">
                 <div class="slide active">
 
-                    <img src="{{ asset('asset/img/brilliant1.jpg') }}" alt="Belajar Bahasa Jerman di Berlin">
+                    <img src="{{ asset('asset/img/BIE1.jpg') }}" alt="Belajar Bahasa Jerman di Berlin">
                 </div>
                 <div class="slide">
-                    <img src="{{ asset('asset/img/brilliant2.jpg') }}" alt="Kelas Bahasa Jerman yang Interaktif">
+                    <img src="{{ asset('asset/img/BIE2.jpg') }}" alt="Kelas Bahasa Jerman yang Interaktif">
                 </div>
                 <div class="slide">
-                    <img src="{{ asset('asset/img/brilliant3.jpg') }}" alt="Pemandangan Kastil Jerman">
-
-                    <img src="{{ asset('asset/img/brilliantclass6.jpg') }}" alt="Belajar Bahasa Jerman di Berlin">
-                </div>
-                <div class="slide">
-                    <img src="{{ asset('asset/img/brilliantclass7.jpg') }}" alt="Kelas Bahasa Jerman yang Interaktif">
-                </div>
-                <div class="slide">
-                    <img src="{{ asset('asset/img/brilliantcourse8.jpg') }}" alt="Pemandangan Kastil Jerman">
-
+                    <img src="{{ asset('asset/img/BIE3.jpg') }}" alt="Kelas Bahasa Jerman yang Interaktif">
                 </div>
             </div>
             <button class="prev">&#10094;</button>

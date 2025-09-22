@@ -56,9 +56,6 @@
                                         Bahasa Mandarin</option>
                                     <option value="arab" {{ old('program_bahasa', $offline->program_bahasa) == 'arab' ? 'selected' : '' }}>Bahasa
                                         Arab</option>
-                                    <option value="nhc" {{ old('program_bahasa', $offline->program_bahasa) == 'nhc' ? 'selected' : '' }}>NHC
-
-                                    </option>
                                 </select>
                                 @error('program_bahasa') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>

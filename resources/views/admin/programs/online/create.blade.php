@@ -67,8 +67,7 @@
                                 Mandarin</option>
                             <option value="arab" {{ old('program_bahasa') == 'arab' ? 'selected' : '' }}>Bahasa Arab
                             </option>
-                            <option value="nhc" {{ old('program_bahasa') == 'nhc' ? 'selected' : '' }}>NHC
-                            </option>
+                         
                         </x-adminlte-select>
                     </div>
                     <div class="col-md-6">

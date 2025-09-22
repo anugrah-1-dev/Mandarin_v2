@@ -412,11 +412,11 @@
                         'icon' => 'fas fa-calendar-alt',
                     ],
 
-                    [
-                        'text' => 'Periods NHC',
-                        'url'  => 'admin/periods_nhc',
-                        'icon' => 'fas fa-calendar-alt',
-                    ],
+                    // [
+                    //     'text' => 'Periods NHC',
+                    //     'url'  => 'admin/periods_nhc',
+                    //     'icon' => 'fas fa-calendar-alt',
+                    // ],
 
                 ],
             ],

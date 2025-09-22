@@ -15,13 +15,13 @@
         <div class="carousel">
             <div class="slides">
                 <div class="slide active">
-                    <img src={{ asset('asset/img/brilliantclass1.jpg') }} alt="Belajar Bahasa Arab 1">
+                    <img src={{ asset('asset/img/BIE1.jpg') }} alt="Belajar Bahasa Arab 1">
                 </div>
                 <div class="slide">
-                    <img src={{ asset('asset/img/brilliantclass2.jpg') }} alt="Belajar Bahasa Arab 2">
+                    <img src={{ asset('asset/img/BIE2.jpg') }} alt="Belajar Bahasa Arab 2">
                 </div>
                 <div class="slide">
-                    <img src={{ asset('asset/img/brilliantclass3.jpg') }} alt="Belajar Bahasa Arab 3">
+                    <img src={{ asset('asset/img/BIE3.jpg') }} alt="Belajar Bahasa Arab 3">
                 </div>
             </div>
             <button class="prev">&#10094;</button>

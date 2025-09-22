@@ -56,9 +56,7 @@
                                         <option value="arab"
                                             {{ old('program_bahasa', $online->program_bahasa) == 'arab' ? 'selected' : '' }}>
                                             Bahasa Arab</option>
-                                        <option value="nhc"
-                                            {{ old('program_bahasa', $online->program_bahasa) == 'nhc' ? 'selected' : '' }}>
-                                            NHC</option>
+                                        
                                     </select>
                                 </div>
                             </div>
