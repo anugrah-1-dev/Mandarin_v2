@@ -239,8 +239,8 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 20" preserveAspectRatio="none">
                 <defs>
                     <linearGradient id="waveGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" style="stop-color:#0b2470; stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#1d3fa3; stop-opacity:1" />
+                        <stop offset="0%" style="stop-color:#cad7fe; stop-opacity:1" />
+                        <stop offset="100%" style="stop-color: #1c88edd1; stop-opacity:1" />
                     </linearGradient>
                 </defs>
 
@@ -300,7 +300,7 @@
    Global Styles & Variables
    ========================================================= */
         :root {
-            --blue: #012169;
+            --blue:#1c88edd1;
             /* UK blue */
             --red: #ffc107;
             --red-dark: #ffc107;
@@ -696,7 +696,7 @@
         .about h2 {
             font-size: 2.7rem;
             margin-bottom: 20px;
-            color: var(--blue);
+            color: #1c88edd1;
             font-weight: 700;
             opacity: 0;
             transform: translateY(30px);
@@ -756,7 +756,7 @@
             background: #fdfdff;
             padding: 35px 25px;
             border-radius: var(--radius-lg);
-            border-top: 4px solid var(--blue);
+            border-top: 4px solid #1c88edd1;
             box-shadow: var(--shadow-md);
             transition: transform 0.35s ease, box-shadow 0.35s ease;
             opacity: 0;
@@ -771,7 +771,7 @@
 
         .about-card h3 {
             font-size: 1.4rem;
-            color: var(--blue);
+            color: #1c88edd1;
             margin-bottom: 12px;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -871,7 +871,7 @@
         }
 
         .alur {
-            background: #1d3fa3;
+            background: #1c88edd1;
             position: relative;
             color: white;
             padding: 80px 20px;
@@ -887,7 +887,7 @@
         .alur h2 {
             font-size: 2.5rem;
             margin-bottom: 15px;
-            color: var(--white);
+            color: #1c88edd1
             text-align: center;
             opacity: 0;
             transform: translateY(30px);
@@ -971,7 +971,7 @@
 
         /* Hover effects */
         .step:hover .circle {
-            background: #1d3fa3;
+            background: #829ff6;
             transform: scale(1.1) rotate(5deg);
             animation: pulse 1s ease infinite;
         }
@@ -1059,7 +1059,7 @@
         }
 
         .wave-divider .shape-fill {
-            fill: var(--blue);
+            fill:#1c88edd1;
         }
 
         .wave-line {
@@ -1097,7 +1097,7 @@
         .section-title {
             font-size: 2rem;
             font-weight: 700;
-            color: var(--blue);
+            color: #1c88edd1;
             margin-bottom: 10px;
             transition: all 0.8s ease;
         }
@@ -1120,9 +1120,9 @@
         .filter-btn {
             padding: 8px 20px;
             margin: 0 0.5rem;
-            border: 2px solid var(--blue);
+            border: 2px solid #1c88edd1;
             background: var(--white);
-            color: var(--blue);
+            color: #1c88edd1;
             font-weight: 600;
             border-radius: 30px;
             cursor: pointer;
@@ -1134,8 +1134,8 @@
         }
 
         .filter-btn.active {
-            background: var(--blue);
-            color: var(--white);
+            background: #1c88edd1;
+            color: #ffffff;
         }
 
         .program-grid {
@@ -1198,7 +1198,7 @@
         }
 
         .program-card-title {
-            color: var(--blue);
+            color: #1c88edd1;
             margin-bottom: 0.75rem;
             font-size: 1.1rem;
             font-weight: 700;
@@ -1314,8 +1314,8 @@
    Utility / Overrides (Bootstrap-like buttons)
    ========================================================= */
         .btn-primary {
-            background: var(--blue);
-            border-color: var(--blue);
+            background: #1c88edd1;
+            border-color: #1c88edd1;
         }
 
         .btn-danger {
@@ -1324,8 +1324,8 @@
         }
 
         .btn-primary:hover {
-            background: #00114d;
-            border-color: #00114d;
+            background: #1c88edd1   ;
+            border-color: #1c88edd1;
         }
 
         .btn-danger:hover {
@@ -1364,7 +1364,7 @@
         }
 
         .footer {
-            background: linear-gradient(105deg, #0b2470, #3c1361);
+            background: linear-gradient(105deg, #0037ff,  #10b3bed1);
             /* coklat tua → coklat sedang → coklat pasir */
             color: #f1f1f1;
             font-size: 12px;
@@ -1404,7 +1404,7 @@
         }
 
         .about .highlight {
-            color: #012169;
+            color: #1c88edd1;
             font-weight: bold;
         }
 
@@ -1416,16 +1416,16 @@
         .filter-btn {
             padding: 0.5rem 1.5rem;
             margin: 0 0.5rem;
-            border: 2px solid #012169;
+            border: 2px solid #467bf6;
             background-color: white;
-            color: #012169;
+            color: #1c88edd1;
             font-weight: 600;
             border-radius: 30px;
             transition: all 0.3s ease;
         }
 
         .filter-btn.active {
-            background-color: #012169;
+            background-color: #1c88edd1;
             color: white;
         }
 
@@ -1489,7 +1489,7 @@
         }
 
         .program-card-title {
-            color: #012169;
+            color: #1c88edd1;
             margin-bottom: 0.75rem;
             font-size: 1.1rem;
         }
@@ -1502,8 +1502,8 @@
 
         /* Button Colors */
         .btn-primary {
-            background-color: #012169;
-            border-color: #012169;
+            background-color: #1c88edd1;
+            border-color: #1c88edd1;
         }
 
         .btn-danger {
@@ -1512,8 +1512,8 @@
         }
 
         .btn-primary:hover {
-            background-color: #00114d;
-            border-color: #00114d;
+            background-color: #1c88edd1;
+            border-color: #1c88edd1;
         }
 
         .btn-danger:hover {
@@ -1633,7 +1633,7 @@
 
         // Event listener untuk scroll dan load
         window.addEventListener('scroll', handleAboutAnimation);
-        window.addEventListener('load', handleAboutAnimation);  
+        window.addEventListener('load', handleAboutAnimation);
     </script>
 </body>
 

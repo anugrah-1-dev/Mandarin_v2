@@ -107,6 +107,7 @@
         });
     </script>
 
+
     <section class="carousel" id="carousel">
         <div class="carousel-container">
             <div class="slides">
@@ -117,134 +118,172 @@
                 <img src="{{ asset('asset/img/BIE5.jpg') }}" class="slide" alt="Slide 5">
                 <img src="{{ asset('asset/img/BIE6.jpg') }}" class="slide" alt="Slide 6"> --}}
             </div>
-            <div class="overlay"></div>
+            <div class="carousel-overlay"></div>
+
             <div class="carousel-text">
                 <h1 data-aos="fade-left" data-aos-delay="200" style="color: #FFA109FF;">
                     BRILLIANT <span style="color: #C99C4FFF;">ENGLISH COURSE</span>
                 </h1>
                 <p data-aos="fade-right" data-aos-delay="200" style="color: #ECECEBFF;">
-                    Tingkatkan kemampuan Bahasa Inggris Anda secara efektif dengan metode pembelajaran inovatif dan lingkungan belajar yang mendukung di Brilliant English Course. Nikmati fasilitas asrama nyaman dan program terstruktur yang dirancang khusus untuk membantu Anda meraih prestasi maksimal. Bergabunglah sekarang dan wujudkan potensi terbaik Anda bersama kami!
+                    Tingkatkan kemampuan Bahasa Inggris Anda secara efektif dengan metode pembelajaran inovatif dan
+                    lingkungan belajar yang mendukung di Brilliant English Course. Nikmati fasilitas asrama nyaman dan
+                    program terstruktur yang dirancang khusus untuk membantu Anda meraih prestasi maksimal. Bergabunglah
+                    sekarang dan wujudkan potensi terbaik Anda bersama kami!
                 </p>
 
                 <a href="#" id="openPopupBtn" class="cta-button" data-aos="fade-up" data-aos-delay="200">
                     DAFTAR PROGRAM
                 </a>
-                
-                <!-- Popup 1: Pilih Tempat Kursus -->
-                <div id="kursusPopup" class="popup1-overlay">
-                    <div class="popup1-content">
-                        <div class="popup1-header">
-                            <h2>Pilih Tempat Kursus</h2>
-                            <button id="closeKursusPopupBtn" class="close1-button">&times;</button>
-                        </div>
-                        <div class="program1-grid">
-                            <a href="#" class="program1-card pilih-kursus" data-kursus="bie">
-                                <h3>Brilliant International Education</h3>
-                                <span class="pilih1-button">Pilih</span>
-                            </a>
-                            <a href="#" class="program1-card pilih-kursus" data-kursus="bec">
-                                <h3>Brilliant English Course</h3>
-                                <span class="pilih1-button">Pilih</span>
-                            </a>
-                        </div>
-                    </div>
+            </div>
+        </div>
+
+        <!-- Popup 1: Pilih Tempat Kursus -->
+        <div id="kursusPopup" class="popup1-overlay">
+            <div class="popup1-content">
+                <div class="popup1-header">
+                    <h2>Pilih Tempat Kursus</h2>
+                    <button id="closeKursusPopupBtn" class="close1-button">&times;</button>
                 </div>
-                
-                <!-- Popup 2: Pilih Program Bahasa -->
-                <div id="programPopup" class="popup1-overlay">
-                    <div class="popup1-content">
-                        <div class="popup1-header">
-                            <h2>Pilih Program Kursus Anda</h2>
-                            <button id="closePopupBtn" class="close1-button">&times;</button>
-                        </div>
-                        <div class="program1-grid">
-                            <a href="{{ route('program.inggris') }}" class="program1-card inggris">
-                                <div class="program1-icon icon-inggris">
-                                    <img src="{{ asset('asset/img/bendera inggris.jpg') }}" alt="Bendera Inggris" class="program1-img">
-                                </div>
-                                <h3>Kursus Bahasa Inggris</h3>
-                                <span class="pilih1-button">Pilih</span>
-                            </a>
-                            <a href="{{ route('program.arab') }}" class="program1-card arab">
-                                <div class="program1-icon icon-arab">
-                                    <img src="{{ asset('asset/img/bendera arab.jpg') }}" alt="Bendera Arab" class="program1-img">
-                                </div>
-                                <h3>Kursus Bahasa Arab</h3>
-                                <span class="pilih1-button">Pilih</span>
-                            </a>
-                            <a href="{{ route('program.jerman') }}" class="program1-card jerman">
-                                <div class="program1-icon icon-jerman">
-                                    <img src="{{ asset('asset/img/bendera jerman.jpg') }}" alt="Bendera Jerman" class="program1-img">
-                                </div>
-                                <h3>Kursus Bahasa Jerman</h3>
-                                <span class="pilih1-button">Pilih</span>
-                            </a>
-                            <a href="{{ route('program.mandarin') }}" class="program1-card mandarin">
-                                <div class="program1-icon icon-mandarin">
-                                    <img src="{{ asset('asset/img/bendera mandarin.jpg') }}" alt="Bendera Mandarin" class="program1-img">
-                                </div>
-                                <h3>Kursus Bahasa Mandarin</h3>
-                                <span class="pilih1-button">Pilih</span>
-                            </a>
-                        </div>
-                    </div>
+                <div class="program1-grid">
+                    <a href="#" class="program1-card pilih-kursus" data-kursus="bie">
+                        <h3>Brilliant International Education</h3>
+                        <span class="pilih1-button">Pilih</span>
+                    </a>
+                    <a href="#" class="program1-card pilih-kursus" data-kursus="bec">
+                        <h3>Brilliant English Course</h3>
+                        <span class="pilih1-button">Pilih</span>
+                    </a>
                 </div>
-                
+            </div>
+        </div>
 
-        <script>
-           const openPopupButton = document.getElementById('openPopupBtn');
-const kursusPopup = document.getElementById('kursusPopup');
-const closeKursusPopupButton = document.getElementById('closeKursusPopupBtn');
-
-const programPopup = document.getElementById('programPopup');
-const closePopupButton = document.getElementById('closePopupBtn');
-
-// Show / hide function
-function showPopup(popup) {
-    popup.classList.add('show');
-}
-function hidePopup(popup) {
-    popup.classList.remove('show');
-}
-
-// Step 1: Klik "Daftar Program" -> buka popup kursus
-openPopupButton.addEventListener('click', function (e) {
-    e.preventDefault();
-    showPopup(kursusPopup);
-});
-
-// Step 2: Tutup popup kursus
-closeKursusPopupButton.addEventListener('click', function () {
-    hidePopup(kursusPopup);
-});
-
-// Step 3: Klik pilihan kursus -> tutup popup kursus & buka popup program
-document.querySelectorAll('.pilih-kursus').forEach(function (btn) {
-    btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        hidePopup(kursusPopup);
-        showPopup(programPopup);
-
-        // Bisa dipakai kalau mau bedakan program sesuai kursus
-        let selectedKursus = this.getAttribute('data-kursus');
-        console.log("Kursus yang dipilih:", selectedKursus);
-    });
-});
-
-// Step 4: Tutup popup program
-closePopupButton.addEventListener('click', function () {
-    hidePopup(programPopup);
-});
-
-// Step 5: Klik overlay untuk tutup popup
-[kursusPopup, programPopup].forEach(popup => {
-    popup.addEventListener('click', function (event) {
-        if (event.target === popup) hidePopup(popup);
-    });
-});
-        </script>
+        <!-- Popup 2: Pilih Program Bahasa -->
+        <div id="programPopup" class="popup1-overlay">
+            <div class="popup1-content">
+                <div class="popup1-header">
+                    <h2>Pilih Program Kursus Anda</h2>
+                    <button id="closePopupBtn" class="close1-button">&times;</button>
+                </div>
+                <div class="program1-grid">
+                    <a href="{{ route('program.inggris') }}" class="program1-card inggris">
+                        <div class="program1-icon icon-inggris">
+                            <img src="{{ asset('asset/img/bendera inggris.jpg') }}" alt="Bendera Inggris"
+                                class="program1-img">
+                        </div>
+                        <h3>Kursus Bahasa Inggris</h3>
+                        <span class="pilih1-button">Pilih</span>
+                    </a>
+                    <a href="{{ route('program.arab') }}" class="program1-card arab">
+                        <div class="program1-icon icon-arab">
+                            <img src="{{ asset('asset/img/bendera arab.jpg') }}" alt="Bendera Arab"
+                                class="program1-img">
+                        </div>
+                        <h3>Kursus Bahasa Arab</h3>
+                        <span class="pilih1-button">Pilih</span>
+                    </a>
+                    <a href="{{ route('program.jerman') }}" class="program1-card jerman">
+                        <div class="program1-icon icon-jerman">
+                            <img src="{{ asset('asset/img/bendera jerman.jpg') }}" alt="Bendera Jerman"
+                                class="program1-img">
+                        </div>
+                        <h3>Kursus Bahasa Jerman</h3>
+                        <span class="pilih1-button">Pilih</span>
+                    </a>
+                    <a href="{{ route('program.mandarin') }}" class="program1-card mandarin">
+                        <div class="program1-icon icon-mandarin">
+                            <img src="{{ asset('asset/img/bendera mandarin.jpg') }}" alt="Bendera Mandarin"
+                                class="program1-img">
+                        </div>
+                        <h3>Kursus Bahasa Mandarin</h3>
+                        <span class="pilih1-button">Pilih</span>
+                    </a>
+                </div>
+            </div>
+        </div>
     </section>
+    <script>
+        const openPopupButton = document.getElementById('openPopupBtn');
+        const kursusPopup = document.getElementById('kursusPopup');
+        const closeKursusPopupButton = document.getElementById('closeKursusPopupBtn');
 
+        const programPopup = document.getElementById('programPopup');
+        const closePopupButton = document.getElementById('closePopupBtn');
+
+        let selectedKursus = null;
+
+        // Mapping URL
+        const urlMap = {
+            bie: {
+                inggris: "https://biepluskampunginggris.com/program/bahasa/inggris",
+                jerman: "https://biepluskampunginggris.com/program/bahasa/jerman",
+                mandarin: "https://biepluskampunginggris.com/MandarinCenterPare",
+                arab: "https://biepluskampunginggris.com/brilliantalsaeidarabic"
+            },
+            bec: {
+                inggris: "{{ route('program.inggris') }}",
+                jerman: "{{ route('program.jerman') }}",
+                mandarin: "{{ route('program.mandarin') }}",
+                arab: "{{ route('program.arab') }}"
+            }
+        };
+
+        // Show / hide function
+        function showPopup(popup) {
+            popup.classList.add('show');
+        }
+
+        function hidePopup(popup) {
+            popup.classList.remove('show');
+        }
+
+        // Step 1: Klik "Daftar Program"
+        openPopupButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPopup(kursusPopup);
+        });
+
+        // Step 2: Tutup popup kursus
+        closeKursusPopupButton.addEventListener('click', function() {
+            hidePopup(kursusPopup);
+        });
+
+        // Step 3: Klik pilihan kursus
+        document.querySelectorAll('.pilih-kursus').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                selectedKursus = this.getAttribute('data-kursus'); // simpan kursus
+                hidePopup(kursusPopup);
+                showPopup(programPopup);
+            });
+        });
+
+        // Step 4: Tutup popup program
+        closePopupButton.addEventListener('click', function() {
+            hidePopup(programPopup);
+        });
+
+        // Step 5: Klik program
+        document.querySelectorAll('.program1-card').forEach(function(card) {
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                const program = this.classList.contains('inggris') ? 'inggris' :
+                    this.classList.contains('jerman') ? 'jerman' :
+                    this.classList.contains('mandarin') ? 'mandarin' :
+                    this.classList.contains('arab') ? 'arab' : null;
+
+                if (selectedKursus && program && urlMap[selectedKursus][program]) {
+                    window.location.href = urlMap[selectedKursus][program];
+                }
+            });
+        });
+
+        // Step 6: Klik overlay untuk tutup popup
+        [kursusPopup, programPopup].forEach(popup => {
+            popup.addEventListener('click', function(event) {
+                if (event.target === popup) hidePopup(popup);
+            });
+        });
+    </script>
 
 
     {{-- ✅ Section "Tentang Kami" dengan animasi --}}
@@ -256,9 +295,12 @@ closePopupButton.addEventListener('click', function () {
                 <div class="about-intro" data-aos="fade-left" data-aos-delay="200">
                     <h2>Brilliant International Education PLUS</h2>
                     <p>
-                        Berlokasi di jantung Kampung Inggris Pare, Brilliant International Education PLUS menyediakan pengalaman belajar yang berkualitas di
-                        Brilliant International Education PLUS serta nikmati tempat tinggal atau CAMP dengan kenyamanan, fasilitas lengkap, dan lokasi
-                        strategis untuk mendukung pengalaman belajar terbaik Anda di Kampung Inggris Pare. Nikmati tempat di mana potensi Anda menjadi lebih gemilang!
+                        Berlokasi di jantung Kampung Inggris Pare, Brilliant International Education PLUS menyediakan
+                        pengalaman belajar yang berkualitas di
+                        Brilliant International Education PLUS serta nikmati tempat tinggal atau CAMP dengan kenyamanan,
+                        fasilitas lengkap, dan lokasi
+                        strategis untuk mendukung pengalaman belajar terbaik Anda di Kampung Inggris Pare. Nikmati
+                        tempat di mana potensi Anda menjadi lebih gemilang!
                     </p>
                 </div>
 
@@ -295,74 +337,83 @@ closePopupButton.addEventListener('click', function () {
             </div>
         </div>
     </section>
-   
+
 
     <section class="registration-flow-section" id="alur-pendaftaran">
         <div class="container">
             <section class="registration-flow-section" id="alur-pendaftaran">
                 <div class="container">
                     <h2 class="registration-section-title">ALUR PENDAFTARAN</h2>
-                    <p class="registration-section-subtitle">Langkah-langkah mudah untuk bergabung dengan Brilliant English Course</p>
-            
+                    <p class="registration-section-subtitle">Langkah-langkah mudah untuk bergabung dengan Brilliant
+                        English Course</p>
+
                     <div class="flow-steps">
                         <div class="flow-step" data-aos="fade-up" data-aos-delay="100">
                             <div class="step-number">1</div>
                             <div class="step-content">
                                 <h3>Pilih Program</h3>
-                                <p>Pilih program yang sesuai dengan tujuan kamu agar mendapatkan hasil yang maksimal. Ingat! Kamu gak bakal bisa tiba-tiba jago ngomong Inggris dalam satu malam. Kami bukan dukun.</p>
+                                <p>Pilih program yang sesuai dengan tujuan kamu agar mendapatkan hasil yang maksimal.
+                                    Ingat! Kamu gak bakal bisa tiba-tiba jago ngomong Inggris dalam satu malam. Kami
+                                    bukan dukun.</p>
                             </div>
                         </div>
-            
+
                         <div class="flow-step" data-aos="fade-up" data-aos-delay="200">
                             <div class="step-number">2</div>
                             <div class="step-content">
                                 <h3>Isi Formulir</h3>
-                                <p>Isi beberapa formulir yang diperlukan dengan benar untuk melakukan pendaftaran pada program yang telah dipilih sebelumnya.</p>
+                                <p>Isi beberapa formulir yang diperlukan dengan benar untuk melakukan pendaftaran pada
+                                    program yang telah dipilih sebelumnya.</p>
                             </div>
                         </div>
-            
+
                         <div class="flow-step" data-aos="fade-up" data-aos-delay="300">
                             <div class="step-number">3</div>
                             <div class="step-content">
                                 <h3>Lakukan Pembayaran</h3>
-                                <p>Lakukan pembayaran beserta bukti pembayaran setelah melakukan pengisian formulir. Harga pembayaran berbeda-beda tergantung dari program mana yang dipilih.</p>
+                                <p>Lakukan pembayaran beserta bukti pembayaran setelah melakukan pengisian formulir.
+                                    Harga pembayaran berbeda-beda tergantung dari program mana yang dipilih.</p>
                             </div>
                         </div>
-            
+
                         <div class="flow-step" data-aos="fade-up" data-aos-delay="400">
                             <div class="step-number">4</div>
                             <div class="step-content">
                                 <h3>Validasi Pembayaran</h3>
-                                <p>Setelah melakukan pembayaran, tunggu beberapa jam hingga pihak dari kampung inggris pusat menyelesaikan validasi pembayaran yang telah dilakukan sebelumnya.</p>
+                                <p>Setelah melakukan pembayaran, tunggu beberapa jam hingga pihak dari kampung inggris
+                                    pusat menyelesaikan validasi pembayaran yang telah dilakukan sebelumnya.</p>
                             </div>
                         </div>
-            
+
                         <div class="flow-step" data-aos="fade-up" data-aos-delay="500">
                             <div class="step-number">5</div>
                             <div class="step-content">
                                 <h3>Tunggu Pemberitahuan</h3>
-                                <p>Setelah validasi pembayaran selesai dilakukan oleh pihak kampung inggris pusat, kami akan mengirimkan pemberitahuan terhadap Anda melalui media sosial WhatsApp.</p>
+                                <p>Setelah validasi pembayaran selesai dilakukan oleh pihak kampung inggris pusat, kami
+                                    akan mengirimkan pemberitahuan terhadap Anda melalui media sosial WhatsApp.</p>
                             </div>
                         </div>
-            
+
                         <div class="flow-step" data-aos="fade-up" data-aos-delay="600">
                             <div class="step-number">6</div>
                             <div class="step-content">
                                 <h3>Datang ke Brilliant English Course</h3>
-                                <p>Berangkat menuju Brilliant English Course sesuai periode yang telah dipilih sebelumnya.</p>
+                                <p>Berangkat menuju Brilliant English Course sesuai periode yang telah dipilih
+                                    sebelumnya.</p>
                             </div>
                         </div>
-            
+
                         <div class="flow-step" data-aos="fade-up" data-aos-delay="700">
                             <div class="step-number">7</div>
                             <div class="step-content">
                                 <h3>Ikuti Aturan</h3>
-                                <p>Ikuti Aturan yang berlaku dan pulang dengan hasil yang memuaskan dengan mendapatkan akses ke materi pembelajaran.</p>
+                                <p>Ikuti Aturan yang berlaku dan pulang dengan hasil yang memuaskan dengan mendapatkan
+                                    akses ke materi pembelajaran.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+        </div>
         </div>
     </section>
 
@@ -416,7 +467,7 @@ closePopupButton.addEventListener('click', function () {
         @endforeach
     </div>
 
-{{-- 
+    {{--
     <div class="wave-divider4">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
             <path class="shape-fill4"
@@ -840,7 +891,7 @@ closePopupButton.addEventListener('click', function () {
             <span class="lightbox-close" onclick="closeLightbox()">x</span>
             <img class="lightbox-content" id="lightboxImg">
         </div>
-{{-- 
+        {{--
         <div class="wave-divider6">
             <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
                 <path class="shape-fill6"
