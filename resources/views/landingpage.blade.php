@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
-    <link rel="icon" href="{{ asset('favicon-v2.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('LogoWebBrillaintPare.png') }}" type="image/png">
 
 </head>
 
@@ -112,11 +112,6 @@
         <div class="carousel-container">
             <div class="slides">
                 <img src="{{ asset('asset/img/BIE01.jpg') }}" class="slide" alt="Slide 1">
-                {{-- <img src="{{ asset('asset/img/BIE2.jpg') }}" class="slide" alt="Slide 2">
-                <img src="{{ asset('asset/img/BIE3.jpg') }}" class="slide" alt="Slide 3">
-                <img src="{{ asset('asset/img/BIE4.jpg') }}" class="slide active" alt="Slide 4">
-                <img src="{{ asset('asset/img/BIE5.jpg') }}" class="slide" alt="Slide 5">
-                <img src="{{ asset('asset/img/BIE6.jpg') }}" class="slide" alt="Slide 6"> --}}
             </div>
             <div class="carousel-overlay"></div>
 
@@ -138,151 +133,155 @@
         </div>
 
         <!-- Popup 1: Pilih Tempat Kursus -->
-        <div id="kursusPopup" class="popup1-overlay">
-            <div class="popup1-content">
-                <div class="popup1-header">
-                    <h2>Pilih Tempat Kursus</h2>
-                    <button id="closeKursusPopupBtn" class="close1-button">&times;</button>
-                </div>
-                <div class="program1-grid">
-                    <a href="#" class="program1-card pilih-kursus" data-kursus="bie">
-                        <h3>Brilliant International Education</h3>
-                        <span class="pilih1-button">Pilih</span>
-                    </a>
-                    <a href="#" class="program1-card pilih-kursus" data-kursus="bec">
-                        <h3>Brilliant English Course</h3>
-                        <span class="pilih1-button">Pilih</span>
-                    </a>
-                </div>
-            </div>
+<div id="kursusPopup" class="popup1-overlay">
+    <div class="popup1-content">
+        <div class="popup1-header">
+            <h2>Pilih Tempat Kursus</h2>
+            <button id="closeKursusPopupBtn" class="close1-button">&times;</button>
         </div>
+        <div class="program-grid">
+            <a href="#" class="program1-card pilih-kursus" data-kursus="bie">
+                <div class="program2-icon">
+                    <img src="{{ asset('asset/img/BIEPLUS1.jpg') }}" alt="Brilliant International Education" class="program1-img">
+                </div>
+                <h3>Brilliant International Education</h3>
+                <span class="pilih1-button">Pilih</span>
+            </a>
+            <a href="#" class="program1-card pilih-kursus" data-kursus="bec">
+                <div class="program2-icon">
+                    <img src="{{ asset('asset/img/BRILLIANT1.jpg') }}" alt="Brilliant English Course" class="program1-img">
+                </div>
+                <h3>Brilliant English Course</h3>
+                <span class="pilih1-button">Pilih</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+</style>
 
         <!-- Popup 2: Pilih Program Bahasa -->
-        <div id="programPopup" class="popup1-overlay">
-            <div class="popup1-content">
-                <div class="popup1-header">
-                    <h2>Pilih Program Kursus Anda</h2>
-                    <button id="closePopupBtn" class="close1-button">&times;</button>
-                </div>
-                <div class="program1-grid">
-                    <a href="{{ route('program.inggris') }}" class="program1-card inggris">
-                        <div class="program1-icon icon-inggris">
-                            <img src="{{ asset('asset/img/bendera inggris.jpg') }}" alt="Bendera Inggris"
-                                class="program1-img">
-                        </div>
-                        <h3>Kursus Bahasa Inggris</h3>
-                        <span class="pilih1-button">Pilih</span>
-                    </a>
-                    <a href="{{ route('program.arab') }}" class="program1-card arab">
-                        <div class="program1-icon icon-arab">
-                            <img src="{{ asset('asset/img/bendera arab.jpg') }}" alt="Bendera Arab"
-                                class="program1-img">
-                        </div>
-                        <h3>Kursus Bahasa Arab</h3>
-                        <span class="pilih1-button">Pilih</span>
-                    </a>
-                    <a href="{{ route('program.jerman') }}" class="program1-card jerman">
-                        <div class="program1-icon icon-jerman">
-                            <img src="{{ asset('asset/img/bendera jerman.jpg') }}" alt="Bendera Jerman"
-                                class="program1-img">
-                        </div>
-                        <h3>Kursus Bahasa Jerman</h3>
-                        <span class="pilih1-button">Pilih</span>
-                    </a>
-                    <a href="{{ route('program.mandarin') }}" class="program1-card mandarin">
-                        <div class="program1-icon icon-mandarin">
-                            <img src="{{ asset('asset/img/bendera mandarin.jpg') }}" alt="Bendera Mandarin"
-                                class="program1-img">
-                        </div>
-                        <h3>Kursus Bahasa Mandarin</h3>
-                        <span class="pilih1-button">Pilih</span>
-                    </a>
-                </div>
-            </div>
+        <!-- Popup 2: Pilih Program Bahasa -->
+<div id="programPopup" class="popup1-overlay">
+    <div class="popup1-content">
+        <div class="popup1-header">
+            <h2 id="programPopupTitle">Pilih Program Kursus Anda</h2>
+            <button id="closePopupBtn" class="close1-button">&times;</button>
         </div>
+        <div class="program1-grid">
+            <a href="#" class="program1-card inggris">
+                <div class="program1-icon icon-inggris">
+                    <img src="{{ asset('asset/img/bendera inggris.jpg') }}" alt="Bendera Inggris" class="program1-img">
+                </div>
+                <h3>Kursus Bahasa Inggris</h3>
+                <span class="pilih1-button">Pilih</span>
+            </a>
+            <a href="#" class="program1-card arab">
+                <div class="program1-icon icon-arab">
+                    <img src="{{ asset('asset/img/bendera arab.jpg') }}" alt="Bendera Arab" class="program1-img">
+                </div>
+                <h3>Kursus Bahasa Arab</h3>
+                <span class="pilih1-button">Pilih</span>
+            </a>
+            <a href="#" class="program1-card jerman">
+                <div class="program1-icon icon-jerman">
+                    <img src="{{ asset('asset/img/bendera jerman.jpg') }}" alt="Bendera Jerman" class="program1-img">
+                </div>
+                <h3>Kursus Bahasa Jerman</h3>
+                <span class="pilih1-button">Pilih</span>
+            </a>
+            <a href="#" class="program1-card mandarin">
+                <div class="program1-icon icon-mandarin">
+                    <img src="{{ asset('asset/img/bendera mandarin.jpg') }}" alt="Bendera Mandarin" class="program1-img">
+                </div>
+                <h3>Kursus Bahasa Mandarin</h3>
+                <span class="pilih1-button">Pilih</span>
+            </a>
+        </div>
+    </div>
+</div>
+
     </section>
     <script>
         const openPopupButton = document.getElementById('openPopupBtn');
-        const kursusPopup = document.getElementById('kursusPopup');
-        const closeKursusPopupButton = document.getElementById('closeKursusPopupBtn');
+const kursusPopup = document.getElementById('kursusPopup');
+const closeKursusPopupButton = document.getElementById('closeKursusPopupBtn');
 
-        const programPopup = document.getElementById('programPopup');
-        const closePopupButton = document.getElementById('closePopupBtn');
+const programPopup = document.getElementById('programPopup');
+const closePopupButton = document.getElementById('closePopupBtn');
+const programPopupTitle = document.getElementById('programPopupTitle');
 
-        let selectedKursus = null;
+let selectedKursus = null;
 
-        // Mapping URL
-        const urlMap = {
-            bie: {
-                inggris: "https://biepluskampunginggris.com/program/bahasa/inggris",
-                jerman: "https://biepluskampunginggris.com/program/bahasa/jerman",
-                mandarin: "https://biepluskampunginggris.com/MandarinCenterPare",
-                arab: "https://biepluskampunginggris.com/brilliantalsaeidarabic"
-            },
-            bec: {
-                inggris: "{{ route('program.inggris') }}",
-                jerman: "{{ route('program.jerman') }}",
-                mandarin: "{{ route('program.mandarin') }}",
-                arab: "{{ route('program.arab') }}"
-            }
-        };
+const urlMap = {
+    bie: {
+        inggris: "https://brilliantinternationaleducation.com/program/bahasa/inggris",
+        jerman: "https://brilliantinternationaleducation.com/program/bahasa/jerman",
+        mandarin: "https://brilliantinternationaleducation.com/MandarinCenterPare",
+        arab: "https://brilliantinternationaleducation.com/brilliantalsaeidarabic"
+    },
+    bec: {
+        inggris: "{{ route('program.inggris') }}",
+        jerman: "{{ route('program.jerman') }}",
+        mandarin: "{{ route('program.mandarin') }}",
+        arab: "{{ route('program.arab') }}"
+    }
+};
 
-        // Show / hide function
-        function showPopup(popup) {
-            popup.classList.add('show');
+function showPopup(popup) { popup.classList.add('show'); }
+function hidePopup(popup) { popup.classList.remove('show'); }
+
+openPopupButton.addEventListener('click', function(e){
+    e.preventDefault();
+    showPopup(kursusPopup);
+});
+
+closeKursusPopupButton.addEventListener('click', function(){
+    hidePopup(kursusPopup);
+});
+
+document.querySelectorAll('.pilih-kursus').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+        e.preventDefault();
+        selectedKursus = this.getAttribute('data-kursus'); 
+
+        // Ganti judul popup sesuai kursus
+        if(selectedKursus === 'bie'){
+            programPopupTitle.textContent = "Pilih Program Kursus Anda (International)";
+        } else if(selectedKursus === 'bec'){
+            programPopupTitle.textContent = "Pilih Program Kursus Anda";
         }
 
-        function hidePopup(popup) {
-            popup.classList.remove('show');
+        hidePopup(kursusPopup);
+        showPopup(programPopup);
+    });
+});
+
+closePopupButton.addEventListener('click', function(){
+    hidePopup(programPopup);
+});
+
+document.querySelectorAll('.program1-card').forEach(function(card){
+    card.addEventListener('click', function(e){
+        e.preventDefault();
+        const program = this.classList.contains('inggris') ? 'inggris' :
+                        this.classList.contains('jerman') ? 'jerman' :
+                        this.classList.contains('mandarin') ? 'mandarin' :
+                        this.classList.contains('arab') ? 'arab' : null;
+        if(selectedKursus && program && urlMap[selectedKursus][program]){
+            window.location.href = urlMap[selectedKursus][program];
         }
+    });
+});
 
-        // Step 1: Klik "Daftar Program"
-        openPopupButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            showPopup(kursusPopup);
-        });
+[kursusPopup, programPopup].forEach(popup => {
+    popup.addEventListener('click', function(event){
+        if(event.target === popup) hidePopup(popup);
+    });
+});
 
-        // Step 2: Tutup popup kursus
-        closeKursusPopupButton.addEventListener('click', function() {
-            hidePopup(kursusPopup);
-        });
-
-        // Step 3: Klik pilihan kursus
-        document.querySelectorAll('.pilih-kursus').forEach(function(btn) {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                selectedKursus = this.getAttribute('data-kursus'); // simpan kursus
-                hidePopup(kursusPopup);
-                showPopup(programPopup);
-            });
-        });
-
-        // Step 4: Tutup popup program
-        closePopupButton.addEventListener('click', function() {
-            hidePopup(programPopup);
-        });
-
-        // Step 5: Klik program
-        document.querySelectorAll('.program1-card').forEach(function(card) {
-            card.addEventListener('click', function(e) {
-                e.preventDefault();
-                const program = this.classList.contains('inggris') ? 'inggris' :
-                    this.classList.contains('jerman') ? 'jerman' :
-                    this.classList.contains('mandarin') ? 'mandarin' :
-                    this.classList.contains('arab') ? 'arab' : null;
-
-                if (selectedKursus && program && urlMap[selectedKursus][program]) {
-                    window.location.href = urlMap[selectedKursus][program];
-                }
-            });
-        });
-
-        // Step 6: Klik overlay untuk tutup popup
-        [kursusPopup, programPopup].forEach(popup => {
-            popup.addEventListener('click', function(event) {
-                if (event.target === popup) hidePopup(popup);
-            });
-        });
     </script>
 
 
