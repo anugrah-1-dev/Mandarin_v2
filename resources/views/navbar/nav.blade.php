@@ -22,7 +22,7 @@
             @elseif (request()->routeIs('landing.nhc'))
                 <img src="{{ asset('asset/img/logonhc.png') }}" alt="Logo NHC" style="height: 95px;">
             @else
-                <img src="{{ asset('asset/img/bietest.png') }}" alt="Logo Default" style="height: 90px;">
+                <img src="{{ asset('asset/img/Inggris2.png') }}" alt="Logo Default" style="height: 150px;">
             @endif
         </a>
     </div>

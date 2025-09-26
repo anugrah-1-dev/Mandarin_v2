@@ -34,7 +34,9 @@
                 </div>
                 <div class="slide">
                     <img src="{{ asset('asset/img/Brilliant1.2.jpg') }}" alt="Belajar Bahasa Arab 4">
-                </div>ass="next">&#10095;</button>
+                </div>
+                <button class="prev">&#10094;</button>
+            <button class="next">&#10095;</button>
         </div>
 
         <div class="hero-text">
