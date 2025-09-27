@@ -78,6 +78,18 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-md-6">
+                        <x-adminlte-select name="kursus" label="Jenis Kursus" required>
+                            <option value="" disabled selected>-- Pilih Jenis Kursus --</option>
+                            <option value="brilliant" {{ old('kursus') == 'brilliant' ? 'selected' : '' }}>Brilliant
+                            </option>
+                            <option value="bieplus" {{ old('kursus') == 'bieplus' ? 'selected' : '' }}>BIEPLUS</option>
+                        </x-adminlte-select>
+                    </div>
+                </div>
+
+
                 <x-adminlte-textarea name="features_program" label="Fitur Program (Pisahkan dengan enter)" rows="4"
                     placeholder="Contoh:✅ Sertifikat ✅ Materi cetak ✅ Tutor berpengalaman"
                     required>{{ old('features_program') }}</x-adminlte-textarea>
@@ -124,7 +136,7 @@
             title: 'Berhasil!',
             text: "{{ session('success') }}",
             timer: 3000,
-            showConfirmButton: false    
+            showConfirmButton: false
         });
     </script>
 @endif

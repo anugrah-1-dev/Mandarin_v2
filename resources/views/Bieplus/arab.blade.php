@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kursus Bahasa Arab</title>
-    <link rel="stylesheet" href="{{ asset('css/arablandingpage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/arabbieplus.css') }}">
 </head>
 
 <body>

@@ -43,15 +43,20 @@
                 PROGRAM <span class="arrow">▼</span>
             </button>
             <div class="dropdown-content">
-                <a href="{{ route('program.inggris') }}">Bahasa Inggris</a>
-                <a href="{{ route('program.jerman') }}">Bahasa Jerman</a>
-                <a href="{{ route('program.mandarin') }}">Bahasa Mandarin</a>
-                <a href="{{ route('program.arab') }}">Bahasa Arab</a>
-                <!-- <a href="{{ route('landing.nhc') }}">NHC</a> -->
-
-
+                @if (request()->routeIs('bieplus.*'))
+                    <a href="{{ route('bieplus.program.inggris') }}">Bahasa Inggris</a>
+                    <a href="{{ route('bieplus.program.jerman') }}">Bahasa Jerman</a>
+                    <a href="{{ route('bieplus.program.mandarin') }}">Bahasa Mandarin</a>
+                    <a href="{{ route('bieplus.program.arab') }}">Bahasa Arab</a>
+                @else
+                    <a href="{{ route('program.inggris') }}">Bahasa Inggris</a>
+                    <a href="{{ route('program.jerman') }}">Bahasa Jerman</a>
+                    <a href="{{ route('program.mandarin') }}">Bahasa Mandarin</a>
+                    <a href="{{ route('program.arab') }}">Bahasa Arab</a>
+                @endif
             </div>
         </div>
+
 
 
         <div class="dropdown" id="programDropdown">

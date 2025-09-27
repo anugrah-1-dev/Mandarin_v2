@@ -147,6 +147,14 @@
                         </select>
                     </div>
 
+                    <x-adminlte-select name="kursus" label="Jenis Kursus" required>
+                        <option value="brilliant" {{ old('kursus', $offline->kursus) == 'brilliant' ? 'selected' : '' }}>
+                            Brilliant</option>
+                        <option value="bieplus" {{ old('kursus', $offline->kursus) == 'bieplus' ? 'selected' : '' }}>
+                            BIEPLUS</option>
+                    </x-adminlte-select>
+
+
                     {{-- Thumbnail --}}
                     <h5 class="mt-4 mb-3">Thumbnail Program</h5>
                     <div class="form-group">
@@ -181,7 +189,8 @@
                     {{-- Fitur Program --}}
                     <h5 class="mt-4 mb-3">Fitur Program</h5>
                     <div class="form-group">
-                       <textarea class="form-control" id="features_program" name="features_program" rows="4">{{ old('features_program', $offline->features_program ?? '') }}</textarea>
+                        <textarea class="form-control" id="features_program" name="features_program"
+                            rows="4">{{ old('features_program', $offline->features_program ?? '') }}</textarea>
 
 
                         <small class="form-text text-muted">Gunakan ✅ dan Enter untuk setiap fitur baru</small>

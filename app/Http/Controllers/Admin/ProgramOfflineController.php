@@ -37,6 +37,7 @@ class ProgramOfflineController extends Controller
             'is_active'        => 'required|boolean',
             'thumbnail'        => 'required|image|mimes:jpg,jpeg,png|max:5048',
             'program_bahasa'   => 'required|in:inggris,jerman,mandarin,arab,nhc',
+            'kursus'           => 'required|in:brilliant,bieplus', // ✅ tambahkan ini
         ]);
 
 
@@ -86,6 +87,7 @@ class ProgramOfflineController extends Controller
             'is_active' => 'required|in:0,1',
             'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
             'program_bahasa' => 'required|in:inggris,jerman,mandarin,arab,nhc',
+            'kursus' => 'required|in:brilliant,bieplus', // ✅ tambahkan ini
         ]);
 
         $data = $request->only([
@@ -100,6 +102,7 @@ class ProgramOfflineController extends Controller
             'kuota',
             'is_active',
             'program_bahasa',
+             'kursus', // ✅ tambahkan ini
         ]);
 
         // Simpan fitur sebagai JSON array
