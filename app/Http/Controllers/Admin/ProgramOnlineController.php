@@ -40,6 +40,7 @@ class ProgramOnlineController extends Controller
             'is_active'        => 'required|boolean',
             'thumbnail'        => 'required|image|mimes:jpg,jpeg,png|max:5048',
             'program_bahasa'   => 'required|in:inggris,jerman,mandarin,arab,nhc',
+            'kursus'           => 'required|in:brilliant,bieplus', // ✅ tambahkan ini
         ]);
 
         // Konversi fitur dari textarea ke array
@@ -72,6 +73,7 @@ class ProgramOnlineController extends Controller
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5048',
             'is_active' => 'required|in:0,1',
             'program_bahasa' => 'required|in:inggris,jerman,mandarin,arab,nhc',
+            'kursus' => 'required|in:brilliant,bieplus', // ✅ tambahkan ini
         ]);
 
         $data = $request->only([
@@ -83,6 +85,7 @@ class ProgramOnlineController extends Controller
             'is_active',
             'thumbnail',
             'program_bahasa',
+            'kursus', // ✅ tambahkan ini
         ]);
 
         $data['slug'] = Str::slug($data['nama']);

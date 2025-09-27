@@ -97,6 +97,7 @@
                                         placeholder="Contoh: 1000000" value="{{ old('harga', $online->harga) }}" required>
                                 </div>
                             </div>
+                            
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="is_active">Status Program</label>
@@ -111,7 +112,12 @@
                                 </div>
                             </div>
                         </div>
-
+<x-adminlte-select name="kursus" label="Jenis Kursus" required>
+                        <option value="brilliant" {{ old('kursus', $online->kursus) == 'brilliant' ? 'selected' : '' }}>
+                            Brilliant</option>
+                        <option value="bieplus" {{ old('kursus', $online->kursus) == 'bieplus' ? 'selected' : '' }}>
+                            BIEPLUS</option>
+                    </x-adminlte-select>
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">

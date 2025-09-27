@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deutsch Brilliant - Kursus Bahasa Jerman</title>
     {{-- Link ke CSS --}}
-    <link rel="stylesheet" href="{{ asset('css/jermanlandingpage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jermanbieplus.css') }}">
     {{-- Link ke Library Animasi AOS --}}
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     {{-- Link Font Awesome untuk Ikon (Opsional, tapi sangat direkomendasikan) --}}

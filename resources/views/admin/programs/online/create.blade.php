@@ -67,9 +67,11 @@
                                 Mandarin</option>
                             <option value="arab" {{ old('program_bahasa') == 'arab' ? 'selected' : '' }}>Bahasa Arab
                             </option>
-                         
+
                         </x-adminlte-select>
                     </div>
+
+
                     <div class="col-md-6">
                         <x-adminlte-select name="is_active" label="Status Program" required>
                             <option value="1" {{ old('is_active') == '1' ? 'selected' : '' }}>Aktif</option>
@@ -77,7 +79,16 @@
                         </x-adminlte-select>
                     </div>
                 </div>
-
+                <div class="row">
+                    <div class="col-md-6">
+                        <x-adminlte-select name="kursus" label="Jenis Kursus" required>
+                            <option value="" disabled selected>-- Pilih Jenis Kursus --</option>
+                            <option value="brilliant" {{ old('kursus') == 'brilliant' ? 'selected' : '' }}>Brilliant
+                            </option>
+                            <option value="bieplus" {{ old('kursus') == 'bieplus' ? 'selected' : '' }}>BIEPLUS</option>
+                        </x-adminlte-select>
+                    </div>
+                </div>
                 <x-adminlte-input name="thumbnail" label="Thumbnail Program (Gambar)" type="file" accept="image/*"
                     required />
 
