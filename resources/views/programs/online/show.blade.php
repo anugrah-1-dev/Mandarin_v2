@@ -94,6 +94,19 @@
                                         </td>
 
                                     </tr>
+                                     <th class="bg-light">Kursus</th>
+    <td>
+        @php
+            $kursusName = $program->kursus ?? '';
+            $kursusMap = [
+                'brilliant' => 'Brilliant',
+                'bieplus'   => 'BIEPLUS',
+            ];
+        @endphp
+
+        {{ $kursusMap[strtolower($kursusName)] ?? ucfirst($kursusName) }}
+    </td>
+</tr>
                                     <tr>
                                         <th scope="row" class="bg-light">Status</th>
                                         <td>

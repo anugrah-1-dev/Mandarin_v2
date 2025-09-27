@@ -32,20 +32,27 @@ class TrackingController extends Controller
         $cs = Customer_Service::first();
 
         $caterings = PendaftaranCatering::with('cateringPackage')
-            ->where('pendaftaran_id', $offline->id)
+            ->when($offline, function ($query) use ($offline) {
+                $query->where('pendaftaran_id', $offline->id);
+            })
             ->get();
 
         $laundries = PendaftaranLaundry::with('laundryPackage')
-            ->where('pendaftaran_id', $offline->id)
+            ->when($offline, function ($query) use ($offline) {
+                $query->where('pendaftaran_id', $offline->id);
+            })
             ->get();
 
         $holidays = PendaftaranHoliday::with('holidayPackage')
-            ->where('pendaftaran_id', $offline->id)
+            ->when($offline, function ($query) use ($offline) {
+                $query->where('pendaftaran_id', $offline->id);
+            })
             ->get();
+            
         if (!$camp && !$offline && !$online) {
             return back()->with('error', 'Transaksi tidak ditemukan.');
         }
 
-        return view('tracking.index', compact('camp', 'offline', 'online', 'trx_id','cs', 'caterings', 'laundries', 'holidays'));
+        return view('tracking.index', compact('camp', 'offline', 'online', 'trx_id', 'cs', 'caterings', 'laundries', 'holidays'));
     }
 }

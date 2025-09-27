@@ -32,4 +32,15 @@ class ProgramOffline extends Model
     // {
     //     return 'slug';
     // }
+
+    // Program.php
+    public function getKursusLabelAttribute()
+    {
+        $map = [
+            'brilliant' => 'Brilliant',
+            'bieplus'   => 'BIEPLUS',
+        ];
+
+        return $map[strtolower($this->kursus)] ?? ucfirst($this->kursus);
+    }
 }

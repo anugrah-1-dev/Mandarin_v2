@@ -146,7 +146,7 @@
                                 <div class="col-md-6 mb-3">
                                     <h5 class="text-muted">Transportasi</h5>
                                     <p class="fs-5">
-                                        {{ $offline->transport_id ? $offline->transport->nama : '-' }}
+                                        {{ $offline->transport_id ? $offline->transport->name : '-' }}
                                     </p>
                                 </div>
 

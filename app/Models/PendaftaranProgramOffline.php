@@ -90,4 +90,7 @@ class PendaftaranProgramOffline extends Model
     {
         return $this->hasMany(PendaftaranHoliday::class, 'pendaftaran_id');
     }
+
+    
+
 }

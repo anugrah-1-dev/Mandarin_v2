@@ -95,6 +95,7 @@
                             <th>Bank Tujuan</th>
                             <th>Subtotal</th>
                             <th>Ukuran Seragam</th>
+                            <th>Kursus</th>
                             <th>Status</th>
                             <th>Bukti Pembayaran</th>
                             <th width="10%">Aksi</th>
@@ -170,6 +171,8 @@
                                         <span class="text-muted" style="font-size: 0.85em;">Belum dipilih</span>
                                     @endif
                                 </td>
+<td>{{ $data->program->kursus_label ?? '-' }}</td>
+
 
 
                                 {{-- KOLOM STATUS --}}

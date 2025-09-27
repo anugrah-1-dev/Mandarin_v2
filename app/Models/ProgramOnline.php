@@ -48,7 +48,16 @@ class ProgramOnline extends Model
         'is_active' => 'boolean',
 
     ];
+    // Program.php
+    public function getKursusLabelAttribute()
+    {
+        $map = [
+            'brilliant' => 'Brilliant',
+            'bieplus'   => 'BIEPLUS',
+        ];
 
+        return $map[strtolower($this->kursus)] ?? ucfirst($this->kursus);
+    }
     // public function getRouteKeyName()
     // {
     //     return 'slug';
