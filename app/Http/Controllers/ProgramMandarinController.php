@@ -6,18 +6,23 @@ use Illuminate\Http\Request;
 use App\Models\ProgramOnline;
 use App\Models\ProgramOffline;
 
-
 class ProgramMandarinController extends Controller
 {
-    public function showMandarin()
+    public function showMandarin($kursus = 'brilliant')
     {
         $onlinePrograms = ProgramOnline::where('program_bahasa', 'Mandarin')
+            ->where('kursus', $kursus)
             ->where('is_active', 1)
             ->get();
 
         $offlinePrograms = ProgramOffline::where('program_bahasa', 'Mandarin')
+            ->where('kursus', $kursus)
             ->where('is_active', 1)
             ->get();
+
+        if ($kursus === 'bieplus') {
+            return view('Bieplus.mandarin', compact('onlinePrograms', 'offlinePrograms'));
+        }
 
         return view('Landingpage.mandarin', compact('onlinePrograms', 'offlinePrograms'));
     }

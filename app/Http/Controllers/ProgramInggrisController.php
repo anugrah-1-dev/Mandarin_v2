@@ -8,34 +8,33 @@ use App\Models\ProgramOffline;
 
 class ProgramInggrisController extends Controller
 {
-    public function showInggris()
+    public function showInggris($kursus = 'brilliant')
     {
         $onlinePrograms = ProgramOnline::where('program_bahasa', 'Inggris')
+            ->where('kursus', $kursus)
             ->where('is_active', 1)
             ->get();
 
         $offlinePrograms = ProgramOffline::where('program_bahasa', 'Inggris')
+            ->where('kursus', $kursus)
             ->where('is_active', 1)
             ->get();
 
-        // Convert features_program JSON to array for each program
+        // Convert features_program JSON ke array
         foreach ($onlinePrograms as $program) {
-            if (!empty($program->features_program)) {
-                $decoded = json_decode($program->features_program, true);
-                $program->features_program = is_array($decoded) ? $decoded : [];
-            } else {
-                $program->features_program = [];
-            }
+            $program->features_program = !empty($program->features_program)
+                ? json_decode($program->features_program, true) ?? []
+                : [];
         }
         foreach ($offlinePrograms as $program) {
-            if (!empty($program->features_program)) {
-                $decoded = json_decode($program->features_program, true);
-                $program->features_program = is_array($decoded) ? $decoded : [];
-            } else {
-                $program->features_program = [];
-            }
+            $program->features_program = !empty($program->features_program)
+                ? json_decode($program->features_program, true) ?? []
+                : [];
         }
 
-        return view('Landingpage.inggris', compact('onlinePrograms', 'offlinePrograms'));
+        // Pilih view sesuai kursus
+        return $kursus === 'bieplus'
+            ? view('Bieplus.inggris', compact('onlinePrograms', 'offlinePrograms'))
+            : view('Landingpage.inggris', compact('onlinePrograms', 'offlinePrograms'));
     }
 }

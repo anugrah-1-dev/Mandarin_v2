@@ -8,16 +8,22 @@ use App\Models\ProgramOffline;
 
 class ProgramJermanController extends Controller
 {
-    public function showJerman()
+    public function showJerman($kursus = 'brilliant')
     {
         $onlinePrograms = ProgramOnline::where('program_bahasa', 'Jerman')
+            ->where('kursus', $kursus)
             ->where('is_active', 1)
             ->get();
 
         $offlinePrograms = ProgramOffline::where('program_bahasa', 'Jerman')
+            ->where('kursus', $kursus)
             ->where('is_active', 1)
             ->get();
 
-        return view('Landingpage.Jerman', compact('onlinePrograms', 'offlinePrograms'));
+        if ($kursus === 'bieplus') {
+            return view('Bieplus.jerman', compact('onlinePrograms', 'offlinePrograms'));
+        }
+
+        return view('Landingpage.jerman', compact('onlinePrograms', 'offlinePrograms'));
     }
 }

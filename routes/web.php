@@ -111,25 +111,38 @@ Route::get('/pendaftaran/online/qris/{trx_id}', [ProgramOnlinePublicController::
 
 
 
-
+//brilliant
 Route::get('/program/bahasa/inggris', [ProgramInggrisController::class, 'showInggris'])
     ->name('program.inggris');
-
 Route::get('/program/bahasa/jerman', [ProgramJermanController::class, 'showJerman'])->name('program.jerman');
-
-
 // Route baru
 Route::get('/brilliantalsaeidarabic', [ProgramArabController::class, 'showArab'])->name('program.arab');
-
 // Redirect dari URL lama ke URL baru
 Route::redirect('/program/bahasa/arab', '/brilliantalsaeidarabic');
-
-
 // Definisikan route untuk URL BARU yang Anda inginkan
 Route::get('/MandarinCenterPare', [ProgramMandarinController::class, 'showMandarin'])->name('program.mandarin');
-
 // Alihkan (redirect) URL LAMA ke URL BARU dengan status 301 (Moved Permanently)
 Route::redirect('/program/bahasa/mandarin', '/MandarinCenterPare', 301);
+
+
+// Bieplus
+Route::get('/bieplus/program/bahasa/inggris', function () {
+    return app(ProgramInggrisController::class)->showInggris('bieplus');
+})->name('bieplus.program.inggris');
+
+Route::get('/bieplus/program/bahasa/jerman', function () {
+    return app(ProgramJermanController::class)->showJerman('bieplus');
+})->name('bieplus.program.jerman');
+
+Route::get('/bieplus/program/bahasa/mandarin', function () {
+    return app(ProgramMandarinController::class)->showMandarin('bieplus');
+})->name('bieplus.program.mandarin');
+
+Route::get('/bieplus/program/bahasa/arab', function () {
+    return app(ProgramArabController::class)->showArab('bieplus');
+})->name('bieplus.program.arab');
+
+
 
 // PERUBAIKAN 2: Rute NHC diubah ke controller yang benar
 // ===============================================
@@ -260,7 +273,9 @@ Route::middleware(['auth', 'role:admin|officer'])->prefix('admin')->name('admin.
     Route::post('/pendaftaran/program-offline', [PendaftaranOfflineController::class, 'store'])->name('pendaftaran.program_offline.store');
     Route::get('pendaftaran/offline/{id}', [PendaftaranOfflineController::class, 'show'])
         ->name('pendaftaran.offline.show');
+
     // Pendaftaran Program Camp
+
     Route::get('/pendaftaran/camp', [PendaftaranProgramCampController::class, 'index'])->name('pendaftaran.camp.index');
     Route::get('/pendaftaran/camp/{id}/edit', [PendaftaranProgramCampController::class, 'edit'])->name('pendaftaran.camp.edit');
     Route::put('/pendaftaran/camp/{id}', [PendaftaranProgramCampController::class, 'update'])->name('pendaftaran.camp.update');

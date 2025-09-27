@@ -217,10 +217,10 @@ let selectedKursus = null;
 
 const urlMap = {
     bie: {
-        inggris: "https://brilliantinternationaleducation.com/program/bahasa/inggris",
-        jerman: "https://brilliantinternationaleducation.com/program/bahasa/jerman",
-        mandarin: "https://brilliantinternationaleducation.com/MandarinCenterPare",
-        arab: "https://brilliantinternationaleducation.com/brilliantalsaeidarabic"
+        inggris: "{{ route('bieplus.program.inggris') }}",
+        jerman: "{{ route('bieplus.program.jerman') }}",
+        mandarin: "{{ route('bieplus.program.mandarin') }}",
+        arab: "{{ route('bieplus.program.arab') }}"
     },
     bec: {
         inggris: "{{ route('program.inggris') }}",
@@ -245,7 +245,7 @@ closeKursusPopupButton.addEventListener('click', function(){
 document.querySelectorAll('.pilih-kursus').forEach(function(btn){
     btn.addEventListener('click', function(e){
         e.preventDefault();
-        selectedKursus = this.getAttribute('data-kursus'); 
+        selectedKursus = this.getAttribute('data-kursus');
 
         // Ganti judul popup sesuai kursus
         if(selectedKursus === 'bie'){
