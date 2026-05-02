@@ -546,7 +546,7 @@
                                             ],
                                             'tiga_minggu' => [
                                                 'label' => '3 Minggu',
-                                                'harga' => $program->harga_dua_minggu,
+                                                'harga' => $program->harga_tiga_minggu,
                                             ],
                                             'satu_bulan' => [
                                                 'label' => '1 Bulan',
