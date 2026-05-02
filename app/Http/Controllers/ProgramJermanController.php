@@ -21,9 +21,9 @@ class ProgramJermanController extends Controller
             ->get();
 
         if ($kursus === 'bieplus') {
-            return view('Bieplus.jerman', compact('onlinePrograms', 'offlinePrograms'));
+            return view('Bieplus.Jerman', compact('onlinePrograms', 'offlinePrograms'));
         }
 
-        return view('Landingpage.jerman', compact('onlinePrograms', 'offlinePrograms'));
+        return view('Landingpage.Jerman', compact('onlinePrograms', 'offlinePrograms'));
     }
 }

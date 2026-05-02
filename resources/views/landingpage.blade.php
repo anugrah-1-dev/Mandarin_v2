@@ -783,60 +783,42 @@
 
                 {{-- ===== Tab Galeri BIE ===== --}}
                 <div id="tab-bie" class="gallery-tab-pane">
-
-                <div class="gallery-slider-wrapper">
-                    <button class="gallery-nav left" onclick="slideGalleryGrid(-1)">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-
-                    <div class="gallery-scroll-outer">
-                        <div class="gallery-scroll-inner" id="gallerySlider">
-                            @php $index = 0; @endphp
-                            @foreach ($galleries as $gallery)
-                                @if ($gallery->images->isNotEmpty())
-                                    @php
-                                        $firstMedia = $gallery->images->first();
-                                        $thumbSrc = null;
-                                        $isVideoThumb = false;
-                                        if ($firstMedia->type === 'video') {
-                                            if ($firstMedia->video_url) {
-                                                preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $firstMedia->video_url ?? '', $ytMatch);
-                                                $thumbSrc = isset($ytMatch[1]) ? 'https://img.youtube.com/vi/' . $ytMatch[1] . '/hqdefault.jpg' : null;
-                                            }
-                                            $isVideoThumb = true;
-                                        } else {
-                                            $thumbSrc = asset('storage/' . $firstMedia->image_path);
+                    <div class="gallery-grid">
+                        @php $index = 0; @endphp
+                        @foreach ($galleries as $gallery)
+                            @if ($gallery->images->isNotEmpty())
+                                @php
+                                    $firstMedia = $gallery->images->first();
+                                    $thumbSrc = null;
+                                    $isVideoThumb = false;
+                                    if ($firstMedia->type === 'video') {
+                                        if ($firstMedia->video_url) {
+                                            preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $firstMedia->video_url ?? '', $ytMatch);
+                                            $thumbSrc = isset($ytMatch[1]) ? 'https://img.youtube.com/vi/' . $ytMatch[1] . '/hqdefault.jpg' : null;
                                         }
-                                    @endphp
-                                    {{-- Setiap frame galeri diberi animasi fade-up dengan delay --}}
-                                    <div class="gallery-frame text-center" data-index="{{ $index }}"
-                                        data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
-                                        <div style="position:relative; display:block; width:100%;">
-                                            @if ($thumbSrc)
-                                                <img src="{{ $thumbSrc }}"
-                                                    alt="{{ $gallery->title }}" class="gallery-thumbnail"
-                                                    onclick="openGalleryModal({{ $gallery->id }})">
-                                            @elseif ($isVideoThumb)
-                                                {{-- Local video tanpa thumbnail --}}
-                                                <div onclick="openGalleryModal({{ $gallery->id }})"
-                                                    class="gallery-thumbnail d-flex align-items-center justify-content-center"
-                                                    style="cursor:pointer; background:#1e1e2e; border-radius:10px;">
-                                                    <i class="fas fa-film" style="font-size:40px; color:#ccc;"></i>
-                                                </div>
-                                            @endif
-                                            @if ($isVideoThumb)
-                                                <div onclick="openGalleryModal({{ $gallery->id }})"
-                                                    style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); cursor:pointer; background:rgba(0,0,0,0.5); border-radius:50%; width:50px; height:50px; display:flex; align-items:center; justify-content:center;">
-                                                    <i class="fas fa-play text-white" style="font-size:20px; margin-left:4px;"></i>
-                                                </div>
-                                            @endif
+                                        $isVideoThumb = true;
+                                    } else {
+                                        $thumbSrc = asset('storage/' . $firstMedia->image_path);
+                                    }
+                                @endphp
+                                <div class="gallery-frame" data-index="{{ $index }}"
+                                    data-aos="fade-up" data-aos-delay="{{ min(100 * ($index + 1), 600) }}"
+                                    onclick="openGalleryModal({{ $gallery->id }})">
+                                    @if ($thumbSrc)
+                                        <img src="{{ $thumbSrc }}" alt="{{ $gallery->title }}" class="gallery-thumbnail">
+                                    @elseif ($isVideoThumb)
+                                        <div class="gallery-thumbnail d-flex align-items-center justify-content-center" style="background:#1e1e2e; height:100%;">
+                                            <i class="fas fa-film" style="font-size:40px; color:#ccc;"></i>
                                         </div>
-
-                                        <div class="gallery-caption">
-                                            <h5>{{ $gallery->title }}</h5>
-                                            <p>{{ Str::limit($gallery->deskripsi ?? '', 50) }}</p>
-                                        </div>
+                                    @endif
+                                    <div class="gallery-hover-btn">
+                                        @if ($isVideoThumb)<i class="fas fa-play"></i>@else<i class="fas fa-expand-alt"></i>@endif
                                     </div>
+                                    <div class="gallery-overlay">
+                                        <h5>{{ $gallery->title }}</h5>
+                                        <p>{{ Str::limit($gallery->deskripsi ?? '', 60) }}</p>
+                                    </div>
+                                </div>
 
                                     <div id="modal-{{ $gallery->id }}" class="gallery-modal">
                                         <div class="modal-content">
@@ -876,70 +858,50 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @php $index++; @endphp
-                                @endif
-                            @endforeach
-                        </div>
+                                @php $index++; @endphp
+                            @endif
+                        @endforeach
                     </div>
-
-                    <button class="gallery-nav right" onclick="slideGalleryGrid(1)">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
                 </div>
                 {{-- ===== Tab Galeri Erfan ===== --}}
                 <div id="tab-erfan" class="gallery-tab-pane" style="display:none;">
                     @if($galleriesErfan->isNotEmpty())
-                    <div class="gallery-slider-wrapper">
-                        <button class="gallery-nav left" onclick="slideErfanGrid(-1)">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-
-                        <div class="gallery-scroll-outer">
-                            <div class="gallery-scroll-inner" id="erfanSlider">
-                                @php $erfanIdx = 0; @endphp
-                                @foreach ($galleriesErfan as $gallery)
-                                    @if ($gallery->images->isNotEmpty())
-                                        @php
-                                            $firstMedia = $gallery->images->first();
-                                            $thumbSrc = null;
-                                            $isVideoThumb = false;
-                                            if ($firstMedia->type === 'video') {
-                                                if ($firstMedia->video_url) {
-                                                    preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $firstMedia->video_url ?? '', $ytMatch);
-                                                    $thumbSrc = isset($ytMatch[1]) ? 'https://img.youtube.com/vi/' . $ytMatch[1] . '/hqdefault.jpg' : null;
-                                                }
-                                                $isVideoThumb = true;
-                                            } else {
-                                                $thumbSrc = asset('storage/' . $firstMedia->image_path);
-                                            }
-                                        @endphp
-                                        <div class="gallery-frame text-center" data-index="{{ $erfanIdx }}"
-                                            data-aos="fade-up" data-aos-delay="{{ 100 * ($erfanIdx + 1) }}">
-                                            <div style="position:relative; display:block; width:100%;">
-                                                @if ($thumbSrc)
-                                                    <img src="{{ $thumbSrc }}"
-                                                        alt="{{ $gallery->title }}" class="gallery-thumbnail"
-                                                        onclick="openErfanModal({{ $gallery->id }})">
-                                                @elseif ($isVideoThumb)
-                                                    <div onclick="openErfanModal({{ $gallery->id }})"
-                                                        class="gallery-thumbnail d-flex align-items-center justify-content-center"
-                                                        style="cursor:pointer; background:#1e1e2e; border-radius:10px;">
-                                                        <i class="fas fa-film" style="font-size:40px; color:#ccc;"></i>
-                                                    </div>
-                                                @endif
-                                                @if ($isVideoThumb)
-                                                    <div onclick="openErfanModal({{ $gallery->id }})"
-                                                        style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); cursor:pointer; background:rgba(0,0,0,0.5); border-radius:50%; width:50px; height:50px; display:flex; align-items:center; justify-content:center;">
-                                                        <i class="fas fa-play text-white" style="font-size:20px; margin-left:4px;"></i>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                            <div class="gallery-caption">
-                                                <h5>{{ $gallery->title }}</h5>
-                                                <p>{{ Str::limit($gallery->deskripsi ?? '', 50) }}</p>
-                                            </div>
+                    <div class="gallery-grid">
+                        @php $erfanIdx = 0; @endphp
+                        @foreach ($galleriesErfan as $gallery)
+                            @if ($gallery->images->isNotEmpty())
+                                @php
+                                    $firstMedia = $gallery->images->first();
+                                    $thumbSrc = null;
+                                    $isVideoThumb = false;
+                                    if ($firstMedia->type === 'video') {
+                                        if ($firstMedia->video_url) {
+                                            preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $firstMedia->video_url ?? '', $ytMatch);
+                                            $thumbSrc = isset($ytMatch[1]) ? 'https://img.youtube.com/vi/' . $ytMatch[1] . '/hqdefault.jpg' : null;
+                                        }
+                                        $isVideoThumb = true;
+                                    } else {
+                                        $thumbSrc = asset('storage/' . $firstMedia->image_path);
+                                    }
+                                @endphp
+                                <div class="gallery-frame" data-index="{{ $erfanIdx }}"
+                                    data-aos="fade-up" data-aos-delay="{{ min(100 * ($erfanIdx + 1), 600) }}"
+                                    onclick="openErfanModal({{ $gallery->id }})">
+                                    @if ($thumbSrc)
+                                        <img src="{{ $thumbSrc }}" alt="{{ $gallery->title }}" class="gallery-thumbnail">
+                                    @elseif ($isVideoThumb)
+                                        <div class="gallery-thumbnail d-flex align-items-center justify-content-center" style="background:#1e1e2e; height:100%;">
+                                            <i class="fas fa-film" style="font-size:40px; color:#ccc;"></i>
                                         </div>
+                                    @endif
+                                    <div class="gallery-hover-btn">
+                                        @if ($isVideoThumb)<i class="fas fa-play"></i>@else<i class="fas fa-expand-alt"></i>@endif
+                                    </div>
+                                    <div class="gallery-overlay">
+                                        <h5>{{ $gallery->title }}</h5>
+                                        <p>{{ Str::limit($gallery->deskripsi ?? '', 60) }}</p>
+                                    </div>
+                                </div>
 
                                         <div id="erfan-modal-{{ $gallery->id }}" class="gallery-modal">
                                             <div class="modal-content">
@@ -974,15 +936,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @php $erfanIdx++; @endphp
-                                    @endif
-                                @endforeach
-                            </div>
-                        </div>
-
-                        <button class="gallery-nav right" onclick="slideErfanGrid(1)">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+                                @php $erfanIdx++; @endphp
+                            @endif
+                        @endforeach
                     </div>
                     @else
                         <p class="text-center text-muted mt-4">Belum ada galeri Erfan.</p>
