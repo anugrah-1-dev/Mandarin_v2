@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ProgramCamp;
 use App\Models\Period;
-use App\Models\rooms;
+use App\Models\Rooms;
 use App\Models\PendaftaranProgramCamp;
 use Illuminate\Support\Facades\File;
 use App\Models\Banks;
