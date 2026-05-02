@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProgramOnlineSeeder::class);
         $this->call(ProgramOfflineSeeder::class);
         $this->call(BrilliantIEProgramSeeder::class);
+        $this->call(BIEPlusProgramSeeder::class);
         // $this->call(PendaftaranProgramOnlineSeeder::class);
         $this->call(ProgramCampSeeder::class);
         $this->call(RoomSeeder::class);
