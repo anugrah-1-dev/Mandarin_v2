@@ -25,7 +25,7 @@
                 <img src="{{ asset('asset/img/Inggris2.png') }}" alt="Logo Inggris" style="height: 150px;">
             @else
                 @if ($navLogo && $navLogo->image_path)
-                    <img src="{{ asset('uploads/logos/' . $navLogo->image_path) }}" alt="Logo" style="height: 84px;">
+                    <img src="{{ asset('storage/logos/' . $navLogo->image_path) }}" alt="Logo" style="height: 84px;">
                 @else
                     <img src="{{ asset('asset/img/LogoWebBrillaintPare.png') }}" alt="Logo Default" style="height: 84px;">
                 @endif

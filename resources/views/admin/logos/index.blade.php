@@ -12,7 +12,7 @@
             <x-adminlte-card title="Logo Saat Ini" theme="lightblue" theme-mode="outline">
                 <div class="text-center mb-3">
                     @if ($logo && $logo->image_path)
-                        <img src="{{ asset('uploads/logos/' . $logo->image_path) }}" alt="Logo"
+                        <img src="{{ asset('storage/logos/' . $logo->image_path) }}" alt="Logo"
                             class="img-fluid img-thumbnail" style="max-height: 200px;">
                     @else
                         <img src="{{ asset('asset/img/LogoWebBrillaintPare.png') }}" alt="Logo Default"
