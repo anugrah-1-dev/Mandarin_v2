@@ -6,7 +6,7 @@
             @foreach ($contactServices as $contact)
             
                 @php
-                    $pesan = urlencode('Halo, saya ingin bertanya seputar program di Brilliant English Course.');
+                    $pesan = urlencode('Halo, saya ingin bertanya seputar program di Brilliant English Course. Saya dari website https://brilliant-ec.id/');
                 @endphp
 
                 <a href="https://wa.me/62{{ $contact->nomor }}?text={{ $pesan }}" class="wa-circle tooltip"
