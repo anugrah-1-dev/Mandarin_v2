@@ -25,6 +25,11 @@
         background-color: #333 !important;
     }
 
+    #navbar.scrolled .nav-links .btn {
+        background-color: #0066cc !important;
+        color: white !important;
+    }
+
     .logo img {
         height: 50px;
         transition: transform 0.3s ease;
