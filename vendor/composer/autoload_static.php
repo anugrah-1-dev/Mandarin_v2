@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7b0766fca7c36c737df120c0276be11c
+class ComposerStaticInit8dd31c5e4df9cacfe15567af72f961a2
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -552,6 +552,7 @@ class ComposerStaticInit7b0766fca7c36c737df120c0276be11c
         'App\\Http\\Controllers\\Admin\\Customer_Service_Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/Customer_Service_Controller.php',
         'App\\Http\\Controllers\\Admin\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/DashboardController.php',
         'App\\Http\\Controllers\\Admin\\GalleryController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/GalleryController.php',
+        'App\\Http\\Controllers\\Admin\\GalleryErfanController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/GalleryErfanController.php',
         'App\\Http\\Controllers\\Admin\\HolidayPackageController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/HolidayPackageController.php',
         'App\\Http\\Controllers\\Admin\\LaundryPackageController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/LaundryPackageController.php',
         'App\\Http\\Controllers\\Admin\\PendaftaranOfflineController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PendaftaranOfflineController.php',
@@ -624,6 +625,7 @@ class ComposerStaticInit7b0766fca7c36c737df120c0276be11c
         'App\\Models\\ProgramCamp' => __DIR__ . '/../..' . '/app/Models/ProgramCamp.php',
         'App\\Models\\ProgramOffline' => __DIR__ . '/../..' . '/app/Models/ProgramOffline.php',
         'App\\Models\\ProgramOnline' => __DIR__ . '/../..' . '/app/Models/ProgramOnline.php',
+        'App\\Models\\Rooms' => __DIR__ . '/../..' . '/app/Models/Rooms.php',
         'App\\Models\\Sosmed' => __DIR__ . '/../..' . '/app/Models/Sosmed.php',
         'App\\Models\\Thumbnail' => __DIR__ . '/../..' . '/app/Models/Thumbnail.php',
         'App\\Models\\Transports' => __DIR__ . '/../..' . '/app/Models/Transports.php',
@@ -778,10 +780,17 @@ class ComposerStaticInit7b0766fca7c36c737df120c0276be11c
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
         'Database\\Seeders\\AdminUserSeeder' => __DIR__ . '/../..' . '/database/seeders/AdminUserSeeder.php',
+        'Database\\Seeders\\BIEPlusArabSeeder' => __DIR__ . '/../..' . '/database/seeders/BIEPlusArabSeeder.php',
+        'Database\\Seeders\\BIEPlusJermanSeeder' => __DIR__ . '/../..' . '/database/seeders/BIEPlusJermanSeeder.php',
+        'Database\\Seeders\\BIEPlusMandarinSeeder' => __DIR__ . '/../..' . '/database/seeders/BIEPlusMandarinSeeder.php',
+        'Database\\Seeders\\BIEPlusProgramSeeder' => __DIR__ . '/../..' . '/database/seeders/BIEPlusProgramSeeder.php',
         'Database\\Seeders\\BankSeeder' => __DIR__ . '/../..' . '/database/seeders/BankSeeder.php',
+        'Database\\Seeders\\BrilliantIEOnlineProgramSeeder' => __DIR__ . '/../..' . '/database/seeders/BrilliantIEOnlineProgramSeeder.php',
+        'Database\\Seeders\\BrilliantIEProgramSeeder' => __DIR__ . '/../..' . '/database/seeders/BrilliantIEProgramSeeder.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
         'Database\\Seeders\\PendaftaranProgramCampSeeder' => __DIR__ . '/../..' . '/database/seeders/PendaftaranProgramCampSeeder.php',
         'Database\\Seeders\\PendaftaranProgramOnlineSeeder' => __DIR__ . '/../..' . '/database/seeders/PendaftaranProgramOnlineSeeder.php',
+        'Database\\Seeders\\PeriodSeeder' => __DIR__ . '/../..' . '/database/seeders/PeriodSeeder.php',
         'Database\\Seeders\\ProgramCampSeeder' => __DIR__ . '/../..' . '/database/seeders/ProgramCampSeeder.php',
         'Database\\Seeders\\ProgramOfflineSeeder' => __DIR__ . '/../..' . '/database/seeders/ProgramOfflineSeeder.php',
         'Database\\Seeders\\ProgramOnlineSeeder' => __DIR__ . '/../..' . '/database/seeders/ProgramOnlineSeeder.php',
@@ -6233,10 +6242,10 @@ class ComposerStaticInit7b0766fca7c36c737df120c0276be11c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7b0766fca7c36c737df120c0276be11c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7b0766fca7c36c737df120c0276be11c::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit7b0766fca7c36c737df120c0276be11c::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit7b0766fca7c36c737df120c0276be11c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8dd31c5e4df9cacfe15567af72f961a2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8dd31c5e4df9cacfe15567af72f961a2::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit8dd31c5e4df9cacfe15567af72f961a2::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit8dd31c5e4df9cacfe15567af72f961a2::$classMap;
 
         }, null, ClassLoader::class);
     }
