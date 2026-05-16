@@ -10,8 +10,6 @@ return new class extends Migration
     {
         Schema::create('logos', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('key')->unique();
             $table->string('image_path')->nullable();
             $table->timestamps();
         });

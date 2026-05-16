@@ -23,11 +23,9 @@
                 <img src="{{ asset('asset/img/logonhc.png') }}" alt="Logo NHC" style="height: 95px;">
             @elseif (request()->routeIs('program.inggris'))
                 <img src="{{ asset('asset/img/Inggris2.png') }}" alt="Logo Inggris" style="height: 150px;">
-            @elseif (request()->routeIs('bieplus.*') && isset($navLogos['bieplus']) && $navLogos['bieplus']->image_path)
-                <img src="{{ asset('storage/' . $navLogos['bieplus']->image_path) }}" alt="Logo BIE+" style="height: 84px;">
             @else
-                @if (isset($navLogos['default']) && $navLogos['default']->image_path)
-                    <img src="{{ asset('storage/' . $navLogos['default']->image_path) }}" alt="Logo Default" style="height: 84px;">
+                @if ($navLogo && $navLogo->image_path)
+                    <img src="{{ asset('storage/' . $navLogo->image_path) }}" alt="Logo" style="height: 84px;">
                 @else
                     <img src="{{ asset('asset/img/LogoWebBrillaintPare.png') }}" alt="Logo Default" style="height: 84px;">
                 @endif

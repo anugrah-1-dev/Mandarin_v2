@@ -1,14 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Manajemen Logo')
+@section('title', 'Logo Landing Page')
 
 @section('content_header')
-    <div class="d-flex justify-content-between align-items-center">
-        <h1 class="m-0">Daftar Logo</h1>
-        <a href="{{ route('admin.logos.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Tambah Logo
-        </a>
-    </div>
+    <h1 class="m-0">Logo Landing Page</h1>
 @stop
 
 @section('content')
@@ -26,93 +21,50 @@
         </script>
     @endif
 
-    <div class="row">
-        <div class="col-12">
-            <x-adminlte-card theme="lightblue" theme-mode="outline" title="List Logo">
-                <div class="table-responsive">
-                    <table class="table table-hover table-bordered table-striped">
-                        <thead class="bg-lightblue text-center">
-                            <tr>
-                                <th width="5%">No</th>
-                                <th>Nama Logo</th>
-                                <th>Key</th>
-                                <th>Gambar</th>
-                                <th width="15%">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($logos as $index => $logo)
-                                <tr class="text-center">
-                                    <td>{{ $index + 1 }}</td>
-                                    <td class="text-left"><strong>{{ $logo->name }}</strong></td>
-                                    <td><code>{{ $logo->key }}</code></td>
-                                    <td>
-                                        @if ($logo->image_path)
-                                            <img src="{{ asset('storage/' . $logo->image_path) }}" alt="{{ $logo->name }}" style="height: 60px; object-fit: contain;">
-                                        @else
-                                            <span class="text-muted">Belum ada gambar</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <div class="d-flex justify-content-center gap-1">
-                                            <a href="{{ route('admin.logos.edit', $logo->id) }}"
-                                                class="btn btn-warning btn-action mr-1" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <form action="{{ route('admin.logos.destroy', $logo->id) }}" method="POST"
-                                                onsubmit="confirmDelete(event)">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-action" title="Hapus">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5" class="text-center">Belum ada data logo.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <x-adminlte-card title="Logo Saat Ini" theme="lightblue" theme-mode="outline">
+                <div class="text-center mb-3">
+                    @if ($logo && $logo->image_path)
+                        <img src="{{ asset('storage/' . $logo->image_path) }}" alt="Logo"
+                            class="img-fluid img-thumbnail" style="max-height: 200px;">
+                    @else
+                        <img src="{{ asset('asset/img/LogoWebBrillaintPare.png') }}" alt="Logo Default"
+                            class="img-fluid img-thumbnail" style="max-height: 200px;">
+                        <p class="text-muted mt-2"><small>Menggunakan gambar default. Upload logo baru untuk menggantinya.</small></p>
+                    @endif
                 </div>
+
+                <form action="{{ route('admin.logos.update') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <x-adminlte-input-file name="image_path" label="Upload Logo Baru" id="imageInput"
+                        placeholder="Pilih gambar..." />
+                    <img id="imagePreview" src="#" alt="Preview" class="mt-2 d-none img-thumbnail"
+                        style="max-height: 150px;">
+
+                    <div class="d-flex justify-content-end mt-3">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-upload"></i> Simpan Logo
+                        </button>
+                    </div>
+                </form>
             </x-adminlte-card>
         </div>
     </div>
 @stop
 
-@section('css')
-    <style>
-        .btn-action {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-        }
-    </style>
-@stop
-
 @section('js')
     <script>
-        function confirmDelete(event) {
-            event.preventDefault();
-            const form = event.target;
-            Swal.fire({
-                title: 'Hapus Logo?',
-                text: 'Data tidak bisa dikembalikan!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal',
-            }).then((result) => {
-                if (result.isConfirmed) form.submit();
-            });
-        }
+        document.getElementById('imageInput').addEventListener('change', function (event) {
+            const preview = document.getElementById('imagePreview');
+            if (event.target.files && event.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    preview.src = e.target.result;
+                    preview.classList.remove('d-none');
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        });
     </script>
 @stop

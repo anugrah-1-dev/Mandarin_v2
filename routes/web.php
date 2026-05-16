@@ -202,7 +202,8 @@ Route::middleware(['auth', 'role:admin|officer'])->prefix('admin')->name('admin.
     //banks
     Route::resource('banks', BankController::class);
     // logos
-    Route::resource('logos', LogoController::class);
+    Route::get('logos', [LogoController::class, 'index'])->name('logos.index');
+    Route::post('logos', [LogoController::class, 'update'])->name('logos.update');
     //transports
     Route::resource('transports', TransportsController::class);
     //cs
