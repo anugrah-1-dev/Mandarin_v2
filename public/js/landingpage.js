@@ -44,8 +44,6 @@
         const carousel = document.getElementById("carousel");
 
         if (navbar && carousel) {
-            const logoImg = document.querySelector("#navbar .logo img");
-
             window.addEventListener("scroll", () => {
                 const carouselBottom =
                     carousel.offsetTop + carousel.offsetHeight;
@@ -53,10 +51,8 @@
 
                 if (hasScrolled) {
                     navbar.classList.add("scrolled");
-                    if (logoImg) logoImg.src = logo2URL;
                 } else {
                     navbar.classList.remove("scrolled");
-                    if (logoImg) logoImg.src = logo1URL;
                 }
             });
         }
