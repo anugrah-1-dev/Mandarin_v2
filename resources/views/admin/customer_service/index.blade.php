@@ -26,7 +26,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($customerServices as $cs)
+                        @foreach($customerServices as $cs)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $cs->nama }}</td>
@@ -50,11 +50,7 @@
                                     </form>
                                 </td>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="4" class="text-center text-muted">Tidak ada data customer service.</td>
-                            </tr>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
             </x-adminlte-card>
