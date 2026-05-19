@@ -199,7 +199,7 @@
 
                 // Convert currency ke angka sebelum submit
                 $('#laundryForm').on('submit', function() {
-                    var harga = $('#harga').inputmask('unmaskedvalue');
+                    var harga = $('#harga').val().replace(/[^\d]/g, '');
                     $('#harga').val(harga);
                 });
             });
