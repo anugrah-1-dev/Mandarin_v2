@@ -1,7 +1,6 @@
 @extends('adminlte::page')
 
 @section('title', 'Manajemen Customer Service')
-@section('plugins.Datatables', true)
 @section('plugins.Sweetalert2', true)
 
 @section('content_header')
@@ -63,7 +62,13 @@
     </div>
 @stop
 
+@push('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+@endpush
+
 @push('js')
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function confirmDelete(id) {
