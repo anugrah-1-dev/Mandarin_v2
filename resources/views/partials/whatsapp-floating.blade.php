@@ -6,12 +6,12 @@
             @foreach ($contactServices as $contact)
             
                 @php
-                    $pesan = urlencode("Halo, saya mau tanya-tanya tentang program di Brilliant English Course. Saya tahu info ini dari websitenya: https://brilliantpusat.com/");
+                    $pesan = urlencode("Halo, saya mau tanya-tanya tentang program di Brilliant English Course. Saya tahu info ini dari websitenya: https://kampunginggrisori.com/");
                 @endphp
 
                 <a href="https://wa.me/62{{ $contact->nomor }}?text={{ $pesan }}" class="wa-circle tooltip"
                     target="_blank">
-                    <img src="{{ asset('asset/wa/WhatsApp.svg') }}" alt="WA">
+                    <img src="{{ asset('asset/wa/WhatsApp.svg') }}" alt="WA"> 
                     <span class="tooltip-text">{{ $contact->nama }}</span>
                 </a>
             @endforeach
