@@ -202,13 +202,10 @@
                                         </form>
                                     </div>
                                 </td>
-
-                                <!-- Bootstrap JS (should be included in the main layout, not here) -->
-                                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="12" class="text-center py-4">Belum ada pendaftar.</td>
+                                <td colspan="15" class="text-center py-4">Belum ada pendaftar.</td>
                             </tr>
                         @endforelse
                     </tbody>

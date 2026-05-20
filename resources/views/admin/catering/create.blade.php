@@ -130,8 +130,8 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.5.2/dist/select2-bootstrap4.min.css">
     <style>
         .card-outline {
             border-top: 3px solid;
@@ -150,8 +150,8 @@
 @stop
 
 @section('js')
-    <script src="{{ asset('vendor/select2/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('vendor/inputmask/jquery.inputmask.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.select2').select2({ theme: 'bootstrap4' });
