@@ -106,7 +106,7 @@
                     </div>
                     <div class="modal-body d-flex justify-content-center">
                         <div class="sosmed-card-video" style="max-width: 560px; width: 100%;">
-                            <iframe width="100%" height="315" src="https://youtu.be/sIAlnVkQTuc?si=xa4elMNoA2Uwgj7t"
+                            <iframe width="100%" height="315" src="https://www.youtube.com/embed/sIAlnVkQTuc"
                                 title="YouTube video player" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen>
@@ -420,15 +420,15 @@
                     <div class="row g-3 mb-4">
                         <div class="col-12 col-md-6">
                             <label for="nama_lengkap" class="form-label fw-semibold">Nama Lengkap</label>
-                            <input type="text" name="nama_lengkap" class="form-control form-control-lg" required>
+                            <input type="text" id="nama_lengkap" name="nama_lengkap" class="form-control form-control-lg" autocomplete="name" required>
                         </div>
                         <div class="col-12 col-md-6">
                             <label for="email" class="form-label fw-semibold">Email</label>
-                            <input type="email" name="email" class="form-control form-control-lg" required>
+                            <input type="email" id="email" name="email" class="form-control form-control-lg" autocomplete="email" required>
                         </div>
                         <div class="col-12 col-md-6">
                             <label for="no_hp" class="form-label fw-semibold">No HP</label>
-                            <input type="text" name="no_hp" class="form-control form-control-lg" required>
+                            <input type="text" id="no_hp" name="no_hp" class="form-control form-control-lg" autocomplete="tel" required>
                         </div>
                         <div class="col-12 col-md-6">
                             <label for="asal_kota" class="form-label fw-semibold">Alamat</label>
@@ -454,7 +454,7 @@
 
                         <div class="col-12 col-md-6">
                             <label for="period_id" class="form-label fw-semibold">Periode </label>
-                            <select name="period_id" class="form-select form-select-lg" required>
+                            <select name="period_id" id="period_id" class="form-select form-select-lg" autocomplete="off" required>
                                 <option value="">-- Pilih Periode --</option>
                                 @foreach ($periods as $period)
                                     @php
@@ -528,7 +528,7 @@
                             </script>
 
                             <div class="col-12">
-                                <label class="form-label fw-semibold d-block mb-2">Paket Durasi</label>
+                                <p class="form-label fw-semibold d-block mb-2">Paket Durasi</p>
                                 <div class="duration-options-container">
                                     @php
                                         $durasiOptions = [
