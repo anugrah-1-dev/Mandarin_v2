@@ -1,5 +1,7 @@
 @extends('adminlte::page')
 
+@section('plugins.BootstrapSwitch', true)
+
 @section('title', 'Manajemen Periode')
 
 @section('content_header')
@@ -62,8 +64,7 @@
                                     </button>
                                 </form>
                             </div>
-
-
+                        </td>
                     </tr>
                 @empty
                     <tr>
@@ -171,7 +172,6 @@
     </script>
 @endif
 @section('css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.min.css">
 <style>
     .scrollable-table-wrapper {
         max-height: 350px;
@@ -195,7 +195,6 @@
 @stop
 
 @section('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
 <script>
     $(document).ready(function () {
         // Isi form edit dan buka modal

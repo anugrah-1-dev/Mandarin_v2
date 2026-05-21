@@ -45,16 +45,16 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>Dari Tanggal:</label>
-                            <input type="date" name="start_date" class="form-control" required>
+                            <label for="start_date_offline">Dari Tanggal:</label>
+                            <input type="date" id="start_date_offline" name="start_date" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label>Sampai Tanggal:</label>
-                            <input type="date" name="end_date" class="form-control" required>
+                            <label for="end_date_offline">Sampai Tanggal:</label>
+                            <input type="date" id="end_date_offline" name="end_date" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label>Pilih Program Bahasa:</label>
-                            <select name="program_bahasa" class="form-control">
+                            <label for="program_bahasa_offline">Pilih Program Bahasa:</label>
+                            <select id="program_bahasa_offline" name="program_bahasa" class="form-control">
                                 <option value="">Semua Program</option>
                                 @foreach ($programBahasa as $bahasa)
                                     <option value="{{ $bahasa }}">{{ ucfirst($bahasa) }}</option>
@@ -239,7 +239,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="13" class="text-center py-4">Belum ada pendaftar.</td>
+                                <td colspan="19" class="text-center py-4">Belum ada pendaftar.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -342,7 +342,6 @@
                 ordering: true,
                 searching: true,
                 info: false,
-                responsive: true,
                 columnDefs: [{
                     orderable: false,
                     // PERUBAHAN: Menyesuaikan target kolom yang tidak bisa di-sort
