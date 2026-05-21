@@ -46,12 +46,12 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="start_date">Dari Tanggal</label>
-                            <input type="date" name="start_date" class="form-control" required>
+                            <label for="start_date_camp">Dari Tanggal</label>
+                            <input type="date" id="start_date_camp" name="start_date" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="end_date">Sampai Tanggal</label>
-                            <input type="date" name="end_date" class="form-control" required>
+                            <label for="end_date_camp">Sampai Tanggal</label>
+                            <input type="date" id="end_date_camp" name="end_date" class="form-control" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -141,53 +141,11 @@
                                 <td>
                                     <div class="btn-group btn-group-sm">
                                         <!-- Edit Status Button -->
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#statusModal{{ $data->id }}" title="Edit Status"
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                            data-target="#statusModal{{ $data->id }}" title="Edit Status"
                                             style="width: 38px; height: 38px;">
                                             <i class="fas fa-eye"></i>
                                         </button>
-
-                                        <!-- Status Update Modal -->
-                                        <div class="modal fade" id="statusModal{{ $data->id }}" tabindex="-1"
-                                            aria-labelledby="statusModalLabel{{ $data->id }}" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <form method="POST"
-                                                    action="{{ route('admin.pendaftaran.camp.update', $data->id) }}">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title"
-                                                                id="statusModalLabel{{ $data->id }}">Ubah Status
-                                                                Pendaftaran</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="form-group">
-                                                                <label for="status">Status</label>
-                                                                <select name="status" class="form-control" required>
-                                                                    <option value="pending"
-                                                                        {{ $data->status == 'pending' ? 'selected' : '' }}>
-                                                                        Pending</option>
-                                                                    <option value="diterima"
-                                                                        {{ $data->status == 'diterima' ? 'selected' : '' }}>
-                                                                        Diterima</option>
-                                                                    <option value="ditolak"
-                                                                        {{ $data->status == 'ditolak' ? 'selected' : '' }}>
-                                                                        Ditolak</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Batal</button>
-                                                            <button type="submit" class="btn btn-primary">Simpan</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
 
                                         <!-- Delete Button -->
                                         <form action="{{ route('admin.pendaftaran.camp.destroy', $data->id) }}"
@@ -204,9 +162,6 @@
                                 </td>
                             </tr>
                         @empty
-                            <tr>
-                                <td colspan="15" class="text-center py-4">Belum ada pendaftar.</td>
-                            </tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -217,33 +172,42 @@
             </div>
         </div>
     </div>
+
+    {{-- Status Modals (outside table to avoid DataTables _DT_CellIndex error) --}}
+    @foreach ($pendaftar as $data)
+        <div class="modal fade" id="statusModal{{ $data->id }}" tabindex="-1"
+            aria-labelledby="statusModalLabel{{ $data->id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <form method="POST" action="{{ route('admin.pendaftaran.camp.update', $data->id) }}">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="statusModalLabel{{ $data->id }}">Ubah Status Pendaftaran</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select name="status" class="form-control" required>
+                                    <option value="pending" {{ $data->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                    <option value="diterima" {{ $data->status == 'diterima' ? 'selected' : '' }}>Diterima</option>
+                                    <option value="ditolak" {{ $data->status == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endforeach
 @stop
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-@if (session('success'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil!',
-            text: '{{ session('success') }}',
-            timer: 3000,
-            showConfirmButton: false
-        });
-    </script>
-@endif
-
-@if (session('error'))
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Gagal!',
-            text: '{{ session('error') }}',
-            timer: 3000,
-            showConfirmButton: false
-        });
-    </script>
-@endif
 
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
@@ -277,7 +241,6 @@
                 ordering: true,
                 searching: true,
                 info: false,
-                responsive: true,
                 columnDefs: [{
                     orderable: false,
                     targets: [0, 10, 11]
@@ -294,4 +257,27 @@
             });
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: '{{ session('success') }}',
+            timer: 3000,
+            showConfirmButton: false
+        });
+    </script>
+    @endif
+    @if (session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: '{{ session('error') }}',
+            timer: 3000,
+            showConfirmButton: false
+        });
+    </script>
+    @endif
 @stop

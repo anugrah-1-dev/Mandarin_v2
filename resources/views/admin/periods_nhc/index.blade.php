@@ -92,12 +92,12 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="start_date">Tanggal Mulai</label>
-                            <input type="date" name="start_date" class="form-control" required>
+                            <label for="start_date_new">Tanggal Mulai</label>
+                            <input type="date" id="start_date_new" name="start_date" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="end_date">Tanggal Selesai</label>
-                            <input type="date" name="end_date" class="form-control" required>
+                            <label for="end_date_new">Tanggal Selesai</label>
+                            <input type="date" id="end_date_new" name="end_date" class="form-control" required>
                         </div>
                         <div class="form-check">
                             <input type="checkbox" name="is_active" value="1" class="form-check-input" id="activeNew"
@@ -131,13 +131,13 @@
                         @method('PUT')
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="start_date">Tanggal Mulai</label>
-                                <input type="date" name="start_date" value="{{ $p->start_date->format('Y-m-d') }}"
+                                <label for="start_date_edit_{{ $p->id }}">Tanggal Mulai</label>
+                                <input type="date" id="start_date_edit_{{ $p->id }}" name="start_date" value="{{ $p->start_date->format('Y-m-d') }}"
                                     class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="end_date">Tanggal Selesai</label>
-                                <input type="date" name="end_date" value="{{ $p->end_date->format('Y-m-d') }}"
+                                <label for="end_date_edit_{{ $p->id }}">Tanggal Selesai</label>
+                                <input type="date" id="end_date_edit_{{ $p->id }}" name="end_date" value="{{ $p->end_date->format('Y-m-d') }}"
                                     class="form-control" required>
                             </div>
                             <div class="form-check">

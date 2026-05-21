@@ -1,59 +1,42 @@
 @extends('layouts.app') {{-- Pastikan Anda memiliki layout master ini --}}
 
+@section('styles')
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        .payment-card {
+            border: none;
+            border-radius: 0.75rem;
+        }
+
+        .payment-details {
+            border: 2px dashed #0d6efd;
+            padding: 1.5rem;
+            border-radius: .5rem;
+            background-color: #e9f3ff;
+        }
+
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.25rem;
+        }
+
+        .list-group-item strong {
+            color: #333;
+        }
+
+        .btn-copy {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .btn-copy:active {
+            transform: scale(0.95);
+        }
+    </style>
+@endsection
+
 @section('content')
-    <!DOCTYPE html>
-    <html lang="id">
-
-    <head>
-        <meta charset="UTF-8">
-        <title>Pembayaran Pendaftaran Camp</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        {{-- Bootstrap & Icons (biasanya sudah ada di layouts.app) --}}
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-        <style>
-            body {
-                background-color: #f0f2f5;
-                /* Warna latar belakang yang lebih lembut */
-            }
-
-            .payment-card {
-                border: none;
-                border-radius: 0.75rem;
-            }
-
-            .payment-details {
-                border: 2px dashed #0d6efd;
-                padding: 1.5rem;
-                border-radius: .5rem;
-                background-color: #e9f3ff;
-                /* Latar biru muda untuk detail */
-            }
-
-            .list-group-item {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 1rem 1.25rem;
-            }
-
-            .list-group-item strong {
-                color: #333;
-            }
-
-            .btn-copy {
-                transition: all 0.2s ease-in-out;
-            }
-
-            .btn-copy:active {
-                transform: scale(0.95);
-            }
-        </style>
-
-    </head>
-
-    <body>
-
 
         <div class="container my-5">
             <div class="row justify-content-center">
@@ -178,29 +161,27 @@
                 </div>
             </div>
         </div>
+@endsection
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script>
-            function copyToClipboard(text, buttonElement) {
-                navigator.clipboard.writeText(text).then(function () {
-                    // Sukses menyalin
-                    const originalIcon = buttonElement.innerHTML;
-                    buttonElement.innerHTML = '<i class="bi bi-check-lg"></i>';
-                    buttonElement.classList.add('btn-success');
-                    buttonElement.classList.remove('btn-outline-secondary');
+@section('scripts')
+    <script>
+        function copyToClipboard(text, buttonElement) {
+            navigator.clipboard.writeText(text).then(function () {
+                // Sukses menyalin
+                const originalIcon = buttonElement.innerHTML;
+                buttonElement.innerHTML = '<i class="bi bi-check-lg"></i>';
+                buttonElement.classList.add('btn-success');
+                buttonElement.classList.remove('btn-outline-secondary');
 
-                    setTimeout(() => {
-                        buttonElement.innerHTML = originalIcon;
-                        buttonElement.classList.remove('btn-success');
-                        buttonElement.classList.add('btn-outline-secondary');
-                    }, 1500); // Kembalikan ke ikon semula setelah 1.5 detik
-                }, function (err) {
-                    // Gagal menyalin
-                    alert('Gagal menyalin nomor rekening.');
-                });
-            }
-        </script>
-    </body>
-
-    </html>
+                setTimeout(() => {
+                    buttonElement.innerHTML = originalIcon;
+                    buttonElement.classList.remove('btn-success');
+                    buttonElement.classList.add('btn-outline-secondary');
+                }, 1500); // Kembalikan ke ikon semula setelah 1.5 detik
+            }, function (err) {
+                // Gagal menyalin
+                alert('Gagal menyalin nomor rekening.');
+            });
+        }
+    </script>
 @endsection

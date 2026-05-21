@@ -11,6 +11,7 @@
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('asset/img/Inggris.png') }}" type="image/png">
 
+    @yield('styles')
 
     <title>{{ config('app.name', 'Briliant English Course') }}</title>
 </head>
@@ -65,6 +66,7 @@
 
     <!-- Bootstrap 5.3 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    @yield('scripts')
 </body>
 
 <script>
