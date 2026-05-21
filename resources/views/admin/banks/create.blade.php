@@ -30,26 +30,27 @@
 
                         <div class="form-group">
                             <label for="name">Nama Bank</label>
-                            <input type="text" name="name" class="form-control"
+                            <input type="text" id="name" name="name" class="form-control" autocomplete="off"
                                 placeholder="Contoh: BCA, BRI, Mandiri" value="{{ old('name') }}" required>
                         </div>
 
                         <div class="form-group">
                             <label for="owner">Nama Pemilik Rekening</label>
-                            <input type="text" name="owner" class="form-control" placeholder="Nama sesuai rekening"
-                                value="{{ old('owner') }}" required>
+                            <input type="text" id="owner" name="owner" class="form-control" autocomplete="name"
+                                placeholder="Nama sesuai rekening" value="{{ old('owner') }}" required>
                         </div>
 
                         <div class="form-group">
                             <label for="number">Nomor Rekening</label>
-                            <input type="text" name="number" class="form-control" placeholder="Masukkan nomor rekening"
+                            <input type="text" id="number" name="number" class="form-control" autocomplete="off"
+                                placeholder="Masukkan nomor rekening"
                                 pattern="\d{10,}" title="Minimal 10 digit angka" value="{{ old('number') }}" required>
                             <small class="form-text text-muted">Nomor rekening harus minimal 10 digit angka</small>
                         </div>
 
                         <div class="form-group">
                             <label for="status">Status</label>
-                            <select name="status" class="form-control" required>
+                            <select id="status" name="status" class="form-control" autocomplete="off" required>
                                 <option value="">-- Pilih Status --</option>
                                 <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Aktif</option>
                                 <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Tidak Aktif
@@ -72,9 +73,9 @@
     </div>
 @stop
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-@if (session('success'))
+@section('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('success'))
     <script>
         Swal.fire({
             icon: 'success',
@@ -84,9 +85,8 @@
             showConfirmButton: false
         });
     </script>
-@endif
-
-@if (session('error'))
+    @endif
+    @if (session('error'))
     <script>
         Swal.fire({
             icon: 'error',
@@ -96,4 +96,5 @@
             showConfirmButton: false
         });
     </script>
-@endif
+    @endif
+@stop

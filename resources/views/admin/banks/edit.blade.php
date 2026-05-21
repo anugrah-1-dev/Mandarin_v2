@@ -57,9 +57,9 @@
     </div>
 @stop
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-@if (session('success'))
+@section('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('success'))
     <script>
         Swal.fire({
             icon: 'success',
@@ -69,9 +69,8 @@
             showConfirmButton: false
         });
     </script>
-@endif
-
-@if (session('error'))
+    @endif
+    @if (session('error'))
     <script>
         Swal.fire({
             icon: 'error',
@@ -81,4 +80,5 @@
             showConfirmButton: false
         });
     </script>
-@endif
+    @endif
+@stop
