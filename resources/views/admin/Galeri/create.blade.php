@@ -14,19 +14,18 @@
 
                 <div class="form-group">
                     <label for="title">Judul</label>
-                    <input type="text" name="title" class="form-control" required>
+                    <input type="text" id="title" name="title" class="form-control" autocomplete="off" required>
                 </div>
 
                 <div class="form-group">
                     <label for="image_path">Gambar</label>
-                    <input type="file" name="image_path[]" class="form-control-file" multiple accept="image/*"
-                        id="imageInput">
+                    <input type="file" id="image_path" name="image_path[]" class="form-control-file" multiple accept="image/*">
                     <div id="preview" class="mt-2 d-flex flex-wrap gap-2"></div>
                 </div>
 
                 <div class="form-group">
                     <label for="status">Status</label>
-                    <select name="status" class="form-control">
+                    <select id="status" name="status" class="form-control" autocomplete="off">
                         <option value="1">Aktif</option>
                         <option value="0">Tidak Aktif</option>
                     </select>
@@ -41,7 +40,7 @@
 
 @section('js')
     <script>
-        document.getElementById('imageInput').addEventListener('change', function(event) {
+        document.getElementById('image_path').addEventListener('change', function(event) {
             const preview = document.getElementById('preview');
             preview.innerHTML = ''; // Clear previous preview
 
@@ -64,11 +63,9 @@
             }
         });
     </script>
-@stop
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-@if (session('success'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('success'))
     <script>
         Swal.fire({
             icon: 'success',
@@ -78,9 +75,8 @@
             showConfirmButton: false
         });
     </script>
-@endif
-
-@if (session('error'))
+    @endif
+    @if (session('error'))
     <script>
         Swal.fire({
             icon: 'error',
@@ -90,4 +86,5 @@
             showConfirmButton: false
         });
     </script>
-@endif
+    @endif
+@stop
