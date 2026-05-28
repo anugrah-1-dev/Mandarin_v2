@@ -179,8 +179,10 @@
                         style="display: none;">
                         <div class="program-card">
                             <div class="program-card-image-wrapper">
-                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
-                                    alt="{{ $program->nama }}">
+                                @if ($program->thumbnail)
+                                    <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                        alt="{{ $program->nama }}">
+                                @endif
                                 @if ($program->is_active)
                                     <span class="badge bg-success program-badge">Tersedia</span>
                                 @endif
