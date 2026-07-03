@@ -29,7 +29,15 @@ class ProgramOfflinePublicController extends Controller
         $transports = Transports::all();
         $periods = Period::where('is_active', 1)->get();
         $activePeriodsNHC = PeriodNHC::where('is_active', 1)->get();
-        $banks = Banks::where('status', 'active')->get();
+
+        // Filter bank berdasarkan institusi program (brilliant/bieplus/semua)
+        $kursus = strtolower($program->kursus ?? '');
+        $banks = Banks::where('status', 'active')
+            ->where(function ($query) use ($kursus) {
+                $query->where('institusi', 'semua')
+                      ->orWhere('institusi', $kursus);
+            })
+            ->get();
         $contactServices = Customer_Service::all();
         $camps = ProgramCamp::all();
 

@@ -27,11 +27,11 @@ class BankController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'   => 'required|string|max:255',
-            'owner'  => 'required|string|max:255',
-            'number' => 'required|string|min:10|max:50',
-            'status' => 'required|in:active,inactive',
-
+            'name'      => 'required|string|max:255',
+            'owner'     => 'required|string|max:255',
+            'number'    => 'required|string|min:10|max:50',
+            'status'    => 'required|in:active,inactive',
+            'institusi' => 'required|in:semua,brilliant,bieplus',
         ]);
 
 
@@ -49,10 +49,11 @@ class BankController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'   => 'required|string|max:255',
-            'owner'  => 'required|string|max:255',
-            'number' => 'required|string|min:10|max:50',
-            'status' => 'required|in:active,inactive',
+            'name'      => 'required|string|max:255',
+            'owner'     => 'required|string|max:255',
+            'number'    => 'required|string|min:10|max:50',
+            'status'    => 'required|in:active,inactive',
+            'institusi' => 'required|in:semua,brilliant,bieplus',
         ]);
 
         $bank = Banks::findOrFail($id);

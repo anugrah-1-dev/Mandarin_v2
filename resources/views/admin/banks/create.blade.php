@@ -59,6 +59,17 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="institusi">Institusi</label>
+                            <select id="institusi" name="institusi" class="form-control" required>
+                                <option value="">-- Pilih Institusi --</option>
+                                <option value="semua" {{ old('institusi') == 'semua' ? 'selected' : '' }}>Semua (BEC & BIE)</option>
+                                <option value="brilliant" {{ old('institusi') == 'brilliant' ? 'selected' : '' }}>Brilliant English Course (BEC)</option>
+                                <option value="bieplus" {{ old('institusi') == 'bieplus' ? 'selected' : '' }}>Brilliant International Education (BIE)</option>
+                            </select>
+                            <small class="form-text text-muted">Pilih institusi yang berhak menggunakan rekening ini.</small>
+                        </div>
+
+                        <div class="form-group">
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-save"></i> Simpan
                             </button>

@@ -44,6 +44,13 @@
                             Aktif</option>
                     </x-adminlte-select>
 
+                    <x-adminlte-select name="institusi" label="Institusi" required>
+                        <option value="semua" {{ old('institusi', $bank->institusi) == 'semua' ? 'selected' : '' }}>Semua (BEC & BIE)</option>
+                        <option value="brilliant" {{ old('institusi', $bank->institusi) == 'brilliant' ? 'selected' : '' }}>Brilliant English Course (BEC)</option>
+                        <option value="bieplus" {{ old('institusi', $bank->institusi) == 'bieplus' ? 'selected' : '' }}>Brilliant International Education (BIE)</option>
+                    </x-adminlte-select>
+                    <small class="form-text text-muted mb-3 d-block" style="margin-top: -1rem;">Pilih institusi yang berhak menggunakan rekening ini.</small>
+
                     <div class="mt-3">
                         <x-adminlte-button type="submit" theme="primary" icon="fas fa-save" label="Perbarui Bank" />
                         <a href="{{ route('admin.banks.index') }}" class="btn btn-secondary ml-2">

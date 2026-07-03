@@ -38,6 +38,7 @@
                                 <th>Nama Bank</th>
                                 <th>Nomor Rekening</th>
                                 <th>Atas Nama</th>
+                                <th>Institusi</th>
                                 <th>Status</th>
                                 <th width="15%">Aksi</th>
                             </tr>
@@ -54,6 +55,17 @@
                                 </td>
                                 <td>{{ $bank->number }}</td>
                                 <td>{{ $bank->owner }}</td>
+                                <td>
+                                    @php
+                                        $institusiMap = [
+                                            'semua'     => ['label' => 'Semua', 'class' => 'badge-info'],
+                                            'brilliant' => ['label' => 'Brilliant English Course', 'class' => 'badge-primary'],
+                                            'bieplus'   => ['label' => 'Brilliant International Education', 'class' => 'badge-warning'],
+                                        ];
+                                        $inst = $institusiMap[$bank->institusi ?? 'semua'] ?? ['label' => ucfirst($bank->institusi), 'class' => 'badge-secondary'];
+                                    @endphp
+                                    <span class="badge {{ $inst['class'] }}">{{ $inst['label'] }}</span>
+                                </td>
                                 <td>
                                     @if($bank->status === 'active')
                                         <span class="badge badge-success">Aktif</span>
