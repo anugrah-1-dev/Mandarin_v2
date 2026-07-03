@@ -406,7 +406,8 @@
             }
         </style>
 
-        <!-- Registration Form Section -->
+        <!-- Registration Form Section (DINONAKTIFKAN SEMENTARA) -->
+        {{--
         <div class="card border-0 shadow-sm mb-4 mb-lg-5">
             <div class="card-header bg-primary text-white py-3">
                 <h3 class="fw-bold mb-0 text-center">Formulir Registrasi Camp BIEPLUS</h3>
@@ -461,7 +462,7 @@
                                         $periodDate = \Carbon\Carbon::parse($period->date)->toDateString();
                                     @endphp
 
-                                    {{-- hanya tampilkan period yang >= hari ini --}}
+                                    --}} {{-- hanya tampilkan period yang >= hari ini --}} {{--
                                     @if ($periodDate >= $today)
                                         <option value="{{ $period->id }}" {{ $periodDate == $today ? 'selected' : '' }}>
                                             Periode:
@@ -590,6 +591,7 @@
                 </form>
             </div>
         </div>
+        --}}
     </div>
 
     <!-- jQuery UI CDN -->
