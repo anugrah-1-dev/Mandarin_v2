@@ -29,7 +29,12 @@ class ProgramOfflinePublicController extends Controller
         $transports = Transports::all();
         $periods = Period::where('is_active', 1)->get();
         $activePeriodsNHC = PeriodNHC::where('is_active', 1)->get();
-        $banks = Banks::where('status', 'active')->get();
+        $banks = Banks::where('status', 'active')
+            ->where(function ($query) use ($program) {
+                $query->where('institusi', $program->kursus)
+                      ->orWhere('institusi', 'semua');
+            })
+            ->get();
         $contactServices = Customer_Service::all();
         $camps = ProgramCamp::all();
 
@@ -94,7 +99,7 @@ class ProgramOfflinePublicController extends Controller
 
         // Logika TRX-ID
         $today = Carbon::now()->format('Ymd');
-        $prefix = 'TRX-OFF-' . $today . '-';
+        $prefix = '369-' . $today . '-';
         $lastRegistration = PendaftaranProgramOffline::where('trx_id', 'like', $prefix . '%')->orderBy('id', 'desc')->first();
         $nextSequence = $lastRegistration ? (int) str_replace($prefix, '', $lastRegistration->trx_id) + 1 : 1;
         $newTrxId = $prefix . $nextSequence;

@@ -16,5 +16,6 @@ class Banks extends Model
         'owner',
         'number',
         'status',
+        'institusi',
     ];
 }
