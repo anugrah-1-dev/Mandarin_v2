@@ -29,12 +29,7 @@ class ProgramOfflinePublicController extends Controller
         $transports = Transports::all();
         $periods = Period::where('is_active', 1)->get();
         $activePeriodsNHC = PeriodNHC::where('is_active', 1)->get();
-        $banks = Banks::where('status', 'active')
-            ->where(function ($query) use ($program) {
-                $query->where('institusi', $program->kursus)
-                      ->orWhere('institusi', 'semua');
-            })
-            ->get();
+        $banks = Banks::where('status', 'active')->get();
         $contactServices = Customer_Service::all();
         $camps = ProgramCamp::all();
 
@@ -97,12 +92,9 @@ class ProgramOfflinePublicController extends Controller
             return redirect()->back()->with('error', 'Kuota untuk program ini sudah habis!');
         }
 
-        // Logika TRX-ID
-        $today = Carbon::now()->format('Ymd');
-        $prefix = '369-' . $today . '-';
-        $lastRegistration = PendaftaranProgramOffline::where('trx_id', 'like', $prefix . '%')->orderBy('id', 'desc')->first();
-        $nextSequence = $lastRegistration ? (int) str_replace($prefix, '', $lastRegistration->trx_id) + 1 : 1;
-        $newTrxId = $prefix . $nextSequence;
+        // Logika TRX-ID: tahun + bulan + jam + detik + 369
+        $now = Carbon::now();
+        $newTrxId = $now->format('Y') . $now->format('m') . $now->format('H') . $now->format('s') . '369';
 
         $programPrice = $program->harga;
         $transportPrice = 0;
