@@ -100,9 +100,10 @@ class ProgramOfflinePublicController extends Controller
             return redirect()->back()->with('error', 'Kuota untuk program ini sudah habis!');
         }
 
-        // Logika TRX-ID: tahun + bulan + jam + detik + 369
-        $now = Carbon::now();
-        $newTrxId = $now->format('Y') . $now->format('m') . $now->format('H') . $now->format('s') . '369';
+        // Logika TRX-ID: tahun + bulan + jam + detik + CODE_UNIK
+        $now = Carbon::now('Asia/Jakarta');
+        $codeUnik = env('CODE_UNIK', '369');
+        $newTrxId = $now->format('Y') . $now->format('m') . $now->format('H') . $now->format('s') . $codeUnik;
 
         $programPrice = $program->harga;
         $transportPrice = 0;
@@ -132,6 +133,10 @@ class ProgramOfflinePublicController extends Controller
         }
 
         $subtotal = $programPrice + $transportPrice + $akomodasiHarga;
+
+        // Tambahkan CODE_UNIK ke subtotal sebagai identifikasi unik pembayaran
+        // Contoh: 498.000 + 369 = 498.369
+        $subtotal = $subtotal + (int) $codeUnik;
 
         $pendaftaran = PendaftaranProgramOffline::create([
             'trx_id'        => $newTrxId,
