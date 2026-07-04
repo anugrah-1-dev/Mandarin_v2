@@ -77,8 +77,11 @@ class ProgramOnlinePublicController extends Controller
             }
         }
 
+        // === Biaya Admin ===
+        $biayaAdmin = $program->biaya_admin ?? 0;
+
         // === Subtotal ===
-        $subtotal = $programPrice + $akomodasiHarga;
+        $subtotal = $programPrice + $akomodasiHarga + $biayaAdmin;
 
         // === Simpan ke DB ===
         $pendaftaran = PendaftaranProgramOnline::create([

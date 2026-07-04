@@ -57,7 +57,19 @@ class InvoiceController extends Controller
             'total' => $pendaftaran->program->harga ?? 0,
         ];
 
-        // 2. Transportasi (Khusus Offline)
+        // 2. Biaya Admin (jika ada)
+        $biayaAdmin = $pendaftaran->program->biaya_admin ?? 0;
+        if ($biayaAdmin > 0) {
+            $items[] = [
+                'nama' => 'Biaya Admin',
+                'keterangan' => 'Biaya Administrasi',
+                'qty' => 1,
+                'harga' => $biayaAdmin,
+                'total' => $biayaAdmin,
+            ];
+        }
+
+        // 3. Transportasi (Khusus Offline)
         if ($tipe === 'Offline' && $pendaftaran->transport) {
             $items[] = [
                 'nama' => 'Layanan Transportasi',
@@ -68,7 +80,7 @@ class InvoiceController extends Controller
             ];
         }
 
-        // 3. Akomodasi (Khusus Offline)
+        // 4. Akomodasi (Khusus Offline)
         if ($tipe === 'Offline' && $pendaftaran->akomodasi_harga > 0) {
             $items[] = [
                 'nama' => 'Akomodasi (' . $pendaftaran->akomodasi_tipe . ')',
@@ -79,13 +91,13 @@ class InvoiceController extends Controller
             ];
         }
 
-        // 4. Kamar Camp (Khusus Camp)
+        // 5. Kamar Camp (Khusus Camp)
         if ($tipe === 'Camp' && $pendaftaran->room) {
             // Asumsi harga kamar mungkin ada atau disatukan dengan program
             // Jika ada tambahan harga kamar, bisa ditambahkan di sini. Sementara kita anggap sudah include di subtotal atau room price.
         }
 
-        // 5. Layanan Tambahan (Catering, Laundry, Holiday - Khusus Offline jika ada relasinya)
+        // 6. Layanan Tambahan (Catering, Laundry, Holiday - Khusus Offline jika ada relasinya)
         if ($tipe === 'Offline') {
             if ($pendaftaran->caterings) {
                 foreach ($pendaftaran->caterings as $catering) {

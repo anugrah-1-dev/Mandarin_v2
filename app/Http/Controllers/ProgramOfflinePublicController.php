@@ -132,7 +132,10 @@ class ProgramOfflinePublicController extends Controller
             }
         }
 
-        $subtotal = $programPrice + $transportPrice + $akomodasiHarga;
+        // === Biaya Admin ===
+        $biayaAdmin = $program->biaya_admin ?? 0;
+
+        $subtotal = $programPrice + $transportPrice + $akomodasiHarga + $biayaAdmin;
 
         // Tambahkan CODE_UNIK ke subtotal sebagai identifikasi unik pembayaran
         // Contoh: 498.000 + 369 = 498.369
