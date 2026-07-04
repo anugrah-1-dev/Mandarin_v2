@@ -75,6 +75,27 @@
                                         </li>
                                     @endif
                                 </ul>
+
+                                {{-- Rekening transportasi (khusus pendaftaran offline yang punya transport) --}}
+                                @if (isset($pendaftaran->transport) && $pendaftaran->transport && $pendaftaran->transport->bank_number)
+                                    <p class="mt-3">Transfer biaya transportasi ke rekening terpisah:</p>
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <div>
+                                                <i class="bi bi-bus-front-fill"></i>
+                                                <strong>{{ $pendaftaran->transport->bank_name }}:</strong>
+                                                <span id="transport-bank-number">{{ $pendaftaran->transport->bank_number }}</span>
+                                                (a.n. {{ $pendaftaran->transport->bank_owner }})
+                                                &mdash; <span class="text-muted small">Biaya Transport: Rp {{ number_format($pendaftaran->transport->price, 0, ',', '.') }}</span>
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-secondary"
+                                                onclick="copyToClipboard('{{ $pendaftaran->transport->bank_number }}', this)">
+                                                <i class="bi bi-clipboard"></i>
+                                                <span class="copy-text">Salin</span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                @endif
                             </div>
 
                             <hr>
@@ -111,6 +132,29 @@
                                         </button>
                                     </div>
                                 </form>
+
+                                {{-- Upload bukti transfer transportasi (hanya tampil jika ada transport dengan rekening terpisah) --}}
+                                @if (isset($pendaftaran->transport) && $pendaftaran->transport && $pendaftaran->transport->bank_number)
+                                    <div class="mt-3">
+                                        <h6 class="text-center mb-2"><i class="bi bi-bus-front-fill"></i> Bukti Transfer Transportasi</h6>
+                                        <p class="text-center text-muted small">Upload bukti transfer biaya transportasi ke rekening {{ $pendaftaran->transport->bank_name }}.</p>
+                                        <form action="{{ route('payment.upload.transport') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $pendaftaran->id }}">
+                                            <div class="input-group">
+                                                <input type="file" class="form-control" name="bukti_pembayaran_transport"
+                                                    id="bukti_pembayaran_transport" required>
+                                                <button class="btn btn-warning" type="submit">
+                                                    <i class="bi bi-upload"></i> Kirim Bukti Transport
+                                                </button>
+                                            </div>
+                                        </form>
+                                        @if ($pendaftaran->bukti_pembayaran_transport)
+                                            <p class="text-success text-center mt-2 small"><i class="bi bi-check-circle-fill"></i> Bukti transport sudah diunggah.</p>
+                                        @endif
+                                    </div>
+                                @endif
                             </div>
                             <div class="mt-4 text-center">
                                 @php

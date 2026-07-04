@@ -8,7 +8,7 @@ class Transports extends Model
 {
     protected $table = 'transports';
 
-    protected $fillable = ['name', 'price', 'status'];
+    protected $fillable = ['name', 'price', 'bank_name', 'bank_number', 'bank_owner', 'status'];
 
     public $timestamps = true;
 

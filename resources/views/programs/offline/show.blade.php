@@ -1066,7 +1066,10 @@
                                                     <option value="" data-harga="0">Pilih Transportasi </option>
                                                     @foreach ($transports as $transport)
                                                         <option value="{{ $transport->id }}"
-                                                            data-harga="{{ $transport->price }}">
+                                                            data-harga="{{ $transport->price }}"
+                                                            data-bank-name="{{ $transport->bank_name }}"
+                                                            data-bank-number="{{ $transport->bank_number }}"
+                                                            data-bank-owner="{{ $transport->bank_owner }}">
                                                             {{ $transport->name }}
                                                         </option>
                                                     @endforeach

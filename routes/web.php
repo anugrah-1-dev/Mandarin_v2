@@ -145,6 +145,7 @@ Route::get('/nhc', [ProgramNHCController::class, 'index'])->name('landing.nhc');
 
 // ===== ROUTE UNTUK UPLOAD BUKTI PEMBAYARAN =====
 Route::post('/payment/upload', [PaymentController::class, 'uploadProof'])->name('payment.upload');
+Route::post('/payment/upload-transport', [PaymentController::class, 'uploadTransportProof'])->name('payment.upload.transport');
 
 Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking.index');
 Route::post('/tracking', [TrackingController::class, 'search'])->name('tracking.search');

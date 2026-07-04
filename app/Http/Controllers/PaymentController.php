@@ -73,4 +73,45 @@ class PaymentController extends Controller
         // Fallback jika file tidak ada karena alasan yang tidak terduga
         return back()->with('error', 'Gagal mengunggah file. Silakan coba lagi.');
     }
+
+    /**
+     * Mengunggah bukti pembayaran transportasi (khusus pendaftaran offline).
+     */
+    public function uploadTransportProof(Request $request)
+    {
+        try {
+            $request->validate([
+                'id' => 'required|integer',
+                'bukti_pembayaran_transport' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return back()->with('error', 'Validasi gagal: Pastikan file adalah gambar atau PDF dan ukurannya tidak lebih dari 2MB.');
+        }
+
+        $pendaftaran = PendaftaranProgramOffline::find($request->id);
+
+        if (!$pendaftaran) {
+            return back()->with('error', 'Data pendaftaran tidak ditemukan.');
+        }
+
+        if ($request->hasFile('bukti_pembayaran_transport')) {
+            $file = $request->file('bukti_pembayaran_transport');
+
+            if ($pendaftaran->bukti_pembayaran_transport && Storage::disk('public')->exists($pendaftaran->bukti_pembayaran_transport)) {
+                Storage::disk('public')->delete($pendaftaran->bukti_pembayaran_transport);
+            }
+
+            $filename = 'bukti_transport_' . $pendaftaran->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('bukti_pembayaran', $filename, 'public');
+
+            $pendaftaran->bukti_pembayaran_transport = $path;
+            $pendaftaran->save();
+
+            return back()
+                ->with('success_message', 'Bukti pembayaran transportasi berhasil diunggah.')
+                ->with('trx_id', $pendaftaran->trx_id);
+        }
+
+        return back()->with('error', 'Gagal mengunggah file. Silakan coba lagi.');
+    }
 }

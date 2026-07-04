@@ -33,6 +33,9 @@
                                 <th width="5%">No</th>
                                 <th>Nama Transportasi</th>
                                 <th>Harga</th>
+                                <th>Bank</th>
+                                <th>No. Rekening</th>
+                                <th>Atas Nama</th>
                                 <th>Status</th>
                                 <th width="15%">Aksi</th>
                             </tr>
@@ -48,6 +51,15 @@
                                         </div>
                                     </td>
                                     <td>Rp {{ number_format($transport->price, 0, ',', '.') }}</td>
+                                    <td>{{ $transport->bank_name ?? '-' }}</td>
+                                    <td>
+                                        @if ($transport->bank_number)
+                                            <code>{{ $transport->bank_number }}</code>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td>{{ $transport->bank_owner ?? '-' }}</td>
                                     <td>
                                         @if ($transport->status === 'active')
                                             <span class="badge badge-success">Aktif</span>
@@ -61,7 +73,10 @@
                                             <button type="button" class="btn btn-warning btn-sm mr-1 btn-edit-transport"
                                                 data-toggle="modal" data-target="#editTransportModal"
                                                 data-id="{{ $transport->id }}" data-name="{{ $transport->name }}"
-                                                data-price="{{ $transport->price }}" data-status="{{ $transport->status }}">
+                                                data-price="{{ $transport->price }}" data-status="{{ $transport->status }}"
+                                                data-bank-name="{{ $transport->bank_name }}"
+                                                data-bank-number="{{ $transport->bank_number }}"
+                                                data-bank-owner="{{ $transport->bank_owner }}">
                                                 <i class="fas fa-edit"></i>
                                             </button>
 
@@ -79,7 +94,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center">Tidak ada data transportasi.</td>
+                                    <td colspan="8" class="text-center">Tidak ada data transportasi.</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -126,6 +141,17 @@
                     </x-adminlte-select>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <x-adminlte-input name="bank_name" label="Nama Bank" placeholder="Contoh: BCA" />
+                </div>
+                <div class="col-md-4">
+                    <x-adminlte-input name="bank_number" label="No. Rekening" placeholder="Contoh: 1234567890" />
+                </div>
+                <div class="col-md-4">
+                    <x-adminlte-input name="bank_owner" label="Atas Nama" placeholder="Contoh: PT Brilliant" />
+                </div>
+            </div>
             <div class="d-flex justify-content-end mt-3 w-100">
                 <button type="button" class="btn btn-secondary btn-sm mr-2" data-dismiss="modal">
                     <i class="fas fa-times"></i> Tutup
@@ -162,6 +188,17 @@
                         <option value="active">Aktif</option>
                         <option value="inactive">Tidak Aktif</option>
                     </x-adminlte-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <x-adminlte-input name="bank_name" label="Nama Bank" id="editBankName" placeholder="Contoh: BCA" />
+                </div>
+                <div class="col-md-4">
+                    <x-adminlte-input name="bank_number" label="No. Rekening" id="editBankNumber" placeholder="Contoh: 1234567890" />
+                </div>
+                <div class="col-md-4">
+                    <x-adminlte-input name="bank_owner" label="Atas Nama" id="editBankOwner" placeholder="Contoh: PT Brilliant" />
                 </div>
             </div>
             <div class="d-flex justify-content-end mt-3 w-100">
@@ -289,11 +326,17 @@
                 const name = $(this).data('name');
                 const price = $(this).data('price');
                 const status = $(this).data('status');
+                const bankName = $(this).data('bank-name');
+                const bankNumber = $(this).data('bank-number');
+                const bankOwner = $(this).data('bank-owner');
 
                 $('#editId').val(id);
                 $('#editName').val(name);
                 $('#editPrice').val(price);
                 $('#editStatus').val(status);
+                $('#editBankName').val(bankName);
+                $('#editBankNumber').val(bankNumber);
+                $('#editBankOwner').val(bankOwner);
 
                 const actionUrl = `/admin/transports/${id}`;
                 $('#editTransportForm').attr('action', actionUrl);

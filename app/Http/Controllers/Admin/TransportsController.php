@@ -20,14 +20,18 @@ class TransportsController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|integer|min:0',
             'status' => 'required|in:active,inactive',
-
-
+            'bank_name' => 'nullable|string|max:100',
+            'bank_number' => 'nullable|string|max:50',
+            'bank_owner' => 'nullable|string|max:100',
         ]);
 
         Transports::create([
             'name' => $request->name,
             'price' => $request->price,
             'status' => $request->status,
+            'bank_name' => $request->bank_name,
+            'bank_number' => $request->bank_number,
+            'bank_owner' => $request->bank_owner,
         ]);
 
         return redirect()->back()->with('alert', [
@@ -49,6 +53,9 @@ class TransportsController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|integer|min:0',
             'status' => 'required|in:active,inactive',
+            'bank_name' => 'nullable|string|max:100',
+            'bank_number' => 'nullable|string|max:50',
+            'bank_owner' => 'nullable|string|max:100',
         ]);
 
         $transport = Transports::findOrFail($id);
@@ -56,6 +63,9 @@ class TransportsController extends Controller
             'name' => $request->name,
             'price' => $request->price,
             'status' => $request->status,
+            'bank_name' => $request->bank_name,
+            'bank_number' => $request->bank_number,
+            'bank_owner' => $request->bank_owner,
         ]);
 
         return redirect()->route('admin.transports.index')->with('alert', [

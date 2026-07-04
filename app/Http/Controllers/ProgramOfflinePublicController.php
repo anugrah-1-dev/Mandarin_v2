@@ -285,7 +285,7 @@ class ProgramOfflinePublicController extends Controller
     public function halamanPembayaran($trx_id)
     {
         // PERBAIKAN TYPO: $trxa_id diubah menjadi $trx_id
-        $pendaftaran = PendaftaranProgramOffline::with(['program', 'bank'])
+        $pendaftaran = PendaftaranProgramOffline::with(['program', 'bank', 'transport'])
             ->where('trx_id', $trx_id)
             ->firstOrFail();
 
