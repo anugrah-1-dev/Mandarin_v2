@@ -307,11 +307,29 @@
         <div style="clear: both;"></div>
 
         <div class="footer">
+            {{-- Pesan Penting Kedatangan --}}
+            <div style="margin-bottom: 20px; padding: 16px 20px; background: linear-gradient(135deg, #e8f0fe, #d0e4ff); border: 2px solid #3a7bd5; border-radius: 10px; text-align: left; color: #1a1a2e;">
+                <p style="margin: 0 0 8px; font-size: 14px; font-weight: bold; color: #1a3c8f; display: flex; align-items: center; gap: 6px;">
+                    📢 Informasi Penting Kedatangan
+                </p>
+                <p style="margin: 0; font-size: 13px; line-height: 1.7; color: #333;">
+                    Kamu harus datang di <strong>Brilliant 2 atau 1 hari sebelum tanggal Start Program dimulai.</strong>
+                    Dikarenakan akan ada <strong>Placement Tes Kemampuan Bahasa Inggris</strong> kamu dan akan masuk asrama sebelum tanggal program dimulai.
+                </p>
+                <p style="margin: 10px 0 0; font-size: 13px; line-height: 1.7; color: #555;">
+                    📄 <strong>Harap cetak invoice ini dan tunjukkan di Front Office Brilliant</strong> ketika daftar ulang dan pelunasan.
+                </p>
+            </div>
+
             <p><strong>Catatan Penting:</strong></p>
             <p>1. Faktur ini sah dan diterbitkan secara elektronik tanpa tanda tangan basah.<br>
                2. Uang yang sudah dibayarkan tidak dapat dikembalikan (non-refundable).<br>
                3. Harap simpan invoice ini sebagai bukti sah pendaftaran Anda.</p>
             <p style="margin-top: 20px;"><em>Terima kasih atas kepercayaan Anda memilih Brilliant!</em></p>
+            <p style="margin-top: 10px; font-size: 15px; font-weight: bold; color: #1a3c8f; font-style: italic;">
+                🎉 Thank you, Welcome to Brilliant!<br>
+                We Are Big Family!
+            </p>
         </div>
     </div>
 
