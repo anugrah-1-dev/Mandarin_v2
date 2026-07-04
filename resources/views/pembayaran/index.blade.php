@@ -51,43 +51,111 @@
 
                             {{-- Rincian Biaya --}}
                             @php
-                                $programHarga   = $pendaftaran->program->harga ?? 0;
-                                $biayaAdmin     = $pendaftaran->program->biaya_admin ?? 0;
-                                $transportHarga = isset($pendaftaran->transport) && $pendaftaran->transport ? $pendaftaran->transport->price : 0;
-                                $akomodasiHarga = $pendaftaran->akomodasi_harga ?? 0;
+                                $programHarga      = $pendaftaran->program->harga ?? 0;
+                                $biayaAdmin        = $pendaftaran->program->biaya_admin ?? 0;
+                                $akomodasiHarga    = $pendaftaran->akomodasi_harga ?? 0;
+                                $transport         = isset($pendaftaran->transport) ? $pendaftaran->transport : null;
+                                $transportHarga    = $transport ? $transport->price : 0;
+                                $hasTransportBank  = $transport && $transport->bank_number;
+
+                                // Total yg harus ditransfer ke rekening program (tanpa transport jika transport punya rekening sendiri)
+                                $totalProgram = $hasTransportBank
+                                    ? ($pendaftaran->subtotal - $transportHarga)
+                                    : $pendaftaran->subtotal;
                             @endphp
 
-                            <table class="table table-sm table-borderless text-start mt-2 mb-1">
-                                <tbody>
-                                    <tr>
-                                        <td>Harga Program</td>
-                                        <td class="text-end">Rp {{ number_format($programHarga, 0, ',', '.') }}</td>
-                                    </tr>
-                                    @if ($biayaAdmin > 0)
-                                    <tr>
-                                        <td>Biaya Admin</td>
-                                        <td class="text-end">Rp {{ number_format($biayaAdmin, 0, ',', '.') }}</td>
-                                    </tr>
-                                    @endif
-                                    @if ($transportHarga > 0)
-                                    <tr>
-                                        <td>Transportasi ({{ $pendaftaran->transport->name }})</td>
-                                        <td class="text-end">Rp {{ number_format($transportHarga, 0, ',', '.') }}</td>
-                                    </tr>
-                                    @endif
-                                    @if ($akomodasiHarga > 0)
-                                    <tr>
-                                        <td>Akomodasi ({{ $pendaftaran->akomodasi_tipe }})</td>
-                                        <td class="text-end">Rp {{ number_format($akomodasiHarga, 0, ',', '.') }}</td>
-                                    </tr>
-                                    @endif
-                                    <tr class="fw-bold border-top">
-                                        <td>Total Pembayaran</td>
-                                        <td class="text-end">Rp {{ number_format($pendaftaran->subtotal, 0, ',', '.') }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <h2 class="fw-bolder">Rp {{ number_format($pendaftaran->subtotal, 0, ',', '.') }}</h2>
+                            {{-- Jika transport punya rekening terpisah: tampilkan 2 kotak transfer --}}
+                            @if ($hasTransportBank)
+                                <div class="alert alert-warning text-start py-2 px-3 mb-3">
+                                    <i class="bi bi-exclamation-triangle-fill"></i>
+                                    <strong>Perhatian:</strong> Program ini menggunakan transportasi dengan rekening terpisah.
+                                    Silakan lakukan <strong>2 kali transfer</strong> ke rekening yang berbeda.
+                                </div>
+
+                                {{-- Transfer 1: Program --}}
+                                <div class="border rounded p-3 mb-3 text-start">
+                                    <p class="fw-bold mb-2 text-primary"><i class="bi bi-1-circle-fill"></i> Transfer ke Rekening Program</p>
+                                    <table class="table table-sm table-borderless mb-1">
+                                        <tbody>
+                                            <tr>
+                                                <td>Harga Program</td>
+                                                <td class="text-end">Rp {{ number_format($programHarga, 0, ',', '.') }}</td>
+                                            </tr>
+                                            @if ($biayaAdmin > 0)
+                                            <tr>
+                                                <td>Biaya Admin</td>
+                                                <td class="text-end">Rp {{ number_format($biayaAdmin, 0, ',', '.') }}</td>
+                                            </tr>
+                                            @endif
+                                            @if ($akomodasiHarga > 0)
+                                            <tr>
+                                                <td>Akomodasi ({{ $pendaftaran->akomodasi_tipe }})</td>
+                                                <td class="text-end">Rp {{ number_format($akomodasiHarga, 0, ',', '.') }}</td>
+                                            </tr>
+                                            @endif
+                                            <tr class="fw-bold border-top">
+                                                <td>Subtotal Transfer 1</td>
+                                                <td class="text-end text-primary">Rp {{ number_format($totalProgram, 0, ',', '.') }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                {{-- Transfer 2: Transport --}}
+                                <div class="border rounded p-3 mb-3 text-start border-warning">
+                                    <p class="fw-bold mb-2 text-warning"><i class="bi bi-2-circle-fill"></i> Transfer ke Rekening Transportasi</p>
+                                    <table class="table table-sm table-borderless mb-1">
+                                        <tbody>
+                                            <tr>
+                                                <td>{{ $transport->name }}</td>
+                                                <td class="text-end">Rp {{ number_format($transportHarga, 0, ',', '.') }}</td>
+                                            </tr>
+                                            <tr class="fw-bold border-top">
+                                                <td>Subtotal Transfer 2</td>
+                                                <td class="text-end text-warning">Rp {{ number_format($transportHarga, 0, ',', '.') }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="border-top pt-2 mb-2">
+                                    <p class="mb-0 fw-bold">Grand Total: <span class="fs-5">Rp {{ number_format($pendaftaran->subtotal, 0, ',', '.') }}</span></p>
+                                </div>
+
+                            {{-- Jika tidak ada transport terpisah: tampilkan breakdown biasa --}}
+                            @else
+                                <table class="table table-sm table-borderless text-start mt-2 mb-1">
+                                    <tbody>
+                                        <tr>
+                                            <td>Harga Program</td>
+                                            <td class="text-end">Rp {{ number_format($programHarga, 0, ',', '.') }}</td>
+                                        </tr>
+                                        @if ($biayaAdmin > 0)
+                                        <tr>
+                                            <td>Biaya Admin</td>
+                                            <td class="text-end">Rp {{ number_format($biayaAdmin, 0, ',', '.') }}</td>
+                                        </tr>
+                                        @endif
+                                        @if ($transportHarga > 0)
+                                        <tr>
+                                            <td>Transportasi ({{ $transport->name }})</td>
+                                            <td class="text-end">Rp {{ number_format($transportHarga, 0, ',', '.') }}</td>
+                                        </tr>
+                                        @endif
+                                        @if ($akomodasiHarga > 0)
+                                        <tr>
+                                            <td>Akomodasi ({{ $pendaftaran->akomodasi_tipe }})</td>
+                                            <td class="text-end">Rp {{ number_format($akomodasiHarga, 0, ',', '.') }}</td>
+                                        </tr>
+                                        @endif
+                                        <tr class="fw-bold border-top">
+                                            <td>Total Pembayaran</td>
+                                            <td class="text-end">Rp {{ number_format($pendaftaran->subtotal, 0, ',', '.') }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h2 class="fw-bolder">Rp {{ number_format($pendaftaran->subtotal, 0, ',', '.') }}</h2>
+                            @endif
 
 
                             <div class="instructions mb-4">
