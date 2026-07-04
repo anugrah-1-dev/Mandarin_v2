@@ -15,12 +15,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('banks', function (Blueprint $table) {
-            $table->enum('institusi', ['semua', 'brilliant', 'bieplus'])
-                  ->default('semua')
-                  ->after('status')
-                  ->comment('Filter bank berdasarkan institusi: semua, brilliant (BEC), bieplus (BIE)');
-        });
+        if (!Schema::hasColumn('banks', 'institusi')) {
+            Schema::table('banks', function (Blueprint $table) {
+                $table->enum('institusi', ['semua', 'brilliant', 'bieplus'])
+                      ->default('semua')
+                      ->after('status')
+                      ->comment('Filter bank berdasarkan institusi: semua, brilliant (BEC), bieplus (BIE)');
+            });
+        }
     }
 
     /**
