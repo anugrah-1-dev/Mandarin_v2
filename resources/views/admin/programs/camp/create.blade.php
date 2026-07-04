@@ -56,7 +56,13 @@
                         </div>
 
                         <!-- Harga -->
-                        <h4 class="mt-4">Harga</h4>
+                        <h4 class="mt-4">Harga & Biaya Admin</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <x-adminlte-input name="biaya_admin" label="Biaya Admin (Rp)" type="number" min="0"
+                                    placeholder="0" value="{{ old('biaya_admin', 0) }}" />
+                            </div>
+                        </div>
                         <div class="row">
                             @foreach ([
             'harga_perhari' => 'Per Hari',

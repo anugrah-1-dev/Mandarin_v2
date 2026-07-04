@@ -49,6 +49,10 @@
                         <x-adminlte-input name="harga" label="Harga (Rp)" type="number" placeholder="Contoh: 1000000"
                             value="{{ old('harga') }}" required />
                     </div>
+                    <div class="col-md-4">
+                        <x-adminlte-input name="biaya_admin" label="Biaya Admin (Rp)" type="number" placeholder="Contoh: 10000"
+                            value="{{ old('biaya_admin', 0) }}" />
+                    </div>
                 </div>
 
                 <x-adminlte-textarea name="features_program" label="Fitur Program (Pisahkan dengan Enter)" rows="3"

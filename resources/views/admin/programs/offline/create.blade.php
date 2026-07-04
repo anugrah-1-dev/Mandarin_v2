@@ -53,6 +53,13 @@
                             value="{{ old('harga') }}" required />
                     </div>
                     <div class="col-md-6">
+                        <x-adminlte-input name="biaya_admin" label="Biaya Admin (Rp)" placeholder="Contoh: 10000" type="number"
+                            value="{{ old('biaya_admin', 0) }}" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
                         <x-adminlte-input name="kuota" label="Kuota Peserta" type="number" value="{{ old('kuota') }}"
                             required />
                     </div>

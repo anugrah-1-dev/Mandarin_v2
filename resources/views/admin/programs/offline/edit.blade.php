@@ -103,6 +103,14 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label for="biaya_admin">Biaya Admin (Rp)</label>
+                                <input type="number" class="form-control @error('biaya_admin') is-invalid @enderror"
+                                    id="biaya_admin" name="biaya_admin" min="0" value="{{ old('biaya_admin', $offline->biaya_admin ?? 0) }}">
+                                @error('biaya_admin') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label for="lokasi">Lokasi</label>
                                 <input type="text" class="form-control @error('lokasi') is-invalid @enderror"
                                     id="lokasi" name="lokasi" value="{{ old('lokasi', $offline->lokasi) }}">

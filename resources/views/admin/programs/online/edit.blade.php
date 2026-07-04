@@ -97,6 +97,13 @@
                                         placeholder="Contoh: 1000000" value="{{ old('harga', $online->harga) }}" required>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="biaya_admin">Biaya Admin (Rp)</label>
+                                    <input type="number" class="form-control" id="biaya_admin" name="biaya_admin"
+                                        placeholder="Contoh: 10000" value="{{ old('biaya_admin', $online->biaya_admin ?? 0) }}" min="0">
+                                </div>
+                            </div>
                             
                             <div class="col-md-6">
                                 <div class="form-group">

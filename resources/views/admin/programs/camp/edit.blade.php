@@ -57,7 +57,14 @@
 
                         <!-- Harga -->
                         <div class="section-header mb-4">
-                            <h4><i class="fas fa-tags mr-2"></i>Harga</h4>
+                            <h4><i class="fas fa-tags mr-2"></i>Harga & Biaya Admin</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6">
+                                <x-adminlte-input name="biaya_admin" label="Biaya Admin (Rp)" type="number" min="0"
+                                    placeholder="0" fgroup-class="mb-3"
+                                    value="{{ old('biaya_admin', $program->biaya_admin ?? 0) }}" />
+                            </div>
                         </div>
                         <div class="row">
                             @foreach ([

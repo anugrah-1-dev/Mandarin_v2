@@ -48,6 +48,7 @@ class ProgramCampController extends Controller
     {
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
+            'biaya_admin' => 'nullable|numeric|min:0',
             'thumbnail' => 'nullable|array|max:5',
             'thumbnail.*' => 'image|max:5048',
 
@@ -102,6 +103,7 @@ class ProgramCampController extends Controller
 
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
+            'biaya_admin' => 'nullable|numeric|min:0',
             'thumbnail' => 'nullable|array|max:5',
             'thumbnail.*' => 'image|mimes:jpg,jpeg,png|max:5048',
         ]);

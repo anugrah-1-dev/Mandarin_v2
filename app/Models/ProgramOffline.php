@@ -17,6 +17,7 @@ class ProgramOffline extends Model
         'lama_program',
         'kategori',
         'harga',
+        'biaya_admin',
         'features_program',
         'lokasi',
         'jadwal_mulai',

@@ -32,6 +32,7 @@ class ProgramOnline extends Model
         'lama_program',
         'kategori',
         'harga',
+        'biaya_admin',
         'features_program',
         'is_active',
         'thumbnail',

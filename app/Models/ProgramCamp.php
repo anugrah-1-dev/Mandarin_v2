@@ -27,6 +27,7 @@ class ProgramCamp extends Model
         'harga_tiga_bulan',
         'harga_enam_bulan',
         'harga_satu_tahun',
+        'biaya_admin',
         'fasilitas',
         'thumbnail_id'
     ];
