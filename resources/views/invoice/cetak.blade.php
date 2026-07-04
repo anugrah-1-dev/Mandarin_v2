@@ -253,6 +253,16 @@
                         @if($pendaftaran->payment_type == 'transfer' && $pendaftaran->bank)
                             Transfer Bank - {{ $pendaftaran->bank->name }}<br>
                             {{ $pendaftaran->bank->number }} a.n {{ $pendaftaran->bank->owner }}
+                            @php
+                                $invTransport    = isset($pendaftaran->transport) ? $pendaftaran->transport : null;
+                                $invHasTransBank = $invTransport && $invTransport->bank_number;
+                            @endphp
+                            @if ($invHasTransBank)
+                                <br><br>
+                                <strong>REKENING TRANSPORTASI:</strong><br>
+                                {{ $invTransport->bank_name }}<br>
+                                {{ $invTransport->bank_number }} a.n {{ $invTransport->bank_owner }}
+                            @endif
                         @elseif($pendaftaran->payment_type == 'qris')
                             QRIS
                         @else
@@ -290,14 +300,27 @@
         </table>
 
         <table class="summary-table">
+            @php
+                $invTransportSum    = isset($pendaftaran->transport) ? $pendaftaran->transport : null;
+                $invHasTransBankSum = $invTransportSum && $invTransportSum->bank_number;
+                $invTransportPrice  = $invTransportSum ? $invTransportSum->price : 0;
+                $invTotalProgram    = $invHasTransBankSum ? ($subtotal - $invTransportPrice) : $subtotal;
+            @endphp
+            @if ($invHasTransBankSum)
+            <tr>
+                <td class="text-right"><strong>Transfer ke Rekening Program:</strong></td>
+                <td class="text-right" style="width: 30%;">Rp {{ number_format($invTotalProgram, 0, ',', '.') }}</td>
+            </tr>
+            <tr>
+                <td class="text-right"><strong>Transfer ke Rekening Transport:</strong></td>
+                <td class="text-right">Rp {{ number_format($invTransportPrice, 0, ',', '.') }}</td>
+            </tr>
+            @else
             <tr>
                 <td class="text-right"><strong>Subtotal:</strong></td>
                 <td class="text-right" style="width: 30%;">Rp {{ number_format($subtotal, 0, ',', '.') }}</td>
             </tr>
-            <tr>
-                <td class="text-right"><strong>Biaya Admin / Pajak:</strong></td>
-                <td class="text-right">Rp 0</td>
-            </tr>
+            @endif
             <tr class="total-row">
                 <td class="text-right">TOTAL BAYAR:</td>
                 <td class="text-right">Rp {{ number_format($subtotal, 0, ',', '.') }}</td>
