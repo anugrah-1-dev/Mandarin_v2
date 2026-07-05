@@ -47,14 +47,16 @@ class InvoiceController extends Controller
 
         // Menyiapkan array items untuk mempermudah render di view
         $items = [];
+        $codeUnik = (int) env('CODE_UNIK', 369);
 
-        // 1. Program Utama
+        // 1. Program Utama (harga program + code unik sebagai identifikasi pembayaran unik)
+        $hargaProgram = ($pendaftaran->program->harga ?? 0) + $codeUnik;
         $items[] = [
-            'nama' => 'Program ' . $tipe . ' - ' . ($pendaftaran->program->nama ?? 'Program'),
-            'keterangan' => 'Biaya Pendaftaran Program',
-            'qty' => 1,
-            'harga' => $pendaftaran->program->harga ?? 0,
-            'total' => $pendaftaran->program->harga ?? 0,
+            'nama'       => 'Program ' . $tipe . ' - ' . ($pendaftaran->program->nama ?? 'Program'),
+            'keterangan' => 'Biaya Pendaftaran Program (termasuk kode unik ' . $codeUnik . ')',
+            'qty'        => 1,
+            'harga'      => $hargaProgram,
+            'total'      => $hargaProgram,
         ];
 
         // 2. Biaya Admin (jika ada)
