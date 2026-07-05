@@ -140,9 +140,10 @@
                                     <h5 class="text-muted">Status</h5>
                                     <span
                                         class="badge
-                                      @if ($offline->status == 'aktif') bg-success
+                                      @if (in_array($offline->status, ['aktif', 'diterima'])) bg-success
                                        @elseif($offline->status == 'ditolak') bg-danger
-                                       @else bg-warning @endif fs-6">
+                                       @elseif($offline->status == 'pending') bg-warning text-dark
+                                       @else bg-secondary @endif fs-6">
                                         {{ ucfirst($offline->status) }}
                                     </span>
                                 </div>
@@ -371,9 +372,10 @@
                                 <h5 class="text-muted">Status</h5>
                                 <span
                                     class="badge
-                                      @if ($online->status == 'aktif') bg-success
+                                      @if (in_array($online->status, ['aktif', 'diterima'])) bg-success
                                        @elseif($online->status == 'ditolak') bg-danger
-                                       @else bg-warning @endif fs-6">
+                                       @elseif($online->status == 'pending') bg-warning text-dark
+                                       @else bg-secondary @endif fs-6">
                                     {{ ucfirst($online->status) }}
                                 </span>
                             </div>
