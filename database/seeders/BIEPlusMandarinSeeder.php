@@ -11,9 +11,9 @@ class BIEPlusMandarinSeeder extends Seeder
 {
     public function run(): void
     {
-        // Hapus data lama Mandarin di bieplus
-        ProgramOffline::where('kursus', 'bieplus')->where('program_bahasa', 'Mandarin')->delete();
-        ProgramOnline::where('kursus', 'bieplus')->where('program_bahasa', 'Mandarin')->delete();
+        // Hapus data lama Mandarin di brilliant
+        ProgramOffline::where('kursus', 'brilliant')->where('program_bahasa', 'Mandarin')->delete();
+        ProgramOnline::where('kursus', 'brilliant')->where('program_bahasa', 'Mandarin')->delete();
 
         // =====================
         // PROGRAM OFFLINE
@@ -187,7 +187,7 @@ class BIEPlusMandarinSeeder extends Seeder
         foreach ($programsOffline as $data) {
             ProgramOffline::create([
                 'nama'             => $data['nama'],
-                'slug'             => Str::slug($data['nama']) . '-mandarin-bieplus',
+                'slug'             => Str::slug($data['nama']) . '-mandarin-brilliant',
                 'program_bahasa'   => 'Mandarin',
                 'lama_program'     => $data['lama_program'],
                 'kategori'         => $data['kategori'],
@@ -198,7 +198,7 @@ class BIEPlusMandarinSeeder extends Seeder
                 'lokasi'           => 'Pare, Kediri',
                 'kuota'            => 50,
                 'is_active'        => 1,
-                'kursus'           => 'bieplus',
+                'kursus'           => 'brilliant',
                 'thumbnail'        => null,
             ]);
         }
@@ -231,14 +231,14 @@ class BIEPlusMandarinSeeder extends Seeder
         foreach ($programsOnline as $data) {
             ProgramOnline::create([
                 'nama'             => $data['nama'],
-                'slug'             => Str::slug($data['nama']) . '-mandarin-bieplus',
+                'slug'             => Str::slug($data['nama']) . '-mandarin-brilliant',
                 'program_bahasa'   => 'Mandarin',
                 'lama_program'     => $data['lama_program'],
                 'kategori'         => $data['kategori'],
                 'harga'            => $data['harga'],
                 'features_program' => $data['features_program'],
                 'is_active'        => 1,
-                'kursus'           => 'bieplus',
+                'kursus'           => 'brilliant',
                 'thumbnail'        => null,
             ]);
         }
