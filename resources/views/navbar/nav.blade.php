@@ -26,8 +26,8 @@
             @elseif (request()->routeIs('bieplus.program.inggris', 'bieplus.program.jerman', 'bieplus.program.mandarin', 'bieplus.program.arab'))
                 <img src="{{ asset('asset/img/bietest.png') }}" alt="Logo BIE+" style="height: 84px;">
             @else
-                @if (request()->routeIs('landing') && $navLogo && $navLogo->image_path)
-                    <img src="{{ asset('storage/' . $navLogo->image_path) }}" alt="Logo" style="height: 84px;">
+                @if (request()->routeIs('landing') && isset($navLogo1) && $navLogo1->image_path)
+                    <img src="{{ asset('storage/' . $navLogo1->image_path) }}" alt="Logo" style="height: 84px;">
                 @else
                     <img src="{{ asset('asset/img/LogoWebBrillaintPare.png') }}" alt="Logo Default" style="height: 84px;">
                 @endif
@@ -46,42 +46,11 @@
 
     <div class="nav-links" id="navLinks">
 
-        <div class="dropdown" id="programDropdown">
-            <button class="dropbtn">
-                PROGRAM <span class="arrow">▼</span>
-            </button>
-            <div class="dropdown-content">
-                @if (request()->routeIs('bieplus.*'))
-                    <a href="{{ route('bieplus.program.inggris') }}">Bahasa Inggris</a>
-                    <a href="{{ route('bieplus.program.jerman') }}">Bahasa Jerman</a>
-                    <a href="{{ route('bieplus.program.mandarin') }}">Bahasa Mandarin</a>
-                    <a href="{{ route('bieplus.program.arab') }}">Bahasa Arab</a>
-                @else
-                    <a href="{{ route('program.inggris') }}">Bahasa Inggris</a>
-                    <a href="{{ route('program.jerman') }}">Bahasa Jerman</a>
-                    <a href="{{ route('program.mandarin') }}">Bahasa Mandarin</a>
-                    <a href="{{ route('program.arab') }}">Bahasa Arab</a>
-                @endif
-            </div>
-        </div>
+        <a href="{{ url('/#program') }}">PROGRAM</a>
 
 
 
-        <div class="dropdown" id="programDropdown">
-            <button class="dropbtn">
-                GALERI<span class="arrow">▼</span>
-            </button>
-            <div class="dropdown-content">
-                <a href="{{ url('/#galeri') }}">Galeri</a>
-                <a href="{{ url('/#sosmed') }}">Social Media</a>
-
-            </div>
-        </div>
-
-        <a href="{{ url('/#camp') }}">CAMP</a>
-        {{-- <a href="{{ url('/#galeri') }}">GALLERI</a>
-        <a href="{{ url('/#sosmed') }}">SOSMED</a> --}}
-        <a href="{{ url('/#kontak') }}">KONTAK</a>
+        <a href="{{ url('/#alur-mandarin') }}">KONTAK</a>
         <a href="{{ url('/#tentang') }}">TENTANG KAMI</a>
         <a href="{{ route('tracking.index') }}" class="btn">Tracking Transaksi</a>
     </div>

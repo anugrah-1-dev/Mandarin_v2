@@ -421,26 +421,7 @@
                 ],
             ],
 
-            [
-                'header' => 'CAMP',
-            ],
-            [
-                'text' => 'Menejemen Camp',
-                'icon' => 'fas fa-list',
-                'submenu' => [
-                    [
-                        'text' => 'Camp',
-                        'url'  => '/admin/programs/camp',
-                        'icon' => 'fas fa-campground',
-                    ],
 
-                    [
-                        'text' => 'Manajemen Kamar',
-                        'url'  => 'admin/rooms',
-                        'icon' => 'fas fa-bed',
-                    ],
-                ],
-            ],
 
             ['header' => 'DATA PENDAFTAR'],
             [
@@ -461,40 +442,11 @@
                         'active' => ['admin/pendaftaran/online*'],
                     ],
 
-                    [
-                        'text' => 'Pendaftar Camp',
-                        'route'  => 'admin.pendaftaran.camp.index',
-                        'icon'   => 'fas fa-clipboard-list',
-                        'active' => ['admin/pendaftaran/camp*'],
-                    ],
+
                 ],
             ],
 
-            [
-                'header' => 'Add Ons',
-            ],
-            [
-                'text' => 'Service',
-                'icon' => 'fas fa-list',
-                'submenu' => [
-            
-                    [
-                        'text' => 'Holiday Packages',
-                        'url'  => 'admin/holiday',
-                        'icon' => 'fas fa-umbrella-beach',
-                    ],
-                    [
-                        'text' => 'Catering Packages',
-                        'url'  => 'admin/catering',
-                        'icon' => 'fas fa-utensils',
-                    ],
-                    [
-                        'text' => 'Laundry Packages',
-                        'url'  => 'admin/laundry',
-                        'icon' => 'fas fa-tshirt',
-                    ],
-                ],
-            ],
+
 
 
             [

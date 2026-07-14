@@ -153,7 +153,7 @@ Route::post('/tracking', [TrackingController::class, 'search'])->name('tracking.
 // ===== ROUTE INVOICE =====
 Route::get('/invoice/cetak/{trx_id}', [App\Http\Controllers\InvoiceController::class, 'cetak'])->name('invoice.cetak');
 
-Route::get('/', [LandingPageController::class, 'index'])->name('landing');
+Route::get('/', [ProgramMandarinController::class, 'showMandarin'])->name('landing');
 
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
