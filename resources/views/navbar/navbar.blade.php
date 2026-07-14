@@ -13,13 +13,13 @@
 <nav id="navbar">
     <div class="logo" style="display: flex; align-items: center; gap: 10px;">
         @if ($navLogo1 && $navLogo1->image_path)
-            <img src="{{ asset('storage/' . $navLogo1->image_path) }}" alt="Logo 1" id="navbarLogo" style="height: 70px;">
+            <img src="{{ asset('storage/' . $navLogo1->image_path) }}" alt="Logo 1" id="navbarLogo">
         @else
-            <img src="{{ asset('asset/img/LogoWebBrillaintPare.png') }}" alt="Logo 1" id="navbarLogo" style="height: 70px;">
+            <img src="{{ asset('asset/img/LogoWebBrillaintPare.png') }}" alt="Logo 1" id="navbarLogo">
         @endif
 
         @if ($navLogo2 && $navLogo2->image_path)
-            <img src="{{ asset('storage/' . $navLogo2->image_path) }}" alt="Logo 2" id="navbarLogo2" style="height: 70px;">
+            <img src="{{ asset('storage/' . $navLogo2->image_path) }}" alt="Logo 2" id="navbarLogo2">
         @endif
     </div>
 
