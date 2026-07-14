@@ -16,7 +16,7 @@
             @if (request()->routeIs('program.arab'))
                 <img src="{{ asset('asset/img/alsaeid logo.png') }}" alt="Logo Arab" style="height: 130px;">
             @elseif (request()->routeIs('program.mandarin'))
-                <img src="{{ asset('asset/img/MandarinLogo.png') }}" alt="Logo Mandarin" style="height: 240px;">
+                <img src="{{ asset('asset/img/MandarinLogo.png') }}" alt="Logo Mandarin" style="height: 320px;">
             @elseif (request()->routeIs('program.jerman'))
                 <img src="{{ asset('asset/img/JermanLogo.png') }}" alt="Logo Jerman" style="height: 95px;">
             @elseif (request()->routeIs('landing.nhc'))
