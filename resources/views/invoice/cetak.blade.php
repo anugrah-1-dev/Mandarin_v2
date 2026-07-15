@@ -19,7 +19,7 @@
         .inv-header { display: table; width: 100%; margin-bottom: 18px; position: relative; z-index: 1; }
         .inv-header-left, .inv-header-right { display: table-cell; width: 50%; vertical-align: top; }
         .inv-header-right { text-align: right; }
-        .company-logo { height: 62px; width: auto; max-width: 190px; object-fit: contain; margin-bottom: 6px; display: block; }
+        .company-logo { height: 95px; width: auto; max-width: 300px; object-fit: contain; margin-bottom: 8px; display: block; transform: scale(1.1); transform-origin: left center; }
         .company-name { font-size: 16px; font-weight: 800; color: #1a1a2e; margin-bottom: 2px; }
         .company-info { font-size: 10.5px; color: #555; line-height: 1.65; }
         .inv-title { font-size: 34px; font-weight: 900; color: #1a1a2e; letter-spacing: 3px; line-height: 1; }
