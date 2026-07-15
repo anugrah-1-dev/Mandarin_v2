@@ -38,8 +38,119 @@
             <h1 data-aos="fade-up">MANDARIN CENTER PARE</h1>
             <h2 data-aos="fade-up" data-aos-delay="100">(Kursus Bahasa Mandarin)</h2>
             <p data-aos="fade-up" data-aos-delay="200">Kuasai bahasa Mandarin dengan metode interaktif dan pengajar berpengalaman.</p>
+            <button data-aos="fade-up" data-aos-delay="300" class="btn btn-primary mt-4 py-2 px-4 shadow-lg" style="border-radius: 30px; font-weight: bold; font-size: 1.1rem; background-color: #054707; border: none; cursor: pointer; padding: 12px 24px; color: white;" onclick="openCustomModal()">Daftar Sekarang</button>
         </div>
     </section>
+
+    <style>
+        .custom-program-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .custom-program-modal.show {
+            display: flex;
+            opacity: 1;
+        }
+        .custom-modal-content {
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+        }
+        .custom-program-modal.show .custom-modal-content {
+            transform: translateY(0);
+        }
+        .custom-modal-close {
+            position: absolute;
+            right: -15px;
+            top: -35px;
+            background: #fff;
+            color: #333;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+        .custom-modal-close:hover {
+            background: #ff4d4d;
+            color: white;
+        }
+    </style>
+
+    <div id="pilihProgramModal" class="custom-program-modal">
+        <div class="custom-modal-content">
+            <span class="custom-modal-close" onclick="closeCustomModal()">&times;</span>
+            <h3 class="text-white text-center mb-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5); font-size: 28px; margin-bottom: 25px;">Pilih Tipe Program</h3>
+            <div class="program-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <!-- Offline -->
+                <div class="program-item" style="display: block; animation: none; margin: 0;">
+                    <div class="program-card h-100 d-flex flex-column" onclick="window.location.href='{{ route('program.offline.list') }}'" style="cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                        <div class="program-card-image-wrapper">
+                            @if($offlinePrograms->isNotEmpty() && $offlinePrograms->first()->thumbnail)
+                                <img src="{{ asset('storage/' . $offlinePrograms->first()->thumbnail) }}" class="program-card-img" alt="Program Offline">
+                            @else
+                                <img src="{{ asset('storage/galleries/slM16yfFONrxx5kQRroN8Mss3IA21QnTm7CGnwys.png') }}" class="program-card-img" alt="Program Offline">
+                            @endif
+                        </div>
+                        <div class="program-card-content d-flex flex-column flex-grow-1 text-center justify-content-center" style="padding: 25px 20px;">
+                            <h3 class="program-title mb-2" style="font-size: 22px; color: #054707;">PROGRAM OFFLINE</h3>
+                            <p style="color: #666; font-size: 14px; margin-bottom: 15px;">Belajar tatap muka langsung di kelas.</p>
+                            <button class="program-btn mt-auto w-100" style="padding: 10px;">Pilih Offline</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Online -->
+                <div class="program-item" style="display: block; animation: none; margin: 0;">
+                    <div class="program-card h-100 d-flex flex-column" onclick="window.location.href='{{ route('program.online.list') }}'" style="cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                        <div class="program-card-image-wrapper">
+                            @if($onlinePrograms->isNotEmpty() && $onlinePrograms->first()->thumbnail)
+                                <img src="{{ asset('storage/' . $onlinePrograms->first()->thumbnail) }}" class="program-card-img" alt="Program Online">
+                            @else
+                                <img src="{{ asset('storage/galleries/slM16yfFONrxx5kQRroN8Mss3IA21QnTm7CGnwys.png') }}" class="program-card-img" alt="Program Online">
+                            @endif
+                        </div>
+                        <div class="program-card-content d-flex flex-column flex-grow-1 text-center justify-content-center" style="padding: 25px 20px;">
+                            <h3 class="program-title mb-2" style="font-size: 22px; color: #054707;">PROGRAM ONLINE</h3>
+                            <p style="color: #666; font-size: 14px; margin-bottom: 15px;">Belajar daring dari mana saja.</p>
+                            <button class="program-btn mt-auto w-100" style="padding: 10px; background-color: #0056b3;">Pilih Online</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openCustomModal() {
+            document.getElementById('pilihProgramModal').classList.add('show');
+        }
+        function closeCustomModal() {
+            document.getElementById('pilihProgramModal').classList.remove('show');
+        }
+        window.addEventListener('click', function(e) {
+            var modal = document.getElementById('pilihProgramModal');
+            if (e.target == modal) {
+                closeCustomModal();
+            }
+        });
+    </script>
 
     <section class="program-section bg-light py-5" id="program">
         <div class="container">
