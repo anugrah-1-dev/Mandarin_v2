@@ -158,9 +158,9 @@
     {{-- Poster Pop-up Otomatis --}}
     @if(isset($popupPoster) && $popupPoster->image_path)
     <div id="welcomePosterModal" class="custom-program-modal">
-        <div class="custom-modal-content" style="max-width: 600px; padding: 15px; text-align: center; background-color: transparent; box-shadow: none;">
-            <span class="custom-modal-close" onclick="closePosterModal()" style="top: -15px; right: -15px;">&times;</span>
-            <img src="{{ asset('storage/' . $popupPoster->image_path) }}" alt="Promo Poster" style="width: 100%; height: auto; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <div class="custom-modal-content" style="max-width: 600px; padding: 15px; text-align: center; background-color: transparent; box-shadow: none; display: flex; justify-content: center; align-items: center;">
+            <span class="custom-modal-close" onclick="closePosterModal()" style="top: 0px; right: 0px; z-index: 100;">&times;</span>
+            <img src="{{ asset('storage/' . $popupPoster->image_path) }}" alt="Promo Poster" style="max-width: 100%; max-height: 90vh; width: auto; height: auto; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); object-fit: contain;">
         </div>
     </div>
     
