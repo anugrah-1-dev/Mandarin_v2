@@ -66,7 +66,7 @@
                 <div class="program-item offline" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                     <div class="program-card h-100 d-flex flex-column">
                         <div class="program-card-image-wrapper">
-                            <img src="{{ $program->thumbnail ? asset('storage/' . $program->thumbnail) : asset('asset/img/LogoWebBrillaintPare.png') }}" class="program-card-img" alt="{{ $program->nama }}">
+                            <img src="{{ $program->thumbnail ? asset('storage/' . $program->thumbnail) : asset('storage/galleries/slM16yfFONrxx5kQRroN8Mss3IA21QnTm7CGnwys.png') }}" class="program-card-img" alt="{{ $program->nama }}">
                         </div>
                         <div class="program-card-content d-flex flex-column flex-grow-1">
                             <h4 class="program-title">{{ $program->nama }}</h4>
@@ -111,7 +111,7 @@
                 <div class="program-item online" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                     <div class="program-card h-100 d-flex flex-column">
                         <div class="program-card-image-wrapper">
-                            <img src="{{ $program->thumbnail ? asset('storage/' . $program->thumbnail) : asset('asset/img/LogoWebBrillaintPare.png') }}" class="program-card-img" alt="{{ $program->nama }}">
+                            <img src="{{ $program->thumbnail ? asset('storage/' . $program->thumbnail) : asset('storage/galleries/slM16yfFONrxx5kQRroN8Mss3IA21QnTm7CGnwys.png') }}" class="program-card-img" alt="{{ $program->nama }}">
                         </div>
                         <div class="program-card-content d-flex flex-column flex-grow-1">
                             <h4 class="program-title">{{ $program->nama }}</h4>

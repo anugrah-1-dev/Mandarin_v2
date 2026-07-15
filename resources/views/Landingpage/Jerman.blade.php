@@ -60,7 +60,7 @@
                     <div class="program-item offline" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                         <div class="program-card">
                             <div class="program-card-image-wrapper">
-                                <img src="{{ $program->thumbnail ? asset('storage/' . $program->thumbnail) : asset('asset/img/LogoWebBrillaintPare.png') }}" class="program-card-img"
+                                <img src="{{ $program->thumbnail ? asset('storage/' . $program->thumbnail) : asset('storage/galleries/slM16yfFONrxx5kQRroN8Mss3IA21QnTm7CGnwys.png') }}" class="program-card-img"
                                     alt="{{ $program->nama }}">
                                 @if ($program->is_active)
                                     <span class="badge bg-success program-badge">Tersedia</span>
@@ -115,7 +115,7 @@
                     <div class="program-item online" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                         <div class="program-card">
                             <div class="program-card-image-wrapper">
-                                <img src="{{ $program->thumbnail ? asset('storage/' . $program->thumbnail) : asset('asset/img/LogoWebBrillaintPare.png') }}" class="program-card-img"
+                                <img src="{{ $program->thumbnail ? asset('storage/' . $program->thumbnail) : asset('storage/galleries/slM16yfFONrxx5kQRroN8Mss3IA21QnTm7CGnwys.png') }}" class="program-card-img"
                                     alt="{{ $program->nama }}">
                                 @if ($program->is_active)
                                     <span class="badge bg-success program-badge">Tersedia</span>
