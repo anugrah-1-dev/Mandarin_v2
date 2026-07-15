@@ -121,7 +121,7 @@
                         style="display: none;">
                         <div class="program-card">
                             <div class="program-card-image-wrapper">
-                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                <img src="{{ $program->thumbnail ? asset('storage/' . $program->thumbnail) : asset('asset/img/LogoWebBrillaintPare.png') }}" class="program-card-img"
                                     alt="{{ $program->nama }}">
                                 @if ($program->is_active)
                                     <span class="badge bg-success program-badge">Tersedia</span>
@@ -180,7 +180,7 @@
                         style="display: none;">
                         <div class="program-card">
                             <div class="program-card-image-wrapper">
-                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                <img src="{{ $program->thumbnail ? asset('storage/' . $program->thumbnail) : asset('asset/img/LogoWebBrillaintPare.png') }}" class="program-card-img"
                                     alt="{{ $program->nama }}">
                                 @if ($program->is_active)
                                     <span class="badge bg-success program-badge">Tersedia</span>
