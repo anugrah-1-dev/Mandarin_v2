@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('contactServices', Customer_Service::all());
             $view->with('navLogo1', Logo::where('key', 'logo1')->first());
             $view->with('navLogo2', Logo::where('key', 'logo2')->first());
+            $view->with('popupPoster', Logo::where('key', 'popup_poster')->first());
         });
     }
 }

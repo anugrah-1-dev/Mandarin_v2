@@ -155,6 +155,40 @@
         });
     </script>
 
+    {{-- Poster Pop-up Otomatis --}}
+    @if(isset($popupPoster) && $popupPoster->image_path)
+    <div id="welcomePosterModal" class="custom-program-modal">
+        <div class="custom-modal-content" style="max-width: 600px; padding: 15px; text-align: center; background-color: transparent; box-shadow: none;">
+            <span class="custom-modal-close" onclick="closePosterModal()" style="top: -15px; right: -15px;">&times;</span>
+            <img src="{{ asset('storage/' . $popupPoster->image_path) }}" alt="Promo Poster" style="width: 100%; height: auto; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        </div>
+    </div>
+    
+    <script>
+        function closePosterModal() {
+            document.getElementById('welcomePosterModal').classList.remove('show');
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cek apakah poster sudah pernah ditampilkan di sesi ini
+            if (!sessionStorage.getItem('posterShown')) {
+                setTimeout(function() {
+                    document.getElementById('welcomePosterModal').classList.add('show');
+                    sessionStorage.setItem('posterShown', 'true');
+                }, 1000); // Muncul 1 detik setelah halaman dimuat
+            }
+            
+            // Tutup jika klik di luar gambar
+            window.addEventListener('click', function(e) {
+                var posterModal = document.getElementById('welcomePosterModal');
+                if (e.target == posterModal) {
+                    closePosterModal();
+                }
+            });
+        });
+    </script>
+    @endif
+
     <section class="program-section bg-light py-5" id="program">
         <div class="container">
             <div class="text-center mb-5" data-aos="fade-up">

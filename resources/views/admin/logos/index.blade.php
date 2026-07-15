@@ -90,6 +90,47 @@
             </x-adminlte-card>
         </div>
     </div>
+
+    <div class="row mt-4">
+        {{-- Popup Poster --}}
+        <div class="col-md-6">
+            <x-adminlte-card title="Poster Pop-up Halaman Utama" theme="warning" theme-mode="outline">
+                <div class="text-center mb-3">
+                    @if ($popup_poster && $popup_poster->image_path)
+                        <img src="{{ asset('storage/' . $popup_poster->image_path) }}" alt="Poster Popup"
+                            class="img-fluid img-thumbnail" style="max-height: 200px;">
+                    @else
+                        <p class="text-muted mt-2"><small>Belum ada poster. Poster tidak akan muncul.</small></p>
+                    @endif
+                </div>
+
+                <form action="{{ route('admin.logos.update', 'popup_poster') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <x-adminlte-input-file name="image_path" label="Upload Poster Pop-up" id="imageInputPoster"
+                        placeholder="Pilih gambar..." />
+                    <img id="imagePreviewPoster" src="#" alt="Preview" class="mt-2 d-none img-thumbnail"
+                        style="max-height: 150px;">
+
+                    <div class="d-flex justify-content-end mt-3">
+                        @if ($popup_poster && $popup_poster->image_path)
+                            <a href="#" onclick="event.preventDefault(); if(confirm('Apakah Anda yakin ingin menghapus poster ini?')) document.getElementById('delete-poster-form').submit();" class="btn btn-danger mr-2">
+                                <i class="fas fa-trash"></i> Hapus
+                            </a>
+                        @endif
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-upload"></i> Simpan
+                        </button>
+                    </div>
+                </form>
+                @if ($popup_poster && $popup_poster->image_path)
+                    <form id="delete-poster-form" action="{{ route('admin.logos.destroy', 'popup_poster') }}" method="POST" class="d-none">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                @endif
+            </x-adminlte-card>
+        </div>
+    </div>
 @stop
 
 @section('js')
@@ -119,6 +160,21 @@
                 const reader = new FileReader();
                 reader.onload = e => { preview.src = e.target.result; preview.classList.remove('d-none'); };
                 reader.readAsDataURL(event.target.files[0]);
+            }
+        });
+
+        // Script untuk image preview Poster Popup
+        document.getElementById('imageInputPoster').addEventListener('change', function(event) {
+            const input = event.target;
+            const reader = new FileReader();
+            reader.onload = function() {
+                const dataURL = reader.result;
+                const imagePreview = document.getElementById('imagePreviewPoster');
+                imagePreview.src = dataURL;
+                imagePreview.classList.remove('d-none');
+            };
+            if (input.files && input.files[0]) {
+                reader.readAsDataURL(input.files[0]);
             }
         });
     </script>
