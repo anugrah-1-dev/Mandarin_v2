@@ -83,7 +83,7 @@
     <div class="action-bar">
         <button onclick="window.print()" class="btn-action btn-print">&#128438; Print Invoice</button>
         <button onclick="downloadPDF()" id="btn-download" class="btn-action btn-download">&#11015; Download PDF</button>
-        <a href="javascript:history.back()" class="btn-action btn-back">&#8592; Kembali</a>
+        <button onclick="window.close(); if(!window.closed) history.back();" class="btn-action btn-back">&#8592; Kembali</button>
     </div>
 
     <div class="invoice-wrap" id="invoice-content">

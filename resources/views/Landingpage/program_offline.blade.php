@@ -13,78 +13,19 @@
 
 <body>
     @include('navbar.nav')
-    <section class="hero">
-        <div class="carousel">
-            <div class="slides">
-                <div class="slide active">
-                    <img src="{{ asset('asset/img/Brilliant3Bhs.jpg') }}" alt="Belajar Bahasa Arab 1">
-                </div>
-                <div class="slide">
-                    <img src="{{ asset('asset/img/Brilliant1.3.jpg') }}" alt="Belajar Bahasa Arab 2">
-                </div>
-                <div class="slide">
-                    <img src="{{ asset('asset/img/Brilliant1.1.jpg') }}" alt="Belajar Bahasa Arab 3">
-                </div>
-                <div class="slide">
-                    <img src="{{ asset('asset/img/Brilliant1.2.jpg') }}" alt="Belajar Bahasa Arab 4">
-                </div>
-            </div>
-            <button class="prev">&#10094;</button>
-            <button class="next">&#10095;</button>
-        </div>
-
-        <div class="hero-text">
-            {{-- PENAMBAHAN: Atribut data-aos untuk animasi pada teks hero --}}
-            <h1 data-aos="fade-up">MANDARIN CENTER PARE</h1>
-            <h2 data-aos="fade-up" data-aos-delay="100">(Kursus Bahasa Mandarin)</h2>
-            <p data-aos="fade-up" data-aos-delay="200">Kuasai bahasa Mandarin dengan metode interaktif dan pengajar berpengalaman.</p>
-            <button data-aos="fade-up" data-aos-delay="300" class="btn btn-primary mt-4 py-2 px-4 shadow-lg" style="border-radius: 30px; font-weight: bold; font-size: 1.1rem; background-color: #054707; border: none;" data-bs-toggle="modal" data-bs-target="#pilihProgramModal">Daftar Sekarang</button>
-        </div>
-    </section>
-
-    {{-- Modal Pilih Program --}}
-    <div class="modal fade" id="pilihProgramModal" tabindex="-1" aria-labelledby="pilihProgramModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="border-radius: 15px; overflow: hidden; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-                <div class="modal-header text-white" style="background-color: #054707; border-bottom: none;">
-                    <h5 class="modal-title fw-bold" id="pilihProgramModalLabel">Pilih Tipe Program</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center p-4">
-                    <p class="mb-4 text-muted">Silakan pilih metode pembelajaran yang kamu inginkan:</p>
-                    <div class="d-flex flex-column gap-3">
-                        <a href="{{ route('program.offline.list') }}" class="btn btn-outline-success py-3 rounded-3" style="font-size: 1.1rem; font-weight: bold; border-width: 2px;">
-                            <i class="fas fa-building me-2"></i> Program Offline
-                        </a>
-                        <a href="{{ route('program.online.list') }}" class="btn btn-outline-primary py-3 rounded-3" style="font-size: 1.1rem; font-weight: bold; border-width: 2px;">
-                            <i class="fas fa-laptop me-2"></i> Program Online
-                        </a>
-                    </div>
-                </div>
-            </div>
-    </div>
-
-    <section class="program-section bg-light py-5" id="program">
+    <section class="program-section bg-light py-5" id="program" style="min-height: 80vh; padding-top: 100px !important;">
         <div class="container">
             <div class="text-center mb-5" data-aos="fade-up">
-                <h2>PROGRAM MANDARIN CENTER PARE</h2>
-                <p class="lead text-muted">Temukan program yang sesuai dengan tujuan Anda.</p>
+                <h2>PROGRAM OFFLINE MANDARIN</h2>
+                <p class="lead text-muted">Belajar tatap muka dengan pengajar berpengalaman di Kampung Inggris Pare.</p>
             </div>
-            {{-- Tombol Filter --}}
-            <div class="filter-buttons-wrapper" data-aos="fade-up" data-aos-delay="100">
-                <button class="filter-btn active" data-filter="offline">Offline Programs</button>
-                <button class="filter-btn" data-filter="online">Online Programs</button>
-            </div>
-
+            
             <div class="program-grid">
-                @if($offlinePrograms->isEmpty() && $onlinePrograms->isEmpty())
+                @if($offlinePrograms->isEmpty())
                 <div style="grid-column: 1 / -1; text-align: center; padding: 3rem 0;">
-                    <p class="text-muted fs-5">Belum ada program yang tersedia saat ini.</p>
+                    <p class="text-muted fs-5">Belum ada program offline yang tersedia saat ini.</p>
                 </div>
                 @else
-                {{-- ======================== --}}
-                {{-- == PROGRAM OFFLINE  == --}}
-                {{-- ======================== --}}
                 @foreach ($offlinePrograms as $index => $program)
                 <div class="program-item offline" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                     <div class="program-card h-100 d-flex flex-column">
@@ -120,51 +61,6 @@
                             <small class="text-muted">Tidak ada fasilitas tersedia</small>
                         @endif
                             <a href="{{ route('public.program.offline.show', $program->slug) }}" class="program-btn w-100 mt-auto">
-                                Daftar Program
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-
-                {{-- ======================== --}}
-                {{-- ==  PROGRAM ONLINE  == --}}
-                {{-- ======================== --}}
-                @foreach ($onlinePrograms as $index => $program)
-                <div class="program-item online" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
-                    <div class="program-card h-100 d-flex flex-column">
-                        <div class="program-card-image-wrapper">
-                            <img src="{{ $program->thumbnail ? asset('storage/' . $program->thumbnail) : asset('storage/galleries/slM16yfFONrxx5kQRroN8Mss3IA21QnTm7CGnwys.png') }}" class="program-card-img" alt="{{ $program->nama }}">
-                        </div>
-                        <div class="program-card-content d-flex flex-column flex-grow-1">
-                            <h4 class="program-title">{{ $program->nama }}</h4>
-                            <p class="program-price">Rp {{ number_format($program->harga, 0, ',', '.') }}</p>
-                            <hr class="my-3">
-                            <p class="features-heading"><strong>Fasilitas Program:</strong></p>
-                            @php
-                            $features = $program->features_program;
-                            if (is_string($features)) {
-                                $decoded = json_decode($features, true);
-                                $features = json_last_error() === JSON_ERROR_NONE && is_array($decoded)
-                                    ? $decoded
-                                    : explode("\n", $features);
-                            }
-                        @endphp
-
-                        @if (!empty($features) && is_array($features))
-                            {{-- Tambahkan text-align: left; di sini --}}
-                            <ul class="small mb-2" style="list-style: none; padding-left: 0; text-align: left;">
-                                     @foreach ($features as $fitur)
-                                    <li>
-                                        {!! \App\Helpers\FeatureHelper::getFeatureIcon($fitur) !!}
-                                        {{ trim($fitur) }}
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @else
-                            <small class="text-muted">Tidak ada fasilitas tersedia</small>
-                        @endif
-                            <a href="{{ route('public.program.online.show', $program->slug) }}" class="program-btn w-100 mt-auto">
                                 Daftar Program
                             </a>
                         </div>
@@ -352,40 +248,13 @@
 
     {{-- Filter Program JS --}}
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const filterButtons = document.querySelectorAll('.filter-btn');
+    document.addEventListener("DOMContentLoaded", function() {
         const programItems = document.querySelectorAll('.program-item');
-
-        function filterPrograms(filterValue) {
-            programItems.forEach(item => {
-                if (item.classList.contains(filterValue)) {
-                    item.style.display = 'grid';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-
-        const defaultFilter = 'offline';
-        const defaultButton = document.querySelector(`.filter-btn[data-filter="${defaultFilter}"]`);
-        if (defaultButton) {
-            defaultButton.classList.add('active');
-        }
-
-        programItems.forEach(item => item.style.display = 'none');
-        filterPrograms(defaultFilter);
-
-        filterButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const filterValue = this.getAttribute('data-filter');
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                filterPrograms(filterValue);
-            });
+        programItems.forEach(item => {
+            item.style.display = 'block';
         });
     });
     </script>
-
     {{-- Bootstrap & AOS JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

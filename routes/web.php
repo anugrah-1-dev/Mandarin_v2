@@ -154,6 +154,8 @@ Route::post('/tracking', [TrackingController::class, 'search'])->name('tracking.
 Route::get('/invoice/cetak/{trx_id}', [App\Http\Controllers\InvoiceController::class, 'cetak'])->name('invoice.cetak');
 
 Route::get('/', [ProgramMandarinController::class, 'showMandarin'])->name('landing');
+Route::get('/program-offline', [ProgramMandarinController::class, 'showOfflinePrograms'])->name('program.offline.list');
+Route::get('/program-online', [ProgramMandarinController::class, 'showOnlinePrograms'])->name('program.online.list');
 
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
