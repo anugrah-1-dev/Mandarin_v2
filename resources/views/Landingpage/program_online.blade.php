@@ -26,45 +26,6 @@
                     <p class="text-muted fs-5">Belum ada program online yang tersedia saat ini.</p>
                 </div>
                 @else
-                <div class="program-item offline" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
-                    <div class="program-card h-100 d-flex flex-column">
-                        <div class="program-card-image-wrapper">
-                            <img src="{{ $program->thumbnail ? asset('storage/' . $program->thumbnail) : asset('storage/galleries/slM16yfFONrxx5kQRroN8Mss3IA21QnTm7CGnwys.png') }}" class="program-card-img" alt="{{ $program->nama }}">
-                        </div>
-                        <div class="program-card-content d-flex flex-column flex-grow-1">
-                            <h4 class="program-title">{{ $program->nama }}</h4>
-                            <p class="program-price">Rp {{ number_format($program->harga, 0, ',', '.') }}</p>
-                            <hr class="my-3">
-                            <p class="features-heading"><strong>Fasilitas Program:</strong></p>
-                            @php
-                            $features = $program->features_program;
-                            if (is_string($features)) {
-                                $decoded = json_decode($features, true);
-                                $features = json_last_error() === JSON_ERROR_NONE && is_array($decoded)
-                                    ? $decoded
-                                    : explode("\n", $features);
-                            }
-                        @endphp
-
-                        @if (!empty($features) && is_array($features))
-                            {{-- Tambahkan text-align: left; di sini --}}
-                            <ul class="small mb-2" style="list-style: none; padding-left: 0; text-align: left;">
-                                @foreach ($features as $fitur)
-                                    <li>
-                                        {!! \App\Helpers\FeatureHelper::getFeatureIcon($fitur) !!}
-                                        {{ trim($fitur) }}
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @else
-                            <small class="text-muted">Tidak ada fasilitas tersedia</small>
-                        @endif
-                            <a href="{{ route('public.program.offline.show', $program->slug) }}" class="program-btn w-100 mt-auto">
-                                Daftar Program
-                            </a>
-                        </div>
-                    </div>
-                </div>
                 @foreach ($onlinePrograms as $index => $program)
                 <div class="program-item online" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                     <div class="program-card h-100 d-flex flex-column">
