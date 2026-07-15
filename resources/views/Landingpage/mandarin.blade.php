@@ -38,31 +38,8 @@
             <h1 data-aos="fade-up">MANDARIN CENTER PARE</h1>
             <h2 data-aos="fade-up" data-aos-delay="100">(Kursus Bahasa Mandarin)</h2>
             <p data-aos="fade-up" data-aos-delay="200">Kuasai bahasa Mandarin dengan metode interaktif dan pengajar berpengalaman.</p>
-            <button data-aos="fade-up" data-aos-delay="300" class="btn btn-primary mt-4 py-2 px-4 shadow-lg" style="border-radius: 30px; font-weight: bold; font-size: 1.1rem; background-color: #054707; border: none;" data-bs-toggle="modal" data-bs-target="#pilihProgramModal">Daftar Sekarang</button>
         </div>
     </section>
-
-    {{-- Modal Pilih Program --}}
-    <div class="modal fade" id="pilihProgramModal" tabindex="-1" aria-labelledby="pilihProgramModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="border-radius: 15px; overflow: hidden; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-                <div class="modal-header text-white" style="background-color: #054707; border-bottom: none;">
-                    <h5 class="modal-title fw-bold" id="pilihProgramModalLabel">Pilih Tipe Program</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center p-4">
-                    <p class="mb-4 text-muted">Silakan pilih metode pembelajaran yang kamu inginkan:</p>
-                    <div class="d-flex flex-column gap-3">
-                        <a href="{{ route('program.offline.list') }}" class="btn btn-outline-success py-3 rounded-3" style="font-size: 1.1rem; font-weight: bold; border-width: 2px;">
-                            <i class="fas fa-building me-2"></i> Program Offline
-                        </a>
-                        <a href="{{ route('program.online.list') }}" class="btn btn-outline-primary py-3 rounded-3" style="font-size: 1.1rem; font-weight: bold; border-width: 2px;">
-                            <i class="fas fa-laptop me-2"></i> Program Online
-                        </a>
-                    </div>
-                </div>
-            </div>
-    </div>
 
     <section class="program-section bg-light py-5" id="program">
         <div class="container">
