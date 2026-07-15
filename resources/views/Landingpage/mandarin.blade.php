@@ -100,11 +100,11 @@
     <div id="pilihProgramModal" class="custom-program-modal">
         <div class="custom-modal-content">
             <span class="custom-modal-close" onclick="closeCustomModal()">&times;</span>
-            <h3 class="text-center mb-4" style="color: #054707; font-size: 28px; margin-bottom: 25px; font-weight: bold;">Pilih Tipe Program</h3>
+            <h3 class="text-center mb-4" style="color: #054707; font-size: 28px; margin-bottom: 25px; font-weight: bold; text-align: center;">Pilih Tipe Program</h3>
             <div class="program-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
                 <!-- Offline -->
                 <div style="display: block; margin: 0;">
-                    <div class="program-card h-100 d-flex flex-column" onclick="window.location.href='{{ route('program.offline.list') }}'" style="cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                    <div class="program-card h-100 d-flex flex-column" onclick="window.location.href='{{ route('program.offline.list') }}'" style="cursor: pointer; transition: transform 0.3s ease; display: flex; flex-direction: column; height: 100%;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
                         <div class="program-card-image-wrapper">
                             @if($offlinePrograms->isNotEmpty() && $offlinePrograms->first()->thumbnail)
                                 <img src="{{ asset('storage/' . $offlinePrograms->first()->thumbnail) }}" class="program-card-img" alt="Program Offline">
@@ -112,16 +112,16 @@
                                 <img src="{{ asset('storage/galleries/slM16yfFONrxx5kQRroN8Mss3IA21QnTm7CGnwys.png') }}" class="program-card-img" alt="Program Offline">
                             @endif
                         </div>
-                        <div class="program-card-content d-flex flex-column flex-grow-1 text-center justify-content-center" style="padding: 25px 20px;">
-                            <h3 class="program-title mb-2" style="font-size: 22px; color: #054707;">PROGRAM OFFLINE</h3>
-                            <p style="color: #666; font-size: 14px; margin-bottom: 15px;">Belajar tatap muka langsung di kelas.</p>
-                            <button class="program-btn mt-auto w-100" style="padding: 10px;">Pilih Offline</button>
+                        <div class="program-card-content d-flex flex-column flex-grow-1 text-center justify-content-center" style="padding: 25px 20px; display: flex; flex-direction: column; flex-grow: 1; text-align: center; justify-content: center; align-items: center;">
+                            <h3 class="program-title mb-2" style="font-size: 22px; color: #054707; text-align: center;">PROGRAM OFFLINE</h3>
+                            <p style="color: #666; font-size: 14px; margin-bottom: 15px; text-align: center;">Belajar tatap muka langsung di kelas.</p>
+                            <button class="program-btn mt-auto w-100" style="padding: 10px; margin-top: auto; width: 100%; text-align: center;">Pilih Offline</button>
                         </div>
                     </div>
                 </div>
                 <!-- Online -->
                 <div style="display: block; margin: 0;">
-                    <div class="program-card h-100 d-flex flex-column" onclick="window.location.href='{{ route('program.online.list') }}'" style="cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                    <div class="program-card h-100 d-flex flex-column" onclick="window.location.href='{{ route('program.online.list') }}'" style="cursor: pointer; transition: transform 0.3s ease; display: flex; flex-direction: column; height: 100%;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
                         <div class="program-card-image-wrapper">
                             @if($onlinePrograms->isNotEmpty() && $onlinePrograms->first()->thumbnail)
                                 <img src="{{ asset('storage/' . $onlinePrograms->first()->thumbnail) }}" class="program-card-img" alt="Program Online">
@@ -129,10 +129,10 @@
                                 <img src="{{ asset('storage/galleries/slM16yfFONrxx5kQRroN8Mss3IA21QnTm7CGnwys.png') }}" class="program-card-img" alt="Program Online">
                             @endif
                         </div>
-                        <div class="program-card-content d-flex flex-column flex-grow-1 text-center justify-content-center" style="padding: 25px 20px;">
-                            <h3 class="program-title mb-2" style="font-size: 22px; color: #054707;">PROGRAM ONLINE</h3>
-                            <p style="color: #666; font-size: 14px; margin-bottom: 15px;">Belajar daring dari mana saja.</p>
-                            <button class="program-btn mt-auto w-100" style="padding: 10px; background-color: #0056b3;">Pilih Online</button>
+                        <div class="program-card-content d-flex flex-column flex-grow-1 text-center justify-content-center" style="padding: 25px 20px; display: flex; flex-direction: column; flex-grow: 1; text-align: center; justify-content: center; align-items: center;">
+                            <h3 class="program-title mb-2" style="font-size: 22px; color: #054707; text-align: center;">PROGRAM ONLINE</h3>
+                            <p style="color: #666; font-size: 14px; margin-bottom: 15px; text-align: center;">Belajar daring dari mana saja.</p>
+                            <button class="program-btn mt-auto w-100" style="padding: 10px; background-color: #0056b3; margin-top: auto; width: 100%; text-align: center;">Pilih Online</button>
                         </div>
                     </div>
                 </div>
