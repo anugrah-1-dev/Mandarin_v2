@@ -318,15 +318,7 @@
                                                     Bank</label>
                                             </div>
 
-                                            {{-- Qris kalau bahasa Mandarin --}}
-                                            @if (strtolower($program->program_bahasa) === 'mandarin')
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="payment_type" id="pay_qris" value="qris"
-                                                        {{ old('payment_type') == 'qris' ? 'checked' : '' }} required>
-                                                    <label class="form-check-label" for="pay_qris">QRIS</label>
-                                                </div>
-                                            @endif
+
 
                                         </div>
                                     </div>
