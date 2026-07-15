@@ -30,11 +30,22 @@
                         style="max-height: 150px;">
 
                     <div class="d-flex justify-content-end mt-3">
+                        @if ($logo1 && $logo1->image_path)
+                            <a href="#" onclick="event.preventDefault(); if(confirm('Apakah Anda yakin ingin menghapus logo ini?')) document.getElementById('delete-logo1-form').submit();" class="btn btn-danger mr-2">
+                                <i class="fas fa-trash"></i> Hapus
+                            </a>
+                        @endif
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-upload"></i> Simpan
                         </button>
                     </div>
                 </form>
+                @if ($logo1 && $logo1->image_path)
+                    <form id="delete-logo1-form" action="{{ route('admin.logos.destroy', 'logo1') }}" method="POST" class="d-none">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                @endif
             </x-adminlte-card>
         </div>
 
@@ -60,11 +71,22 @@
                         style="max-height: 150px;">
 
                     <div class="d-flex justify-content-end mt-3">
+                        @if ($logo2 && $logo2->image_path)
+                            <a href="#" onclick="event.preventDefault(); if(confirm('Apakah Anda yakin ingin menghapus logo ini?')) document.getElementById('delete-logo2-form').submit();" class="btn btn-danger mr-2">
+                                <i class="fas fa-trash"></i> Hapus
+                            </a>
+                        @endif
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-upload"></i> Simpan
                         </button>
                     </div>
                 </form>
+                @if ($logo2 && $logo2->image_path)
+                    <form id="delete-logo2-form" action="{{ route('admin.logos.destroy', 'logo2') }}" method="POST" class="d-none">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                @endif
             </x-adminlte-card>
         </div>
     </div>

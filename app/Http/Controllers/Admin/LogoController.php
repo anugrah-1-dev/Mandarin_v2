@@ -44,4 +44,22 @@ class LogoController extends Controller
             'text'  => $label . ' berhasil diperbarui.',
         ]);
     }
+
+    public function destroy(string $key)
+    {
+        $logo = Logo::where('key', $key)->first();
+
+        if ($logo && $logo->image_path) {
+            Storage::disk('public')->delete($logo->image_path);
+            $logo->update(['image_path' => null]);
+        }
+
+        $label = $key === 'logo1' ? 'Logo 1' : 'Logo 2';
+
+        return redirect()->route('admin.logos.index')->with('alert', [
+            'icon'  => 'success',
+            'title' => 'Berhasil!',
+            'text'  => $label . ' berhasil dihapus.',
+        ]);
+    }
 }

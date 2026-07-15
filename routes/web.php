@@ -206,6 +206,7 @@ Route::middleware(['auth', 'role:admin|officer'])->prefix('admin')->name('admin.
     // logos
     Route::get('logos', [LogoController::class, 'index'])->name('logos.index');
     Route::post('logos/{key}', [LogoController::class, 'update'])->name('logos.update');
+    Route::delete('logos/{key}', [LogoController::class, 'destroy'])->name('logos.destroy');
     //transports
     Route::resource('transports', TransportsController::class);
     //cs

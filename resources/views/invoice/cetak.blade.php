@@ -93,12 +93,11 @@
         <div class="inv-header">
             <div class="inv-header-left">
                 @php
-                    $logoExists1 = file_exists(public_path('LogoWebBrillaintPare.png'));
-                    $logoExists2 = file_exists(public_path('asset/img/LogoWebBrillaintPare.png'));
+                    $navLogo1 = \App\Models\Logo::where('key', 'logo1')->first();
                 @endphp
-                @if($logoExists1)
-                    <img src="{{ asset('LogoWebBrillaintPare.png') }}" alt="Brilliant Logo" class="company-logo">
-                @elseif($logoExists2)
+                @if ($navLogo1 && $navLogo1->image_path)
+                    <img src="{{ asset('storage/' . $navLogo1->image_path) }}" alt="Brilliant Logo" class="company-logo">
+                @else
                     <img src="{{ asset('asset/img/LogoWebBrillaintPare.png') }}" alt="Brilliant Logo" class="company-logo">
                 @endif
                 <div class="company-name">MANDARIN CENTER PARE</div>

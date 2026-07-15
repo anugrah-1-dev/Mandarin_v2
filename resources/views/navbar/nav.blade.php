@@ -27,9 +27,9 @@
                 <img src="{{ asset('asset/img/bietest.png') }}" alt="Logo BIE+" style="height: 84px;">
             @else
                 @if (request()->routeIs('landing') && isset($navLogo1) && $navLogo1->image_path)
-                    <img src="{{ asset('storage/' . $navLogo1->image_path) }}" alt="Logo" style="height: 84px;">
+                    <img src="{{ asset('storage/' . $navLogo1->image_path) }}" alt="Logo" style="height: 120px; transform: scale(1.3); margin-left: 20px; object-fit: contain;">
                 @else
-                    <img src="{{ asset('asset/img/LogoWebBrillaintPare.png') }}" alt="Logo Default" style="height: 84px;">
+                    <img src="{{ asset('asset/img/LogoWebBrillaintPare.png') }}" alt="Logo Default" style="height: 120px; transform: scale(1.3); margin-left: 20px; object-fit: contain;">
                 @endif
             @endif
         </a>
