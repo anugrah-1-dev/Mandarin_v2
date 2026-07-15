@@ -31,20 +31,22 @@
     }
 
     .logo img {
-        height: 75px !important;
+        height: 85px !important;
         width: auto !important;
-        max-width: 220px !important;
+        max-width: 350px !important;
         object-fit: contain !important;
         display: block !important;
+        transform: scale(1.4) !important;
         transition: transform 0.3s ease;
     }
 
     #navbarLogo, #navbarLogo2 {
-        height: 75px !important;
+        height: 85px !important;
         width: auto !important;
-        max-width: 220px !important;
+        max-width: 350px !important;
         object-fit: contain !important;
         display: block !important;
+        transform: scale(1.4) !important;
     }
 
     .nav-links {
