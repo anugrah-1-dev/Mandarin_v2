@@ -31,11 +31,20 @@
     }
 
     .logo img {
-        height: 75px;
-        width: auto;
-        max-width: 200px;
-        object-fit: contain;
+        height: 75px !important;
+        width: auto !important;
+        max-width: 220px !important;
+        object-fit: contain !important;
+        display: block !important;
         transition: transform 0.3s ease;
+    }
+
+    #navbarLogo, #navbarLogo2 {
+        height: 75px !important;
+        width: auto !important;
+        max-width: 220px !important;
+        object-fit: contain !important;
+        display: block !important;
     }
 
     .nav-links {

@@ -1,9 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice - {{ $pendaftaran->trx_id }} | Mandarin Center Pare</title>
+    <link rel="icon" href="{{ asset('favicon-v3.png') }}" type="image/png">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: Arial, Helvetica, sans-serif; color: #222; background: #e8e8e8; padding: 20px; font-size: 12px; }
@@ -158,8 +159,6 @@
                         @if($invHasTransBank)
                             <br><small style="color:#888">+ Transfer Transport (rek. terpisah)</small>
                         @endif
-                    @elseif(($pendaftaran->payment_type ?? '') == 'qris')
-                        <strong>QRIS</strong><br><small>Scan QR Code</small>
                     @else
                         <strong>Tunai (Cash)</strong><br><small>Bayar di Kantor Brilliant</small>
                     @endif
