@@ -157,26 +157,26 @@
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-3">
-                                        <label class="form-label"><i class="bi bi-person-fill"></i> Nama Lengkap</label>
-                                        <input type="text" name="nama_lengkap" class="form-control"
-                                            value="{{ old('nama_lengkap') }}" required>
+                                        <label for="nama_lengkap" class="form-label"><i class="bi bi-person-fill"></i> Nama Lengkap</label>
+                                        <input type="text" id="nama_lengkap" name="nama_lengkap" class="form-control"
+                                            value="{{ old('nama_lengkap') }}" autocomplete="name" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label"><i class="bi bi-envelope-fill"></i> Email</label>
+                                        <label for="email" class="form-label"><i class="bi bi-envelope-fill"></i> Email</label>
 
-                                        <input type="email" name="email" class="form-control"
-                                            value="{{ old('email') }}" required>
+                                        <input type="email" id="email" name="email" class="form-control"
+                                            value="{{ old('email') }}" autocomplete="email" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label"><i class="bi bi-telephone-fill"></i> No. HP</label>
-                                        <input type="text" name="no_hp" class="form-control"
-                                            value="{{ old('no_hp') }}" required>
+                                        <label for="no_hp" class="form-label"><i class="bi bi-telephone-fill"></i> No. HP</label>
+                                        <input type="text" id="no_hp" name="no_hp" class="form-control"
+                                            value="{{ old('no_hp') }}" autocomplete="tel" required>
 
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label"><i class="bi bi-geo-alt-fill"></i> Asal Kota</label>
-                                        <input type="text" name="asal_kota" class="form-control"
-                                            value="{{ old('asal_kota') }}">
+                                        <label for="asal_kota" class="form-label"><i class="bi bi-geo-alt-fill"></i> Asal Kota</label>
+                                        <input type="text" id="asal_kota" name="asal_kota" class="form-control"
+                                            value="{{ old('asal_kota') }}" autocomplete="address-level2">
                                     </div>
                                     {{--
                                     <div class="mb-3">

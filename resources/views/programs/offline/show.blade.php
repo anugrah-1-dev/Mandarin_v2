@@ -160,30 +160,31 @@
                                         enctype="multipart/form-data">
                                         @csrf
                                         <div class="mb-3">
-                                            <label class="form-label"><i class="bi bi-person-fill"></i> Nama
+                                            <label for="nama_lengkap" class="form-label"><i class="bi bi-person-fill"></i> Nama
                                             </label>
-                                            <input type="text" name="nama_lengkap" class="form-control"
-                                                value="{{ old('nama_lengkap') }}" required>
+                                            <input type="text" id="nama_lengkap" name="nama_lengkap" class="form-control"
+                                                value="{{ old('nama_lengkap') }}" autocomplete="name" required>
                                         </div>
 
                                         <div class="mb-3">
-                                            <label class="form-label"><i class="bi bi-geo-alt-fill"></i> Tempat &
+                                            <label for="tempat_lahir" class="form-label"><i class="bi bi-geo-alt-fill"></i> Tempat &
                                                 Tanggal Lahir</label>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" name="tempat_lahir" class="form-control"
-                                                        value="{{ old('tempat_lahir') }}" placeholder="" required>
+                                                    <input type="text" id="tempat_lahir" name="tempat_lahir" class="form-control"
+                                                        value="{{ old('tempat_lahir') }}" placeholder="" autocomplete="address-level2" required>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="date" name="tanggal_lahir" class="form-control"
-                                                        value="{{ old('tanggal_lahir') }}" required>
+                                                    <label for="tanggal_lahir" class="visually-hidden">Tanggal Lahir</label>
+                                                    <input type="date" id="tanggal_lahir" name="tanggal_lahir" class="form-control"
+                                                        value="{{ old('tanggal_lahir') }}" autocomplete="bday" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label"><i class="bi bi-gender-ambiguous"></i>
+                                            <label for="gender" class="form-label"><i class="bi bi-gender-ambiguous"></i>
                                                 Gender</label>
-                                            <select name="gender" class="form-select" required>
+                                            <select id="gender" name="gender" class="form-select" autocomplete="sex" required>
                                                 <option value="" disabled selected>-- Pilih Gender --</option>
                                                 <option value="Laki-laki" {{ old('gender') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki
                                                 </option>
@@ -192,21 +193,21 @@
                                             </select>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label"><i class="bi bi-telephone-fill"></i> No.
+                                            <label for="no_hp" class="form-label"><i class="bi bi-telephone-fill"></i> No.
                                                 HP</label>
-                                            <input type="text" name="no_hp" class="form-control"
-                                                value="{{ old('no_hp') }}" required>
+                                            <input type="text" id="no_hp" name="no_hp" class="form-control"
+                                                value="{{ old('no_hp') }}" autocomplete="tel" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label"><i class="bi bi-geo-alt-fill"></i> Kota
+                                            <label for="asal_kota" class="form-label"><i class="bi bi-geo-alt-fill"></i> Kota
                                                 asal</label>
-                                            <input type="text" name="asal_kota" class="form-control"
-                                                value="{{ old('asal_kota') }}">
+                                            <input type="text" id="asal_kota" name="asal_kota" class="form-control"
+                                                value="{{ old('asal_kota') }}" autocomplete="address-level2">
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label"><i class="bi bi-envelope-fill"></i> Email</label>
-                                            <input type="email" name="email" class="form-control"
-                                                value="{{ old('email') }}" required>
+                                            <label for="email" class="form-label"><i class="bi bi-envelope-fill"></i> Email</label>
+                                            <input type="email" id="email" name="email" class="form-control"
+                                                value="{{ old('email') }}" autocomplete="email" required>
                                         </div>
 
 
@@ -214,10 +215,10 @@
                                         {{-- PERUBAHAN DIMULAI: Tambah Ukuran Seragam --}}
                                         @if (in_array(strtolower($program->program_bahasa), ['nhc', 'inggris', 'mandarin', 'jerman']))
                                             <div class="mb-3">
-                                                <label class="form-label">
+                                                <label for="ukuran_seragam" class="form-label">
                                                     <i class="bi bi-tag"></i> Ukuran Seragam
                                                 </label>
-                                                <select name="ukuran_seragam" class="form-select" required>
+                                                <select id="ukuran_seragam" name="ukuran_seragam" class="form-select" autocomplete="off" required>
                                                     <option value="">Pilih Ukuran Seragam</option>
                                                     <option value="S" {{ old('ukuran_seragam') == 'S' ? 'selected' : '' }}>S
                                                     </option>

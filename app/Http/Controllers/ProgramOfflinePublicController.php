@@ -135,7 +135,44 @@ class ProgramOfflinePublicController extends Controller
         // === Biaya Admin ===
         $biayaAdmin = $program->biaya_admin ?? 0;
 
-        $subtotal = $programPrice + $transportPrice + $akomodasiHarga + $biayaAdmin;
+        // Helper untuk parsing JSON / array request
+        function parseRequestArray($data)
+        {
+            return is_string($data) ? json_decode($data, true) : ($data ?? []);
+        }
+
+        // === Hitung Layanan Tambahan (Catering, Laundry, Holiday) ===
+        $caterings = parseRequestArray($request->catering);
+        $cateringHargaTotal = 0;
+        foreach ($caterings as $catering) {
+            $package = CateringPackage::find($catering['id']);
+            if ($package) {
+                $jumlah = $catering['quantity'] ?? 1;
+                $cateringHargaTotal += ($package->harga * $jumlah);
+            }
+        }
+
+        $laundries = parseRequestArray($request->laundry);
+        $laundryHargaTotal = 0;
+        foreach ($laundries as $laundry) {
+            $package = LaundryPackage::find($laundry['id']);
+            if ($package) {
+                $jumlah = $laundry['jumlah'] ?? 1;
+                $laundryHargaTotal += ($package->harga * $jumlah);
+            }
+        }
+
+        $holidays = parseRequestArray($request->holiday);
+        $holidayHargaTotal = 0;
+        foreach ($holidays as $holiday) {
+            $package = HolidayPackage::find($holiday['id']);
+            if ($package) {
+                $jumlah = $holiday['jumlah'] ?? 1;
+                $holidayHargaTotal += ($package->harga * $jumlah);
+            }
+        }
+
+        $subtotal = $programPrice + $transportPrice + $akomodasiHarga + $biayaAdmin + $cateringHargaTotal + $laundryHargaTotal + $holidayHargaTotal;
 
         // Tambahkan CODE_UNIK ke subtotal sebagai identifikasi unik pembayaran
         // Contoh: 498.000 + 369 = 498.369
@@ -165,12 +202,6 @@ class ProgramOfflinePublicController extends Controller
         ]);
 
         // === setelah create $pendaftaran ===
-
-        // Helper untuk parsing JSON / array request
-        function parseRequestArray($data)
-        {
-            return is_string($data) ? json_decode($data, true) : ($data ?? []);
-        }
 
         // === Simpan data catering (jika ada) ===
         $caterings = parseRequestArray($request->catering);
