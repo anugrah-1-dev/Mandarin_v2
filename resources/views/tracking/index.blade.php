@@ -288,9 +288,10 @@
 
                                             <!-- Total Keseluruhan -->
                                             @php
-                                                $totalOnline =
+                                                $totalAddOns =
                                                     ($totalCatering ?? 0) + ($totalLaundry ?? 0) + ($totalHoliday ?? 0);
-                                                $grandTotal = $totalOnline + (isset($offline) ? $offline->subtotal : 0);
+                                                $grandTotal = isset($offline) ? $offline->subtotal : 0;
+                                                $basePrice = $grandTotal - $totalAddOns;
                                             @endphp
 
                                             @if ($grandTotal > 0)
@@ -301,12 +302,12 @@
                                                                 <h5 class="card-title text-primary">Total Keseluruhan</h5>
                                                                 <h3 class="text-primary">Rp
                                                                     {{ number_format($grandTotal, 0, ',', '.') }}</h3>
-                                                                @if ($totalOnline > 0 && isset($offline) && $offline->subtotal > 0)
+                                                                @if ($totalAddOns > 0 && isset($offline) && $offline->subtotal > 0)
                                                                     <p class="text-muted mb-0">
                                                                         (Add Ons: Rp
-                                                                        {{ number_format($totalOnline, 0, ',', '.') }} +
-                                                                        Offline: Rp
-                                                                        {{ number_format($offline->subtotal, 0, ',', '.') }})
+                                                                        {{ number_format($totalAddOns, 0, ',', '.') }} +
+                                                                        Program & Lainnya: Rp
+                                                                        {{ number_format($basePrice, 0, ',', '.') }})
                                                                     </p>
                                                                 @endif
                                                             </div>
