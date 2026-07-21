@@ -53,7 +53,7 @@ class InvoiceController extends Controller
         $hargaProgram = ($pendaftaran->program->harga ?? 0) + $codeUnik;
         $items[] = [
             'nama'       => 'Program ' . $tipe . ' - ' . ($pendaftaran->program->nama ?? 'Program'),
-            'keterangan' => 'Biaya Pendaftaran Program (termasuk kode unik ' . $codeUnik . ')',
+            'keterangan' => 'Biaya Pendaftaran Program',
             'qty'        => 1,
             'harga'      => $hargaProgram,
             'total'      => $hargaProgram,
