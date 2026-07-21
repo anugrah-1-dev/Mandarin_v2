@@ -102,7 +102,7 @@ class ProgramOfflinePublicController extends Controller
 
         // Logika TRX-ID: tahun + bulan + jam + detik + CODE_UNIK
         $now = Carbon::now('Asia/Jakarta');
-        $codeUnik = env('CODE_UNIK', '369');
+        $codeUnik = env('CODE_UNIK', '002');
         $newTrxId = $now->format('Y') . $now->format('m') . $now->format('H') . $now->format('s') . $codeUnik;
 
         $programPrice = $program->harga;
