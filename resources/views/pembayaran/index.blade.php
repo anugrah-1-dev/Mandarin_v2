@@ -94,6 +94,30 @@
                                                 <td class="text-end">Rp {{ number_format($akomodasiHarga, 0, ',', '.') }}</td>
                                             </tr>
                                             @endif
+                                            @if (method_exists($pendaftaran, 'laundries') && $pendaftaran->laundries->count() > 0)
+                                                @foreach($pendaftaran->laundries as $laundry)
+                                                <tr>
+                                                    <td>Laundry ({{ $laundry->laundryPackage->nama_paket ?? 'Paket' }})</td>
+                                                    <td class="text-end">Rp {{ number_format($laundry->harga, 0, ',', '.') }}</td>
+                                                </tr>
+                                                @endforeach
+                                            @endif
+                                            @if (method_exists($pendaftaran, 'caterings') && $pendaftaran->caterings->count() > 0)
+                                                @foreach($pendaftaran->caterings as $catering)
+                                                <tr>
+                                                    <td>Catering ({{ $catering->cateringPackage->nama_paket ?? 'Paket' }})</td>
+                                                    <td class="text-end">Rp {{ number_format($catering->harga, 0, ',', '.') }}</td>
+                                                </tr>
+                                                @endforeach
+                                            @endif
+                                            @if (method_exists($pendaftaran, 'holidays') && $pendaftaran->holidays->count() > 0)
+                                                @foreach($pendaftaran->holidays as $holiday)
+                                                <tr>
+                                                    <td>Holiday ({{ $holiday->holidayPackage->nama_paket ?? 'Paket' }})</td>
+                                                    <td class="text-end">Rp {{ number_format($holiday->harga, 0, ',', '.') }}</td>
+                                                </tr>
+                                                @endforeach
+                                            @endif
                                             <tr class="fw-bold border-top">
                                                 <td>Subtotal Transfer 1</td>
                                                 <td class="text-end text-primary">Rp {{ number_format($totalProgram, 0, ',', '.') }}</td>
@@ -148,6 +172,30 @@
                                             <td>Akomodasi ({{ $pendaftaran->akomodasi_tipe }})</td>
                                             <td class="text-end">Rp {{ number_format($akomodasiHarga, 0, ',', '.') }}</td>
                                         </tr>
+                                        @endif
+                                        @if (method_exists($pendaftaran, 'laundries') && $pendaftaran->laundries->count() > 0)
+                                            @foreach($pendaftaran->laundries as $laundry)
+                                            <tr>
+                                                <td>Laundry ({{ $laundry->laundryPackage->nama_paket ?? 'Paket' }})</td>
+                                                <td class="text-end">Rp {{ number_format($laundry->harga, 0, ',', '.') }}</td>
+                                            </tr>
+                                            @endforeach
+                                        @endif
+                                        @if (method_exists($pendaftaran, 'caterings') && $pendaftaran->caterings->count() > 0)
+                                            @foreach($pendaftaran->caterings as $catering)
+                                            <tr>
+                                                <td>Catering ({{ $catering->cateringPackage->nama_paket ?? 'Paket' }})</td>
+                                                <td class="text-end">Rp {{ number_format($catering->harga, 0, ',', '.') }}</td>
+                                            </tr>
+                                            @endforeach
+                                        @endif
+                                        @if (method_exists($pendaftaran, 'holidays') && $pendaftaran->holidays->count() > 0)
+                                            @foreach($pendaftaran->holidays as $holiday)
+                                            <tr>
+                                                <td>Holiday ({{ $holiday->holidayPackage->nama_paket ?? 'Paket' }})</td>
+                                                <td class="text-end">Rp {{ number_format($holiday->harga, 0, ',', '.') }}</td>
+                                            </tr>
+                                            @endforeach
                                         @endif
                                         <tr class="fw-bold border-top">
                                             <td>Total Pembayaran</td>
