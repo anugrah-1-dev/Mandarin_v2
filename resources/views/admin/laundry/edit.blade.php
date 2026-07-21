@@ -31,139 +31,88 @@
                             @endif
 
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card card-warning card-outline">
-                                        <div class="card-header">
-                                            <h3 class="card-title">
-                                                <i class="fas fa-tshirt mr-2"></i>
-                                                Data Paket Laundry
-                                            </h3>
+                                <!-- Kolom Kiri -->
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label for="nama_paket" class="col-sm-4 col-form-label">Nama Paket <span class="text-danger">*</span></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="nama_paket" name="nama_paket" value="{{ old('nama_paket', $laundryPackage->nama_paket) }}" required>
                                         </div>
-                                        <div class="card-body">
-                                            <!-- Nama Paket -->
-                                            <div class="form-group row">
-                                                <label for="nama_paket" class="col-sm-3 col-form-label">Nama Paket <span
-                                                        class="text-danger">*</span></label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="nama_paket"
-                                                        name="nama_paket"
-                                                        value="{{ old('nama_paket', $laundryPackage->nama_paket) }}"
-                                                        required>
-                                                </div>
-                                            </div>
+                                    </div>
 
-                                            <!-- Harga -->
-                                            <div class="form-group row">
-                                                <label for="harga" class="col-sm-3 col-form-label">Harga <span
-                                                        class="text-danger">*</span></label>
-                                                <div class="col-sm-9">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">Rp</span>
-                                                        </div>
-                                                        <input type="number" class="form-control" id="harga"
-                                                            name="harga" min="0" step="1"
-                                                            value="{{ old('harga', $laundryPackage->harga) }}" required>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div class="form-group row">
+                                        <label for="jenis" class="col-sm-4 col-form-label">Jenis</label>
+                                        <div class="col-sm-8">
+                                            <select name="jenis" id="jenis" class="form-control select2" style="width: 100%;">
+                                                <option value="Kiloan" {{ old('jenis', $laundryPackage->jenis) == 'Kiloan' ? 'selected' : '' }}>Kiloan</option>
+                                                <option value="Satuan" {{ old('jenis', $laundryPackage->jenis) == 'Satuan' ? 'selected' : '' }}>Satuan</option>
+                                                <option value="Express" {{ old('jenis', $laundryPackage->jenis) == 'Express' ? 'selected' : '' }}>Express</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
-                                            <!-- Jenis -->
-                                            <div class="form-group row">
-                                                <label for="jenis" class="col-sm-3 col-form-label">Jenis</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="jenis" name="jenis"
-                                                        value="{{ old('jenis', $laundryPackage->jenis) }}"
-                                                        placeholder="Contoh: Kiloan, Satuan">
+                                    <div class="form-group row">
+                                        <label for="harga" class="col-sm-4 col-form-label">Harga <span class="text-danger">*</span></label>
+                                        <div class="col-sm-8">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Rp</span>
                                                 </div>
+                                                <input type="number" class="form-control" id="harga" name="harga" min="0" step="1" value="{{ old('harga', $laundryPackage->harga) }}" required>
                                             </div>
+                                        </div>
+                                    </div>
 
-                                            <!-- Periode -->
-                                            <div class="form-group row">
-                                                <label for="periode" class="col-sm-3 col-form-label">Periode</label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-control select2" id="periode" name="periode"
-                                                        style="width: 100%;">
-                                                        <option value="">-- Pilih Periode --</option>
-                                                        <option value="1"
-                                                            {{ old('periode', $laundryPackage->periode) == 1 ? 'selected' : '' }}>
-                                                            Harian</option>
-                                                        <option value="2"
-                                                            {{ old('periode', $laundryPackage->periode) == 2 ? 'selected' : '' }}>
-                                                            Mingguan</option>
-                                                        <option value="3"
-                                                            {{ old('periode', $laundryPackage->periode) == 3 ? 'selected' : '' }}>
-                                                            Bulanan</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                    <div class="form-group row">
+                                        <label for="periode" class="col-sm-4 col-form-label">Periode (Hari)</label>
+                                        <div class="col-sm-8">
+                                            <input type="number" class="form-control" id="periode" name="periode" value="{{ old('periode', $laundryPackage->periode) }}" placeholder="Contoh: 7">
+                                            <small class="form-text text-muted">Isi dengan angka jumlah hari (contoh: 7 untuk seminggu)</small>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                            {{-- <!-- Tanggal Penjemputan -->
-                                        <div class="form-group row">
-                                            <label for="tanggal_penjemputan" class="col-sm-3 col-form-label">Tanggal Penjemputan</label>
-                                            <div class="col-sm-9">
-                                                <input type="date" class="form-control" id="tanggal_penjemputan" name="tanggal_penjemputan"
-                                                    value="{{ old('tanggal_penjemputan', $laundryPackage->tanggal_penjemputan) }}">
-                                            </div>
-                                        </div> --}}
-
-                                            <!-- Status -->
-                                            <div class="form-group row">
-                                                <label for="status" class="col-sm-3 col-form-label">Status <span
-                                                        class="text-danger">*</span></label>
-                                                <div class="col-sm-9">
-                                                    <select name="status" id="status" class="form-control select2"
-                                                        style="width: 100%;" required>
-                                                        <option value="aktif"
-                                                            {{ old('status', $laundryPackage->status) == 'aktif' ? 'selected' : '' }}>
-                                                            Aktif</option>
-                                                        <option value="nonaktif"
-                                                            {{ old('status', $laundryPackage->status) == 'nonaktif' ? 'selected' : '' }}>
-                                                            Nonaktif</option>
-                                                    </select>
+                                <!-- Kolom Kanan -->
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label for="deskripsi" class="col-sm-4 col-form-label">Deskripsi</label>
+                                        <div class="col-sm-8">
+                                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" placeholder="Tuliskan detail paket laundry...">{{ old('deskripsi', $laundryPackage->deskripsi) }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="thumbnail" class="col-sm-4 col-form-label">Thumbnail</label>
+                                        <div class="col-sm-8">
+                                            <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*">
+                                            @if ($laundryPackage->thumbnail)
+                                                <div class="mt-2">
+                                                    <img src="{{ asset('storage/' . $laundryPackage->thumbnail) }}" alt="Thumbnail" class="img-fluid rounded" style="max-height: 120px;">
                                                 </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="thumbnail" class="col-sm-4 col-form-label">Thumbnail</label>
-                                                <div class="col-sm-8">
-                                                    <input type="file" class="form-control" id="thumbnail"
-                                                        name="thumbnail" accept="image/*">
-                                                    @if ($laundryPackage->thumbnail)
-                                                        <div class="mt-2">
-                                                            <img src="{{ asset('storage/' . $laundryPackage->thumbnail) }}"
-                                                                alt="Thumbnail" class="img-fluid rounded"
-                                                                style="max-height: 120px;">
-                                                        </div>
-                                                    @endif
-                                                    <small class="text-muted">Biarkan kosong jika tidak ingin
-                                                        mengganti</small>
-                                                </div>
-                                            </div>
-
-                                            <!-- Deskripsi -->
-                                            <div class="form-group row">
-                                                <label for="deskripsi" class="col-sm-3 col-form-label">Deskripsi</label>
-                                                <div class="col-sm-9">
-                                                    <textarea name="deskripsi" id="deskripsi" rows="3" class="form-control" placeholder="Tuliskan deskripsi paket">{{ old('deskripsi', $laundryPackage->deskripsi) }}</textarea>
-                                                </div>
-                                            </div>
+                                            @endif
+                                            <small class="text-muted">Upload gambar thumbnail baru jika ingin mengganti</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group row">
+                                        <label for="status" class="col-sm-4 col-form-label">Status Paket <span class="text-danger">*</span></label>
+                                        <div class="col-sm-8">
+                                            <select name="status" id="status" class="form-control select2" style="width: 100%;" required>
+                                                <option value="aktif" {{ old('status', $laundryPackage->status) == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                                                <option value="nonaktif" {{ old('status', $laundryPackage->status) == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Tombol -->
-                            <div class="row mt-3">
-                                <div class="col-12">
-                                    <div class="card-footer bg-white text-right">
-                                        <a href="{{ route('admin.laundry.index') }}" class="btn btn-secondary mr-2">
-                                            <i class="fas fa-arrow-left mr-1"></i> Kembali
-                                        </a>
-                                        <button type="submit" class="btn btn-warning">
-                                            <i class="fas fa-save mr-1"></i> Perbarui
-                                        </button>
-                                    </div>
-                                </div>
+                            <!-- Tombol Aksi -->
+                            <div class="form-group text-right mt-4">
+                                <a href="{{ route('admin.laundry.index') }}" class="btn btn-secondary mr-2">
+                                    <i class="fas fa-arrow-left mr-1"></i> Kembali
+                                </a>
+                                <button type="submit" class="btn btn-warning">
+                                    <i class="fas fa-save mr-1"></i> Perbarui
+                                </button>
                             </div>
                         </form>
                     </div>

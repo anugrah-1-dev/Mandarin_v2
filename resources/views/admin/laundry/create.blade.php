@@ -61,10 +61,10 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="periode" class="col-sm-4 col-form-label">Periode</label>
+                                    <label for="periode" class="col-sm-4 col-form-label">Periode (Hari)</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="periode" name="periode" placeholder="Contoh: 7 (hari)">
-                                        <small class="form-text text-muted">Isi dengan angka hari/minggu jika ada</small>
+                                        <input type="number" class="form-control" id="periode" name="periode" placeholder="Contoh: 7">
+                                        <small class="form-text text-muted">Isi dengan angka jumlah hari (contoh: 7 untuk seminggu)</small>
                                     </div>
                                 </div>
                             </div>
