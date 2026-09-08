@@ -71,8 +71,8 @@
     </div>
 
 
-    {{-- === STAT CARDS === --}}
-    <div class="row mb-3">
+    {{-- === STAT CARDS: PEMBAYARAN === --}}
+    <div class="row mb-2">
         <div class="col-md-4 col-sm-12">
             <div class="info-box shadow-sm" style="border-left: 4px solid #007bff;">
                 <span class="info-box-icon" style="background: #007bff; color:#fff; width:70px;">
@@ -108,17 +108,69 @@
         </div>
     </div>
 
-    {{-- === FILTER STATUS BAYAR === --}}
+    {{-- === STAT CARDS: STATUS PENDAFTARAN === --}}
+    <div class="row mb-3">
+        <div class="col-md-4 col-sm-12">
+            <div class="info-box shadow-sm" style="border-left: 4px solid #fd7e14;">
+                <span class="info-box-icon" style="background: #fd7e14; color:#fff; width:70px;">
+                    <i class="fas fa-hourglass-half"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Pending</span>
+                    <span class="info-box-number">{{ $totalPending }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <div class="info-box shadow-sm" style="border-left: 4px solid #20c997;">
+                <span class="info-box-icon" style="background: #20c997; color:#fff; width:70px;">
+                    <i class="fas fa-user-check"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Diterima</span>
+                    <span class="info-box-number">{{ $totalDiterima }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <div class="info-box shadow-sm" style="border-left: 4px solid #dc3545;">
+                <span class="info-box-icon" style="background: #dc3545; color:#fff; width:70px;">
+                    <i class="fas fa-user-times"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Ditolak</span>
+                    <span class="info-box-number">{{ $totalDitolak }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- === FILTER BARIS === --}}
     <div class="mb-3">
-        <form method="GET" action="{{ route('admin.pendaftaran.offline.index') }}" class="d-flex align-items-center gap-2">
-            <label class="mb-0 mr-2 font-weight-bold"><i class="fas fa-filter mr-1"></i> Filter Status Bayar:</label>
-            <select name="status_bayar" class="form-control form-control-sm" style="width:180px;" onchange="this.form.submit()">
-                <option value="" {{ request('status_bayar') == '' ? 'selected' : '' }}>Semua</option>
-                <option value="lunas" {{ request('status_bayar') == 'lunas' ? 'selected' : '' }}>✅ Lunas</option>
-                <option value="dp" {{ request('status_bayar') == 'dp' ? 'selected' : '' }}>🕒 DP / Cicilan</option>
-            </select>
-            @if(request('status_bayar'))
-                <a href="{{ route('admin.pendaftaran.offline.index') }}" class="btn btn-sm btn-outline-secondary ml-1">Reset</a>
+        <form method="GET" action="{{ route('admin.pendaftaran.offline.index') }}" class="d-flex flex-wrap align-items-center gap-2">
+            <span class="font-weight-bold mr-2"><i class="fas fa-filter mr-1"></i> Filter:</span>
+
+            <div class="d-flex align-items-center mr-3">
+                <label class="mb-0 mr-1 text-muted small">Status Bayar:</label>
+                <select name="status_bayar" class="form-control form-control-sm" style="width:160px;" onchange="this.form.submit()">
+                    <option value="" {{ request('status_bayar') == '' ? 'selected' : '' }}>Semua</option>
+                    <option value="lunas" {{ request('status_bayar') == 'lunas' ? 'selected' : '' }}>✅ Lunas</option>
+                    <option value="dp" {{ request('status_bayar') == 'dp' ? 'selected' : '' }}>🕒 DP / Cicilan</option>
+                </select>
+            </div>
+
+            <div class="d-flex align-items-center mr-3">
+                <label class="mb-0 mr-1 text-muted small">Status:</label>
+                <select name="status" class="form-control form-control-sm" style="width:160px;" onchange="this.form.submit()">
+                    <option value="" {{ request('status') == '' ? 'selected' : '' }}>Semua</option>
+                    <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>⏳ Pending</option>
+                    <option value="diterima" {{ request('status') == 'diterima' ? 'selected' : '' }}>✅ Diterima</option>
+                    <option value="ditolak" {{ request('status') == 'ditolak' ? 'selected' : '' }}>❌ Ditolak</option>
+                </select>
+            </div>
+
+            @if(request('status_bayar') || request('status'))
+                <a href="{{ route('admin.pendaftaran.offline.index') }}" class="btn btn-sm btn-outline-secondary">Reset Filter</a>
             @endif
         </form>
     </div>
@@ -130,6 +182,13 @@
                     <span class="badge badge-success ml-1">Lunas</span>
                 @elseif(request('status_bayar') == 'dp')
                     <span class="badge badge-warning ml-1">DP / Cicilan</span>
+                @endif
+                @if(request('status') == 'pending')
+                    <span class="badge badge-warning ml-1">Pending</span>
+                @elseif(request('status') == 'diterima')
+                    <span class="badge badge-success ml-1">Diterima</span>
+                @elseif(request('status') == 'ditolak')
+                    <span class="badge badge-danger ml-1">Ditolak</span>
                 @endif
             </h3>
         </div>

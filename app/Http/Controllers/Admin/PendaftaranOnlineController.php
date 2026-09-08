@@ -35,13 +35,18 @@ class PendaftaranOnlineController extends Controller
             }
         }
 
+        // Filter by status pendaftaran (pending / diterima / ditolak)
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
         $pendaftar = $query->latest()->paginate(10)->withQueryString();
 
         $programBahasa = ProgramOnline::select('program_bahasa')
             ->distinct()
             ->pluck('program_bahasa');
 
-        // Statistik
+        // Statistik pembayaran
         $totalPendaftar = PendaftaranProgramOnline::count();
         $totalLunas     = PendaftaranProgramOnline::where(function ($q) {
             $q->whereNull('tipe_bayar_dp')
@@ -50,9 +55,15 @@ class PendaftaranOnlineController extends Controller
         })->count();
         $totalDP        = PendaftaranProgramOnline::where('tipe_bayar_dp', 'dp')->count();
 
+        // Statistik status pendaftaran
+        $totalPending   = PendaftaranProgramOnline::where('status', 'pending')->count();
+        $totalDiterima  = PendaftaranProgramOnline::where('status', 'diterima')->count();
+        $totalDitolak   = PendaftaranProgramOnline::where('status', 'ditolak')->count();
+
         return view('admin.pendaftaran_online.index', compact(
             'pendaftar', 'programBahasa',
-            'totalPendaftar', 'totalLunas', 'totalDP'
+            'totalPendaftar', 'totalLunas', 'totalDP',
+            'totalPending', 'totalDiterima', 'totalDitolak'
         ));
     }
 

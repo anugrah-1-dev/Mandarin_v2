@@ -31,13 +31,18 @@ class PendaftaranOfflineController extends Controller
             }
         }
 
+        // Filter by status pendaftaran (pending / diterima / ditolak)
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
         $pendaftar = $query->latest()->paginate(10)->withQueryString();
 
         $programBahasa = ProgramOffline::select('program_bahasa')
             ->distinct()
             ->pluck('program_bahasa');
 
-        // Statistik
+        // Statistik pembayaran
         $totalPendaftar = PendaftaranProgramOffline::count();
         $totalLunas     = PendaftaranProgramOffline::where(function ($q) {
             $q->whereNull('tipe_bayar_dp')
@@ -46,9 +51,15 @@ class PendaftaranOfflineController extends Controller
         })->count();
         $totalDP        = PendaftaranProgramOffline::where('tipe_bayar_dp', 'dp')->count();
 
+        // Statistik status pendaftaran
+        $totalPending   = PendaftaranProgramOffline::where('status', 'pending')->count();
+        $totalDiterima  = PendaftaranProgramOffline::where('status', 'diterima')->count();
+        $totalDitolak   = PendaftaranProgramOffline::where('status', 'ditolak')->count();
+
         return view('admin.pendaftaran_offline.index', compact(
             'pendaftar', 'programBahasa',
-            'totalPendaftar', 'totalLunas', 'totalDP'
+            'totalPendaftar', 'totalLunas', 'totalDP',
+            'totalPending', 'totalDiterima', 'totalDitolak'
         ));
     }
     public function show($id)
