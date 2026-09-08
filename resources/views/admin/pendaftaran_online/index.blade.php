@@ -75,9 +75,67 @@
 </div>
 
 
+{{-- === STAT CARDS === --}}
+<div class="row mb-3">
+    <div class="col-md-4 col-sm-12">
+        <div class="info-box shadow-sm" style="border-left: 4px solid #007bff;">
+            <span class="info-box-icon" style="background: #007bff; color:#fff; width:70px;">
+                <i class="fas fa-users"></i>
+            </span>
+            <div class="info-box-content">
+                <span class="info-box-text">Total Pendaftar</span>
+                <span class="info-box-number">{{ $totalPendaftar }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="info-box shadow-sm" style="border-left: 4px solid #28a745;">
+            <span class="info-box-icon" style="background: #28a745; color:#fff; width:70px;">
+                <i class="fas fa-check-circle"></i>
+            </span>
+            <div class="info-box-content">
+                <span class="info-box-text">Lunas</span>
+                <span class="info-box-number">{{ $totalLunas }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="info-box shadow-sm" style="border-left: 4px solid #ffc107;">
+            <span class="info-box-icon" style="background: #ffc107; color:#fff; width:70px;">
+                <i class="fas fa-clock"></i>
+            </span>
+            <div class="info-box-content">
+                <span class="info-box-text">DP (Cicilan)</span>
+                <span class="info-box-number">{{ $totalDP }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- === FILTER STATUS BAYAR === --}}
+<div class="mb-3">
+    <form method="GET" action="{{ route('admin.pendaftaran.online.index') }}" class="d-flex align-items-center gap-2">
+        <label class="mb-0 mr-2 font-weight-bold"><i class="fas fa-filter mr-1"></i> Filter Status Bayar:</label>
+        <select name="status_bayar" class="form-control form-control-sm" style="width:180px;" onchange="this.form.submit()">
+            <option value="" {{ request('status_bayar') == '' ? 'selected' : '' }}>Semua</option>
+            <option value="lunas" {{ request('status_bayar') == 'lunas' ? 'selected' : '' }}>✅ Lunas</option>
+            <option value="dp" {{ request('status_bayar') == 'dp' ? 'selected' : '' }}>🕒 DP / Cicilan</option>
+        </select>
+        @if(request('status_bayar'))
+            <a href="{{ route('admin.pendaftaran.online.index') }}" class="btn btn-sm btn-outline-secondary ml-1">Reset</a>
+        @endif
+    </form>
+</div>
+
 <div class="card card-outline card-primary">
     <div class="card-header">
-        <h3 class="card-title">Data Pendaftar</h3>
+        <h3 class="card-title">Data Pendaftar
+            @if(request('status_bayar') == 'lunas')
+                <span class="badge badge-success ml-1">Lunas</span>
+            @elseif(request('status_bayar') == 'dp')
+                <span class="badge badge-warning ml-1">DP / Cicilan</span>
+            @endif
+        </h3>
     </div>
 
     <div class="card-body p-0">

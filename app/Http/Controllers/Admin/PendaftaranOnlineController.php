@@ -18,15 +18,42 @@ class PendaftaranOnlineController extends Controller
     /**
      * Menampilkan daftar pendaftar online.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pendaftar = PendaftaranProgramOnline::with(['program'])
-            ->latest()->paginate(10);
+        $query = PendaftaranProgramOnline::with(['program']);
+
+        // Filter by status pembayaran (lunas / dp)
+        if ($request->filled('status_bayar')) {
+            if ($request->status_bayar === 'lunas') {
+                $query->where(function ($q) {
+                    $q->whereNull('tipe_bayar_dp')
+                      ->orWhere('tipe_bayar_dp', '')
+                      ->orWhere('tipe_bayar_dp', 'lunas');
+                });
+            } elseif ($request->status_bayar === 'dp') {
+                $query->where('tipe_bayar_dp', 'dp');
+            }
+        }
+
+        $pendaftar = $query->latest()->paginate(10)->withQueryString();
+
         $programBahasa = ProgramOnline::select('program_bahasa')
             ->distinct()
             ->pluck('program_bahasa');
 
-        return view('admin.pendaftaran_online.index', compact('pendaftar', 'programBahasa'));
+        // Statistik
+        $totalPendaftar = PendaftaranProgramOnline::count();
+        $totalLunas     = PendaftaranProgramOnline::where(function ($q) {
+            $q->whereNull('tipe_bayar_dp')
+              ->orWhere('tipe_bayar_dp', '')
+              ->orWhere('tipe_bayar_dp', 'lunas');
+        })->count();
+        $totalDP        = PendaftaranProgramOnline::where('tipe_bayar_dp', 'dp')->count();
+
+        return view('admin.pendaftaran_online.index', compact(
+            'pendaftar', 'programBahasa',
+            'totalPendaftar', 'totalLunas', 'totalDP'
+        ));
     }
 
     /**

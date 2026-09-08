@@ -14,15 +14,42 @@ use App\Models\ProgramOffline;
 
 class PendaftaranOfflineController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pendaftar = PendaftaranProgramOffline::with(['program', 'period'])
-            ->latest()->paginate(10);
+        $query = PendaftaranProgramOffline::with(['program', 'period']);
+
+        // Filter by status pembayaran (lunas / dp)
+        if ($request->filled('status_bayar')) {
+            if ($request->status_bayar === 'lunas') {
+                $query->where(function ($q) {
+                    $q->whereNull('tipe_bayar_dp')
+                      ->orWhere('tipe_bayar_dp', '')
+                      ->orWhere('tipe_bayar_dp', 'lunas');
+                });
+            } elseif ($request->status_bayar === 'dp') {
+                $query->where('tipe_bayar_dp', 'dp');
+            }
+        }
+
+        $pendaftar = $query->latest()->paginate(10)->withQueryString();
+
         $programBahasa = ProgramOffline::select('program_bahasa')
             ->distinct()
             ->pluck('program_bahasa');
 
-        return view('admin.pendaftaran_offline.index', compact('pendaftar', 'programBahasa'));
+        // Statistik
+        $totalPendaftar = PendaftaranProgramOffline::count();
+        $totalLunas     = PendaftaranProgramOffline::where(function ($q) {
+            $q->whereNull('tipe_bayar_dp')
+              ->orWhere('tipe_bayar_dp', '')
+              ->orWhere('tipe_bayar_dp', 'lunas');
+        })->count();
+        $totalDP        = PendaftaranProgramOffline::where('tipe_bayar_dp', 'dp')->count();
+
+        return view('admin.pendaftaran_offline.index', compact(
+            'pendaftar', 'programBahasa',
+            'totalPendaftar', 'totalLunas', 'totalDP'
+        ));
     }
     public function show($id)
     {
