@@ -47,7 +47,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                	<div class="row">
                     <div class="col-md-6">
                         <x-adminlte-input name="harga" label="Harga (Rp)" placeholder="Contoh: 1500000" type="number"
                             value="{{ old('harga') }}" required />
@@ -55,6 +55,14 @@
                     <div class="col-md-6">
                         <x-adminlte-input name="biaya_admin" label="Biaya Admin (Rp)" placeholder="Contoh: 10000" type="number"
                             value="{{ old('biaya_admin', 0) }}" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <x-adminlte-input name="dp_nominal" label="Nominal DP (Rp)" placeholder="Kosongkan jika tidak ada opsi DP" type="number"
+                            value="{{ old('dp_nominal') }}" />
+                        <small class="form-text text-muted">Jika diisi, peserta bisa memilih bayar DP atau Lunas saat mendaftar.</small>
                     </div>
                 </div>
 

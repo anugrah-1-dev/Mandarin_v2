@@ -104,6 +104,17 @@
                                         placeholder="Contoh: 10000" value="{{ old('biaya_admin', $online->biaya_admin ?? 0) }}" min="0">
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="dp_nominal">Nominal DP (Rp) <small class="text-muted">— opsional</small></label>
+                                    <input type="number" class="form-control @error('dp_nominal') is-invalid @enderror"
+                                        id="dp_nominal" name="dp_nominal" min="0"
+                                        value="{{ old('dp_nominal', $online->dp_nominal ?? '') }}"
+                                        placeholder="Kosongkan jika tidak ada opsi DP">
+                                    @error('dp_nominal') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                    <small class="form-text text-muted">Jika diisi, peserta bisa memilih bayar DP atau Lunas.</small>
+                                </div>
+                            </div>
                             
                             <div class="col-md-6">
                                 <div class="form-group">

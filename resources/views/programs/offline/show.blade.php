@@ -1090,6 +1090,155 @@
                                                 });
                                             </script>
 
+                                            @php
+                                                $dpNominal = $program->dp_nominal ?? 0;
+                                            @endphp
+
+                                            @if ($dpNominal > 0)
+                                            {{-- ====== SECTION DP / LUNAS ====== --}}
+                                            <div class="mb-3" id="dpSection">
+                                                <label class="form-label fw-bold">
+                                                    <i class="bi bi-cash-coin"></i> Tipe Pembayaran DP
+                                                </label>
+                                                <div class="card border-warning shadow-sm">
+                                                    <div class="card-body p-3">
+                                                        <div class="d-flex flex-column gap-2">
+
+                                                            {{-- Opsi DP --}}
+                                                            <div class="form-check border rounded p-3 dp-option-card" id="card_dp" style="cursor:pointer;">
+                                                                <input class="form-check-input" type="radio" name="tipe_bayar_dp"
+                                                                    id="tipe_dp" value="dp"
+                                                                    {{ old('tipe_bayar_dp', 'lunas') == 'dp' ? 'checked' : '' }}
+                                                                    required>
+                                                                <label class="form-check-label w-100" for="tipe_dp" style="cursor:pointer;">
+                                                                    <div class="d-flex justify-content-between align-items-center">
+                                                                        <div>
+                                                                            <span class="fw-semibold">💰 Bayar DP Sekarang</span><br>
+                                                                            <small class="text-muted">Sisa tagihan dilunasi di kantor saat kedatangan</small>
+                                                                        </div>
+                                                                        <div class="text-end">
+                                                                            <span class="badge bg-warning text-dark fs-6 px-3 py-2">
+                                                                                Rp {{ number_format($dpNominal, 0, ',', '.') }}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </label>
+                                                            </div>
+
+                                                            {{-- Opsi Lunas --}}
+                                                            <div class="form-check border rounded p-3 dp-option-card" id="card_lunas" style="cursor:pointer;">
+                                                                <input class="form-check-input" type="radio" name="tipe_bayar_dp"
+                                                                    id="tipe_lunas" value="lunas"
+                                                                    {{ old('tipe_bayar_dp', 'lunas') == 'lunas' ? 'checked' : '' }}
+                                                                    required>
+                                                                <label class="form-check-label w-100" for="tipe_lunas" style="cursor:pointer;">
+                                                                    <div class="d-flex justify-content-between align-items-center">
+                                                                        <div>
+                                                                            <span class="fw-semibold">✅ Bayar Lunas Sekarang</span><br>
+                                                                            <small class="text-muted">Tidak ada sisa tagihan, langsung lunas</small>
+                                                                        </div>
+                                                                        <div class="text-end">
+                                                                            <span class="badge bg-success fs-6 px-3 py-2" id="badge_lunas_total">
+                                                                                Rp {{ number_format($program->harga, 0, ',', '.') }}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </label>
+                                                            </div>
+
+                                                        </div>
+
+                                                        {{-- Info box DP yang muncul saat pilih DP --}}
+                                                        <div id="dpInfoBox" class="alert alert-warning mt-3 mb-0" style="display:none;">
+                                                            <strong>🔔 Ringkasan Pembayaran DP:</strong><br>
+                                                            <div class="d-flex justify-content-between mt-1">
+                                                                <span>Total Tagihan:</span>
+                                                                <strong id="dpInfoTotal">-</strong>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <span>Dibayar Sekarang (DP):</span>
+                                                                <strong class="text-warning">Rp {{ number_format($dpNominal, 0, ',', '.') }}</strong>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <span>Sisa Tagihan (Lunas di kantor):</span>
+                                                                <strong class="text-danger" id="dpInfoSisa">-</strong>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <script>
+                                                (function() {
+                                                    const dpNominal = {{ $dpNominal }};
+
+                                                    function formatRp(num) {
+                                                        return 'Rp ' + num.toLocaleString('id-ID');
+                                                    }
+
+                                                    function updateDpInfo() {
+                                                        const selectedDp = document.querySelector('input[name="tipe_bayar_dp"]:checked');
+                                                        const dpInfoBox = document.getElementById('dpInfoBox');
+                                                        const dpInfoTotal = document.getElementById('dpInfoTotal');
+                                                        const dpInfoSisa = document.getElementById('dpInfoSisa');
+
+                                                        // Ambil total terkini dari elemen totalPreview
+                                                        const totalPreviewEl = document.getElementById('totalPreview');
+                                                        let currentTotal = 0;
+                                                        if (totalPreviewEl) {
+                                                            const rawText = totalPreviewEl.textContent.replace(/[^\d]/g, '');
+                                                            currentTotal = parseInt(rawText) || 0;
+                                                        }
+
+                                                        const sisa = currentTotal - dpNominal;
+
+                                                        // Highlight card terpilih
+                                                        document.querySelectorAll('.dp-option-card').forEach(el => el.classList.remove('border-warning', 'border-success', 'bg-light'));
+
+                                                        if (selectedDp && selectedDp.value === 'dp') {
+                                                            document.getElementById('card_dp').classList.add('border-warning', 'bg-light');
+                                                            dpInfoBox.style.display = 'block';
+                                                            dpInfoTotal.textContent = formatRp(currentTotal);
+                                                            dpInfoSisa.textContent = formatRp(Math.max(0, sisa));
+                                                        } else {
+                                                            document.getElementById('card_lunas').classList.add('border-success', 'bg-light');
+                                                            dpInfoBox.style.display = 'none';
+                                                        }
+                                                    }
+
+                                                    document.addEventListener('DOMContentLoaded', function() {
+                                                        document.querySelectorAll('input[name="tipe_bayar_dp"]').forEach(function(radio) {
+                                                            radio.addEventListener('change', updateDpInfo);
+                                                        });
+
+                                                        // Update badge lunas dan dp info saat total berubah (hook ke updateTotal)
+                                                        const originalUpdateTotal = window.updateTotal;
+                                                        if (typeof updateTotal === 'function') {
+                                                            const _origUT = updateTotal;
+                                                            updateTotal = function() {
+                                                                _origUT();
+                                                                updateDpInfo();
+                                                            };
+                                                        }
+
+                                                        // Juga update saat cart berubah
+                                                        const _origUC = updateCart;
+                                                        updateCart = function() {
+                                                            _origUC();
+                                                            updateDpInfo();
+                                                        };
+
+                                                        // Inisialisasi awal
+                                                        setTimeout(updateDpInfo, 100);
+                                                    });
+                                                })();
+                                            </script>
+                                            @else
+                                            {{-- Jika tidak ada DP, kirim 'lunas' sebagai default tersembunyi --}}
+                                            <input type="hidden" name="tipe_bayar_dp" value="lunas">
+                                            @endif
+
 
                                             <div class="mb-3">
                                                 <label class="form-label">

@@ -26,6 +26,9 @@ class PendaftaranProgramOnline extends Model
         'subtotal',
         'akomodasi_tipe',   // <--- baru
         'akomodasi_harga',  // <--- baru
+        'tipe_bayar_dp',
+        'jumlah_dp',
+        'sisa_tagihan',
     ];
 
     public function program()

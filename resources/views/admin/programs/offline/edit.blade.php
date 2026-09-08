@@ -111,6 +111,17 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label for="dp_nominal">Nominal DP (Rp) <small class="text-muted">— opsional</small></label>
+                                <input type="number" class="form-control @error('dp_nominal') is-invalid @enderror"
+                                    id="dp_nominal" name="dp_nominal" min="0"
+                                    value="{{ old('dp_nominal', $offline->dp_nominal ?? '') }}"
+                                    placeholder="Kosongkan jika tidak ada opsi DP">
+                                @error('dp_nominal') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                <small class="form-text text-muted">Jika diisi, peserta bisa memilih bayar DP atau Lunas saat mendaftar.</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label for="lokasi">Lokasi</label>
                                 <input type="text" class="form-control @error('lokasi') is-invalid @enderror"
                                     id="lokasi" name="lokasi" value="{{ old('lokasi', $offline->lokasi) }}">

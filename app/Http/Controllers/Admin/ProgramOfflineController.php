@@ -30,6 +30,7 @@ class ProgramOfflineController extends Controller
             'kategori'         => 'required|string|max:100',
             'harga'            => 'required|numeric|min:0',
             'biaya_admin'      => 'nullable|numeric|min:0',
+            'dp_nominal'       => 'nullable|numeric|min:0',
             'features_program' => 'required',
             'lokasi'           => 'required|string|max:255',
             'jadwal_mulai'     => 'required|date',
@@ -81,6 +82,7 @@ class ProgramOfflineController extends Controller
             'kategori' => 'required|string|max:100',
             'harga' => 'required|numeric|min:0',
             'biaya_admin' => 'nullable|numeric|min:0',
+            'dp_nominal' => 'nullable|numeric|min:0',
             'features_program' => 'nullable|string',
             'lokasi' => 'required|string|max:255',
             'jadwal_mulai' => 'required|date',
@@ -99,6 +101,7 @@ class ProgramOfflineController extends Controller
             'kategori',
             'harga',
             'biaya_admin',
+            'dp_nominal',
             'lokasi',
             'jadwal_mulai',
             'jadwal_selesai',
@@ -107,6 +110,11 @@ class ProgramOfflineController extends Controller
             'program_bahasa',
              'kursus', // ✅ tambahkan ini
         ]);
+
+        // Pastikan dp_nominal null jika kosong/0
+        $data['dp_nominal'] = ($request->filled('dp_nominal') && $request->dp_nominal > 0)
+            ? (int) $request->dp_nominal
+            : null;
 
         // Simpan fitur sebagai JSON array
         $features = array_filter(array_map('trim', explode("\n", $request->input('features_program', ''))));

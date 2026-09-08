@@ -34,6 +34,9 @@ class PendaftaranProgramOffline extends Model
         'subtotal',
         'akomodasi_tipe',
         'akomodasi_harga',
+        'tipe_bayar_dp',
+        'jumlah_dp',
+        'sisa_tagihan',
     ];
 
     // Relasi ke program offline

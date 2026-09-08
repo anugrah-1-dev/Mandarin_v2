@@ -33,6 +33,7 @@ class ProgramOnline extends Model
         'kategori',
         'harga',
         'biaya_admin',
+        'dp_nominal',
         'features_program',
         'is_active',
         'thumbnail',

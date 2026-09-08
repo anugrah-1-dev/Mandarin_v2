@@ -211,10 +211,28 @@
                     @else
                     <tr><td>Subtotal</td><td>Rp {{ number_format($subtotal, 0, ',', '.') }}</td></tr>
                     @endif
+
+                    @if(isset($tipeBayarDp) && $tipeBayarDp === 'dp' && $jumlahDp > 0)
+                    {{-- Mode DP: tampilkan rincian DP & Sisa --}}
+                    <tr>
+                        <td style="color: #059669; font-weight:600;">&#128176; DP Dibayar</td>
+                        <td style="color: #059669; font-weight:700;">Rp {{ number_format($jumlahDp, 0, ',', '.') }}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #dc2626; font-weight:600;">&#9888; Sisa Tagihan</td>
+                        <td style="color: #dc2626; font-weight:700;">Rp {{ number_format($sisaTagihan ?? 0, 0, ',', '.') }}</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>TOTAL TAGIHAN</td>
+                        <td>Rp {{ number_format($subtotal, 0, ',', '.') }}</td>
+                    </tr>
+                    @else
+                    {{-- Mode Lunas: tampilkan seperti biasa --}}
                     <tr class="total-row">
                         <td>TOTAL BAYAR</td>
                         <td>Rp {{ number_format($subtotal, 0, ',', '.') }}</td>
                     </tr>
+                    @endif
                 </table>
             </div>
         </div>

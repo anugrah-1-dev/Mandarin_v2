@@ -143,6 +143,11 @@ class InvoiceController extends Controller
 
         // Hitung ulang subtotal jika perlu, atau gunakan $pendaftaran->subtotal
         $subtotal = $pendaftaran->subtotal ?? collect($items)->sum('total');
+
+        // === Data DP ===
+        $tipeBayarDp = $pendaftaran->tipe_bayar_dp ?? 'lunas';
+        $jumlahDp    = $pendaftaran->jumlah_dp ?? null;
+        $sisaTagihan = $pendaftaran->sisa_tagihan ?? null;
         
         // Data pelanggan
         $customer = [
@@ -152,6 +157,6 @@ class InvoiceController extends Controller
             'alamat' => $pendaftaran->asal_kota ?? $pendaftaran->alamat ?? '-',
         ];
 
-        return view('invoice.cetak', compact('pendaftaran', 'tipe', 'items', 'subtotal', 'customer'));
+        return view('invoice.cetak', compact('pendaftaran', 'tipe', 'items', 'subtotal', 'customer', 'tipeBayarDp', 'jumlahDp', 'sisaTagihan'));
     }
 }

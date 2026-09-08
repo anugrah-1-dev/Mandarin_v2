@@ -82,6 +82,7 @@ class ProgramOfflinePublicController extends Controller
             'bank_id'        => 'required_if:payment_type,transfer|nullable|exists:banks,id',
             'akomodasi'      => 'nullable|string',
             'ukuran_seragam' => 'nullable|in:S,M,L,XL,XXL',
+            'tipe_bayar_dp'  => 'required|in:dp,lunas',
         ];
 
         // Periode validasi dinamis
@@ -178,6 +179,20 @@ class ProgramOfflinePublicController extends Controller
         // Contoh: 498.000 + 369 = 498.369
         $subtotal = $subtotal + (int) $codeUnik;
 
+        // === Logika DP ===
+        $tipeBayarDp = $request->input('tipe_bayar_dp', 'lunas');
+        $dpNominal   = $program->dp_nominal ?? 0;
+
+        if ($dpNominal > 0 && $tipeBayarDp === 'dp') {
+            $jumlahDp    = $dpNominal;
+            $sisaTagihan = max(0, $subtotal - $jumlahDp);
+        } else {
+            // Jika tidak ada DP atau pilih lunas, tandai lunas penuh
+            $tipeBayarDp = 'lunas';
+            $jumlahDp    = null;
+            $sisaTagihan = null;
+        }
+
         $pendaftaran = PendaftaranProgramOffline::create([
             'trx_id'        => $newTrxId,
             'program_id'    => $program->id,
@@ -199,6 +214,9 @@ class ProgramOfflinePublicController extends Controller
             'akomodasi_harga' => $akomodasiHarga,
             'subtotal'      => $subtotal,
             'ukuran_seragam' => $validated['ukuran_seragam'] ?? null,
+            'tipe_bayar_dp' => $tipeBayarDp,
+            'jumlah_dp'     => $jumlahDp,
+            'sisa_tagihan'  => $sisaTagihan,
         ]);
 
         // === setelah create $pendaftaran ===

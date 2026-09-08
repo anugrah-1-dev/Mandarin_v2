@@ -53,6 +53,11 @@
                         <x-adminlte-input name="biaya_admin" label="Biaya Admin (Rp)" type="number" placeholder="Contoh: 10000"
                             value="{{ old('biaya_admin', 0) }}" />
                     </div>
+                    <div class="col-md-4">
+                        <x-adminlte-input name="dp_nominal" label="Nominal DP (Rp)" type="number" placeholder="Kosongkan jika tidak ada DP"
+                            value="{{ old('dp_nominal') }}" />
+                        <small class="form-text text-muted">Jika diisi, peserta bisa memilih bayar DP atau Lunas.</small>
+                    </div>
                 </div>
 
                 <x-adminlte-textarea name="features_program" label="Fitur Program (Pisahkan dengan Enter)" rows="3"

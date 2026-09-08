@@ -37,6 +37,7 @@ class ProgramOnlineController extends Controller
             'kategori'         => 'required|string|max:100',
             'harga'            => 'required|numeric|min:0',
             'biaya_admin'      => 'nullable|numeric|min:0',
+            'dp_nominal'       => 'nullable|numeric|min:0',
             'features_program' => 'required|string',
             'is_active'        => 'required|boolean',
             'thumbnail'        => 'required|image|mimes:jpg,jpeg,png|max:5048',
@@ -71,6 +72,7 @@ class ProgramOnlineController extends Controller
             'kategori' => 'nullable|string|max:255',
             'harga' => 'required|integer|min:0',
             'biaya_admin' => 'nullable|integer|min:0',
+            'dp_nominal' => 'nullable|numeric|min:0',
             'features_program' => 'nullable|string',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5048',
             'is_active' => 'required|in:0,1',
@@ -90,6 +92,11 @@ class ProgramOnlineController extends Controller
             'program_bahasa',
             'kursus', // ✅ tambahkan ini
         ]);
+
+        // Pastikan dp_nominal null jika kosong/0
+        $data['dp_nominal'] = ($request->filled('dp_nominal') && $request->dp_nominal > 0)
+            ? (int) $request->dp_nominal
+            : null;
 
         $data['slug'] = Str::slug($data['nama']);
         $data['is_active'] = (int) $data['is_active'];
