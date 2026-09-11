@@ -174,27 +174,6 @@
             <button id="closePopupBtn" class="close1-button">&times;</button>
         </div>
         <div class="program1-grid">
-            <a href="#" class="program1-card inggris">
-                <div class="program1-icon icon-inggris">
-                    <img src="{{ asset('asset/img/bendera inggris.jpg') }}" alt="Bendera Inggris" class="program1-img">
-                </div>
-                <h3>Kursus Bahasa Inggris</h3>
-                <span class="pilih1-button">Pilih</span>
-            </a>
-            <a href="#" class="program1-card arab">
-                <div class="program1-icon icon-arab">
-                    <img src="{{ asset('asset/img/bendera arab.jpg') }}" alt="Bendera Arab" class="program1-img">
-                </div>
-                <h3>Kursus Bahasa Arab</h3>
-                <span class="pilih1-button">Pilih</span>
-            </a>
-            <a href="#" class="program1-card jerman">
-                <div class="program1-icon icon-jerman">
-                    <img src="{{ asset('asset/img/bendera jerman.jpg') }}" alt="Bendera Jerman" class="program1-img">
-                </div>
-                <h3>Kursus Bahasa Jerman</h3>
-                <span class="pilih1-button">Pilih</span>
-            </a>
             <a href="#" class="program1-card mandarin">
                 <div class="program1-icon icon-mandarin">
                     <img src="{{ asset('asset/img/bendera mandarin.jpg') }}" alt="Bendera Mandarin" class="program1-img">
@@ -222,16 +201,10 @@
 
             const urlMap = {
                 bie: {
-                    inggris: "{{ route('bieplus.program.inggris') }}",
-                    jerman: "{{ route('bieplus.program.jerman') }}",
-                    mandarin: "{{ route('bieplus.program.mandarin') }}",
-                    arab: "{{ route('bieplus.program.arab') }}"
+                    mandarin: "{{ route('bieplus.program.mandarin') }}"
                 },
                 bec: {
-                    inggris: "{{ route('program.inggris') }}",
-                    jerman: "{{ route('program.jerman') }}",
-                    mandarin: "{{ route('program.mandarin') }}",
-                    arab: "{{ route('program.arab') }}"
+                    mandarin: "{{ route('program.mandarin') }}"
                 }
             };
 
@@ -267,12 +240,8 @@
             document.querySelectorAll('.program1-card').forEach(function (card) {
                 card.addEventListener('click', function (e) {
                     e.preventDefault();
-                    const program = this.classList.contains('inggris') ? 'inggris' :
-                        this.classList.contains('jerman') ? 'jerman' :
-                        this.classList.contains('mandarin') ? 'mandarin' :
-                        this.classList.contains('arab') ? 'arab' : null;
-                    if (selectedKursus && program && urlMap[selectedKursus] && urlMap[selectedKursus][program]) {
-                        window.location.href = urlMap[selectedKursus][program];
+                    if (selectedKursus && urlMap[selectedKursus] && urlMap[selectedKursus]['mandarin']) {
+                        window.location.href = urlMap[selectedKursus]['mandarin'];
                     }
                 });
             });

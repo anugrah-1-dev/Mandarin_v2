@@ -13,18 +13,8 @@
 
     <div class="logo">
         <a href="{{ route('landing') }}">
-            @if (request()->routeIs('program.arab'))
-                <img src="{{ asset('asset/img/alsaeid logo.png') }}" alt="Logo Arab" style="height: 130px;">
-            @elseif (request()->routeIs('program.mandarin'))
+            @if (request()->routeIs('program.mandarin') || request()->routeIs('bieplus.program.mandarin'))
                 <img src="{{ asset('asset/img/MandarinLogo.png') }}" alt="Logo Mandarin" style="height: 320px;">
-            @elseif (request()->routeIs('program.jerman'))
-                <img src="{{ asset('asset/img/JermanLogo.png') }}" alt="Logo Jerman" style="height: 95px;">
-            @elseif (request()->routeIs('landing.nhc'))
-                <img src="{{ asset('asset/img/logonhc.png') }}" alt="Logo NHC" style="height: 95px;">
-            @elseif (request()->routeIs('program.inggris'))
-                <img src="{{ asset('asset/img/Inggris2.png') }}" alt="Logo Inggris" style="height: 150px;">
-            @elseif (request()->routeIs('bieplus.program.inggris', 'bieplus.program.jerman', 'bieplus.program.mandarin', 'bieplus.program.arab'))
-                <img src="{{ asset('asset/img/bietest.png') }}" alt="Logo BIE+" style="height: 84px;">
             @else
                 @if (request()->routeIs('landing', 'program.offline.list', 'program.online.list') && isset($navLogo1) && $navLogo1->image_path)
                     <img src="{{ asset('storage/' . $navLogo1->image_path) }}" alt="Logo" style="height: 120px; transform: scale(1.3); margin-left: 20px; object-fit: contain;">
@@ -34,6 +24,7 @@
             @endif
         </a>
     </div>
+
 
 
 

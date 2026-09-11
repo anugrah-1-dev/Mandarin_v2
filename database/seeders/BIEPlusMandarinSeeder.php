@@ -16,171 +16,288 @@ class BIEPlusMandarinSeeder extends Seeder
         ProgramOnline::where('kursus', 'brilliant')->where('program_bahasa', 'Mandarin')->delete();
 
         // =====================
-        // PROGRAM OFFLINE
+        // PROGRAM ONLINE
         // =====================
 
-        $fasilitasDasar = [
-            'Modul',
-            'Sertifikat',
-            'Kelas Cozy',
-            'Tempat Tinggal / Camp Reguler',
-            '3 Kelas/hari',
-            'Leader Camp',
-            'Merchandise',
-            'Ujian',
+        $programsOnline = [
+            [
+                'nama'             => 'Reguler Basic',
+                'lama_program'     => '20 Pertemuan (Senin–Jumat)',
+                'kategori'         => 'Reguler',
+                'harga'            => 500000,
+                'features_program' => json_encode([
+                    'E-Sertifikat',
+                    'E-Modul',
+                    'Akses Rekam Layar',
+                ]),
+            ],
+            [
+                'nama'             => 'Reguler HSK',
+                'lama_program'     => '15 Pertemuan (Senin–Jumat)',
+                'kategori'         => 'Reguler',
+                'harga'            => 650000,
+                'features_program' => json_encode([
+                    'E-Sertifikat',
+                    'E-Modul',
+                    'Akses Rekam Layar',
+                ]),
+            ],
+            [
+                'nama'             => 'Private Basic',
+                'lama_program'     => '10 Pertemuan',
+                'kategori'         => 'Private',
+                'harga'            => 800000,
+                'features_program' => json_encode([
+                    'Belajar intensif materi dasar hingga percakapan sehari-hari',
+                    'E-Sertifikat',
+                    'E-Modul',
+                ]),
+            ],
+            [
+                'nama'             => 'Private HSK',
+                'lama_program'     => '10 Pertemuan',
+                'kategori'         => 'Private',
+                'harga'            => 1000000,
+                'features_program' => json_encode([
+                    'Belajar Mandarin dengan kurikulum HSK secara intensif',
+                    'E-Sertifikat',
+                    'E-Modul',
+                ]),
+            ],
+            [
+                'nama'             => 'Private HSKK',
+                'lama_program'     => '10 Pertemuan',
+                'kategori'         => 'Private',
+                'harga'            => 850000,
+                'features_program' => json_encode([
+                    'Khusus melatih kemampuan berbicara (speaking) secara intensif',
+                    'E-Sertifikat',
+                    'E-Modul',
+                ]),
+            ],
+            [
+                'nama'             => 'Custom Class',
+                'lama_program'     => '10 Pertemuan',
+                'kategori'         => 'Custom',
+                'harga'            => 900000,
+                'features_program' => json_encode([
+                    'Menggunakan materi yang disesuaikan dengan kebutuhan siswa',
+                    'E-Sertifikat',
+                    'E-Modul',
+                ]),
+            ],
+            [
+                'nama'             => 'Mandarin Kids',
+                'lama_program'     => '10 Pertemuan',
+                'kategori'         => 'Kids',
+                'harga'            => 800000,
+                'features_program' => json_encode([
+                    'Belajar dari awal dengan metode menyenangkan & interaktif',
+                    'E-Sertifikat',
+                    'E-Modul',
+                ]),
+            ],
+            [
+                'nama'             => 'Mandarin Bisnis',
+                'lama_program'     => '10 Pertemuan',
+                'kategori'         => 'Bisnis',
+                'harga'            => 900000,
+                'features_program' => json_encode([
+                    'Menggunakan materi yang berhubungan langsung dengan dunia kerja/perusahaan',
+                    'E-Sertifikat',
+                    'E-Modul',
+                ]),
+            ],
         ];
 
-        $fasilitasBulan1 = [
+        foreach ($programsOnline as $data) {
+            ProgramOnline::create([
+                'nama'             => $data['nama'],
+                'slug'             => Str::slug($data['nama']) . '-mandarin-brilliant',
+                'program_bahasa'   => 'Mandarin',
+                'lama_program'     => $data['lama_program'],
+                'kategori'         => $data['kategori'],
+                'harga'            => $data['harga'],
+                'features_program' => $data['features_program'],
+                'is_active'        => 1,
+                'kursus'           => 'brilliant',
+                'thumbnail'        => null,
+            ]);
+        }
+
+        // =====================
+        // PROGRAM OFFLINE - REGULER (Camp / Asrama)
+        // =====================
+
+        $fasilitasBasic = [
+            'Camp/Asrama',
             'Modul',
-            'Sertifikat',
-            'Kelas Cozy',
-            'Tempat Tinggal / Camp Reguler',
-            '3 Kelas/hari',
-            'Leader Camp',
             'Merchandise',
+            'Sertifikat',
             'Ujian',
-            'PRE-TEST HSK 1',
+            'Pre-Test HSK 1',
             'Konsultasi Beasiswa/Kerja',
         ];
 
         $fasilitasHsk1 = [
+            'Camp/Asrama',
             'Modul',
-            'Sertifikat',
-            'Kelas Cozy',
-            'Tempat Tinggal / Camp Reguler',
-            '3 Kelas/Hari',
-            'Leader Camp',
             'Merchandise',
+            'Sertifikat',
             'Ujian',
-            'PRE-TEST HSK 2',
+            'Pre-Test HSK 2',
             'Konsultasi Beasiswa/Kerja',
-            'Kelas Mendengar (Tingli 听力)',
         ];
 
-        $fasilitasHsk2Bulan1 = [
+        $fasilitasHsk2 = [
+            'Camp/Asrama',
             'Modul',
+            'Merchandise',
             'Sertifikat',
-            'Kelas Cozy',
-            'Tempat Tinggal / Camp',
-            '3 Kelas/Hari',
-            'Leader Camp',
-            'Merchandise',
             'Ujian',
-            'PRE-TEST HSK 3',
+            'Pre-Test HSK 3',
             'Konsultasi Beasiswa/Kerja',
-            'Kelas Mendengar (Tingli 听力)',
-            'Kelas Entrepreneur & Psychotraining',
-        ];
-
-        $fasilitasHsk2Bulan2 = [
-            'E-Modul',
-            'E-Sertifikat',
-            'Kelas Cozy',
-            'Tempat Tinggal / Camp Reguler',
-            '3 Kelas/Hari',
-            'Leader Camp',
-            'Merchandise',
-            'Ujian',
-            'PRE-TEST HSK 3',
-            'Konsultasi Beasiswa/Kerja',
-            'Kelas Mendengar (Tingli 听力)',
-            'Kelas Entrepreneur & Psychotraining',
         ];
 
         $fasilitasHsk3 = [
-            'Sertifikat',
-            'Kelas Cozy',
-            'Tempat Tinggal / Camp Reguler',
-            '3 Kelas/Hari',
-            'Leader Camp',
+            'Camp/Asrama',
+            'Modul',
             'Merchandise',
+            'Sertifikat',
             'Ujian',
-            'PRE-TEST HSK 4',
+            'Pre-Test HSK 4',
             'Konsultasi Beasiswa/Kerja',
-            'Kelas Mendengar (Tingli 听力)',
-            'Kelas Entrepreneur & Psychotraining',
         ];
 
-        $fasilitasPaketLong = [
+        $fasilitasHsk4 = [
+            'Camp/Asrama',
+            'Modul',
+            'Merchandise',
+            'Sertifikat',
+            'Ujian',
+            'Pre-Test HSK 5',
+            'Konsultasi Beasiswa/Kerja',
+        ];
+
+        $fasilitasHskk = [
+            'Camp/Asrama',
+            'Modul',
+            'Merchandise',
+            'Sertifikat',
+            'Ujian',
+            'Konsultasi Beasiswa/Kerja',
+            'Fokus Speaking / Lisan (口语)',
+        ];
+
+        // Paket Intensif Panjang "Beginner to Master"
+        $fasilitasBasicBoost = [
+            'Camp/Asrama',
             'Sertifikat',
             'Modul',
-            'Camp Reguler',
-            'Kelas (Berbicara, Vocab, Menulis, Listening)',
-            'Senin-Jumat',
-            '60-75 Menit/Pertemuan',
             'Merchandise',
+            'Kelas Pinyin & Nada',
+            'Penguasaan Kosakata Dasar',
+            'Percakapan Sehari-hari',
+            'Perkenalan & Tanya Jawab Sederhana',
+        ];
+
+        $fasilitasIntermediateJourney = [
+            'Camp/Asrama',
+            'Sertifikat',
+            'Modul',
+            'Merchandise',
+            'Materi Lebih Mendalam',
+            'Kelas Grammar Tambahan',
+            'Latihan Berbicara Intensif',
+            'Lancar Berbicara Topik Sehari-hari',
+        ];
+
+        $fasilitasMasteryProgram = [
+            'Camp/Asrama',
+            'Sertifikat',
+            'Modul',
+            'Merchandise',
+            'Latihan Komunikasi Aktif & Natural',
+            'Diskusi & Ekspresi Berpendapat',
+            'Berbicara Lancar Layaknya Native',
+            'Siap Kerja / Bisnis',
         ];
 
         $programsOffline = [
+            // === PROGRAM REGULER (Offline Camp) ===
             [
-                'nama'             => 'Paket 1 Minggu',
-                'lama_program'     => '1 Minggu',
-                'kategori'         => 'Short Learning',
-                'harga'            => 624000,
-                'features_program' => json_encode($fasilitasDasar),
-            ],
-            [
-                'nama'             => 'Paket 2 Minggu',
-                'lama_program'     => '2 Minggu',
-                'kategori'         => 'Short Learning',
-                'harga'            => 849000,
-                'features_program' => json_encode($fasilitasDasar),
-            ],
-            [
-                'nama'             => 'Paket 1 Bulan',
+                'nama'             => 'Basic (初级)',
                 'lama_program'     => '1 Bulan',
-                'kategori'         => 'Reguler',
-                'harga'            => 1124000,
-                'features_program' => json_encode($fasilitasBulan1),
+                'kategori'         => 'Basic',
+                'harga'            => 1125000,
+                'kuota'            => 10,
+                'features_program' => json_encode($fasilitasBasic),
             ],
             [
-                'nama'             => 'Paket HSK 1 (1 Bulan)',
+                'nama'             => 'HSK 1 (汉语初级)',
                 'lama_program'     => '1 Bulan',
                 'kategori'         => 'HSK 1',
                 'harga'            => 1400000,
+                'kuota'            => 8,
                 'features_program' => json_encode($fasilitasHsk1),
             ],
             [
-                'nama'             => 'Paket HSK 2 (1 Bulan)',
+                'nama'             => 'HSK 2 (汉语中级)',
                 'lama_program'     => '1 Bulan',
                 'kategori'         => 'HSK 2',
                 'harga'            => 1800000,
-                'features_program' => json_encode($fasilitasHsk2Bulan1),
+                'kuota'            => 8,
+                'features_program' => json_encode($fasilitasHsk2),
             ],
             [
-                'nama'             => 'Paket HSK 2 (2 Bulan)',
-                'lama_program'     => '2 Bulan',
-                'kategori'         => 'HSK 2',
-                'harga'            => 2880000,
-                'features_program' => json_encode($fasilitasHsk2Bulan2),
-            ],
-            [
-                'nama'             => 'Paket HSK 3 (2 Bulan)',
+                'nama'             => 'HSK 3 (汉语中级)',
                 'lama_program'     => '2 Bulan',
                 'kategori'         => 'HSK 3',
                 'harga'            => 2500000,
+                'kuota'            => 8,
                 'features_program' => json_encode($fasilitasHsk3),
             ],
             [
-                'nama'             => '3 Bulan (Basic-HSK1-HSK2)',
+                'nama'             => 'HSK 4 (汉语高级)',
+                'lama_program'     => '2 Bulan',
+                'kategori'         => 'HSK 4',
+                'harga'            => 4200000,
+                'kuota'            => 5,
+                'features_program' => json_encode($fasilitasHsk4),
+            ],
+            [
+                'nama'             => 'HSKK (口语)',
+                'lama_program'     => '1 Bulan',
+                'kategori'         => 'HSKK',
+                'harga'            => 1800000,
+                'kuota'            => 8,
+                'features_program' => json_encode($fasilitasHskk),
+            ],
+
+            // === PAKET INTENSIF PANJANG: "Beginner to Master" ===
+            [
+                'nama'             => 'Mandarin Basic Boost',
                 'lama_program'     => '3 Bulan',
                 'kategori'         => 'Master',
-                'harga'            => 4324000,
-                'features_program' => json_encode($fasilitasPaketLong),
+                'harga'            => 4325000,
+                'kuota'            => 10,
+                'features_program' => json_encode($fasilitasBasicBoost),
             ],
             [
-                'nama'             => '5 Bulan (Basic-HSK1-HSK2-HSK3)',
+                'nama'             => 'Mandarin Intermediate Journey',
                 'lama_program'     => '5 Bulan',
                 'kategori'         => 'Master',
-                'harga'            => 6724000,
-                'features_program' => json_encode($fasilitasPaketLong),
+                'harga'            => 6825000,
+                'kuota'            => 10,
+                'features_program' => json_encode($fasilitasIntermediateJourney),
             ],
             [
-                'nama'             => '7 Bulan (Basic-HSK1-HSK2-HSK3-HSK4)',
+                'nama'             => 'Mandarin Mastery Program',
                 'lama_program'     => '7 Bulan',
                 'kategori'         => 'Master',
                 'harga'            => 10975000,
-                'features_program' => json_encode($fasilitasPaketLong),
+                'kuota'            => 10,
+                'features_program' => json_encode($fasilitasMasteryProgram),
             ],
         ];
 
@@ -196,47 +313,7 @@ class BIEPlusMandarinSeeder extends Seeder
                 'jadwal_mulai'     => null,
                 'jadwal_selesai'   => null,
                 'lokasi'           => 'Pare, Kediri',
-                'kuota'            => 50,
-                'is_active'        => 1,
-                'kursus'           => 'brilliant',
-                'thumbnail'        => null,
-            ]);
-        }
-
-        // =====================
-        // PROGRAM ONLINE
-        // =====================
-
-        $fasilitasOnline = [
-            'E-Modul Lengkap',
-            'E-Sertifikat Resmi',
-            '20 Sesi Belajar (60 Menit/Sesi)',
-            '5-7 Member/Kelas',
-            'Tutor Berpengalaman',
-            'Latihan Speaking Setiap Hari',
-            'Beragam Tema Pembelajaran',
-            'Belajar Fleksibel Dari Mana Saja',
-        ];
-
-        $programsOnline = [
-            [
-                'nama'             => 'Program 1 Bulan',
-                'lama_program'     => '1 Bulan',
-                'kategori'         => 'Reguler',
-                'harga'            => 500000,
-                'features_program' => json_encode($fasilitasOnline),
-            ],
-        ];
-
-        foreach ($programsOnline as $data) {
-            ProgramOnline::create([
-                'nama'             => $data['nama'],
-                'slug'             => Str::slug($data['nama']) . '-mandarin-brilliant',
-                'program_bahasa'   => 'Mandarin',
-                'lama_program'     => $data['lama_program'],
-                'kategori'         => $data['kategori'],
-                'harga'            => $data['harga'],
-                'features_program' => $data['features_program'],
+                'kuota'            => $data['kuota'],
                 'is_active'        => 1,
                 'kursus'           => 'brilliant',
                 'thumbnail'        => null,

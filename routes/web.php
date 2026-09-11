@@ -31,17 +31,11 @@ use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\Admin\ThumbnailController;
 use App\Http\Controllers\Admin\LogoController;
 
-use App\Http\Controllers\ProgramInggrisController;
-use App\Http\Controllers\ProgramJermanController;
-use App\Http\Controllers\ProgramArabController;
 use App\Http\Controllers\ProgramMandarinController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\ProgramNHCController; // <-- PERUBAIKAN 1: Controller NHC ditambahkan
 use App\Http\Controllers\Admin\PeriodNHCController;
 
 //admin new
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\Admin\ServicePackageController;
 use App\Http\Controllers\Admin\HolidayPackageController;
 use App\Http\Controllers\Admin\CateringPackageController;
 use App\Http\Controllers\Admin\LaundryPackageController;
@@ -106,42 +100,15 @@ Route::get('/pendaftaran/online/qris/{trx_id}', [ProgramOnlinePublicController::
 
 
 
-//brilliant
-Route::get('/program/bahasa/inggris', [ProgramInggrisController::class, 'showInggris'])
-    ->name('program.inggris');
-Route::get('/program/bahasa/jerman', [ProgramJermanController::class, 'showJerman'])->name('program.jerman');
-// Route baru
-Route::get('/brilliantalsaeidarabic', [ProgramArabController::class, 'showArab'])->name('program.arab');
-// Redirect dari URL lama ke URL baru
-Route::redirect('/program/bahasa/arab', '/brilliantalsaeidarabic');
-// Definisikan route untuk URL BARU yang Anda inginkan
+// Route Mandarin
 Route::get('/MandarinCenterPare', [ProgramMandarinController::class, 'showMandarin'])->name('program.mandarin');
-// Alihkan (redirect) URL LAMA ke URL BARU dengan status 301 (Moved Permanently)
+// Redirect URL lama ke URL baru
 Route::redirect('/program/bahasa/mandarin', '/MandarinCenterPare', 301);
 
-
-// Bieplus
-Route::get('/bieplus/program/bahasa/inggris', function () {
-    return app(ProgramInggrisController::class)->showInggris('bieplus');
-})->name('bieplus.program.inggris');
-
-Route::get('/bieplus/program/bahasa/jerman', function () {
-    return app(ProgramJermanController::class)->showJerman('bieplus');
-})->name('bieplus.program.jerman');
-
+// Bieplus - Mandarin
 Route::get('/bieplus/program/bahasa/mandarin', function () {
     return app(ProgramMandarinController::class)->showMandarin('bieplus');
 })->name('bieplus.program.mandarin');
-
-Route::get('/bieplus/program/bahasa/arab', function () {
-    return app(ProgramArabController::class)->showArab('bieplus');
-})->name('bieplus.program.arab');
-
-
-
-// PERUBAIKAN 2: Rute NHC diubah ke controller yang benar
-// ===============================================
-Route::get('/nhc', [ProgramNHCController::class, 'index'])->name('landing.nhc');
 
 // ===== ROUTE UNTUK UPLOAD BUKTI PEMBAYARAN =====
 Route::post('/payment/upload', [PaymentController::class, 'uploadProof'])->name('payment.upload');
