@@ -15,7 +15,7 @@
                 </span>
             </div>
             <button class="btn btn-success btn-sm ml-md-2" data-toggle="modal" data-target="#exportModal">
-                <i class="fas fa-file-csv mr-1"></i> Export CSV
+                <i class="fas fa-file-excel mr-1"></i> Export Excel
             </button>
         </div>
     </div>
@@ -38,7 +38,7 @@
             <form action="{{ route('admin.pendaftaran.offline.export') }}" method="GET">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exportModalLabel">Export Berdasarkan Tanggal & Program</h5>
+                        <h5 class="modal-title" id="exportModalLabel"><i class="fas fa-file-excel text-success mr-1"></i> Export Excel Pendaftaran Offline</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Export</button>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-download mr-1"></i> Download Excel</button>
                     </div>
                 </div>
             </form>

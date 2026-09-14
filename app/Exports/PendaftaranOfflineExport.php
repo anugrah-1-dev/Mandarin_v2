@@ -8,24 +8,53 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithDrawings;
+use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
-class PendaftaranOfflineExport implements FromCollection, WithHeadings, WithMapping, WithEvents, WithDrawings
+class PendaftaranOfflineExport implements FromCollection, WithHeadings, WithMapping, WithEvents, WithDrawings, WithTitle
 {
     protected $pendaftarans;
-    protected $row_height = 80;
-    protected $image_column_width = 25;
+    protected $startDate;
+    protected $endDate;
+    protected $programBahasaFilter;
+
+    protected $rowHeight       = 75;
+    protected $rowHeightNoImg  = 22;
+    protected $headerRowHeight = 36;
+    protected $titleRowHeight  = 38;
+    protected $imgColWidth     = 22;
+    protected $imgColIndex     = 16; // kolom P (1-based)
+    protected $totalCols       = 21; // A sampai U
+
+    const COLOR_HEADER_BG   = 'FF1B3A5C';
+    const COLOR_HEADER_FONT = 'FFFFFFFF';
+    const COLOR_TITLE_BG    = 'FF2563EB';
+    const COLOR_TITLE_FONT  = 'FFFFFFFF';
+    const COLOR_ROW_EVEN    = 'FFF0F7FF';
+    const COLOR_ROW_ODD     = 'FFFFFFFF';
+    const COLOR_BORDER      = 'FFB0C4D8';
+    const COLOR_TUNAI_BG    = 'FFD1FAE5';
+    const COLOR_TRANSFER_BG = 'FFDBEAFE';
+    const COLOR_PENDING_BG  = 'FFFFF3CD';
+    const COLOR_DITERIMA_BG = 'FFD4EDDA';
+    const COLOR_DITOLAK_BG  = 'FFF8D7DA';
 
     public function __construct($startDate, $endDate, $programBahasa = null)
     {
+        $this->startDate           = $startDate;
+        $this->endDate             = $endDate;
+        $this->programBahasaFilter = $programBahasa;
+
         $query = PendaftaranProgramOffline::with(['program', 'period', 'transport', 'bank'])
             ->whereDate('created_at', '>=', $startDate)
-            ->whereDate('created_at', '<=', $endDate);
+            ->whereDate('created_at', '<=', $endDate)
+            ->latest();
 
-        // filter program_bahasa kalau dipilih
         if ($programBahasa) {
             $query->whereHas('program', function ($q) use ($programBahasa) {
                 $q->where('program_bahasa', $programBahasa);
@@ -35,62 +64,67 @@ class PendaftaranOfflineExport implements FromCollection, WithHeadings, WithMapp
         $this->pendaftarans = $query->get();
     }
 
-
+    public function title(): string
+    {
+        return 'Data Pendaftar Offline';
+    }
 
     public function collection()
     {
-        // Mengembalikan data yang sudah diambil di constructor
         return $this->pendaftarans;
     }
 
     public function headings(): array
     {
+        $filter = $this->programBahasaFilter
+            ? '  |  Program: ' . ucfirst($this->programBahasaFilter)
+            : '  |  Semua Program';
+
         return [
-            'ID Transaksi',
-            'Nama Lengkap',
-            'Email',
-            'No HP',
-            'Asal Kota',
-            'Tempat Lahir',
-            'Tanggal Lahir',
-            'Gender',
-            'No Wali',
-            'Nama Program',
-            'Tanggal Periode',
-            'Transportasi',
-            'Ukuran Seragam',
-            'Tipe Pembayaran',
-            'Bank Tujuan',
-            'Bukti Pembayaran',
-            'Status',
-            'Subtotal',
-            'Akomodasi Tipe',
-            'Akomodasi Harga',
+            ['LAPORAN DATA PENDAFTAR PROGRAM OFFLINE', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+            [
+                'Periode: ' . \Carbon\Carbon::parse($this->startDate)->translatedFormat('d M Y')
+                    . ' s/d ' . \Carbon\Carbon::parse($this->endDate)->translatedFormat('d M Y')
+                    . $filter . '  |  Dicetak: ' . now()->translatedFormat('d M Y, H:i'),
+                '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+            ],
+            [
+                'No', 'ID Transaksi', 'Nama Lengkap', 'Email', 'No HP', 'Asal Kota',
+                'Tempat Lahir', 'Tanggal Lahir', 'Gender', 'No Wali', 'Nama Program',
+                'Tanggal Periode', 'Transportasi', 'Ukuran Seragam', 'Tipe Pembayaran',
+                'Bukti Pembayaran', 'Bank Tujuan', 'Status', 'Subtotal',
+                'Akomodasi Tipe', 'Akomodasi Harga',
+            ],
         ];
     }
 
-
     public function map($pendaftaran): array
     {
+        static $no = 0;
+        $no++;
+
         $periodText = '-';
         if ($pendaftaran->period) {
-            $tanggalMulai   = $pendaftaran->period->tanggal_mulai ?? $pendaftaran->period->date;
-            $tanggalSelesai = $pendaftaran->period->tanggal_selesai ?? $pendaftaran->period->date;
-            $startDate = \Carbon\Carbon::parse($tanggalMulai);
-            $endDate   = \Carbon\Carbon::parse($tanggalSelesai);
-            $periodText = $startDate->isSameDay($endDate)
-                ? $startDate->translatedFormat('d F Y')
-                : $startDate->translatedFormat('d M Y') . ' - ' . $endDate->translatedFormat('d M Y');
+            $mulai    = $pendaftaran->period->tanggal_mulai ?? $pendaftaran->period->date;
+            $selesai  = $pendaftaran->period->tanggal_selesai ?? $pendaftaran->period->date;
+            $tMulai   = \Carbon\Carbon::parse($mulai);
+            $tSelesai = \Carbon\Carbon::parse($selesai);
+            $periodText = $tMulai->isSameDay($tSelesai)
+                ? $tMulai->translatedFormat('d F Y')
+                : $tMulai->translatedFormat('d M Y') . ' - ' . $tSelesai->translatedFormat('d M Y');
         }
 
         return [
+            $no,
             $pendaftaran->trx_id,
             $pendaftaran->nama_lengkap,
             $pendaftaran->email,
             $pendaftaran->no_hp,
             $pendaftaran->asal_kota,
             $pendaftaran->tempat_lahir ?? '-',
-            $pendaftaran->tanggal_lahir ? \Carbon\Carbon::parse($pendaftaran->tanggal_lahir)->translatedFormat('d M Y') : '-',
+            $pendaftaran->tanggal_lahir
+                ? \Carbon\Carbon::parse($pendaftaran->tanggal_lahir)->translatedFormat('d M Y')
+                : '-',
             ucfirst($pendaftaran->gender ?? '-'),
             $pendaftaran->no_wali,
             $pendaftaran->program->nama ?? '-',
@@ -98,45 +132,49 @@ class PendaftaranOfflineExport implements FromCollection, WithHeadings, WithMapp
             $pendaftaran->transport->name ?? '-',
             strtoupper($pendaftaran->ukuran_seragam ?? '-'),
             ucfirst($pendaftaran->payment_type),
-            $pendaftaran->payment_type == 'transfer' ? ($pendaftaran->bank->name ?? '-') : '-',
-            $pendaftaran->payment_type == 'tunai' ? 'Tunai / Cash' : '',
-            $pendaftaran->status,
-            number_format($pendaftaran->subtotal, 0, ',', '.'),
+            $pendaftaran->payment_type === 'tunai' ? 'Tunai / Cash' : '',
+            $pendaftaran->payment_type === 'transfer' ? ($pendaftaran->bank->name ?? '-') : '-',
+            ucfirst($pendaftaran->status),
+            (float) ($pendaftaran->subtotal ?? 0),
             $pendaftaran->akomodasi_tipe ?? '-',
-            number_format($pendaftaran->akomodasi_harga, 0, ',', '.'),
+            (float) ($pendaftaran->akomodasi_harga ?? 0),
         ];
     }
 
     public function drawings()
     {
-        $drawings = [];
-        $columnWidthInPixels = $this->image_column_width * 7.5;
+        $drawings     = [];
+        $imgColLetter = Coordinate::stringFromColumnIndex($this->imgColIndex);
+        $colWidthPx   = $this->imgColWidth * 7.5;
 
         foreach ($this->pendaftarans as $key => $pendaftaran) {
-            // Tambahkan gambar hanya jika pembayaran transfer + ada bukti
             if ($pendaftaran->payment_type !== 'transfer' || !$pendaftaran->bukti_pembayaran) {
                 continue;
             }
 
             $pathToFile = public_path('storage/' . $pendaftaran->bukti_pembayaran);
-            if (!file_exists($pathToFile)) {
+            if (!file_exists($pathToFile) || !@getimagesize($pathToFile)) {
                 continue;
             }
+
+            [$origW, $origH] = getimagesize($pathToFile);
+
+            $maxH  = $this->rowHeight - 8;
+            $maxW  = $colWidthPx - 8;
+            $scale = min($maxW / max($origW, 1), $maxH / max($origH, 1), 1);
+            $newH  = (int) round($origH * $scale);
+            $newW  = (int) round($origW * $scale);
+
+            $excelRow = $key + 4;
 
             $drawing = new Drawing();
             $drawing->setName('Bukti Pembayaran');
             $drawing->setDescription($pendaftaran->nama_lengkap);
             $drawing->setPath($pathToFile);
-            $drawing->setCoordinates('L' . ($key + 2));
-
-            // Atur ukuran gambar sesuai tinggi baris
-            list($originalWidth, $originalHeight) = getimagesize($pathToFile);
-            $newHeight = $this->row_height - 10;
-            $drawing->setHeight($newHeight);
-
-            $newWidth = ($originalWidth / $originalHeight) * $newHeight;
-            $drawing->setOffsetX(($columnWidthInPixels - $newWidth) / 2);
-            $drawing->setOffsetY(($this->row_height - $newHeight) / 2);
+            $drawing->setCoordinates($imgColLetter . $excelRow);
+            $drawing->setHeight($newH);
+            $drawing->setOffsetX((int) max(($colWidthPx - $newW) / 2, 0));
+            $drawing->setOffsetY((int) max(($this->rowHeight - $newH) / 2, 0));
 
             $drawings[] = $drawing;
         }
@@ -148,52 +186,130 @@ class PendaftaranOfflineExport implements FromCollection, WithHeadings, WithMapp
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $sheet = $event->sheet;
-                $highestRow = $sheet->getDelegate()->getHighestRow();
-                $highestColumn = $sheet->getDelegate()->getHighestColumn();
-                $cellRange = 'A1:' . $highestColumn . $highestRow;
+                $ws         = $event->sheet->getDelegate();
+                $lastColLtr = Coordinate::stringFromColumnIndex($this->totalCols);
+                $totalRows  = $this->pendaftarans->count();
+                $lastRow    = $totalRows + 3;
+                $imgColLtr  = Coordinate::stringFromColumnIndex($this->imgColIndex);
 
-                // Style umum
-                $sheet->getStyle($cellRange)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
-                $sheet->getStyle('A1:' . $highestColumn . '1')->getFont()->setBold(true);
-                $sheet->getStyle('A1:' . $highestColumn . '1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-                $sheet->getDelegate()->getRowDimension(1)->setRowHeight(30);
-
-                // Per baris
-                foreach ($this->pendaftarans as $key => $pendaftaran) {
-                    $rowNumber = $key + 2;
-                    $rowDimension = $sheet->getDelegate()->getRowDimension($rowNumber);
-
-                    if (
-                        $pendaftaran->payment_type === 'transfer'
-                        && $pendaftaran->bukti_pembayaran
-                        && file_exists(public_path('storage/' . $pendaftaran->bukti_pembayaran))
-                    ) {
-
-                        $rowDimension->setRowHeight($this->row_height);
-                    } else {
-                        $rowDimension->setRowHeight(25);
-                    }
-
-                    // Tengahkan tulisan "Tunai / Cash"
-                    if ($pendaftaran->payment_type === 'tunai') {
-                        $sheet->getStyle('L' . $rowNumber)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-                    }
-                }
-
-                // Lebar kolom A–K auto, L fixed, M auto
-                foreach (range('A', 'K') as $col) {
-                    $sheet->getDelegate()->getColumnDimension($col)->setAutoSize(true);
-                }
-                $sheet->getDelegate()->getColumnDimension('L')->setWidth($this->image_column_width);
-                $sheet->getDelegate()->getColumnDimension('M')->setAutoSize(true);
-
-                // Border semua sel
-                $sheet->getStyle($cellRange)->applyFromArray([
-                    'borders' => [
-                        'allBorders' => ['borderStyle' => Border::BORDER_THIN]
-                    ]
+                // Baris 1: Judul
+                $ws->mergeCells('A1:' . $lastColLtr . '1');
+                $ws->getRowDimension(1)->setRowHeight($this->titleRowHeight);
+                $ws->getStyle('A1')->applyFromArray([
+                    'font'      => ['bold' => true, 'size' => 15, 'color' => ['argb' => self::COLOR_TITLE_FONT]],
+                    'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => self::COLOR_TITLE_BG]],
+                    'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER, 'vertical' => Alignment::VERTICAL_CENTER],
                 ]);
+
+                // Baris 2: Sub-info
+                $ws->mergeCells('A2:' . $lastColLtr . '2');
+                $ws->getRowDimension(2)->setRowHeight(20);
+                $ws->getStyle('A2')->applyFromArray([
+                    'font'      => ['italic' => true, 'size' => 9, 'color' => ['argb' => 'FF374151']],
+                    'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'FFE8F0FE']],
+                    'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER, 'vertical' => Alignment::VERTICAL_CENTER],
+                ]);
+
+                // Baris 3: Header Kolom
+                $ws->getRowDimension(3)->setRowHeight($this->headerRowHeight);
+                $ws->getStyle('A3:' . $lastColLtr . '3')->applyFromArray([
+                    'font'      => ['bold' => true, 'size' => 10, 'color' => ['argb' => self::COLOR_HEADER_FONT]],
+                    'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => self::COLOR_HEADER_BG]],
+                    'alignment' => [
+                        'horizontal' => Alignment::HORIZONTAL_CENTER,
+                        'vertical'   => Alignment::VERTICAL_CENTER,
+                        'wrapText'   => true,
+                    ],
+                    'borders' => [
+                        'allBorders' => ['borderStyle' => Border::BORDER_MEDIUM, 'color' => ['argb' => 'FFFFFFFF']],
+                    ],
+                ]);
+
+                // Baris Data
+                for ($row = 4; $row <= $lastRow; $row++) {
+                    $key         = $row - 4;
+                    $pendaftaran = $this->pendaftarans[$key] ?? null;
+
+                    $hasImage = $pendaftaran
+                        && $pendaftaran->payment_type === 'transfer'
+                        && $pendaftaran->bukti_pembayaran
+                        && file_exists(public_path('storage/' . $pendaftaran->bukti_pembayaran));
+
+                    $ws->getRowDimension($row)->setRowHeight(
+                        $hasImage ? $this->rowHeight : $this->rowHeightNoImg
+                    );
+
+                    $bgArgb   = ($row % 2 === 0) ? self::COLOR_ROW_EVEN : self::COLOR_ROW_ODD;
+                    $rowRange = 'A' . $row . ':' . $lastColLtr . $row;
+                    $ws->getStyle($rowRange)->applyFromArray([
+                        'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => $bgArgb]],
+                        'alignment' => ['vertical' => Alignment::VERTICAL_CENTER, 'wrapText' => true],
+                    ]);
+
+                    if ($pendaftaran) {
+                        $statusBg = match ($pendaftaran->status) {
+                            'diterima' => self::COLOR_DITERIMA_BG,
+                            'ditolak'  => self::COLOR_DITOLAK_BG,
+                            'pending'  => self::COLOR_PENDING_BG,
+                            default    => $bgArgb,
+                        };
+                        $ws->getStyle('R' . $row)->applyFromArray([
+                            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => $statusBg]],
+                            'font' => ['bold' => true],
+                        ]);
+
+                        $bayarBg = $pendaftaran->payment_type === 'tunai'
+                            ? self::COLOR_TUNAI_BG : self::COLOR_TRANSFER_BG;
+                        $ws->getStyle('O' . $row)->applyFromArray([
+                            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => $bayarBg]],
+                        ]);
+
+                        $ws->getStyle('P' . $row)->getAlignment()
+                            ->setHorizontal(Alignment::HORIZONTAL_CENTER)
+                            ->setVertical(Alignment::VERTICAL_CENTER);
+                    }
+                }
+
+                // Border tabel
+                if ($lastRow >= 3) {
+                    $ws->getStyle('A3:' . $lastColLtr . $lastRow)->applyFromArray([
+                        'borders' => [
+                            'allBorders' => ['borderStyle' => Border::BORDER_THIN,  'color' => ['argb' => self::COLOR_BORDER]],
+                            'outline'    => ['borderStyle' => Border::BORDER_MEDIUM, 'color' => ['argb' => self::COLOR_HEADER_BG]],
+                        ],
+                    ]);
+                }
+
+                // Format Currency
+                if ($lastRow >= 4) {
+                    $ws->getStyle('S4:S' . $lastRow)->getNumberFormat()->setFormatCode('"Rp "#,##0');
+                    $ws->getStyle('U4:U' . $lastRow)->getNumberFormat()->setFormatCode('"Rp "#,##0');
+                }
+
+                // Rata tengah kolom tertentu
+                if ($lastRow >= 4) {
+                    foreach (['A', 'I', 'N', 'O', 'R'] as $col) {
+                        $ws->getStyle($col . '4:' . $col . $lastRow)
+                            ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                    }
+                }
+
+                // Lebar kolom
+                $ws->getColumnDimension($imgColLtr)->setWidth($this->imgColWidth);
+                $ws->getColumnDimension('A')->setAutoSize(false)->setWidth(5);
+
+                for ($i = 2; $i <= $this->totalCols; $i++) {
+                    $col = Coordinate::stringFromColumnIndex($i);
+                    if ($col !== $imgColLtr) {
+                        $ws->getColumnDimension($col)->setAutoSize(true);
+                    }
+                }
+
+                // Freeze panes
+                $ws->freezePane('A4');
+
+                // Warna tab sheet
+                $ws->getParent()->getActiveSheet()->getTabColor()->setARGB(self::COLOR_TITLE_BG);
             },
         ];
     }
