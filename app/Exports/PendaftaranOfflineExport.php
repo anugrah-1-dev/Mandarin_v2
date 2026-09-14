@@ -164,10 +164,11 @@ class PendaftaranOfflineExport implements FromCollection, WithHeadings, WithMapp
             $newH  = (int) round($origH * $scale);
             $newW  = (int) round($origW * $scale);
 
-            // Baris 1 = header (dari headings()), data mulai baris 2.
-            // Setelah AfterSheet insert 2 baris di awal: data geser ke baris 4.
-            // Jadi $key=0 -> baris 4, $key=1 -> baris 5, dst.
-            $excelRow = $key + 4;
+            // drawings() dipanggil SEBELUM AfterSheet.
+            // Saat ini: row 1 = header kolom, data mulai row 2.
+            // Setelah insertNewRowBefore(1, 2) di AfterSheet, PhpSpreadsheet
+            // otomatis geser koordinat drawing +2, sehingga row 2 → row 4. ✓
+            $excelRow = $key + 2;
 
             $drawing = new Drawing();
             $drawing->setName('Bukti Pembayaran');
