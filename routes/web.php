@@ -227,6 +227,7 @@ Route::middleware(['auth', 'role:admin|officer'])->prefix('admin')->name('admin.
 
     // Pendaftaran Program Online
     Route::get('pendaftaran/online', [PendaftaranOnlineController::class, 'index'])->name('pendaftaran.online.index');
+    Route::get('/pendaftaran/online/export', [PendaftaranOnlineController::class, 'exportOnline'])->name('pendaftaran.online.export'); // ← HARUS sebelum /{id}
     Route::get('pendaftaran/online/{id}/edit', [PendaftaranOnlineController::class, 'edit'])->name('pendaftaran.online.edit');
     Route::put('pendaftaran/online/{id}', [PendaftaranOnlineController::class, 'update'])->name('pendaftaran.online.update');
     Route::delete('pendaftaran/online/{id}', [PendaftaranOnlineController::class, 'destroy'])->name('pendaftaran.online.destroy');
@@ -236,6 +237,7 @@ Route::middleware(['auth', 'role:admin|officer'])->prefix('admin')->name('admin.
 
     // Pendaftaran Program Offline
     Route::get('pendaftaran/offline', [PendaftaranOfflineController::class, 'index'])->name('pendaftaran.offline.index');
+    Route::get('/pendaftaran/offline/export', [PendaftaranOfflineController::class, 'export'])->name('pendaftaran.offline.export'); // ← HARUS sebelum /{id}
     Route::get('pendaftaran/offline/{id}/edit', [PendaftaranOfflineController::class, 'edit'])->name('pendaftaran.offline.edit');
     Route::put('pendaftaran/offline/{id}', [PendaftaranOfflineController::class, 'update'])->name('pendaftaran.offline.update');
     Route::delete('pendaftaran/offline/{id}', [PendaftaranOfflineController::class, 'destroy'])->name('pendaftaran.offline.destroy');
@@ -246,8 +248,8 @@ Route::middleware(['auth', 'role:admin|officer'])->prefix('admin')->name('admin.
         ->name('pendaftaran.offline.show');
 
     // Pendaftaran Program Camp
-
     Route::get('/pendaftaran/camp', [PendaftaranProgramCampController::class, 'index'])->name('pendaftaran.camp.index');
+    Route::get('/pendaftaran/camp/export', [PendaftaranProgramCampController::class, 'exportCamp'])->name('pendaftaran.camp.export'); // ← HARUS sebelum /{id}
     Route::get('/pendaftaran/camp/{id}/edit', [PendaftaranProgramCampController::class, 'edit'])->name('pendaftaran.camp.edit');
     Route::put('/pendaftaran/camp/{id}', [PendaftaranProgramCampController::class, 'update'])->name('pendaftaran.camp.update');
     Route::delete('/pendaftaran/camp/{id}', [PendaftaranProgramCampController::class, 'destroy'])->name('pendaftaran.camp.destroy');
@@ -264,13 +266,7 @@ Route::middleware(['auth', 'role:admin|officer'])->prefix('admin')->name('admin.
 
     Route::put('/pendaftaran/camp/update-status/{id}', [PendaftaranProgramCampController::class, 'updateStatus'])->name('pendaftaran.camp.update-status');
 
-    //CSV Export
-    Route::get('/pendaftaran/online/export', [PendaftaranOnlineController::class, 'exportOnline'])->name('pendaftaran.online.export');
 
-    //CSV Export
-    Route::get('/pendaftaran/offline/export', [PendaftaranOfflineController::class, 'export'])->name('pendaftaran.offline.export');
-
-    Route::get('/pendaftaran/camp/export', [PendaftaranProgramCampController::class, 'exportCamp'])->name('pendaftaran.camp.export');
 
     // Pembayaran
     // Route::post('/pembayaran', [PembayaranController::class, 'store'])->name('pembayaran.store');
