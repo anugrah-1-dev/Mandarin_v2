@@ -48,16 +48,17 @@ class PendaftaranOnlineExport implements FromCollection, WithHeadings, WithMappi
     {
         $this->startDate           = $startDate;
         $this->endDate             = $endDate;
-        $this->programBahasaFilter = $programBahasa;
+        $this->programBahasaFilter = $programBahasa ? trim($programBahasa) : null;
 
         $query = PendaftaranProgramOnline::with(['program', 'period', 'bank'])
-            ->whereDate('created_at', '>=', $startDate)
-            ->whereDate('created_at', '<=', $endDate)
+            ->where('created_at', '>=', $startDate . ' 00:00:00')
+            ->where('created_at', '<=', $endDate . ' 23:59:59')
             ->latest();
 
-        if ($programBahasa) {
-            $query->whereHas('program', function ($q) use ($programBahasa) {
-                $q->where('program_bahasa', $programBahasa);
+        if (!empty($this->programBahasaFilter)) {
+            $lower = strtolower($this->programBahasaFilter);
+            $query->whereHas('program', function ($q) use ($lower) {
+                $q->whereRaw('LOWER(program_bahasa) = ?', [$lower]);
             });
         }
 
@@ -89,8 +90,8 @@ class PendaftaranOnlineExport implements FromCollection, WithHeadings, WithMappi
 
     public function map($pendaftaran): array
     {
-        static $counter = 0;
-        $counter++;
+        $index = $this->pendaftarans->search(fn($p) => $p->id === $pendaftaran->id);
+        $no    = ($index !== false) ? $index + 1 : 0;
 
         $periodText = '-';
         if ($pendaftaran->period) {
@@ -106,7 +107,7 @@ class PendaftaranOnlineExport implements FromCollection, WithHeadings, WithMappi
         }
 
         return [
-            $counter,
+            $no,
             $pendaftaran->trx_id,
             $pendaftaran->nama_lengkap,
             $pendaftaran->email,

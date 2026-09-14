@@ -48,16 +48,19 @@ class PendaftaranOfflineExport implements FromCollection, WithHeadings, WithMapp
     {
         $this->startDate           = $startDate;
         $this->endDate             = $endDate;
-        $this->programBahasaFilter = $programBahasa;
+        $this->programBahasaFilter = $programBahasa ? trim($programBahasa) : null;
 
+        // Gunakan range datetime penuh (00:00:00 - 23:59:59) agar tidak miss data di hari yang sama
         $query = PendaftaranProgramOffline::with(['program', 'period', 'transport', 'bank'])
-            ->whereDate('created_at', '>=', $startDate)
-            ->whereDate('created_at', '<=', $endDate)
+            ->where('created_at', '>=', $startDate . ' 00:00:00')
+            ->where('created_at', '<=', $endDate . ' 23:59:59')
             ->latest();
 
-        if ($programBahasa) {
-            $query->whereHas('program', function ($q) use ($programBahasa) {
-                $q->where('program_bahasa', $programBahasa);
+        // Filter program_bahasa secara case-insensitive untuk menghindari mismatch
+        if (!empty($this->programBahasaFilter)) {
+            $lower = strtolower($this->programBahasaFilter);
+            $query->whereHas('program', function ($q) use ($lower) {
+                $q->whereRaw('LOWER(program_bahasa) = ?', [$lower]);
             });
         }
 
@@ -91,9 +94,9 @@ class PendaftaranOfflineExport implements FromCollection, WithHeadings, WithMapp
 
     public function map($pendaftaran): array
     {
-        // Hitung nomor urut berdasarkan posisi di koleksi
-        static $counter = 0;
-        $counter++;
+        // Cari posisi index dari koleksi (1-based)
+        $index = $this->pendaftarans->search(fn($p) => $p->id === $pendaftaran->id);
+        $no    = ($index !== false) ? $index + 1 : 0;
 
         $periodText = '-';
         if ($pendaftaran->period) {
@@ -107,7 +110,7 @@ class PendaftaranOfflineExport implements FromCollection, WithHeadings, WithMapp
         }
 
         return [
-            $counter,
+            $no,
             $pendaftaran->trx_id,
             $pendaftaran->nama_lengkap,
             $pendaftaran->email,
