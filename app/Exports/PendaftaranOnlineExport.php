@@ -23,19 +23,13 @@ class PendaftaranOnlineExport implements FromCollection, WithHeadings, WithMappi
     protected $endDate;
     protected $programBahasaFilter;
 
-    // Konfigurasi tampilan
     protected $rowHeight       = 75;
     protected $rowHeightNoImg  = 22;
     protected $headerRowHeight = 36;
     protected $titleRowHeight  = 38;
     protected $imgColWidth     = 22;
-
-    // Urutan kolom:
-    // A:No  B:TRX  C:Nama  D:Email  E:HP  F:Kota
-    // G:Program  H:Periode  I:TipeBayar  J:BankTujuan
-    // K:BuktiPembayaran  L:Status  M:Subtotal
-    protected $imgColIndex = 11; // kolom K (1-based)
-    protected $totalCols   = 13; // A sampai M
+    protected $imgColIndex     = 11; // kolom K — Bukti Pembayaran (1-based)
+    protected $totalCols       = 13; // A-M
 
     const COLOR_HEADER_BG   = 'FF0F4C81';
     const COLOR_HEADER_FONT = 'FFFFFFFF';
@@ -80,35 +74,23 @@ class PendaftaranOnlineExport implements FromCollection, WithHeadings, WithMappi
         return $this->pendaftarans;
     }
 
+    /**
+     * headings() hanya 1 baris header kolom (flat array).
+     * Baris judul & sub-info disisipkan via AfterSheet insertNewRowBefore.
+     */
     public function headings(): array
     {
-        $filter = $this->programBahasaFilter
-            ? '  |  Program: ' . ucfirst($this->programBahasaFilter)
-            : '  |  Semua Program';
-
         return [
-            // Baris 1 — judul
-            ['LAPORAN DATA PENDAFTAR PROGRAM ONLINE', '', '', '', '', '', '', '', '', '', '', '', ''],
-            // Baris 2 — sub-info
-            [
-                'Periode: ' . \Carbon\Carbon::parse($this->startDate)->translatedFormat('d M Y')
-                    . ' s/d ' . \Carbon\Carbon::parse($this->endDate)->translatedFormat('d M Y')
-                    . $filter . '  |  Dicetak: ' . now()->translatedFormat('d M Y, H:i'),
-                '', '', '', '', '', '', '', '', '', '', '', '',
-            ],
-            // Baris 3 — header kolom
-            [
-                'No', 'ID Transaksi', 'Nama Lengkap', 'Email', 'No HP', 'Asal Kota',
-                'Nama Program', 'Tanggal Periode', 'Tipe Pembayaran', 'Bank Tujuan',
-                'Bukti Pembayaran', 'Status', 'Subtotal',
-            ],
+            'No', 'ID Transaksi', 'Nama Lengkap', 'Email', 'No HP', 'Asal Kota',
+            'Nama Program', 'Tanggal Periode', 'Tipe Pembayaran', 'Bank Tujuan',
+            'Bukti Pembayaran', 'Status', 'Subtotal',
         ];
     }
 
     public function map($pendaftaran): array
     {
-        static $no = 0;
-        $no++;
+        static $counter = 0;
+        $counter++;
 
         $periodText = '-';
         if ($pendaftaran->period) {
@@ -124,7 +106,7 @@ class PendaftaranOnlineExport implements FromCollection, WithHeadings, WithMappi
         }
 
         return [
-            $no,
+            $counter,
             $pendaftaran->trx_id,
             $pendaftaran->nama_lengkap,
             $pendaftaran->email,
@@ -164,6 +146,8 @@ class PendaftaranOnlineExport implements FromCollection, WithHeadings, WithMappi
             $newH  = (int) round($origH * $scale);
             $newW  = (int) round($origW * $scale);
 
+            // Baris 1 = header, data di baris 2+.
+            // Setelah AfterSheet insert 2 baris: data geser ke baris 4+.
             $excelRow = $key + 4;
 
             $drawing = new Drawing();
@@ -188,10 +172,19 @@ class PendaftaranOnlineExport implements FromCollection, WithHeadings, WithMappi
                 $ws         = $event->sheet->getDelegate();
                 $lastColLtr = Coordinate::stringFromColumnIndex($this->totalCols);
                 $totalRows  = $this->pendaftarans->count();
-                $lastRow    = $totalRows + 3;
                 $imgColLtr  = Coordinate::stringFromColumnIndex($this->imgColIndex);
 
-                // Baris 1: Judul
+                // ── Insert 2 baris di paling atas ─────────────────────────────
+                $ws->insertNewRowBefore(1, 2);
+
+                $lastRow = $totalRows + 3;
+
+                // ── Baris 1: Judul ─────────────────────────────────────────────
+                $filter = $this->programBahasaFilter
+                    ? '  |  Program: ' . ucfirst($this->programBahasaFilter)
+                    : '  |  Semua Program';
+
+                $ws->setCellValue('A1', 'LAPORAN DATA PENDAFTAR PROGRAM ONLINE');
                 $ws->mergeCells('A1:' . $lastColLtr . '1');
                 $ws->getRowDimension(1)->setRowHeight($this->titleRowHeight);
                 $ws->getStyle('A1')->applyFromArray([
@@ -200,7 +193,12 @@ class PendaftaranOnlineExport implements FromCollection, WithHeadings, WithMappi
                     'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER, 'vertical' => Alignment::VERTICAL_CENTER],
                 ]);
 
-                // Baris 2: Sub-info
+                // ── Baris 2: Sub-info ──────────────────────────────────────────
+                $subInfo = 'Periode: ' . \Carbon\Carbon::parse($this->startDate)->translatedFormat('d M Y')
+                    . ' s/d ' . \Carbon\Carbon::parse($this->endDate)->translatedFormat('d M Y')
+                    . $filter . '  |  Dicetak: ' . now()->translatedFormat('d M Y, H:i');
+
+                $ws->setCellValue('A2', $subInfo);
                 $ws->mergeCells('A2:' . $lastColLtr . '2');
                 $ws->getRowDimension(2)->setRowHeight(20);
                 $ws->getStyle('A2')->applyFromArray([
@@ -209,7 +207,7 @@ class PendaftaranOnlineExport implements FromCollection, WithHeadings, WithMappi
                     'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER, 'vertical' => Alignment::VERTICAL_CENTER],
                 ]);
 
-                // Baris 3: Header Kolom
+                // ── Baris 3: Header Kolom ──────────────────────────────────────
                 $ws->getRowDimension(3)->setRowHeight($this->headerRowHeight);
                 $ws->getStyle('A3:' . $lastColLtr . '3')->applyFromArray([
                     'font'      => ['bold' => true, 'size' => 10, 'color' => ['argb' => self::COLOR_HEADER_FONT]],
@@ -224,7 +222,7 @@ class PendaftaranOnlineExport implements FromCollection, WithHeadings, WithMappi
                     ],
                 ]);
 
-                // Baris Data
+                // ── Baris Data ─────────────────────────────────────────────────
                 for ($row = 4; $row <= $lastRow; $row++) {
                     $key         = $row - 4;
                     $pendaftaran = $this->pendaftarans[$key] ?? null;
@@ -245,7 +243,6 @@ class PendaftaranOnlineExport implements FromCollection, WithHeadings, WithMappi
                     ]);
 
                     if ($pendaftaran) {
-                        // Warna status (kolom L)
                         $statusBg = match ($pendaftaran->status) {
                             'diterima' => self::COLOR_DITERIMA_BG,
                             'ditolak'  => self::COLOR_DITOLAK_BG,
@@ -257,21 +254,19 @@ class PendaftaranOnlineExport implements FromCollection, WithHeadings, WithMappi
                             'font' => ['bold' => true],
                         ]);
 
-                        // Warna tipe pembayaran (kolom I)
                         $bayarBg = ($pendaftaran->payment_type === 'tunai')
                             ? self::COLOR_TUNAI_BG : self::COLOR_TRANSFER_BG;
                         $ws->getStyle('I' . $row)->applyFromArray([
                             'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => $bayarBg]],
                         ]);
 
-                        // Tengahkan kolom K (bukti)
                         $ws->getStyle('K' . $row)->getAlignment()
                             ->setHorizontal(Alignment::HORIZONTAL_CENTER)
                             ->setVertical(Alignment::VERTICAL_CENTER);
                     }
                 }
 
-                // Border tabel
+                // ── Border tabel ───────────────────────────────────────────────
                 if ($lastRow >= 3) {
                     $ws->getStyle('A3:' . $lastColLtr . $lastRow)->applyFromArray([
                         'borders' => [
@@ -281,12 +276,12 @@ class PendaftaranOnlineExport implements FromCollection, WithHeadings, WithMappi
                     ]);
                 }
 
-                // Format Currency (kolom M)
+                // ── Format Currency ────────────────────────────────────────────
                 if ($lastRow >= 4) {
                     $ws->getStyle('M4:M' . $lastRow)->getNumberFormat()->setFormatCode('"Rp "#,##0');
                 }
 
-                // Rata tengah kolom tertentu
+                // ── Rata tengah ────────────────────────────────────────────────
                 if ($lastRow >= 4) {
                     foreach (['A', 'I', 'L'] as $col) {
                         $ws->getStyle($col . '4:' . $col . $lastRow)
@@ -294,7 +289,7 @@ class PendaftaranOnlineExport implements FromCollection, WithHeadings, WithMappi
                     }
                 }
 
-                // Lebar kolom
+                // ── Lebar kolom ────────────────────────────────────────────────
                 $ws->getColumnDimension($imgColLtr)->setWidth($this->imgColWidth);
                 $ws->getColumnDimension('A')->setAutoSize(false)->setWidth(5);
 
@@ -305,10 +300,10 @@ class PendaftaranOnlineExport implements FromCollection, WithHeadings, WithMappi
                     }
                 }
 
-                // Freeze panes
+                // ── Freeze panes ───────────────────────────────────────────────
                 $ws->freezePane('A4');
 
-                // Warna tab sheet
+                // ── Warna tab sheet ────────────────────────────────────────────
                 $ws->getParent()->getActiveSheet()->getTabColor()->setARGB(self::COLOR_TITLE_BG);
             },
         ];
