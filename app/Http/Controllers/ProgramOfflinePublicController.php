@@ -107,18 +107,7 @@ class ProgramOfflinePublicController extends Controller
             return redirect()->back()->with('error', 'Kuota untuk program ini sudah habis!');
         }
 
-        // Logika TRX-ID: tahun (Y) + bulan (m) + tanggal (d) + jam (H) + menit (i) + detik (s) + CODE_UNIK
-        // Dilengkapi loop pengecekan agar dijamin 100% unik dan tidak terjadi duplicate key violation
-        $now = Carbon::now('Asia/Jakarta');
         $codeUnik = env('CODE_UNIK', '002');
-        $baseTrxId = $now->format('YmdHis') . str_pad($codeUnik, 3, '0', STR_PAD_LEFT);
-        $newTrxId = $baseTrxId;
-        $counter = 1;
-        while (PendaftaranProgramOffline::where('trx_id', $newTrxId)->exists()) {
-            $newTrxId = $baseTrxId . $counter;
-            $counter++;
-        }
-
         $programPrice = $program->harga;
         $transportPrice = 0;
 
@@ -206,31 +195,47 @@ class ProgramOfflinePublicController extends Controller
             $sisaTagihan = null;
         }
 
-        $pendaftaran = PendaftaranProgramOffline::create([
-            'trx_id'        => $newTrxId,
-            'program_id'    => $program->id,
-            'period_id'     => $program->program_bahasa !== 'nhc' ? ($validated['period_id'] ?? null) : null,
-            'period_nhc_id' => $program->program_bahasa === 'nhc' ? ($validated['period_nhc_id'] ?? null) : null,
-            'transport_id'  => $validated['transport_id'] ?? null,
-            'nama_lengkap'  => $validated['nama_lengkap'],
-            'email'         => $validated['email'],
-            'no_hp'         => $validated['no_hp'],
-            'asal_kota'     => $validated['asal_kota'] ?? null,
-            'tempat_lahir'  => $validated['tempat_lahir'],
-            'tanggal_lahir' => $validated['tanggal_lahir'],
-            'gender'        => $validated['gender'],
-            'no_wali'       => $validated['no_wali'] ?? null,
-            'status'        => 'pending',
-            'payment_type'  => $validated['payment_type'],
-            'bank_id'       => $validated['bank_id'] ?? null,
-            'akomodasi_tipe' => $akomodasiTipe,
-            'akomodasi_harga' => $akomodasiHarga,
-            'subtotal'      => $subtotal,
-            'ukuran_seragam' => $validated['ukuran_seragam'] ?? null,
-            'tipe_bayar_dp' => $tipeBayarDp,
-            'jumlah_dp'     => $jumlahDp,
-            'sisa_tagihan'  => $sisaTagihan,
-        ]);
+        // Generate TRX-ID yang dijamin 100% unik & anti-collision dengan retry
+        $pendaftaran = retry(5, function () use (
+            $validated, $program, $akomodasiTipe, $akomodasiHarga, $subtotal, $tipeBayarDp, $jumlahDp, $sisaTagihan
+        ) {
+            $now = Carbon::now('Asia/Jakarta');
+            $codeUnik = str_pad(env('CODE_UNIK', '002'), 3, '0', STR_PAD_LEFT);
+            $random = str_pad((string) random_int(100, 999), 3, '0', STR_PAD_LEFT);
+            $baseTrxId = $now->format('YmdHis') . $random . $codeUnik;
+            $newTrxId = $baseTrxId;
+            $counter = 1;
+            while (PendaftaranProgramOffline::where('trx_id', $newTrxId)->exists()) {
+                $newTrxId = $baseTrxId . $counter;
+                $counter++;
+            }
+
+            return PendaftaranProgramOffline::create([
+                'trx_id'        => $newTrxId,
+                'program_id'    => $program->id,
+                'period_id'     => $program->program_bahasa !== 'nhc' ? ($validated['period_id'] ?? null) : null,
+                'period_nhc_id' => $program->program_bahasa === 'nhc' ? ($validated['period_nhc_id'] ?? null) : null,
+                'transport_id'  => $validated['transport_id'] ?? null,
+                'nama_lengkap'  => $validated['nama_lengkap'],
+                'email'         => $validated['email'],
+                'no_hp'         => $validated['no_hp'],
+                'asal_kota'     => $validated['asal_kota'] ?? null,
+                'tempat_lahir'  => $validated['tempat_lahir'],
+                'tanggal_lahir' => $validated['tanggal_lahir'],
+                'gender'        => $validated['gender'],
+                'no_wali'       => $validated['no_wali'] ?? null,
+                'status'        => 'pending',
+                'payment_type'  => $validated['payment_type'],
+                'bank_id'       => $validated['bank_id'] ?? null,
+                'akomodasi_tipe' => $akomodasiTipe,
+                'akomodasi_harga' => $akomodasiHarga,
+                'subtotal'      => $subtotal,
+                'ukuran_seragam' => $validated['ukuran_seragam'] ?? null,
+                'tipe_bayar_dp' => $tipeBayarDp,
+                'jumlah_dp'     => $jumlahDp,
+                'sisa_tagihan'  => $sisaTagihan,
+            ]);
+        }, 100);
 
         // === setelah create $pendaftaran ===
 
@@ -345,7 +350,7 @@ class ProgramOfflinePublicController extends Controller
         } elseif ($pendaftaran->payment_type === 'qris') {
             return redirect()->route('public.pendaftaran.offline.sukses.qris', ['trx_id' => $pendaftaran->trx_id]);
         } else {
-            return redirect()->route('public.pendaftaran.offline.pembayaran', ['trx_id' => $newTrxId])
+            return redirect()->route('public.pendaftaran.offline.pembayaran', ['trx_id' => $pendaftaran->trx_id])
                 ->with('success_message', 'Pendaftaran awal berhasil! Silakan lanjutkan ke tahap pembayaran.');
         }
     }

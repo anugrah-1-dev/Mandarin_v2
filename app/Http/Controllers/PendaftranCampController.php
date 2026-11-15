@@ -66,36 +66,35 @@ class PendaftranCampController extends Controller
             return redirect()->back()->with('error', 'Stok program camp sudah habis!');
         }
 
-        // Buat trx_id
-        $prefix = 'TRXC-' . now()->format('Ymd') . '-';
-        $last = PendaftaranProgramCamp::where('trx_id', 'like', $prefix . '%')
-            ->orderBy('id', 'desc')
-            ->first();
-        $nextNumber = $last ? ((int) str_replace($prefix, '', $last->trx_id) + 1) : 1;
-        $trx_id = $prefix . $nextNumber;
-        while (PendaftaranProgramCamp::where('trx_id', $trx_id)->exists()) {
-            $nextNumber++;
+        // Buat trx_id unik dan simpan dengan retry anti-collision
+        $pendaftaran = retry(5, function () use ($validated, $program) {
+            $prefix = 'TRXC-' . now('Asia/Jakarta')->format('Ymd') . '-';
+            $last = PendaftaranProgramCamp::where('trx_id', 'like', $prefix . '%')
+                ->orderBy('id', 'desc')
+                ->first();
+            $nextNumber = $last ? ((int) str_replace($prefix, '', $last->trx_id) + 1) : 1;
             $trx_id = $prefix . $nextNumber;
-        }
+            while (PendaftaranProgramCamp::where('trx_id', $trx_id)->exists()) {
+                $nextNumber++;
+                $trx_id = $prefix . $nextNumber;
+            }
 
-
-        
-        // Simpan pendaftaran
-        $pendaftaran = PendaftaranProgramCamp::create([
-            'nama_lengkap'     => $validated['nama_lengkap'],
-            'email'            => $validated['email'],
-            'no_hp'            => $validated['no_hp'],
-            'asal_kota'        => $validated['asal_kota'],
-            'gender'           => $validated['gender'],
-            'program_camp_id'  => $program->id,
-            'period_id'        => $validated['period_id'],
-            'durasi_paket'     => $validated['durasi_paket'],
-            'bank_id'          => $validated['bank_id'],
-            'payment_type'     => $validated['payment_type'],
-            'status'           => 'pending',
-            'nama_kamar'       => null,
-            'trx_id'           => $trx_id,
-        ]);
+            return PendaftaranProgramCamp::create([
+                'nama_lengkap'     => $validated['nama_lengkap'],
+                'email'            => $validated['email'],
+                'no_hp'            => $validated['no_hp'],
+                'asal_kota'        => $validated['asal_kota'],
+                'gender'           => $validated['gender'],
+                'program_camp_id'  => $program->id,
+                'period_id'        => $validated['period_id'],
+                'durasi_paket'     => $validated['durasi_paket'],
+                'bank_id'          => $validated['bank_id'],
+                'payment_type'     => $validated['payment_type'],
+                'status'           => 'pending',
+                'nama_kamar'       => null,
+                'trx_id'           => $trx_id,
+            ]);
+        }, 100);
 
 
         $programcamp = $pendaftaran->program->nama ?? 'Tidak ada program';

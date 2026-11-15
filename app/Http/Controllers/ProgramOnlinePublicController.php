@@ -52,24 +52,6 @@ class ProgramOnlinePublicController extends Controller
             'akomodasi'    => 'nullable|string', // ✅ pakai string "vip" / "reguler"
         ]);
 
-        // === TRX-ID unik ===
-        $today  = Carbon::now()->format('Ymd');
-        $prefix = 'TRX-ONL-' . $today . '-';
-
-        $lastRegistration = PendaftaranProgramOnline::where('trx_id', 'like', $prefix . '%')
-            ->orderBy('id', 'desc')
-            ->first();
-
-        $nextSequence = $lastRegistration
-            ? (int) str_replace($prefix, '', $lastRegistration->trx_id) + 1
-            : 1;
-
-        $newTrxId = $prefix . $nextSequence;
-        while (PendaftaranProgramOnline::where('trx_id', $newTrxId)->exists()) {
-            $nextSequence++;
-            $newTrxId = $prefix . $nextSequence;
-        }
-
         // === Harga Program ===
         $programPrice = $program->harga ?? 0;
 
@@ -93,24 +75,43 @@ class ProgramOnlinePublicController extends Controller
         // === Subtotal ===
         $subtotal = $programPrice + $akomodasiHarga + $biayaAdmin;
 
-        // === Simpan ke DB ===
-        $pendaftaran = PendaftaranProgramOnline::create([
-            'trx_id'          => $newTrxId,
-            'program_id'      => $program->id,
-            'period_id'       => $validated['period_id'],
-            'bank_id'         => $validated['bank_id'] ?? null,
-            'nama_lengkap'    => $validated['nama_lengkap'],
-            'email'           => $validated['email'],
-            'no_hp'           => $validated['no_hp'],
-            'asal_kota'       => $validated['asal_kota'] ?? null,
-            'payment_type'    => $validated['payment_type'],
-            'status'          => 'pending',
+        // === Simpan ke DB dengan ID transaksi unik dan retry anti-collision ===
+        $pendaftaran = retry(5, function () use (
+            $validated, $program, $akomodasiTipe, $akomodasiHarga, $subtotal
+        ) {
+            $today  = Carbon::now('Asia/Jakarta')->format('Ymd');
+            $prefix = 'TRX-ONL-' . $today . '-';
 
-            // ✅ field baru
-            'akomodasi_tipe'  => $akomodasiTipe,
-            'akomodasi_harga' => $akomodasiHarga,
-            'subtotal'        => $subtotal,
-        ]);
+            $lastRegistration = PendaftaranProgramOnline::where('trx_id', 'like', $prefix . '%')
+                ->orderBy('id', 'desc')
+                ->first();
+
+            $nextSequence = $lastRegistration
+                ? (int) str_replace($prefix, '', $lastRegistration->trx_id) + 1
+                : 1;
+
+            $newTrxId = $prefix . $nextSequence;
+            while (PendaftaranProgramOnline::where('trx_id', $newTrxId)->exists()) {
+                $nextSequence++;
+                $newTrxId = $prefix . $nextSequence;
+            }
+
+            return PendaftaranProgramOnline::create([
+                'trx_id'          => $newTrxId,
+                'program_id'      => $program->id,
+                'period_id'       => $validated['period_id'],
+                'bank_id'         => $validated['bank_id'] ?? null,
+                'nama_lengkap'    => $validated['nama_lengkap'],
+                'email'           => $validated['email'],
+                'no_hp'           => $validated['no_hp'],
+                'asal_kota'       => $validated['asal_kota'] ?? null,
+                'payment_type'    => $validated['payment_type'],
+                'status'          => 'pending',
+                'akomodasi_tipe'  => $akomodasiTipe,
+                'akomodasi_harga' => $akomodasiHarga,
+                'subtotal'        => $subtotal,
+            ]);
+        }, 100);
 
         $programName = $pendaftaran->program->nama ?? 'Tidak ada program';
         $period = Period::find($pendaftaran->period_id);
@@ -164,7 +165,7 @@ class ProgramOnlinePublicController extends Controller
         } elseif ($pendaftaran->payment_type === 'qris') {
             return redirect()->route('public.pendaftaran.online.sukses.qris', ['trx_id' => $pendaftaran->trx_id]);
         } else {
-            return redirect()->route('public.pendaftaran.online.pembayaran', ['trx_id' => $newTrxId])
+            return redirect()->route('public.pendaftaran.online.pembayaran', ['trx_id' => $pendaftaran->trx_id])
                 ->with('success_message', 'Pendaftaran awal berhasil! Silakan lanjutkan ke tahap pembayaran.');
         }
     }
