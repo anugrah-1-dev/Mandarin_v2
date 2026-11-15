@@ -159,6 +159,10 @@
                                         action="{{ route('public.program.offline.daftar', $program->slug) }}"
                                         enctype="multipart/form-data">
                                         @csrf
+                                        {{-- Honeypot anti-bot --}}
+                                        <div style="display:none !important; opacity:0; position:absolute; left:-9999px;">
+                                            <input type="text" name="website" tabindex="-1" autocomplete="off">
+                                        </div>
                                         <div class="mb-3">
                                             <label for="nama_lengkap" class="form-label"><i class="bi bi-person-fill"></i> Nama
                                             </label>

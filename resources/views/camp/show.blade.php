@@ -416,6 +416,10 @@
 
                 <form id="pendaftaranForm" action="{{ route('camp.pendaftaran.store', $program->id) }}" method="POST">
                     @csrf
+                    {{-- Honeypot anti-bot --}}
+                    <div style="display:none !important; opacity:0; position:absolute; left:-9999px;">
+                        <input type="text" name="website" tabindex="-1" autocomplete="off">
+                    </div>
                     <input type="hidden" name="program_id" value="{{ $program->id }}">
 
                     <div class="row g-3 mb-4">

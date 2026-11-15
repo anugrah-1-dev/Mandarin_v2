@@ -35,12 +35,17 @@ class ProgramOnlinePublicController extends Controller
      */
     public function daftar(Request $request, ProgramOnline $program)
     {
+        // Proteksi spam bot (honeypot)
+        if ($request->filled('website') || $request->filled('url_address')) {
+            return redirect()->back()->with('error', 'Pendaftaran tidak valid.');
+        }
+
         // Validasi
         $validated = $request->validate([
-            'nama_lengkap' => 'required|string|max:255',
+            'nama_lengkap' => ['required', 'string', 'max:255', 'not_regex:/<[^>]*>/', 'not_regex:/(http|https):\/\//i'],
             'email'        => 'required|email',
             'no_hp'        => ['required', 'string', 'max:20', 'regex:/^[0-9+\-\s()]{8,20}$/'],
-            'asal_kota'    => 'nullable|string|max:100',
+            'asal_kota'    => ['nullable', 'string', 'max:100', 'not_regex:/(http|https):\/\//i'],
             'period_id'    => 'required|exists:periods,id',
             'payment_type' => 'required|in:tunai,transfer',
             'bank_id'      => 'required_if:payment_type,transfer|nullable|exists:banks,id',

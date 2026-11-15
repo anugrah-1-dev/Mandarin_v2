@@ -42,11 +42,16 @@ class PendaftranCampController extends Controller
 
     public function store(Request $request, ProgramCamp $program)
     {
+        // Proteksi spam bot (honeypot)
+        if ($request->filled('website') || $request->filled('url_address')) {
+            return redirect()->back()->with('error', 'Pendaftaran tidak valid.');
+        }
+
         $validated = $request->validate([
-            'nama_lengkap'   => 'required|string|max:255',
+            'nama_lengkap'   => ['required', 'string', 'max:255', 'not_regex:/<[^>]*>/', 'not_regex:/(http|https):\/\//i'],
             'email'          => 'required|email|max:255',
             'no_hp'          => ['required', 'string', 'max:20', 'regex:/^[0-9+\-\s()]{8,20}$/'],
-            'asal_kota'      => 'required|string|max:100',
+            'asal_kota'      => ['required', 'string', 'max:100', 'not_regex:/(http|https):\/\//i'],
             'period_id'      => 'required|exists:periods,id',
             'durasi_paket'   => 'required|in:perhari,satu_minggu,dua_minggu,tiga_minggu,satu_bulan,dua_bulan,tiga_bulan,enam_bulan,satu_tahun',
             'gender'         => 'required|in:putra,putri',

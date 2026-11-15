@@ -68,13 +68,18 @@ class ProgramOfflinePublicController extends Controller
      */
     public function daftar(Request $request, ProgramOffline $program)
     {
+        // Proteksi spam bot (honeypot)
+        if ($request->filled('website') || $request->filled('url_address')) {
+            return redirect()->back()->with('error', 'Pendaftaran tidak valid.');
+        }
+
         // Validasi
         $rules = [
-            'nama_lengkap'   => 'required|string|max:255',
+            'nama_lengkap'   => ['required', 'string', 'max:255', 'not_regex:/<[^>]*>/', 'not_regex:/(http|https):\/\//i'],
             'email'          => 'required|email',
             'no_hp'          => ['required', 'string', 'max:20', 'regex:/^[0-9+\-\s()]{8,20}$/'],
-            'asal_kota'      => 'nullable|string|max:100',
-            'tempat_lahir'   => 'required|string|max:100',
+            'asal_kota'      => ['nullable', 'string', 'max:100', 'not_regex:/(http|https):\/\//i'],
+            'tempat_lahir'   => ['required', 'string', 'max:100', 'not_regex:/(http|https):\/\//i'],
             'tanggal_lahir'  => 'required|date',
             'gender'         => 'required|in:Laki-laki,Perempuan',
             'no_wali'        => 'nullable|string|max:20',
