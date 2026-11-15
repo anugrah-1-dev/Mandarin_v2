@@ -25,10 +25,17 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
         // Pastikan View facade di-import
         \Illuminate\Support\Facades\View::composer('*', function ($view) {
-            $view->with('contactServices', Customer_Service::all());
-            $view->with('navLogo1', Logo::where('key', 'logo1')->first());
-            $view->with('navLogo2', Logo::where('key', 'logo2')->first());
-            $view->with('popupPoster', Logo::where('key', 'popup_poster')->first());
+            try {
+                $view->with('contactServices', Customer_Service::all());
+                $view->with('navLogo1', Logo::where('key', 'logo1')->first());
+                $view->with('navLogo2', Logo::where('key', 'logo2')->first());
+                $view->with('popupPoster', Logo::where('key', 'popup_poster')->first());
+            } catch (\Throwable $e) {
+                $view->with('contactServices', collect());
+                $view->with('navLogo1', null);
+                $view->with('navLogo2', null);
+                $view->with('popupPoster', null);
+            }
         });
     }
 }

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class ProgramOnlinePublicController extends Controller
 {
@@ -38,7 +39,7 @@ class ProgramOnlinePublicController extends Controller
         $validated = $request->validate([
             'nama_lengkap' => 'required|string|max:255',
             'email'        => 'required|email',
-            'no_hp'        => 'required|string|max:20',
+            'no_hp'        => ['required', 'string', 'max:20', 'regex:/^[0-9+\-\s()]{8,20}$/'],
             'asal_kota'    => 'nullable|string|max:100',
             'period_id'    => 'required|exists:periods,id',
             'payment_type' => 'required|in:tunai,transfer',
@@ -59,6 +60,10 @@ class ProgramOnlinePublicController extends Controller
             : 1;
 
         $newTrxId = $prefix . $nextSequence;
+        while (PendaftaranProgramOnline::where('trx_id', $newTrxId)->exists()) {
+            $nextSequence++;
+            $newTrxId = $prefix . $nextSequence;
+        }
 
         // === Harga Program ===
         $programPrice = $program->harga ?? 0;
@@ -127,14 +132,24 @@ class ProgramOnlinePublicController extends Controller
 
         $message .= "_!>w<!_";
 
-        $chatIds = explode(',', env('TELEGRAM_CHAT_IDS'));
+        $botToken = env('TELEGRAM_BOT_TOKEN');
+        $chatIdsRaw = env('TELEGRAM_CHAT_IDS');
 
-        foreach ($chatIds as $chatId) {
-            Http::post("https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN') . "/sendMessage", [
-                'chat_id' => trim($chatId),
-                'text'    => $message,
-                'parse_mode' => 'Markdown'
-            ]);
+        if (!empty($botToken) && !empty($chatIdsRaw)) {
+            try {
+                $chatIds = array_filter(array_map('trim', explode(',', $chatIdsRaw)));
+                foreach ($chatIds as $chatId) {
+                    if (!empty($chatId)) {
+                        Http::timeout(5)->post("https://api.telegram.org/bot{$botToken}/sendMessage", [
+                            'chat_id'    => $chatId,
+                            'text'       => $message,
+                            'parse_mode' => 'Markdown'
+                        ]);
+                    }
+                }
+            } catch (\Throwable $e) {
+                Log::warning('Gagal kirim notifikasi Telegram (online): ' . $e->getMessage());
+            }
         }
 
 

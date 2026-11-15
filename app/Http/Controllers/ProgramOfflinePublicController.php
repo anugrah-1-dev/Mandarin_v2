@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Models\ProgramCamp;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use App\Models\PeriodNHC;
 use App\Models\CateringPackage;
 use App\Models\HolidayPackage;
@@ -71,7 +72,7 @@ class ProgramOfflinePublicController extends Controller
         $rules = [
             'nama_lengkap'   => 'required|string|max:255',
             'email'          => 'required|email',
-            'no_hp'          => 'required|string|max:20',
+            'no_hp'          => ['required', 'string', 'max:20', 'regex:/^[0-9+\-\s()]{8,20}$/'],
             'asal_kota'      => 'nullable|string|max:100',
             'tempat_lahir'   => 'required|string|max:100',
             'tanggal_lahir'  => 'required|date',
@@ -101,10 +102,17 @@ class ProgramOfflinePublicController extends Controller
             return redirect()->back()->with('error', 'Kuota untuk program ini sudah habis!');
         }
 
-        // Logika TRX-ID: tahun + bulan + jam + detik + CODE_UNIK
+        // Logika TRX-ID: tahun (Y) + bulan (m) + tanggal (d) + jam (H) + menit (i) + detik (s) + CODE_UNIK
+        // Dilengkapi loop pengecekan agar dijamin 100% unik dan tidak terjadi duplicate key violation
         $now = Carbon::now('Asia/Jakarta');
         $codeUnik = env('CODE_UNIK', '002');
-        $newTrxId = $now->format('Y') . $now->format('m') . $now->format('H') . $now->format('s') . $codeUnik;
+        $baseTrxId = $now->format('YmdHis') . str_pad($codeUnik, 3, '0', STR_PAD_LEFT);
+        $newTrxId = $baseTrxId;
+        $counter = 1;
+        while (PendaftaranProgramOffline::where('trx_id', $newTrxId)->exists()) {
+            $newTrxId = $baseTrxId . $counter;
+            $counter++;
+        }
 
         $programPrice = $program->harga;
         $transportPrice = 0;
@@ -305,14 +313,24 @@ class ProgramOfflinePublicController extends Controller
         $message .= "_!>w<!_";
 
 
-        $chatIds = explode(',', env('TELEGRAM_CHAT_IDS'));
+        $botToken = env('TELEGRAM_BOT_TOKEN');
+        $chatIdsRaw = env('TELEGRAM_CHAT_IDS');
 
-        foreach ($chatIds as $chatId) {
-            Http::post("https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN') . "/sendMessage", [
-                'chat_id' => trim($chatId),
-                'text'    => $message,
-                'parse_mode' => 'Markdown'
-            ]);
+        if (!empty($botToken) && !empty($chatIdsRaw)) {
+            try {
+                $chatIds = array_filter(array_map('trim', explode(',', $chatIdsRaw)));
+                foreach ($chatIds as $chatId) {
+                    if (!empty($chatId)) {
+                        Http::timeout(5)->post("https://api.telegram.org/bot{$botToken}/sendMessage", [
+                            'chat_id'    => $chatId,
+                            'text'       => $message,
+                            'parse_mode' => 'Markdown'
+                        ]);
+                    }
+                }
+            } catch (\Throwable $e) {
+                Log::warning('Gagal kirim notifikasi Telegram (offline): ' . $e->getMessage());
+            }
         }
 
 
